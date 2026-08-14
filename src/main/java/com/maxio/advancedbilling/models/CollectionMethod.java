@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CollectionMethod to be used.
  */
@@ -24,7 +23,6 @@ public enum CollectionMethod {
     PREPAID,
 
     INVOICE;
-
 
     private static TreeMap<String, CollectionMethod> valueMap = new TreeMap<>();
     private String value;

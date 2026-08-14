@@ -14,14 +14,16 @@
 | `PrimarySubscriptionId` | `Integer` | Optional | The subscription ID of the primary within the group. Applicable to scheme 1. | Integer getPrimarySubscriptionId() | setPrimarySubscriptionId(Integer primarySubscriptionId) |
 | `Primary` | `Boolean` | Optional | A boolean indicating whether the subscription is the primary in the group. Applicable to scheme 1. | Boolean getPrimary() | setPrimary(Boolean primary) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "scheme": 62,
-  "primary_subscription_id": 10,
-  "primary": false
-}
+```java
+import com.maxio.advancedbilling.models.NestedSubscriptionGroup;
+
+NestedSubscriptionGroup nestedSubscriptionGroup = new NestedSubscriptionGroup.Builder()
+    .uid("uid6")
+    .scheme(106)
+    .primarySubscriptionId(54)
+    .primary(false)
+    .build();
 ```
 

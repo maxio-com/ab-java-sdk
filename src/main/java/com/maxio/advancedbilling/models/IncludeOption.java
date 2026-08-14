@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * IncludeOption to be used.
  */
@@ -20,7 +19,6 @@ public enum IncludeOption {
     EXCLUDE,
 
     INCLUDE;
-
 
     private static TreeMap<String, IncludeOption> valueMap = new TreeMap<>();
     private String value;

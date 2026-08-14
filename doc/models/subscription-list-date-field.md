@@ -13,7 +13,9 @@
 
 ## Example
 
-```
-updated_at
+```java
+import com.maxio.advancedbilling.models.SubscriptionListDateField;
+
+SubscriptionListDateField subscriptionListDateField = SubscriptionListDateField.UPDATED_AT;
 ```
 

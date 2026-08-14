@@ -11,18 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`EventBasedBillingSegmentError`](../../doc/models/event-based-billing-segment-error.md) | Required | - | EventBasedBillingSegmentError getErrors() | setErrors(EventBasedBillingSegmentError errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "segments": {
-      "key0": {
-        "key1": "val1",
-        "key2": "val2"
-      }
-    }
-  }
+```java
+try {
+    // make the API call
+} catch (EventBasedBillingSegmentException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

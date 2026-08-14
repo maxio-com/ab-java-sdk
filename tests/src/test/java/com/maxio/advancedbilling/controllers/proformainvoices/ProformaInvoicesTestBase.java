@@ -81,7 +81,7 @@ abstract class ProformaInvoicesTestBase {
                 .components(
                         List.of(
                                 new CreateSubscriptionComponent.Builder()
-                                        .unitBalance(20)
+                                        .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(20))
                                         .componentId(CreateSubscriptionComponentComponentId
                                                 .fromNumber(meteredComponent.getId()))
                                         .build(),
@@ -261,8 +261,8 @@ abstract class ProformaInvoicesTestBase {
                         .unitPrice("12.5")
                         .subtotalAmount("12.5")
                         .discountAmount("0.0")
-                        .taxAmount("0.0")
-                        .totalAmount("12.5")
+                        .taxAmount("8.95")
+                        .totalAmount("21.45")
                         .kind("baseline")
                         .tieredUnitPrice(false)
                         .periodRangeStart(isSignup ? LocalDate.now() : LocalDate.now().plusMonths(1))

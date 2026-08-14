@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionGroupsListInclude to be used.
  */
 public enum SubscriptionGroupsListInclude {
     ACCOUNT_BALANCES;
-
 
     private static TreeMap<String, SubscriptionGroupsListInclude> valueMap = new TreeMap<>();
     private String value;

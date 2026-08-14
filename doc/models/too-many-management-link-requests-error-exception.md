@@ -11,14 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`TooManyManagementLinkRequests`](../../doc/models/too-many-management-link-requests.md) | Required | - | TooManyManagementLinkRequests getErrors() | setErrors(TooManyManagementLinkRequests errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "error": "error4",
-    "new_link_available_at": "2016-03-13T12:52:32.123Z"
-  }
+```java
+try {
+    // make the API call
+} catch (TooManyManagementLinkRequestsErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

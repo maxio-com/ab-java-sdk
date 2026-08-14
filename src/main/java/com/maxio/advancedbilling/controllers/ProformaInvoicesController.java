@@ -42,13 +42,12 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Creates a consolidated proforma invoice asynchronously. It will return a 201 with no message,
-     * or a 422 with any errors. To find and view the new consolidated proforma invoice, you may
-     * poll the subscription group listing for proforma invoices; only one consolidated proforma
-     * invoice may be created per group at a time. If the information becomes outdated, simply void
-     * the old consolidated proforma invoice and generate a new one. ## Restrictions Proforma
-     * invoices are only available on Relationship Invoicing sites. To create a proforma invoice,
-     * the subscription must not be prepaid, and must be in a live state.
+     * Creates a consolidated proforma invoice asynchronously. To find and view the new consolidated
+     * proforma invoice, you can poll the subscription group listing for proforma invoices; only one
+     * consolidated proforma invoice can be created per group at a time. If the information becomes
+     * outdated, simply void the old consolidated proforma invoice and generate a new one. ##
+     * Restrictions Proforma invoices are only available on Relationship Invoicing sites. To create
+     * a proforma invoice, the subscription must not be prepaid, and must be in a live state.
      * @param  uid  Required parameter: The uid of the subscription group
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -399,10 +398,10 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Returns a preview of the data that will be included on a given subscription's proforma
-     * invoice if one were to be generated. It will have similar line items and totals as a renewal
-     * preview, but the response will be presented in the format of a proforma invoice. Consequently
-     * it will include additional information such as the name and addresses that will appear on the
+     * Previews the data that will be included on a given subscription's proforma invoice if one
+     * were to be generated. It will have similar line items and totals as a renewal preview, but
+     * the response will be presented in the format of a proforma invoice. Consequently it will
+     * include additional information such as the name and addresses that will appear on the
      * proforma invoice. The preview endpoint is subject to all the same conditions as the proforma
      * invoice endpoint. For example, previews are only available on the Relationship Invoicing
      * architecture, and previews cannot be made for end-of-life subscriptions. If all the data

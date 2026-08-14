@@ -196,7 +196,7 @@ public class ServiceCredit1
 
     /**
      * Internal Getter for InvoiceUid.
-     * The invoice uid associated with the entry. Only present for debit entries
+     * The invoice uid associated with the entry. Only present for debit entries.
      * @return Returns the Internal String
      */
     @JsonGetter("invoice_uid")
@@ -208,7 +208,7 @@ public class ServiceCredit1
 
     /**
      * Getter for InvoiceUid.
-     * The invoice uid associated with the entry. Only present for debit entries
+     * The invoice uid associated with the entry. Only present for debit entries.
      * @return Returns the String
      */
     public String getInvoiceUid() {
@@ -217,7 +217,7 @@ public class ServiceCredit1
 
     /**
      * Setter for InvoiceUid.
-     * The invoice uid associated with the entry. Only present for debit entries
+     * The invoice uid associated with the entry. Only present for debit entries.
      * @param invoiceUid Value for String
      */
     @JsonSetter("invoice_uid")
@@ -227,7 +227,7 @@ public class ServiceCredit1
 
     /**
      * UnSetter for InvoiceUid.
-     * The invoice uid associated with the entry. Only present for debit entries
+     * The invoice uid associated with the entry. Only present for debit entries.
      */
     public void unsetInvoiceUid() {
         invoiceUid = null;

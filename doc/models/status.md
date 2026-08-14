@@ -16,3 +16,11 @@
 | `ACTIVE` |
 | `FULFILLED` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.Status;
+
+Status status = Status.PENDING;
+```
+

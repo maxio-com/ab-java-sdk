@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * RecurringScheme to be used.
  */
@@ -22,7 +21,6 @@ public enum RecurringScheme {
     RECUR_INDEFINITELY,
 
     RECUR_WITH_DURATION;
-
 
     private static TreeMap<String, RecurringScheme> valueMap = new TreeMap<>();
     private String value;

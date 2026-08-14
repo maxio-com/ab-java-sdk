@@ -16,16 +16,20 @@
 | `Attempts` | `int` | Required | - | int getAttempts() | setAttempts(int attempts) |
 | `LastAttemptedAt` | `ZonedDateTime` | Required | - | ZonedDateTime getLastAttemptedAt() | setLastAttemptedAt(ZonedDateTime lastAttemptedAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "state": "state4",
-  "subscription_id": 126,
-  "revenue_at_risk_in_cents": 30,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "attempts": 110,
-  "last_attempted_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.DunnerData;
+
+DunnerData dunnerData = new DunnerData.Builder(
+    "state4",
+    230,
+    134L,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    6,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+)
+.build();
 ```
 

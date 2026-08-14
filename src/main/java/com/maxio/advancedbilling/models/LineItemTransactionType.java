@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * LineItemTransactionType to be used.
  */
@@ -30,7 +29,6 @@ public enum LineItemTransactionType {
     INFO_TRANSACTION,
 
     PAYMENT_AUTHORIZATION;
-
 
     private static TreeMap<String, LineItemTransactionType> valueMap = new TreeMap<>();
     private String value;

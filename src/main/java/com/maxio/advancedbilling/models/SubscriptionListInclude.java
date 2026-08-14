@@ -12,21 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionListInclude to be used.
  */
 public enum SubscriptionListInclude {
-    SELF_SERVICE_PAGE_TOKEN;
+    SELF_SERVICE_PAGE_TOKEN,
 
+    CURRENT_ACCOUNT_BALANCE_IN_CENTS,
+
+    CURRENT_BILLING_AMOUNT,
+
+    COUPONS;
 
     private static TreeMap<String, SubscriptionListInclude> valueMap = new TreeMap<>();
     private String value;
 
     static {
         SELF_SERVICE_PAGE_TOKEN.value = "self_service_page_token";
+        CURRENT_ACCOUNT_BALANCE_IN_CENTS.value = "current_account_balance_in_cents";
+        CURRENT_BILLING_AMOUNT.value = "current_billing_amount";
+        COUPONS.value = "coupons";
 
         valueMap.put("self_service_page_token", SELF_SERVICE_PAGE_TOKEN);
+        valueMap.put("current_account_balance_in_cents", CURRENT_ACCOUNT_BALANCE_IN_CENTS);
+        valueMap.put("current_billing_amount", CURRENT_BILLING_AMOUNT);
+        valueMap.put("coupons", COUPONS);
     }
 
     /**

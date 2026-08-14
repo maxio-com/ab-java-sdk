@@ -14,7 +14,9 @@
 
 ## Example
 
-```
-updated_at
+```java
+import com.maxio.advancedbilling.models.ListSubscriptionComponentsSort;
+
+ListSubscriptionComponentsSort listSubscriptionComponentsSort = ListSubscriptionComponentsSort.ID;
 ```
 

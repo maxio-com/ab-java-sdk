@@ -14,3 +14,11 @@ Defaults to personal
 | `PERSONAL` |
 | `BUSINESS` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.BankAccountHolderType;
+
+BankAccountHolderType bankAccountHolderType = BankAccountHolderType.PERSONAL;
+```
+

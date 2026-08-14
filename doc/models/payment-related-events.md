@@ -12,12 +12,15 @@
 | `ProductId` | `int` | Required | - | int getProductId() | setProductId(int productId) |
 | `AccountTransactionId` | `int` | Required | - | int getAccountTransactionId() | setAccountTransactionId(int accountTransactionId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_id": 42,
-  "account_transaction_id": 58
-}
+```java
+import com.maxio.advancedbilling.models.PaymentRelatedEvents;
+
+PaymentRelatedEvents paymentRelatedEvents = new PaymentRelatedEvents.Builder(
+    186,
+    170
+)
+.build();
 ```
 

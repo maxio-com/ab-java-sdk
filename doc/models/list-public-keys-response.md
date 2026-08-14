@@ -12,28 +12,29 @@
 | `ChargifyJsKeys` | [`List<PublicKey>`](../../doc/models/public-key.md) | Optional | - | List<PublicKey> getChargifyJsKeys() | setChargifyJsKeys(List<PublicKey> chargifyJsKeys) |
 | `Meta` | [`ListPublicKeysMeta`](../../doc/models/list-public-keys-meta.md) | Optional | - | ListPublicKeysMeta getMeta() | setMeta(ListPublicKeysMeta meta) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_js_keys": [
-    {
-      "public_key": "public_key8",
-      "requires_security_token": false,
-      "created_at": "2016-03-13T12:52:32.123Z"
-    },
-    {
-      "public_key": "public_key8",
-      "requires_security_token": false,
-      "created_at": "2016-03-13T12:52:32.123Z"
-    }
-  ],
-  "meta": {
-    "total_count": 150,
-    "current_page": 126,
-    "total_pages": 138,
-    "per_page": 152
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ListPublicKeysMeta;
+import com.maxio.advancedbilling.models.ListPublicKeysResponse;
+import com.maxio.advancedbilling.models.PublicKey;
+import java.util.Arrays;
+
+ListPublicKeysResponse listPublicKeysResponse = new ListPublicKeysResponse.Builder()
+    .chargifyJsKeys(Arrays.asList(
+        new PublicKey.Builder()
+            .publicKey("public_key8")
+            .requiresSecurityToken(false)
+            .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+            .build()
+    ))
+    .meta(new ListPublicKeysMeta.Builder()
+        .totalCount(150)
+        .currentPage(126)
+        .totalPages(138)
+        .perPage(152)
+        .build())
+    .build();
 ```
 

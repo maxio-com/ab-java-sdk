@@ -12,12 +12,14 @@
 | `Label` | `String` | Optional | - | String getLabel() | setLabel(String label) |
 | `Amount` | `String` | Optional | - | String getAmount() | setAmount(String amount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "label": "label0",
-  "amount": "amount2"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceLineItemPricingDetail;
+
+InvoiceLineItemPricingDetail invoiceLineItemPricingDetail = new InvoiceLineItemPricingDetail.Builder()
+    .label("label4")
+    .amount("amount6")
+    .build();
 ```
 

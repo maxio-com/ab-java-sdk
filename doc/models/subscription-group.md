@@ -16,24 +16,29 @@
 | `SubscriptionIds` | `List<Integer>` | Optional | - | List<Integer> getSubscriptionIds() | setSubscriptionIds(List<Integer> subscriptionIds) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "customer_id": 36,
-  "payment_profile": {
-    "id": 44,
-    "first_name": "first_name4",
-    "last_name": "last_name2",
-    "masked_card_number": "masked_card_number2"
-  },
-  "payment_collection_method": "prepaid",
-  "subscription_ids": [
-    146,
-    147,
-    148
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.CollectionMethod;
+import com.maxio.advancedbilling.models.SubscriptionGroup;
+import com.maxio.advancedbilling.models.SubscriptionGroupPaymentProfile;
+import java.util.Arrays;
+
+SubscriptionGroup subscriptionGroup = new SubscriptionGroup.Builder()
+    .uid("uid8")
+    .customerId(78)
+    .paymentProfile(new SubscriptionGroupPaymentProfile.Builder()
+        .id(44)
+        .firstName("first_name4")
+        .lastName("last_name2")
+        .maskedCardNumber("masked_card_number2")
+        .build())
+    .paymentCollectionMethod(CollectionMethod.AUTOMATIC)
+    .subscriptionIds(Arrays.asList(
+        188,
+        189,
+        190
+    ))
+    .build();
 ```
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionSort to be used.
  */
@@ -36,7 +35,6 @@ public enum SubscriptionSort {
     OPEN_BALANCE,
 
     EXPIRES_AT;
-
 
     private static TreeMap<String, SubscriptionSort> valueMap = new TreeMap<>();
     private String value;

@@ -42,6 +42,7 @@ import com.maxio.advancedbilling.models.SubscriptionInclude;
 import com.maxio.advancedbilling.models.SubscriptionState;
 import com.maxio.advancedbilling.models.UpsertPrepaidConfiguration;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInitialChargeInCents;
@@ -334,11 +335,11 @@ public class SubscriptionsControllerCreateTest {
                                 .components(List.of(
                                         new CreateSubscriptionComponent.Builder()
                                                 .componentId(CreateSubscriptionComponentComponentId.fromNumber(component1.getId()))
-                                                .unitBalance(component1UnitBalance)
+                                                .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(component1UnitBalance))
                                                 .build(),
                                         new CreateSubscriptionComponent.Builder()
                                                 .componentId(CreateSubscriptionComponentComponentId.fromNumber(component2.getId()))
-                                                .unitBalance(component2UnitBalance)
+                                                .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(component2UnitBalance))
                                                 .build()
                                 ))
                                 .build()
@@ -557,7 +558,7 @@ public class SubscriptionsControllerCreateTest {
                                 .components(List.of(
                                         new CreateSubscriptionComponent.Builder()
                                                 .componentId(CreateSubscriptionComponentComponentId.fromNumber(component.getId()))
-                                                .unitBalance(component1UnitBalance)
+                                                .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(component1UnitBalance))
                                                 .build()
                                 ))
                                 .paymentCollectionMethod(CollectionMethod.PREPAID)

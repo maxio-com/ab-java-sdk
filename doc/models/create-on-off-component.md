@@ -11,19 +11,28 @@
 |  --- | --- | --- | --- | --- | --- |
 | `OnOffComponent` | [`OnOffComponent`](../../doc/models/on-off-component.md) | Required | - | OnOffComponent getOnOffComponent() | setOnOffComponent(OnOffComponent onOffComponent) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "on_off_component": {
-    "name": "name6",
-    "description": "description6",
-    "handle": "handle2",
-    "taxable": false,
-    "upgrade_charge": "full",
-    "downgrade_credit": "full",
-    "unit_price": "String5"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateOnOffComponent;
+import com.maxio.advancedbilling.models.CreditType;
+import com.maxio.advancedbilling.models.OnOffComponent;
+import com.maxio.advancedbilling.models.containers.OnOffComponentUnitPrice;
+
+CreateOnOffComponent createOnOffComponent = new CreateOnOffComponent.Builder(
+    new OnOffComponent.Builder(
+        "name6",
+        OnOffComponentUnitPrice.fromString(
+            "String5"
+        )
+    )
+    .description("description6")
+    .handle("handle2")
+    .taxable(false)
+    .upgradeCharge(CreditType.FULL)
+    .downgradeCredit(CreditType.FULL)
+    .build()
+)
+.build();
 ```
 

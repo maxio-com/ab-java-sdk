@@ -11,17 +11,23 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoint` | [`CurrencyOveragePrices`](../../doc/models/currency-overage-prices.md) | Required | Extends a component price point with currency overage prices. | CurrencyOveragePrices getPricePoint() | setPricePoint(CurrencyOveragePrices pricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "id": 248,
-    "type": "default",
-    "default": false,
-    "name": "name0",
-    "pricing_scheme": "per_unit"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ComponentPricePointCurrencyOverageResponse;
+import com.maxio.advancedbilling.models.CurrencyOveragePrices;
+import com.maxio.advancedbilling.models.PricePointType;
+import com.maxio.advancedbilling.models.PricingScheme;
+
+ComponentPricePointCurrencyOverageResponse componentPricePointCurrencyOverageResponse = new ComponentPricePointCurrencyOverageResponse.Builder(
+    new CurrencyOveragePrices.Builder()
+        .id(248)
+        .type(PricePointType.ENUM_DEFAULT)
+        .mDefault(false)
+        .name("name0")
+        .pricingScheme(PricingScheme.PER_UNIT)
+        .build()
+)
+.build();
 ```
 

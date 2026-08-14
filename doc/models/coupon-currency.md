@@ -14,14 +14,16 @@
 | `Price` | `Double` | Optional | - | Double getPrice() | setPrice(Double price) |
 | `CouponId` | `Integer` | Optional | - | Integer getCouponId() | setCouponId(Integer couponId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 228,
-  "currency": "currency8",
-  "price": 169.96,
-  "coupon_id": 210
-}
+```java
+import com.maxio.advancedbilling.models.CouponCurrency;
+
+CouponCurrency couponCurrency = new CouponCurrency.Builder()
+    .id(202)
+    .currency("currency0")
+    .price(14.62D)
+    .couponId(184)
+    .build();
 ```
 

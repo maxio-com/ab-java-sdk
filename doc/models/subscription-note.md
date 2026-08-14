@@ -16,15 +16,18 @@
 | `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `Sticky` | `Boolean` | Optional | - | Boolean getSticky() | setSticky(Boolean sticky) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 36,
-  "body": "body4",
-  "subscription_id": 146,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "updated_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.SubscriptionNote;
+
+SubscriptionNote subscriptionNote = new SubscriptionNote.Builder()
+    .id(18)
+    .body("body6")
+    .subscriptionId(128)
+    .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .updatedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

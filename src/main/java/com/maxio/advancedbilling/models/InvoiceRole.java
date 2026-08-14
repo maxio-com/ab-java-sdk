@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceRole to be used.
  */
@@ -36,7 +35,6 @@ public enum InvoiceRole {
     BACKPORT,
 
     BACKPORTBALANCERECONCILIATION;
-
 
     private static TreeMap<String, InvoiceRole> valueMap = new TreeMap<>();
     private String value;

@@ -14,30 +14,33 @@
 | `OpenInvoices` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | - | AccountBalance getOpenInvoices() | setOpenInvoices(AccountBalance openInvoices) |
 | `PendingDiscounts` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | - | AccountBalance getPendingDiscounts() | setPendingDiscounts(AccountBalance pendingDiscounts) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayments": {
-    "balance_in_cents": 192,
-    "automatic_balance_in_cents": 178,
-    "remittance_balance_in_cents": 146
-  },
-  "service_credits": {
-    "balance_in_cents": 84,
-    "automatic_balance_in_cents": 70,
-    "remittance_balance_in_cents": 38
-  },
-  "open_invoices": {
-    "balance_in_cents": 40,
-    "automatic_balance_in_cents": 202,
-    "remittance_balance_in_cents": 170
-  },
-  "pending_discounts": {
-    "balance_in_cents": 88,
-    "automatic_balance_in_cents": 154,
-    "remittance_balance_in_cents": 134
-  }
-}
+```java
+import com.maxio.advancedbilling.models.AccountBalance;
+import com.maxio.advancedbilling.models.SubscriptionGroupBalances;
+
+SubscriptionGroupBalances subscriptionGroupBalances = new SubscriptionGroupBalances.Builder()
+    .prepayments(new AccountBalance.Builder()
+        .balanceInCents(192L)
+        .automaticBalanceInCents(178L)
+        .remittanceBalanceInCents(146L)
+        .build())
+    .serviceCredits(new AccountBalance.Builder()
+        .balanceInCents(84L)
+        .automaticBalanceInCents(70L)
+        .remittanceBalanceInCents(38L)
+        .build())
+    .openInvoices(new AccountBalance.Builder()
+        .balanceInCents(40L)
+        .automaticBalanceInCents(202L)
+        .remittanceBalanceInCents(170L)
+        .build())
+    .pendingDiscounts(new AccountBalance.Builder()
+        .balanceInCents(88L)
+        .automaticBalanceInCents(154L)
+        .remittanceBalanceInCents(134L)
+        .build())
+    .build();
 ```
 

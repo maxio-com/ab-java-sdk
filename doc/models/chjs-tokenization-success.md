@@ -12,17 +12,22 @@
 | `PaymentProfile` | [`TokenizedPaymentProfile`](../../doc/models/tokenized-payment-profile.md) | Required | - | TokenizedPaymentProfile getPaymentProfile() | setPaymentProfile(TokenizedPaymentProfile paymentProfile) |
 | `GatewayCustomerId` | `Integer` | Optional | - | Integer getGatewayCustomerId() | setGatewayCustomerId(Integer gatewayCustomerId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment_profile": {
-    "id": 44,
-    "vault_token": "vault_token6",
-    "gateway_handle": "gateway_handle4",
-    "customer_vault_token": "customer_vault_token2"
-  },
-  "gateway_customer_id": 44
-}
+```java
+import com.maxio.advancedbilling.models.ChjsTokenizationSuccess;
+import com.maxio.advancedbilling.models.TokenizedPaymentProfile;
+
+ChjsTokenizationSuccess chjsTokenizationSuccess = new ChjsTokenizationSuccess.Builder(
+    new TokenizedPaymentProfile.Builder(
+        44
+    )
+    .vaultToken("vault_token6")
+    .gatewayHandle("gateway_handle4")
+    .customerVaultToken("customer_vault_token2")
+    .build()
+)
+.gatewayCustomerId(228)
+.build();
 ```
 

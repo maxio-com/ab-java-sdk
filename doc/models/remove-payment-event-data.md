@@ -19,19 +19,29 @@ Example schema for an `remove_payment` event
 | `PaymentMethod` | [`InvoiceEventPayment`](../../doc/models/containers/invoice-event-payment.md) | Required | A nested data structure detailing the method of payment | InvoiceEventPayment getPaymentMethod() | setPaymentMethod(InvoiceEventPayment paymentMethod) |
 | `Prepayment` | `boolean` | Required | The flag that shows whether the original payment was a prepayment or not | boolean getPrepayment() | setPrepayment(boolean prepayment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_id": 180,
-  "memo": "memo0",
-  "applied_amount": "applied_amount2",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "payment_method": {
-    "type": "apple_pay"
-  },
-  "prepayment": false,
-  "original_amount": "original_amount0"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.PaymentMethodApplePay;
+import com.maxio.advancedbilling.models.RemovePaymentEventData;
+import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
+
+RemovePaymentEventData removePaymentEventData = new RemovePaymentEventData.Builder(
+    20,
+    "memo4",
+    "applied_amount8",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    InvoiceEventPayment.fromPaymentMethodApplePay(
+        new PaymentMethodApplePay.Builder(
+            InvoiceEventPaymentMethod.APPLE_PAY
+        )
+        .build()
+    ),
+    false
+)
+.originalAmount("original_amount4")
+.build();
 ```
 

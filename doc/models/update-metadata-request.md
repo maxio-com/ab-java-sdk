@@ -11,15 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Metadata` | [`UpdateMetadata`](../../doc/models/update-metadata.md) | Optional | - | UpdateMetadata getMetadata() | setMetadata(UpdateMetadata metadata) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "metadata": {
-    "current_name": "current_name0",
-    "name": "name6",
-    "value": "value8"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.UpdateMetadata;
+import com.maxio.advancedbilling.models.UpdateMetadataRequest;
+
+UpdateMetadataRequest updateMetadataRequest = new UpdateMetadataRequest.Builder()
+    .metadata(new UpdateMetadata.Builder()
+        .currentName("current_name0")
+        .name("name6")
+        .value("value8")
+        .build())
+    .build();
 ```
 

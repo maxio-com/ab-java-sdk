@@ -15,15 +15,19 @@
 | `CurrencyCode` | `String` | Required | - | String getCurrencyCode() | setCurrencyCode(String currencyCode) |
 | `AtTime` | `ZonedDateTime` | Required | - | ZonedDateTime getAtTime() | setAtTime(ZonedDateTime atTime) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason8",
-  "service_credit_account_balance_in_cents": 10,
-  "service_credit_balance_change_in_cents": 116,
-  "currency_code": "currency_code8",
-  "at_time": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreditAccountBalanceChanged;
+
+CreditAccountBalanceChanged creditAccountBalanceChanged = new CreditAccountBalanceChanged.Builder(
+    "reason4",
+    216L,
+    166L,
+    "currency_code6",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+)
+.build();
 ```
 

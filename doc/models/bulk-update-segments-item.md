@@ -13,19 +13,29 @@
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `Prices` | [`List<CreateOrUpdateSegmentPrice>`](../../doc/models/create-or-update-segment-price.md) | Required | - | List<CreateOrUpdateSegmentPrice> getPrices() | setPrices(List<CreateOrUpdateSegmentPrice> prices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 180,
-  "pricing_scheme": "per_unit",
-  "prices": [
-    {
-      "starting_quantity": 64,
-      "ending_quantity": 38,
-      "unit_price": "String3"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.BulkUpdateSegmentsItem;
+import com.maxio.advancedbilling.models.CreateOrUpdateSegmentPrice;
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.containers.CreateOrUpdateSegmentPriceUnitPrice;
+import java.util.Arrays;
+
+BulkUpdateSegmentsItem bulkUpdateSegmentsItem = new BulkUpdateSegmentsItem.Builder(
+    220,
+    PricingScheme.PER_UNIT,
+    Arrays.asList(
+        new CreateOrUpdateSegmentPrice.Builder(
+            CreateOrUpdateSegmentPriceUnitPrice.fromString(
+                "String3"
+            )
+        )
+        .startingQuantity(64)
+        .endingQuantity(38)
+        .build()
+    )
+)
+.build();
 ```
 

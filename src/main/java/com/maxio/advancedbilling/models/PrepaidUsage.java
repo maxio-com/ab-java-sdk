@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.PrepaidUsageNewOverageUnitBalance;
+import com.maxio.advancedbilling.models.containers.PrepaidUsageNewUnitBalance;
 import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
@@ -20,8 +22,8 @@ public class PrepaidUsage
         extends BaseModel {
     private String previousUnitBalance;
     private String previousOverageUnitBalance;
-    private int newUnitBalance;
-    private int newOverageUnitBalance;
+    private PrepaidUsageNewUnitBalance newUnitBalance;
+    private PrepaidUsageNewOverageUnitBalance newOverageUnitBalance;
     private int usageQuantity;
     private int overageUsageQuantity;
     private int componentId;
@@ -39,8 +41,9 @@ public class PrepaidUsage
      * Initialization constructor.
      * @param  previousUnitBalance  String value for previousUnitBalance.
      * @param  previousOverageUnitBalance  String value for previousOverageUnitBalance.
-     * @param  newUnitBalance  int value for newUnitBalance.
-     * @param  newOverageUnitBalance  int value for newOverageUnitBalance.
+     * @param  newUnitBalance  PrepaidUsageNewUnitBalance value for newUnitBalance.
+     * @param  newOverageUnitBalance  PrepaidUsageNewOverageUnitBalance value for
+     *         newOverageUnitBalance.
      * @param  usageQuantity  int value for usageQuantity.
      * @param  overageUsageQuantity  int value for overageUsageQuantity.
      * @param  componentId  int value for componentId.
@@ -52,8 +55,8 @@ public class PrepaidUsage
     public PrepaidUsage(
             @JsonProperty("previous_unit_balance") String previousUnitBalance,
             @JsonProperty("previous_overage_unit_balance") String previousOverageUnitBalance,
-            @JsonProperty("new_unit_balance") int newUnitBalance,
-            @JsonProperty("new_overage_unit_balance") int newOverageUnitBalance,
+            @JsonProperty("new_unit_balance") PrepaidUsageNewUnitBalance newUnitBalance,
+            @JsonProperty("new_overage_unit_balance") PrepaidUsageNewOverageUnitBalance newOverageUnitBalance,
             @JsonProperty("usage_quantity") int usageQuantity,
             @JsonProperty("overage_usage_quantity") int overageUsageQuantity,
             @JsonProperty("component_id") int componentId,
@@ -110,37 +113,37 @@ public class PrepaidUsage
 
     /**
      * Getter for NewUnitBalance.
-     * @return Returns the int
+     * @return Returns the PrepaidUsageNewUnitBalance
      */
     @JsonGetter("new_unit_balance")
-    public int getNewUnitBalance() {
+    public PrepaidUsageNewUnitBalance getNewUnitBalance() {
         return newUnitBalance;
     }
 
     /**
      * Setter for NewUnitBalance.
-     * @param newUnitBalance Value for int
+     * @param newUnitBalance Value for PrepaidUsageNewUnitBalance
      */
     @JsonSetter("new_unit_balance")
-    public void setNewUnitBalance(int newUnitBalance) {
+    public void setNewUnitBalance(PrepaidUsageNewUnitBalance newUnitBalance) {
         this.newUnitBalance = newUnitBalance;
     }
 
     /**
      * Getter for NewOverageUnitBalance.
-     * @return Returns the int
+     * @return Returns the PrepaidUsageNewOverageUnitBalance
      */
     @JsonGetter("new_overage_unit_balance")
-    public int getNewOverageUnitBalance() {
+    public PrepaidUsageNewOverageUnitBalance getNewOverageUnitBalance() {
         return newOverageUnitBalance;
     }
 
     /**
      * Setter for NewOverageUnitBalance.
-     * @param newOverageUnitBalance Value for int
+     * @param newOverageUnitBalance Value for PrepaidUsageNewOverageUnitBalance
      */
     @JsonSetter("new_overage_unit_balance")
-    public void setNewOverageUnitBalance(int newOverageUnitBalance) {
+    public void setNewOverageUnitBalance(PrepaidUsageNewOverageUnitBalance newOverageUnitBalance) {
         this.newOverageUnitBalance = newOverageUnitBalance;
     }
 
@@ -285,8 +288,8 @@ public class PrepaidUsage
     public static class Builder {
         private String previousUnitBalance;
         private String previousOverageUnitBalance;
-        private int newUnitBalance;
-        private int newOverageUnitBalance;
+        private PrepaidUsageNewUnitBalance newUnitBalance;
+        private PrepaidUsageNewOverageUnitBalance newOverageUnitBalance;
         private int usageQuantity;
         private int overageUsageQuantity;
         private int componentId;
@@ -304,8 +307,9 @@ public class PrepaidUsage
          * Initialization constructor.
          * @param  previousUnitBalance  String value for previousUnitBalance.
          * @param  previousOverageUnitBalance  String value for previousOverageUnitBalance.
-         * @param  newUnitBalance  int value for newUnitBalance.
-         * @param  newOverageUnitBalance  int value for newOverageUnitBalance.
+         * @param  newUnitBalance  PrepaidUsageNewUnitBalance value for newUnitBalance.
+         * @param  newOverageUnitBalance  PrepaidUsageNewOverageUnitBalance value for
+         *         newOverageUnitBalance.
          * @param  usageQuantity  int value for usageQuantity.
          * @param  overageUsageQuantity  int value for overageUsageQuantity.
          * @param  componentId  int value for componentId.
@@ -315,7 +319,8 @@ public class PrepaidUsage
          *         allocationDetails.
          */
         public Builder(String previousUnitBalance, String previousOverageUnitBalance,
-                int newUnitBalance, int newOverageUnitBalance, int usageQuantity,
+                PrepaidUsageNewUnitBalance newUnitBalance,
+                PrepaidUsageNewOverageUnitBalance newOverageUnitBalance, int usageQuantity,
                 int overageUsageQuantity, int componentId, String componentHandle, String memo,
                 List<PrepaidUsageAllocationDetail> allocationDetails) {
             this.previousUnitBalance = previousUnitBalance;
@@ -352,20 +357,22 @@ public class PrepaidUsage
 
         /**
          * Setter for newUnitBalance.
-         * @param  newUnitBalance  int value for newUnitBalance.
+         * @param  newUnitBalance  PrepaidUsageNewUnitBalance value for newUnitBalance.
          * @return Builder
          */
-        public Builder newUnitBalance(int newUnitBalance) {
+        public Builder newUnitBalance(PrepaidUsageNewUnitBalance newUnitBalance) {
             this.newUnitBalance = newUnitBalance;
             return this;
         }
 
         /**
          * Setter for newOverageUnitBalance.
-         * @param  newOverageUnitBalance  int value for newOverageUnitBalance.
+         * @param  newOverageUnitBalance  PrepaidUsageNewOverageUnitBalance value for
+         *         newOverageUnitBalance.
          * @return Builder
          */
-        public Builder newOverageUnitBalance(int newOverageUnitBalance) {
+        public Builder newOverageUnitBalance(
+                PrepaidUsageNewOverageUnitBalance newOverageUnitBalance) {
             this.newOverageUnitBalance = newOverageUnitBalance;
             return this;
         }

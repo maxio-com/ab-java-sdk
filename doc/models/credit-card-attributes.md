@@ -13,13 +13,15 @@
 | `ExpirationMonth` | `String` | Optional | - | String getExpirationMonth() | setExpirationMonth(String expirationMonth) |
 | `ExpirationYear` | `String` | Optional | - | String getExpirationYear() | setExpirationYear(String expirationYear) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "full_number": "full_number0",
-  "expiration_month": "expiration_month6",
-  "expiration_year": "expiration_year0"
-}
+```java
+import com.maxio.advancedbilling.models.CreditCardAttributes;
+
+CreditCardAttributes creditCardAttributes = new CreditCardAttributes.Builder()
+    .fullNumber("full_number8")
+    .expirationMonth("expiration_month8")
+    .expirationYear("expiration_year2")
+    .build();
 ```
 

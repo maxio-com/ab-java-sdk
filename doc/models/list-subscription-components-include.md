@@ -14,7 +14,9 @@
 
 ## Example
 
-```
-subscription
+```java
+import com.maxio.advancedbilling.models.ListSubscriptionComponentsInclude;
+
+ListSubscriptionComponentsInclude listSubscriptionComponentsInclude = ListSubscriptionComponentsInclude.SUBSCRIPTION;
 ```
 

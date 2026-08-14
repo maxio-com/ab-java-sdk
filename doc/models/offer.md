@@ -29,15 +29,17 @@
 | `ProductPriceInCents` | `Long` | Optional | - | Long getProductPriceInCents() | setProductPriceInCents(Long productPriceInCents) |
 | `OfferSignupPages` | [`List<OfferSignupPage>`](../../doc/models/offer-signup-page.md) | Optional | - | List<OfferSignupPage> getOfferSignupPages() | setOfferSignupPages(List<OfferSignupPage> offerSignupPages) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 154,
-  "site_id": 80,
-  "product_family_id": 158,
-  "product_id": 96,
-  "product_price_point_id": 20
-}
+```java
+import com.maxio.advancedbilling.models.Offer;
+
+Offer offer = new Offer.Builder()
+    .id(28)
+    .siteId(210)
+    .productFamilyId(224)
+    .productId(30)
+    .productPricePointId(150)
+    .build();
 ```
 

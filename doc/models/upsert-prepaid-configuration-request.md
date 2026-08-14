@@ -11,16 +11,20 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PrepaidConfiguration` | [`UpsertPrepaidConfiguration`](../../doc/models/upsert-prepaid-configuration.md) | Required | - | UpsertPrepaidConfiguration getPrepaidConfiguration() | setPrepaidConfiguration(UpsertPrepaidConfiguration prepaidConfiguration) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepaid_configuration": {
-    "initial_funding_amount_in_cents": 74,
-    "replenish_to_amount_in_cents": 76,
-    "auto_replenish": false,
-    "replenish_threshold_amount_in_cents": 20
-  }
-}
+```java
+import com.maxio.advancedbilling.models.UpsertPrepaidConfiguration;
+import com.maxio.advancedbilling.models.UpsertPrepaidConfigurationRequest;
+
+UpsertPrepaidConfigurationRequest upsertPrepaidConfigurationRequest = new UpsertPrepaidConfigurationRequest.Builder(
+    new UpsertPrepaidConfiguration.Builder()
+        .initialFundingAmountInCents(74L)
+        .replenishToAmountInCents(76L)
+        .autoReplenish(false)
+        .replenishThresholdAmountInCents(20L)
+        .build()
+)
+.build();
 ```
 

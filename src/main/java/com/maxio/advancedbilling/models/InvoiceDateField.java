@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceDateField to be used.
  */
@@ -26,7 +25,6 @@ public enum InvoiceDateField {
     UPDATED_AT,
 
     PAID_DATE;
-
 
     private static TreeMap<String, InvoiceDateField> valueMap = new TreeMap<>();
     private String value;

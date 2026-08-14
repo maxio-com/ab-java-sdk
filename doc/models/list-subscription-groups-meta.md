@@ -12,12 +12,14 @@
 | `CurrentPage` | `Integer` | Optional | - | Integer getCurrentPage() | setCurrentPage(Integer currentPage) |
 | `TotalCount` | `Integer` | Optional | - | Integer getTotalCount() | setTotalCount(Integer totalCount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "current_page": 14,
-  "total_count": 38
-}
+```java
+import com.maxio.advancedbilling.models.ListSubscriptionGroupsMeta;
+
+ListSubscriptionGroupsMeta listSubscriptionGroupsMeta = new ListSubscriptionGroupsMeta.Builder()
+    .currentPage(104)
+    .totalCount(128)
+    .build();
 ```
 

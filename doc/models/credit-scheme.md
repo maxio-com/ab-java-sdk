@@ -13,3 +13,11 @@
 | `CREDIT` |
 | `REFUND` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CreditScheme;
+
+CreditScheme creditScheme = CreditScheme.NONE;
+```
+

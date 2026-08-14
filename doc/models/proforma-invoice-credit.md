@@ -14,14 +14,16 @@
 | `OriginalAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
 | `AppliedAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "memo": "memo2",
-  "original_amount": "original_amount2",
-  "applied_amount": "applied_amount0"
-}
+```java
+import com.maxio.advancedbilling.models.ProformaInvoiceCredit;
+
+ProformaInvoiceCredit proformaInvoiceCredit = new ProformaInvoiceCredit.Builder()
+    .uid("uid4")
+    .memo("memo8")
+    .originalAmount("original_amount8")
+    .appliedAmount("applied_amount4")
+    .build();
 ```
 

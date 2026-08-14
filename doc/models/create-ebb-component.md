@@ -11,35 +11,55 @@
 |  --- | --- | --- | --- | --- | --- |
 | `EventBasedComponent` | [`EBBComponent`](../../doc/models/ebb-component.md) | Required | - | EBBComponent getEventBasedComponent() | setEventBasedComponent(EBBComponent eventBasedComponent) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "event_based_component": {
-    "name": "name8",
-    "unit_name": "unit_name0",
-    "description": "description8",
-    "handle": "handle4",
-    "taxable": false,
-    "pricing_scheme": "stairstep",
-    "prices": [
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      }
-    ],
-    "price_points": [
-      {
-        "name": "name2",
-        "handle": "handle8",
-        "pricing_scheme": "per_unit",
-        "interval": 92,
-        "interval_unit": "day"
-      }
-    ],
-    "event_based_billing_metric_id": 68
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ComponentPricePointItem;
+import com.maxio.advancedbilling.models.CreateEBBComponent;
+import com.maxio.advancedbilling.models.EBBComponent;
+import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.Price;
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import java.util.Arrays;
+
+CreateEBBComponent createEBBComponent = new CreateEBBComponent.Builder(
+    new EBBComponent.Builder(
+        "name8",
+        "unit_name0",
+        PricingScheme.STAIRSTEP,
+        68
+    )
+    .description("description8")
+    .handle("handle4")
+    .taxable(false)
+    .prices(Arrays.asList(
+            new Price.Builder(
+                PriceStartingQuantity.fromNumber(
+                    242
+                ),
+                PriceUnitPrice.fromPrecision(
+                    23.26D
+                )
+            )
+            .endingQuantity(PriceEndingQuantity.fromNumber(
+                    40
+                ))
+            .build()
+        ))
+    .pricePoints(Arrays.asList(
+            new ComponentPricePointItem.Builder()
+                .name("name2")
+                .handle("handle8")
+                .pricingScheme(PricingScheme.PER_UNIT)
+                .interval(92)
+                .intervalUnit(IntervalUnit.DAY)
+                .build()
+        ))
+    .build()
+)
+.build();
 ```
 

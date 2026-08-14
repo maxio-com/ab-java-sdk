@@ -120,7 +120,7 @@ public class ListUsagesInput {
 
     /**
      * Getter for SinceId.
-     * Returns usages with an id greater than or equal to the one specified
+     * Returns usages with an id greater than or equal to the one specified.
      * @return Returns the Long
      */
     @JsonGetter("since_id")
@@ -131,7 +131,7 @@ public class ListUsagesInput {
 
     /**
      * Setter for SinceId.
-     * Returns usages with an id greater than or equal to the one specified
+     * Returns usages with an id greater than or equal to the one specified.
      * @param sinceId Value for Long
      */
     @JsonSetter("since_id")
@@ -141,7 +141,7 @@ public class ListUsagesInput {
 
     /**
      * Getter for MaxId.
-     * Returns usages with an id less than or equal to the one specified
+     * Returns usages with an id less than or equal to the one specified.
      * @return Returns the Long
      */
     @JsonGetter("max_id")
@@ -152,7 +152,7 @@ public class ListUsagesInput {
 
     /**
      * Setter for MaxId.
-     * Returns usages with an id less than or equal to the one specified
+     * Returns usages with an id less than or equal to the one specified.
      * @param maxId Value for Long
      */
     @JsonSetter("max_id")

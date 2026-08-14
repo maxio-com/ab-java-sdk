@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * DowngradeCreditCreditType to be used.
  */
@@ -22,7 +21,6 @@ public enum DowngradeCreditCreditType {
     PRORATED,
 
     NONE;
-
 
     private static TreeMap<String, DowngradeCreditCreditType> valueMap = new TreeMap<>();
     private String value;

@@ -139,9 +139,9 @@ public class Webhook
 
     /**
      * Getter for Id.
-     * The unique identifier for the webhooks (unique across all of Chargify). This is not changed
-     * on a retry/replay of the same webhook, so it may be used to avoid duplicate action for the
-     * same event.
+     * The unique identifier for the webhook (unique across all of Chargify). This is not changed on
+     * a retry/replay of the same webhook, so it may be used to avoid duplicate action for the same
+     * event.
      * @return Returns the Long
      */
     @JsonGetter("id")
@@ -152,9 +152,9 @@ public class Webhook
 
     /**
      * Setter for Id.
-     * The unique identifier for the webhooks (unique across all of Chargify). This is not changed
-     * on a retry/replay of the same webhook, so it may be used to avoid duplicate action for the
-     * same event.
+     * The unique identifier for the webhook (unique across all of Chargify). This is not changed on
+     * a retry/replay of the same webhook, so it may be used to avoid duplicate action for the same
+     * event.
      * @param id Value for Long
      */
     @JsonSetter("id")
@@ -327,9 +327,9 @@ public class Webhook
 
     /**
      * Getter for Successful.
-     * A boolean flag describing whether the webhook was accepted by the webhook endpoint for the
+     * “A boolean flag describing whether the webhook was accepted by the webhook endpoint for the
      * most recent attempt. (Acceptance is defined by receiving a “200 OK” HTTP response within a
-     * reasonable timeframe, i.e. 15 seconds)
+     * reasonable timeframe, e.g., 15 seconds.)”
      * @return Returns the Boolean
      */
     @JsonGetter("successful")
@@ -340,9 +340,9 @@ public class Webhook
 
     /**
      * Setter for Successful.
-     * A boolean flag describing whether the webhook was accepted by the webhook endpoint for the
+     * “A boolean flag describing whether the webhook was accepted by the webhook endpoint for the
      * most recent attempt. (Acceptance is defined by receiving a “200 OK” HTTP response within a
-     * reasonable timeframe, i.e. 15 seconds)
+     * reasonable timeframe, e.g., 15 seconds.)”
      * @param successful Value for Boolean
      */
     @JsonSetter("successful")

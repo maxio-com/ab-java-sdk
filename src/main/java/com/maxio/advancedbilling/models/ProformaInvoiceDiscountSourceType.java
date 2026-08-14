@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ProformaInvoiceDiscountSourceType to be used.
  */
@@ -20,7 +19,6 @@ public enum ProformaInvoiceDiscountSourceType {
     COUPON,
 
     REFERRAL;
-
 
     private static TreeMap<String, ProformaInvoiceDiscountSourceType> valueMap = new TreeMap<>();
     private String value;

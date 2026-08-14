@@ -13,23 +13,23 @@
 | `DuplicateCodes` | `List<String>` | Optional | - | List<String> getDuplicateCodes() | setDuplicateCodes(List<String> duplicateCodes) |
 | `InvalidCodes` | `List<String>` | Optional | - | List<String> getInvalidCodes() | setInvalidCodes(List<String> invalidCodes) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "created_codes": [
-    "created_codes1",
-    "created_codes2"
-  ],
-  "duplicate_codes": [
-    "duplicate_codes8",
-    "duplicate_codes7"
-  ],
-  "invalid_codes": [
-    "invalid_codes0",
-    "invalid_codes9",
-    "invalid_codes8"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.CouponSubcodesResponse;
+import java.util.Arrays;
+
+CouponSubcodesResponse couponSubcodesResponse = new CouponSubcodesResponse.Builder()
+    .createdCodes(Arrays.asList(
+        "created_codes7"
+    ))
+    .duplicateCodes(Arrays.asList(
+        "duplicate_codes8"
+    ))
+    .invalidCodes(Arrays.asList(
+        "invalid_codes4",
+        "invalid_codes3"
+    ))
+    .build();
 ```
 

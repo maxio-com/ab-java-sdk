@@ -21,15 +21,17 @@
 | `DecimalQuantity` | `String` | Optional | - | String getDecimalQuantity() | setDecimalQuantity(String decimalQuantity) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 146,
-  "subscription_id": 0,
-  "subscription_renewal_configuration_id": 156,
-  "item_id": 38,
-  "item_type": "item_type4"
-}
+```java
+import com.maxio.advancedbilling.models.ScheduledRenewalConfigurationItem;
+
+ScheduledRenewalConfigurationItem scheduledRenewalConfigurationItem = new ScheduledRenewalConfigurationItem.Builder()
+    .id(54)
+    .subscriptionId(164)
+    .subscriptionRenewalConfigurationId(64)
+    .itemId(202)
+    .itemType("item_type0")
+    .build();
 ```
 

@@ -16,15 +16,17 @@
 | `ReturnParams` | `String` | Optional | - | String getReturnParams() | setReturnParams(String returnParams) |
 | `Url` | `String` | Optional | - | String getUrl() | setUrl(String url) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 50,
-  "nickname": "nickname8",
-  "enabled": false,
-  "return_url": "return_url2",
-  "return_params": "return_params0"
-}
+```java
+import com.maxio.advancedbilling.models.OfferSignupPage;
+
+OfferSignupPage offerSignupPage = new OfferSignupPage.Builder()
+    .id(102)
+    .nickname("nickname6")
+    .enabled(false)
+    .returnUrl("return_url6")
+    .returnParams("return_params8")
+    .build();
 ```
 

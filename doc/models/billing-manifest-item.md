@@ -24,15 +24,19 @@
 | `PeriodRangeStart` | `String` | Optional | - | String getPeriodRangeStart() | setPeriodRangeStart(String periodRangeStart) |
 | `PeriodRangeEnd` | `String` | Optional | - | String getPeriodRangeEnd() | setPeriodRangeEnd(String periodRangeEnd) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_type": "info_transaction",
-  "kind": "baseline",
-  "amount_in_cents": 216,
-  "memo": "memo4",
-  "discount_amount_in_cents": 236
-}
+```java
+import com.maxio.advancedbilling.models.BillingManifestItem;
+import com.maxio.advancedbilling.models.BillingManifestLineItemKind;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
+
+BillingManifestItem billingManifestItem = new BillingManifestItem.Builder()
+    .transactionType(LineItemTransactionType.PAYMENT)
+    .kind(BillingManifestLineItemKind.TRIAL)
+    .amountInCents(148L)
+    .memo("memo0")
+    .discountAmountInCents(88L)
+    .build();
 ```
 

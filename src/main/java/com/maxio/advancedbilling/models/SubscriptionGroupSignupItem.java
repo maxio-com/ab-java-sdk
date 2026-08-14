@@ -175,7 +175,7 @@ public class SubscriptionGroupSignupItem
      * Getter for OfferId.
      * Use in place of passing product and component information to set up the subscription with an
      * existing offer. May be either the Chargify ID of the offer or its handle prefixed with
-     * `handle:`
+     * `handle:`.
      * @return Returns the Integer
      */
     @JsonGetter("offer_id")
@@ -188,7 +188,7 @@ public class SubscriptionGroupSignupItem
      * Setter for OfferId.
      * Use in place of passing product and component information to set up the subscription with an
      * existing offer. May be either the Chargify ID of the offer or its handle prefixed with
-     * `handle:`
+     * `handle:`.
      * @param offerId Value for Integer
      */
     @JsonSetter("offer_id")
@@ -198,7 +198,7 @@ public class SubscriptionGroupSignupItem
 
     /**
      * Getter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @return Returns the String
      */
     @JsonGetter("reference")
@@ -209,7 +209,7 @@ public class SubscriptionGroupSignupItem
 
     /**
      * Setter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @param reference Value for String
      */
     @JsonSetter("reference")
@@ -330,7 +330,7 @@ public class SubscriptionGroupSignupItem
 
     /**
      * Getter for CalendarBilling.
-     * (Optional). Cannot be used when also specifying next_billing_at
+     * (Optional). Cannot be used when also specifying next_billing_at.
      * @return Returns the CalendarBilling
      */
     @JsonGetter("calendar_billing")
@@ -341,7 +341,7 @@ public class SubscriptionGroupSignupItem
 
     /**
      * Setter for CalendarBilling.
-     * (Optional). Cannot be used when also specifying next_billing_at
+     * (Optional). Cannot be used when also specifying next_billing_at.
      * @param calendarBilling Value for CalendarBilling
      */
     @JsonSetter("calendar_billing")

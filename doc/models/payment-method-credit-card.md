@@ -15,15 +15,19 @@
 | `MaskedCardNumber` | `String` | Required | - | String getMaskedCardNumber() | setMaskedCardNumber(String maskedCardNumber) |
 | `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "card_brand": "card_brand4",
-  "masked_card_number": "masked_card_number0",
-  "type": "credit_card",
-  "card_expiration": "card_expiration2",
-  "last_four": "last_four4"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.PaymentMethodCreditCard;
+
+PaymentMethodCreditCard paymentMethodCreditCard = new PaymentMethodCreditCard.Builder(
+    "card_brand4",
+    "masked_card_number0",
+    InvoiceEventPaymentMethod.CREDIT_CARD
+)
+.cardExpiration("card_expiration2")
+.lastFour("last_four6")
+.build();
 ```
 

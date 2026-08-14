@@ -11,14 +11,19 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoint` | [`CloneComponentPricePoint`](../../doc/models/clone-component-price-point.md) | Required | - | CloneComponentPricePoint getPricePoint() | setPricePoint(CloneComponentPricePoint pricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "name": "name0",
-    "handle": "handle6"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CloneComponentPricePoint;
+import com.maxio.advancedbilling.models.CloneComponentPricePointRequest;
+
+CloneComponentPricePointRequest cloneComponentPricePointRequest = new CloneComponentPricePointRequest.Builder(
+    new CloneComponentPricePoint.Builder(
+        "name0"
+    )
+    .handle("handle6")
+    .build()
+)
+.build();
 ```
 

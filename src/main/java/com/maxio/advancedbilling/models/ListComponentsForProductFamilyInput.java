@@ -236,7 +236,7 @@ public class ListComponentsForProductFamilyInput {
      * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
      * Returns components with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
-     * parameter will be used instead of end_date. optional.
+     * parameter will be used instead of end_date.
      * @return Returns the String
      */
     @JsonGetter("end_datetime")
@@ -250,7 +250,7 @@ public class ListComponentsForProductFamilyInput {
      * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
      * Returns components with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
-     * parameter will be used instead of end_date. optional.
+     * parameter will be used instead of end_date.
      * @param endDatetime Value for String
      */
     @JsonSetter("end_datetime")

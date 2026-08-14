@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Segment` | [`Segment`](../../doc/models/segment.md) | Optional | - | Segment getSegment() | setSegment(Segment segment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "segment": {
-    "id": 118,
-    "component_id": 228,
-    "price_point_id": 4,
-    "event_based_billing_metric_id": 56,
-    "pricing_scheme": "stairstep"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.Segment;
+import com.maxio.advancedbilling.models.SegmentResponse;
+
+SegmentResponse segmentResponse = new SegmentResponse.Builder()
+    .segment(new Segment.Builder()
+        .id(118)
+        .componentId(228)
+        .pricePointId(4)
+        .eventBasedBillingMetricId(56)
+        .pricingScheme(PricingScheme.STAIRSTEP)
+        .build())
+    .build();
 ```
 

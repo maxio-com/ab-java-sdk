@@ -13,11 +13,14 @@ Billing schedule settings for component allocations or usages on multi-frequency
 |  --- | --- | --- | --- | --- | --- |
 | `InitialBillingAt` | `LocalDate` | Optional | Custom start date (ISO 8601 date, YYYY-MM-DD) for the component's first billing period. If omitted or null, billing aligns with the product schedule. If provided, date must be on or after the minimum allowed date for the subscription or component. | LocalDate getInitialBillingAt() | setInitialBillingAt(LocalDate initialBillingAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "initial_billing_at": "2026-01-01"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.BillingSchedule;
+
+BillingSchedule billingSchedule = new BillingSchedule.Builder()
+    .initialBillingAt(DateTimeHelper.fromSimpleDate("2026-01-01"))
+    .build();
 ```
 

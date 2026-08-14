@@ -13,14 +13,19 @@ Updatable fields for Subscription Note
 |  --- | --- | --- | --- | --- | --- |
 | `Note` | [`UpdateSubscriptionNote`](../../doc/models/update-subscription-note.md) | Required | Updatable fields for Subscription Note | UpdateSubscriptionNote getNote() | setNote(UpdateSubscriptionNote note) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "note": {
-    "body": "body0",
-    "sticky": false
-  }
-}
+```java
+import com.maxio.advancedbilling.models.UpdateSubscriptionNote;
+import com.maxio.advancedbilling.models.UpdateSubscriptionNoteRequest;
+
+UpdateSubscriptionNoteRequest updateSubscriptionNoteRequest = new UpdateSubscriptionNoteRequest.Builder(
+    new UpdateSubscriptionNote.Builder(
+        "body0",
+        false
+    )
+    .build()
+)
+.build();
 ```
 

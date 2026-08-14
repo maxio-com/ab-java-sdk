@@ -22,19 +22,22 @@
 | `Customer` | [`SubscriptionGroupCustomer`](../../doc/models/subscription-group-customer.md) | Optional | - | SubscriptionGroupCustomer getCustomer() | setCustomer(SubscriptionGroupCustomer customer) |
 | `AccountBalances` | [`SubscriptionGroupBalances`](../../doc/models/subscription-group-balances.md) | Optional | - | SubscriptionGroupBalances getAccountBalances() | setAccountBalances(SubscriptionGroupBalances accountBalances) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "scheme": 90,
-  "customer_id": 110,
-  "payment_profile_id": 18,
-  "subscription_ids": [
-    220,
-    221,
-    222
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
+import java.util.Arrays;
+
+FullSubscriptionGroupResponse fullSubscriptionGroupResponse = new FullSubscriptionGroupResponse.Builder()
+    .uid("uid6")
+    .scheme(80)
+    .customerId(100)
+    .paymentProfileId(8)
+    .subscriptionIds(Arrays.asList(
+        210,
+        211,
+        212
+    ))
+    .build();
 ```
 

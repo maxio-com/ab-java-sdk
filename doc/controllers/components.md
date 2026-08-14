@@ -32,7 +32,13 @@ Metered components are used to bill for any type of unit that resets to 0 at the
 
 Note that this is different from recurring quantity-based components, which DO NOT reset to zero at the start of every billing period. If you want to bill for a quantity of something that does not change unless you change it, then you want quantity components, instead.
 
+#### Hybrid Pricing
+
+A `volume`, `tiered`, or `stairstep` metered component can combine its primary pricing with a secondary pricing model (the `overage_pricing` parameter) so both bill as a single invoice line item instead of two. This does not apply to metered components configured for event-based billing (metric, meter, or formula). See [Hybrid Pricing](page:introduction/basic-concepts/hybrid-pricing) for requirements and configuration details.
+
 For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
 
 ```java
 ComponentResponse createMeteredComponent(
@@ -155,7 +161,7 @@ try {
 
 Creates a Quantity Based component definition under the specified product family. A Quantity Based component can then be added and “allocated” for a subscription.
 
-When defining a Quantity Based component, you can choose one of 2 types:
+When defining a Quantity Based component, you can choose one of two types:
 
 #### Recurring
 
@@ -167,7 +173,15 @@ One-time quantity-based components are used to create ad hoc usage charges that 
 
 The allocated quantity for one-time quantity-based components immediately gets reset back to zero after the allocation is made.
 
+For more information, see [Components Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+
+#### Hybrid Pricing
+
+A `volume`, `tiered`, or `stairstep` component can combine its primary pricing with a secondary pricing model (the `overage_pricing` parameter) so both bill as a single invoice line item instead of two. See [Hybrid Pricing](page:introduction/basic-concepts/hybrid-pricing) for requirements and configuration details.
+
 For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
 
 ```java
 ComponentResponse createQuantityBasedComponent(
@@ -292,6 +306,8 @@ On/off components are used for any flat fee, recurring add on (think $99/month f
 
 For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
 
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
+
 ```java
 ComponentResponse createOnOffComponent(
     final String productFamilyId,
@@ -396,9 +412,11 @@ try {
 
 Creates a prepaid usage component definition under the specified product family. A prepaid component can then be added and “allocated” for a subscription.
 
-Prepaid components allow customers to pre-purchase units that can be used up over time on their subscription. In a sense, they are the mirror image of metered components; while metered components charge at the end of the period for the amount of units used, prepaid components are charged for at the time of purchase, and we subsequently keep track of the usage against the amount purchased.
+Prepaid components allow customers to pre-purchase units that can be used up over time on their subscription. In a sense, they are the mirror image of metered components; while metered components charge at the end of the period for the amount of units used, prepaid components are charged for at the time of purchase, and usage is subsequently tracked against the amount purchased.
 
-For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+For more information, see [Components Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`; sending a blank value results in a validation error.
 
 ```java
 ComponentResponse createPrepaidUsageComponent(
@@ -559,7 +577,9 @@ Event-based components are similar to other component types, in that you define 
 
 So, instead of reporting usage directly for each component (as you would with metered components), the usage is derived from analysis of your events.
 
-For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+For more information, see [Components Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`; sending a blank value results in a validation error.
 
 ```java
 ComponentResponse createEventBasedComponent(
@@ -819,6 +839,8 @@ try {
 Updates a component from a specific product family.
 
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
+
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
 
 ```java
 ComponentResponse updateProductFamilyComponent(
@@ -1134,6 +1156,8 @@ try {
 Updates a component.
 
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
+
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
 
 ```java
 ComponentResponse updateComponent(

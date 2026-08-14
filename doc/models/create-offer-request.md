@@ -11,32 +11,39 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Offer` | [`CreateOffer`](../../doc/models/create-offer.md) | Required | - | CreateOffer getOffer() | setOffer(CreateOffer offer) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "offer": {
-    "name": "name4",
-    "handle": "handle0",
-    "description": "description6",
-    "product_id": 30,
-    "product_price_point_id": 150,
-    "components": [
-      {
-        "component_id": 108,
-        "price_point_id": 124,
-        "starting_quantity": 84
-      },
-      {
-        "component_id": 108,
-        "price_point_id": 124,
-        "starting_quantity": 84
-      }
-    ],
-    "coupons": [
-      "coupons6"
-    ]
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateOffer;
+import com.maxio.advancedbilling.models.CreateOfferComponent;
+import com.maxio.advancedbilling.models.CreateOfferRequest;
+import java.util.Arrays;
+
+CreateOfferRequest createOfferRequest = new CreateOfferRequest.Builder(
+    new CreateOffer.Builder(
+        "name4",
+        "handle0",
+        30
+    )
+    .description("description6")
+    .productPricePointId(150)
+    .components(Arrays.asList(
+            new CreateOfferComponent.Builder()
+                .componentId(108)
+                .pricePointId(124)
+                .startingQuantity(84)
+                .build(),
+            new CreateOfferComponent.Builder()
+                .componentId(108)
+                .pricePointId(124)
+                .startingQuantity(84)
+                .build()
+        ))
+    .coupons(Arrays.asList(
+            "coupons6"
+        ))
+    .build()
+)
+.build();
 ```
 

@@ -294,7 +294,7 @@ public class ApplyCreditNoteEventData
 
     /**
      * Getter for ConsolidatedInvoice.
-     * Shows whether it was applied to consolidated invoice or not
+     * Shows whether it was applied to consolidated invoice or not.
      * @return Returns the Boolean
      */
     @JsonGetter("consolidated_invoice")
@@ -305,7 +305,7 @@ public class ApplyCreditNoteEventData
 
     /**
      * Setter for ConsolidatedInvoice.
-     * Shows whether it was applied to consolidated invoice or not
+     * Shows whether it was applied to consolidated invoice or not.
      * @param consolidatedInvoice Value for Boolean
      */
     @JsonSetter("consolidated_invoice")

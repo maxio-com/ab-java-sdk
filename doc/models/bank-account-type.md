@@ -14,3 +14,11 @@ Defaults to checking
 | `CHECKING` |
 | `SAVINGS` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.BankAccountType;
+
+BankAccountType bankAccountType = BankAccountType.CHECKING;
+```
+

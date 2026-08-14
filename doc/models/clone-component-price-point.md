@@ -12,12 +12,15 @@
 | `Name` | `String` | Required | - | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name2",
-  "handle": "handle8"
-}
+```java
+import com.maxio.advancedbilling.models.CloneComponentPricePoint;
+
+CloneComponentPricePoint cloneComponentPricePoint = new CloneComponentPricePoint.Builder(
+    "name4"
+)
+.handle("handle0")
+.build();
 ```
 

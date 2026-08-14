@@ -14,3 +14,11 @@ Applicable only to stackable coupons. For `compound`, Percentage-based discounts
 | `COMPOUND` |
 | `FULLPRICE` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CompoundingStrategy;
+
+CompoundingStrategy compoundingStrategy = CompoundingStrategy.COMPOUND;
+```
+

@@ -16,3 +16,11 @@ Current status of the debit note.
 | `BANISHED` |
 | `PAID` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.DebitNoteStatus;
+
+DebitNoteStatus debitNoteStatus = DebitNoteStatus.OPEN;
+```
+

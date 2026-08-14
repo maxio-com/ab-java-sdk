@@ -11,22 +11,29 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Prepayment` | [`Prepayment`](../../doc/models/prepayment.md) | Required | - | Prepayment getPrepayment() | setPrepayment(Prepayment prepayment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "id": 38,
-    "subscription_id": 148,
-    "amount_in_cents": 124,
-    "remaining_amount_in_cents": 182,
-    "refunded_amount_in_cents": 132,
-    "details": "details8",
-    "external": false,
-    "memo": "memo2",
-    "payment_type": "credit_card",
-    "created_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Prepayment;
+import com.maxio.advancedbilling.models.PrepaymentMethod;
+import com.maxio.advancedbilling.models.PrepaymentResponse;
+
+PrepaymentResponse prepaymentResponse = new PrepaymentResponse.Builder(
+    new Prepayment.Builder(
+        38,
+        148,
+        124L,
+        182L,
+        false,
+        "memo2",
+        DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+    )
+    .refundedAmountInCents(132L)
+    .details("details8")
+    .paymentType(PrepaymentMethod.CREDIT_CARD)
+    .build()
+)
+.build();
 ```
 

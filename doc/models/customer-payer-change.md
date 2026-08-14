@@ -12,22 +12,26 @@
 | `Before` | [`InvoicePayerChange`](../../doc/models/invoice-payer-change.md) | Required | - | InvoicePayerChange getBefore() | setBefore(InvoicePayerChange before) |
 | `After` | [`InvoicePayerChange`](../../doc/models/invoice-payer-change.md) | Required | - | InvoicePayerChange getAfter() | setAfter(InvoicePayerChange after) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "before": {
-    "first_name": "first_name0",
-    "last_name": "last_name8",
-    "organization": "organization4",
-    "email": "email6"
-  },
-  "after": {
-    "first_name": "first_name2",
-    "last_name": "last_name0",
-    "organization": "organization4",
-    "email": "email4"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CustomerPayerChange;
+import com.maxio.advancedbilling.models.InvoicePayerChange;
+
+CustomerPayerChange customerPayerChange = new CustomerPayerChange.Builder(
+    new InvoicePayerChange.Builder()
+        .firstName("first_name0")
+        .lastName("last_name8")
+        .organization("organization4")
+        .email("email6")
+        .build(),
+    new InvoicePayerChange.Builder()
+        .firstName("first_name2")
+        .lastName("last_name0")
+        .organization("organization4")
+        .email("email4")
+        .build()
+)
+.build();
 ```
 

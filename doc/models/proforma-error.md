@@ -11,16 +11,20 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Subscription` | [`BaseStringError`](../../doc/models/base-string-error.md) | Optional | The error is base if it is not directly associated with a single attribute. | BaseStringError getSubscription() | setSubscription(BaseStringError subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "base": [
-      "base3",
-      "base4"
-    ]
-  }
-}
+```java
+import com.maxio.advancedbilling.models.BaseStringError;
+import com.maxio.advancedbilling.models.ProformaError;
+import java.util.Arrays;
+
+ProformaError proformaError = new ProformaError.Builder()
+    .subscription(new BaseStringError.Builder()
+        .base(Arrays.asList(
+            "base3",
+            "base4"
+        ))
+        .build())
+    .build();
 ```
 

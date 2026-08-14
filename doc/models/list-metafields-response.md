@@ -15,29 +15,62 @@
 | `PerPage` | `Integer` | Optional | - | Integer getPerPage() | setPerPage(Integer perPage) |
 | `Metafields` | [`List<Metafield>`](../../doc/models/metafield.md) | Optional | - | List<Metafield> getMetafields() | setMetafields(List<Metafield> metafields) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_count": 210,
-  "current_page": 186,
-  "total_pages": 198,
-  "per_page": 92,
-  "metafields": [
-    {
-      "id": 22,
-      "name": "name2",
-      "scope": {
-        "csv": "0",
-        "invoices": "0",
-        "statements": "0",
-        "portal": "0",
-        "public_show": "0"
-      },
-      "data_count": 10,
-      "input_type": "balance_tracker"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.IncludeOption;
+import com.maxio.advancedbilling.models.ListMetafieldsResponse;
+import com.maxio.advancedbilling.models.Metafield;
+import com.maxio.advancedbilling.models.MetafieldInput;
+import com.maxio.advancedbilling.models.MetafieldScope;
+import java.util.Arrays;
+
+ListMetafieldsResponse listMetafieldsResponse = new ListMetafieldsResponse.Builder()
+    .totalCount(228)
+    .currentPage(204)
+    .totalPages(216)
+    .perPage(74)
+    .metafields(Arrays.asList(
+        new Metafield.Builder()
+            .id(22)
+            .name("name2")
+            .scope(new MetafieldScope.Builder()
+                .csv(IncludeOption.EXCLUDE)
+                .invoices(IncludeOption.EXCLUDE)
+                .statements(IncludeOption.EXCLUDE)
+                .portal(IncludeOption.EXCLUDE)
+                .publicShow(IncludeOption.EXCLUDE)
+                .build())
+            .dataCount(10)
+            .inputType(MetafieldInput.BALANCE_TRACKER)
+            .build(),
+        new Metafield.Builder()
+            .id(22)
+            .name("name2")
+            .scope(new MetafieldScope.Builder()
+                .csv(IncludeOption.EXCLUDE)
+                .invoices(IncludeOption.EXCLUDE)
+                .statements(IncludeOption.EXCLUDE)
+                .portal(IncludeOption.EXCLUDE)
+                .publicShow(IncludeOption.EXCLUDE)
+                .build())
+            .dataCount(10)
+            .inputType(MetafieldInput.BALANCE_TRACKER)
+            .build(),
+        new Metafield.Builder()
+            .id(22)
+            .name("name2")
+            .scope(new MetafieldScope.Builder()
+                .csv(IncludeOption.EXCLUDE)
+                .invoices(IncludeOption.EXCLUDE)
+                .statements(IncludeOption.EXCLUDE)
+                .portal(IncludeOption.EXCLUDE)
+                .publicShow(IncludeOption.EXCLUDE)
+                .build())
+            .dataCount(10)
+            .inputType(MetafieldInput.BALANCE_TRACKER)
+            .build()
+    ))
+    .build();
 ```
 

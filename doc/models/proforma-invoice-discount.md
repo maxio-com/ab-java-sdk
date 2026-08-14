@@ -18,15 +18,19 @@
 | `DiscountAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getDiscountAmount() | setDiscountAmount(String discountAmount) |
 | `LineItemBreakouts` | [`List<InvoiceDiscountBreakout>`](../../doc/models/invoice-discount-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<InvoiceDiscountBreakout> getLineItemBreakouts() | setLineItemBreakouts(List<InvoiceDiscountBreakout> lineItemBreakouts) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "title": "title8",
-  "code": "code0",
-  "source_type": "Coupon",
-  "discount_type": "percentage"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceDiscountType;
+import com.maxio.advancedbilling.models.ProformaInvoiceDiscount;
+import com.maxio.advancedbilling.models.ProformaInvoiceDiscountSourceType;
+
+ProformaInvoiceDiscount proformaInvoiceDiscount = new ProformaInvoiceDiscount.Builder()
+    .uid("uid2")
+    .title("title8")
+    .code("code0")
+    .sourceType(ProformaInvoiceDiscountSourceType.COUPON)
+    .discountType(InvoiceDiscountType.PERCENTAGE)
+    .build();
 ```
 

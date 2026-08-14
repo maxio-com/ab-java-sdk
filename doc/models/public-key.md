@@ -13,13 +13,16 @@
 | `RequiresSecurityToken` | `Boolean` | Optional | - | Boolean getRequiresSecurityToken() | setRequiresSecurityToken(Boolean requiresSecurityToken) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "public_key": "public_key8",
-  "requires_security_token": false,
-  "created_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.PublicKey;
+
+PublicKey publicKey = new PublicKey.Builder()
+    .publicKey("public_key2")
+    .requiresSecurityToken(false)
+    .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

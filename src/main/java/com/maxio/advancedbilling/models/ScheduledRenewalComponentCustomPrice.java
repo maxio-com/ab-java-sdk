@@ -65,7 +65,7 @@ public class ScheduledRenewalComponentCustomPrice
 
     /**
      * Getter for PricingScheme.
-     * Omit for On/Off components
+     * Omit for On/Off components.
      * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
@@ -75,7 +75,7 @@ public class ScheduledRenewalComponentCustomPrice
 
     /**
      * Setter for PricingScheme.
-     * Omit for On/Off components
+     * Omit for On/Off components.
      * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")

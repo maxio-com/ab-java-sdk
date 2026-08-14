@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CancellationMethod to be used.
  */
@@ -28,7 +27,6 @@ public enum CancellationMethod {
     UNKNOWN,
 
     IMPORTED;
-
 
     private static TreeMap<String, CancellationMethod> valueMap = new TreeMap<>();
     private String value;

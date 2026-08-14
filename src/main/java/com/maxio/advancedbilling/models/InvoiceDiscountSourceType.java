@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceDiscountSourceType to be used.
  */
@@ -22,7 +21,6 @@ public enum InvoiceDiscountSourceType {
     REFERRAL,
 
     ENUM_AD_HOC_COUPON;
-
 
     private static TreeMap<String, InvoiceDiscountSourceType> valueMap = new TreeMap<>();
     private String value;

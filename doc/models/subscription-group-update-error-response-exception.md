@@ -11,16 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`SubscriptionGroupUpdateError`](../../doc/models/subscription-group-update-error.md) | Optional | - | SubscriptionGroupUpdateError getErrors() | setErrors(SubscriptionGroupUpdateError errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "members": [
-      "members2",
-      "members1"
-    ]
-  }
+```java
+try {
+    // make the API call
+} catch (SubscriptionGroupUpdateErrorResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

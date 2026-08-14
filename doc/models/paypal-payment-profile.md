@@ -29,16 +29,21 @@
 | `CreatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was last updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment_type": "paypal_account",
-  "id": 10,
-  "first_name": "first_name0",
-  "last_name": "last_name8",
-  "customer_id": 48,
-  "current_vault": "moduslink"
-}
+```java
+import com.maxio.advancedbilling.models.PayPalVault;
+import com.maxio.advancedbilling.models.PaymentType;
+import com.maxio.advancedbilling.models.PaypalPaymentProfile;
+
+PaypalPaymentProfile paypalPaymentProfile = new PaypalPaymentProfile.Builder(
+    PaymentType.PAYPAL_ACCOUNT
+)
+.id(214)
+.firstName("first_name0")
+.lastName("last_name8")
+.customerId(252)
+.currentVault(PayPalVault.MODUSLINK)
+.build();
 ```
 

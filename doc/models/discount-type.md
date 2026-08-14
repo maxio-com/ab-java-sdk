@@ -12,3 +12,11 @@
 | `AMOUNT` |
 | `PERCENT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.DiscountType;
+
+DiscountType discountType = DiscountType.AMOUNT;
+```
+

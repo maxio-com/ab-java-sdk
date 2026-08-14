@@ -22,15 +22,18 @@
 | `TransactionId` | `Integer` | Optional | - | Integer getTransactionId() | setTransactionId(Integer transactionId) |
 | `LineItemBreakouts` | [`List<InvoiceDiscountBreakout>`](../../doc/models/invoice-discount-breakout.md) | Optional | - | List<InvoiceDiscountBreakout> getLineItemBreakouts() | setLineItemBreakouts(List<InvoiceDiscountBreakout> lineItemBreakouts) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid0",
-  "title": "title4",
-  "description": "description0",
-  "code": "code8",
-  "source_type": "Coupon"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceDiscount;
+import com.maxio.advancedbilling.models.InvoiceDiscountSourceType;
+
+InvoiceDiscount invoiceDiscount = new InvoiceDiscount.Builder()
+    .uid("uid4")
+    .title("title0")
+    .description("description6")
+    .code("code2")
+    .sourceType(InvoiceDiscountSourceType.COUPON)
+    .build();
 ```
 

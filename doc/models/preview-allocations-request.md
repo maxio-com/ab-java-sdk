@@ -14,23 +14,31 @@
 | `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
 | `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocations": [
-    {
-      "quantity": 26.48,
-      "decimal_quantity": "decimal_quantity8",
-      "previous_quantity": 55.5,
-      "decimal_previous_quantity": "decimal_previous_quantity2",
-      "component_id": 242,
-      "memo": "memo6"
-    }
-  ],
-  "effective_proration_date": "2023-12-01",
-  "upgrade_charge": "none",
-  "downgrade_credit": "prorated"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreateAllocation;
+import com.maxio.advancedbilling.models.CreditType;
+import com.maxio.advancedbilling.models.PreviewAllocationsRequest;
+import java.util.Arrays;
+
+PreviewAllocationsRequest previewAllocationsRequest = new PreviewAllocationsRequest.Builder(
+    Arrays.asList(
+        new CreateAllocation.Builder(
+            26.48D
+        )
+        .decimalQuantity("decimal_quantity8")
+        .previousQuantity(55.5D)
+        .decimalPreviousQuantity("decimal_previous_quantity2")
+        .componentId(242)
+        .memo("memo6")
+        .build()
+    )
+)
+.effectiveProrationDate(DateTimeHelper.fromSimpleDate("2023-12-01"))
+.upgradeCharge(CreditType.NONE)
+.downgradeCredit(CreditType.NONE)
+.build();
 ```
 

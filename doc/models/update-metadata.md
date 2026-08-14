@@ -13,13 +13,15 @@
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Value` | `String` | Optional | - | String getValue() | setValue(String value) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "current_name": "current_name4",
-  "name": "name0",
-  "value": "value2"
-}
+```java
+import com.maxio.advancedbilling.models.UpdateMetadata;
+
+UpdateMetadata updateMetadata = new UpdateMetadata.Builder()
+    .currentName("current_name8")
+    .name("name4")
+    .value("value6")
+    .build();
 ```
 

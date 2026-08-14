@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `CurrencyPrices` | [`List<CreateCurrencyPrice>`](../../doc/models/create-currency-price.md) | Required | - | List<CreateCurrencyPrice> getCurrencyPrices() | setCurrencyPrices(List<CreateCurrencyPrice> currencyPrices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "currency": "currency8",
-      "price": 233.74,
-      "price_id": 116
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.CreateCurrencyPrice;
+import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
+import java.util.Arrays;
+
+CreateCurrencyPricesRequest createCurrencyPricesRequest = new CreateCurrencyPricesRequest.Builder(
+    Arrays.asList(
+        new CreateCurrencyPrice.Builder()
+            .currency("currency8")
+            .price(233.74D)
+            .priceId(116)
+            .build()
+    )
+)
+.build();
 ```
 

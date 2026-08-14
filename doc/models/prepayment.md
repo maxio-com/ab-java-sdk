@@ -20,20 +20,25 @@
 | `PaymentType` | [`PrepaymentMethod`](../../doc/models/prepayment-method.md) | Optional | The payment type of the prepayment. | PrepaymentMethod getPaymentType() | setPaymentType(PrepaymentMethod paymentType) |
 | `CreatedAt` | `ZonedDateTime` | Required | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 50,
-  "subscription_id": 160,
-  "amount_in_cents": 120,
-  "remaining_amount_in_cents": 194,
-  "refunded_amount_in_cents": 144,
-  "details": "details4",
-  "external": false,
-  "memo": "memo8",
-  "payment_type": "cash",
-  "created_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Prepayment;
+import com.maxio.advancedbilling.models.PrepaymentMethod;
+
+Prepayment prepayment = new Prepayment.Builder(
+    38,
+    148,
+    124L,
+    182L,
+    false,
+    "memo2",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+)
+.refundedAmountInCents(132L)
+.details("details8")
+.paymentType(PrepaymentMethod.CREDIT_CARD)
+.build();
 ```
 

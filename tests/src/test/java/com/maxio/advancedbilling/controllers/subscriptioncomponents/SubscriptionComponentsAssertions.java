@@ -13,6 +13,7 @@ import com.maxio.advancedbilling.models.Usage;
 import com.maxio.advancedbilling.utils.matchers.AllocationPreviousQuantityGetter;
 import com.maxio.advancedbilling.utils.matchers.AllocationQuantityGetter;
 import com.maxio.advancedbilling.utils.matchers.SubscriptionComponentAllocatedQuantityGetter;
+import com.maxio.advancedbilling.utils.matchers.SubscriptionComponentUnitBalanceGetter;
 import com.maxio.advancedbilling.utils.matchers.UsageQuantityGetter;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -173,7 +174,13 @@ public class SubscriptionComponentsAssertions {
                         .match(new SubscriptionComponentAllocatedQuantityGetter<Integer>())).isEqualTo(0);
             }
         } else if (subscriptionComponent.getKind().equals(ComponentKind.METERED_COMPONENT)) {
-            assertThat(subscriptionComponent.getUnitBalance()).isZero();
+            if (subscriptionComponent.getAllowFractionalQuantities()) {
+                assertThat(subscriptionComponent.getUnitBalance()
+                        .match(new SubscriptionComponentUnitBalanceGetter<String>())).isEqualTo("0.0");
+            } else {
+                assertThat(subscriptionComponent.getUnitBalance()
+                        .match(new SubscriptionComponentUnitBalanceGetter<Integer>())).isZero();
+            }
             assertThat(subscriptionComponent.getAllocatedQuantity()).isNull();
         }
     }

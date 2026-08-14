@@ -11,15 +11,19 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ReasonCode` | [`UpdateReasonCode`](../../doc/models/update-reason-code.md) | Required | - | UpdateReasonCode getReasonCode() | setReasonCode(UpdateReasonCode reasonCode) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason_code": {
-    "code": "code4",
-    "description": "description6",
-    "position": 14
-  }
-}
+```java
+import com.maxio.advancedbilling.models.UpdateReasonCode;
+import com.maxio.advancedbilling.models.UpdateReasonCodeRequest;
+
+UpdateReasonCodeRequest updateReasonCodeRequest = new UpdateReasonCodeRequest.Builder(
+    new UpdateReasonCode.Builder()
+        .code("code4")
+        .description("description6")
+        .position(14)
+        .build()
+)
+.build();
 ```
 

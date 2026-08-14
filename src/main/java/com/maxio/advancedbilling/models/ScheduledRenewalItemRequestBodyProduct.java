@@ -127,7 +127,7 @@ public class ScheduledRenewalItemRequestBodyProduct
 
     /**
      * Getter for Quantity.
-     * Optional quantity for the item.
+     * (Optional) Quantity for the item.
      * @return Returns the Integer
      */
     @JsonGetter("quantity")
@@ -138,7 +138,7 @@ public class ScheduledRenewalItemRequestBodyProduct
 
     /**
      * Setter for Quantity.
-     * Optional quantity for the item.
+     * (Optional) Quantity for the item.
      * @param quantity Value for Integer
      */
     @JsonSetter("quantity")

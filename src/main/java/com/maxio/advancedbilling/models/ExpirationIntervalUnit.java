@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ExpirationIntervalUnit to be used.
  */
@@ -22,7 +21,6 @@ public enum ExpirationIntervalUnit {
     MONTH,
 
     NEVER;
-
 
     private static TreeMap<String, ExpirationIntervalUnit> valueMap = new TreeMap<>();
     private String value;

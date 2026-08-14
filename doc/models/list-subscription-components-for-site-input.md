@@ -54,9 +54,9 @@ ListSubscriptionComponentsForSiteInput listSubscriptionComponentsForSiteInput = 
         .useSiteExchangeRate(false)
         .subscription(new SubscriptionFilter.Builder()
             .states(Arrays.asList(
-                SubscriptionStateFilter.ACTIVE,
-                SubscriptionStateFilter.CANCELED,
-                SubscriptionStateFilter.EXPIRED
+                SubscriptionStateFilter.TRIALING,
+                SubscriptionStateFilter.UNPAID,
+                SubscriptionStateFilter.ACTIVE
             ))
             .dateField(SubscriptionListDateField.UPDATED_AT)
             .startDate(DateTimeHelper.fromSimpleDate("2016-03-13"))

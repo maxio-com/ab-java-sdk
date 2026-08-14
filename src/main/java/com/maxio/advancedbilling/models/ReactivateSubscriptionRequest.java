@@ -56,7 +56,7 @@ public class ReactivateSubscriptionRequest
 
     /**
      * Getter for CalendarBilling.
-     * These values are only applicable to subscriptions using calendar billing
+     * These values are only applicable to subscriptions using calendar billing.
      * @return Returns the ReactivationBilling
      */
     @JsonGetter("calendar_billing")
@@ -67,7 +67,7 @@ public class ReactivateSubscriptionRequest
 
     /**
      * Setter for CalendarBilling.
-     * These values are only applicable to subscriptions using calendar billing
+     * These values are only applicable to subscriptions using calendar billing.
      * @param calendarBilling Value for ReactivationBilling
      */
     @JsonSetter("calendar_billing")

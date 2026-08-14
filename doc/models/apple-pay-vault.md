@@ -13,3 +13,11 @@ The vault that stores the payment profile with the provided vault_token.
 |  --- |
 | `BRAINTREE_BLUE` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ApplePayVault;
+
+ApplePayVault applePayVault = ApplePayVault.BRAINTREE_BLUE;
+```
+

@@ -12,12 +12,15 @@
 | `PreviousSubscriptionState` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getPreviousSubscriptionState() | setPreviousSubscriptionState(String previousSubscriptionState) |
 | `NewSubscriptionState` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getNewSubscriptionState() | setNewSubscriptionState(String newSubscriptionState) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_subscription_state": "previous_subscription_state2",
-  "new_subscription_state": "new_subscription_state6"
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionStateChange;
+
+SubscriptionStateChange subscriptionStateChange = new SubscriptionStateChange.Builder(
+    "previous_subscription_state8",
+    "new_subscription_state2"
+)
+.build();
 ```
 

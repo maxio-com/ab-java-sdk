@@ -9,19 +9,23 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Prepayment` | [`ListSubcriptionGroupPrepaymentItem`](../../doc/models/list-subcription-group-prepayment-item.md) | Required | - | ListSubcriptionGroupPrepaymentItem getPrepayment() | setPrepayment(ListSubcriptionGroupPrepaymentItem prepayment) |
+| `Prepayment` | [`ListSubscriptionGroupPrepaymentItem`](../../doc/models/list-subscription-group-prepayment-item.md) | Required | - | ListSubscriptionGroupPrepaymentItem getPrepayment() | setPrepayment(ListSubscriptionGroupPrepaymentItem prepayment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "id": 38,
-    "subscription_group_uid": "subscription_group_uid2",
-    "amount_in_cents": 124,
-    "remaining_amount_in_cents": 182,
-    "details": "details8"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ListSubscriptionGroupPrepayment;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupPrepaymentItem;
+
+ListSubscriptionGroupPrepayment listSubscriptionGroupPrepayment = new ListSubscriptionGroupPrepayment.Builder(
+    new ListSubscriptionGroupPrepaymentItem.Builder()
+        .id(38)
+        .subscriptionGroupUid("subscription_group_uid2")
+        .amountInCents(124L)
+        .remainingAmountInCents(182L)
+        .details("details8")
+        .build()
+)
+.build();
 ```
 

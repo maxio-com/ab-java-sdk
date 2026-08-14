@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PreservePeriod` | `Boolean` | Optional | The alternative to sending preserve_period as a direct attribute to migration | Boolean getPreservePeriod() | setPreservePeriod(Boolean preservePeriod) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "preserve_period": false
-}
+```java
+import com.maxio.advancedbilling.models.Proration;
+
+Proration proration = new Proration.Builder()
+    .preservePeriod(false)
+    .build();
 ```
 

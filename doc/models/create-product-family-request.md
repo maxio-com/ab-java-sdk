@@ -11,15 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ProductFamily` | [`CreateProductFamily`](../../doc/models/create-product-family.md) | Required | - | CreateProductFamily getProductFamily() | setProductFamily(CreateProductFamily productFamily) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_family": {
-    "name": "name0",
-    "handle": "handle6",
-    "description": "description0"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateProductFamily;
+import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
+
+CreateProductFamilyRequest createProductFamilyRequest = new CreateProductFamilyRequest.Builder(
+    new CreateProductFamily.Builder(
+        "name0"
+    )
+    .handle("handle6")
+    .description("description0")
+    .surcharging(false)
+    .build()
+)
+.build();
 ```
 

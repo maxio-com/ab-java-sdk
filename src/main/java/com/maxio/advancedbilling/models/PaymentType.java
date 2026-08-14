@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * PaymentType to be used.
  */
@@ -24,7 +23,6 @@ public enum PaymentType {
     PAYPAL_ACCOUNT,
 
     APPLE_PAY;
-
 
     private static TreeMap<String, PaymentType> valueMap = new TreeMap<>();
     private String value;

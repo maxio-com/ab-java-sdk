@@ -294,7 +294,7 @@ public class InvoiceLineItem
 
     /**
      * Getter for UnitPrice.
-     * The price per unit for the line item. When tiered pricing was used (i.e. not every unit was
+     * The price per unit for the line item. When tiered pricing was used (i.e., not every unit was
      * actually priced at the same price) this will be the blended average cost per unit and the
      * `tiered_unit_price` field will be set to `true`.
      * @return Returns the String
@@ -307,7 +307,7 @@ public class InvoiceLineItem
 
     /**
      * Setter for UnitPrice.
-     * The price per unit for the line item. When tiered pricing was used (i.e. not every unit was
+     * The price per unit for the line item. When tiered pricing was used (i.e., not every unit was
      * actually priced at the same price) this will be the blended average cost per unit and the
      * `tiered_unit_price` field will be set to `true`.
      * @param unitPrice Value for String
@@ -485,7 +485,7 @@ public class InvoiceLineItem
      * Getter for PeriodRangeStart.
      * Start date for the period covered by this line. The format is `"YYYY-MM-DD"`. * For periodic
      * charges paid in advance, this date will match the billing date, and the end date will be in
-     * the future. * For periodic charges paid in arrears (e.g. metered charges), this date will be
+     * the future. * For periodic charges paid in arrears (e.g., metered charges), this date will be
      * the date of the previous billing, and the end date will be the current billing date. * For
      * non-periodic charges, this date and the end date will match.
      * @return Returns the LocalDate
@@ -501,7 +501,7 @@ public class InvoiceLineItem
      * Setter for PeriodRangeStart.
      * Start date for the period covered by this line. The format is `"YYYY-MM-DD"`. * For periodic
      * charges paid in advance, this date will match the billing date, and the end date will be in
-     * the future. * For periodic charges paid in arrears (e.g. metered charges), this date will be
+     * the future. * For periodic charges paid in arrears (e.g., metered charges), this date will be
      * the date of the previous billing, and the end date will be the current billing date. * For
      * non-periodic charges, this date and the end date will match.
      * @param periodRangeStart Value for LocalDate
@@ -516,7 +516,7 @@ public class InvoiceLineItem
      * Getter for PeriodRangeEnd.
      * End date for the period covered by this line. The format is `"YYYY-MM-DD"`. * For periodic
      * charges paid in advance, this date will match the next (future) billing date. * For periodic
-     * charges paid in arrears (e.g. metered charges), this date will be the date of the current
+     * charges paid in arrears (e.g., metered charges), this date will be the date of the current
      * billing date. * For non-periodic charges, this date and the start date will match.
      * @return Returns the LocalDate
      */
@@ -531,7 +531,7 @@ public class InvoiceLineItem
      * Setter for PeriodRangeEnd.
      * End date for the period covered by this line. The format is `"YYYY-MM-DD"`. * For periodic
      * charges paid in advance, this date will match the next (future) billing date. * For periodic
-     * charges paid in arrears (e.g. metered charges), this date will be the date of the current
+     * charges paid in arrears (e.g., metered charges), this date will be the date of the current
      * billing date. * For non-periodic charges, this date and the start date will match.
      * @param periodRangeEnd Value for LocalDate
      */

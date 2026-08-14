@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CreditNoteStatus to be used.
  */
@@ -20,7 +19,6 @@ public enum CreditNoteStatus {
     OPEN,
 
     APPLIED;
-
 
     private static TreeMap<String, CreditNoteStatus> valueMap = new TreeMap<>();
     private String value;

@@ -11,16 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `CurrencyPrices` | [`List<UpdateCouponCurrency>`](../../doc/models/update-coupon-currency.md) | Required | - | List<UpdateCouponCurrency> getCurrencyPrices() | setCurrencyPrices(List<UpdateCouponCurrency> currencyPrices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "currency": "currency8",
-      "price": 78
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.CouponCurrencyRequest;
+import com.maxio.advancedbilling.models.UpdateCouponCurrency;
+import java.util.Arrays;
+
+CouponCurrencyRequest couponCurrencyRequest = new CouponCurrencyRequest.Builder(
+    Arrays.asList(
+        new UpdateCouponCurrency.Builder(
+            "currency8",
+            78
+        )
+        .build()
+    )
+)
+.build();
 ```
 

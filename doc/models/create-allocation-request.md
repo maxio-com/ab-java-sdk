@@ -11,18 +11,23 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Allocation` | [`CreateAllocation`](../../doc/models/create-allocation.md) | Required | - | CreateAllocation getAllocation() | setAllocation(CreateAllocation allocation) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation": {
-    "quantity": 228.94,
-    "decimal_quantity": "decimal_quantity6",
-    "previous_quantity": 254.04,
-    "decimal_previous_quantity": "decimal_previous_quantity8",
-    "component_id": 8,
-    "memo": "memo2"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateAllocation;
+import com.maxio.advancedbilling.models.CreateAllocationRequest;
+
+CreateAllocationRequest createAllocationRequest = new CreateAllocationRequest.Builder(
+    new CreateAllocation.Builder(
+        228.94D
+    )
+    .decimalQuantity("decimal_quantity6")
+    .previousQuantity(254.04D)
+    .decimalPreviousQuantity("decimal_previous_quantity8")
+    .componentId(8)
+    .memo("memo2")
+    .build()
+)
+.build();
 ```
 

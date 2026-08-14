@@ -20,7 +20,9 @@
 
 ## Example
 
-```
-total_amount
+```java
+import com.maxio.advancedbilling.models.InvoiceSortField;
+
+InvoiceSortField invoiceSortField = InvoiceSortField.UPDATED_AT;
 ```
 

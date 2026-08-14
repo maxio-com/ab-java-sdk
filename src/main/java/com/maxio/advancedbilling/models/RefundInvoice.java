@@ -177,8 +177,8 @@ public class RefundInvoice
 
     /**
      * Getter for VoidInvoice.
-     * If `apply_credit` set to false and refunding full amount, if `void_invoice` set to true,
-     * invoice will be voided after refund. Defaults to `false`.
+     * If `apply_credit` is set to false and refunding full amount, if `void_invoice` is set to
+     * true, invoice will be voided after refund. Defaults to `false`.
      * @return Returns the Boolean
      */
     @JsonGetter("void_invoice")
@@ -189,8 +189,8 @@ public class RefundInvoice
 
     /**
      * Setter for VoidInvoice.
-     * If `apply_credit` set to false and refunding full amount, if `void_invoice` set to true,
-     * invoice will be voided after refund. Defaults to `false`.
+     * If `apply_credit` is set to false and refunding full amount, if `void_invoice` is set to
+     * true, invoice will be voided after refund. Defaults to `false`.
      * @param voidInvoice Value for Boolean
      */
     @JsonSetter("void_invoice")

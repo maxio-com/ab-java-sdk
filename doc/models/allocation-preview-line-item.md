@@ -17,17 +17,21 @@
 | `TaxableAmountInCents` | `Long` | Optional | - | Long getTaxableAmountInCents() | setTaxableAmountInCents(Long taxableAmountInCents) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
-| `Direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | Visible when using Fine-grained Component Control | AllocationPreviewDirection getDirection() | setDirection(AllocationPreviewDirection direction) |
+| `Direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | Visible when using Fine-grained Component Control. | AllocationPreviewDirection getDirection() | setDirection(AllocationPreviewDirection direction) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_type": "credit",
-  "kind": "quantity_based_component",
-  "amount_in_cents": 24,
-  "memo": "memo6",
-  "discount_amount_in_cents": 172
-}
+```java
+import com.maxio.advancedbilling.models.AllocationPreviewLineItem;
+import com.maxio.advancedbilling.models.AllocationPreviewLineItemKind;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
+
+AllocationPreviewLineItem allocationPreviewLineItem = new AllocationPreviewLineItem.Builder()
+    .transactionType(LineItemTransactionType.CREDIT)
+    .kind(AllocationPreviewLineItemKind.QUANTITY_BASED_COMPONENT)
+    .amountInCents(236L)
+    .memo("memo6")
+    .discountAmountInCents(40L)
+    .build();
 ```
 

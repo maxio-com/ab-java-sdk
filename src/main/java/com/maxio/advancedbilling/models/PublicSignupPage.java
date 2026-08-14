@@ -87,7 +87,7 @@ public class PublicSignupPage
     /**
      * Internal Getter for ReturnUrl.
      * The url to which a customer will be returned after a successful signup (public_signup_pages
-     * only)
+     * only).
      * @return Returns the Internal String
      */
     @JsonGetter("return_url")
@@ -100,7 +100,7 @@ public class PublicSignupPage
     /**
      * Getter for ReturnUrl.
      * The url to which a customer will be returned after a successful signup (public_signup_pages
-     * only)
+     * only).
      * @return Returns the String
      */
     public String getReturnUrl() {
@@ -110,7 +110,7 @@ public class PublicSignupPage
     /**
      * Setter for ReturnUrl.
      * The url to which a customer will be returned after a successful signup (public_signup_pages
-     * only)
+     * only).
      * @param returnUrl Value for String
      */
     @JsonSetter("return_url")
@@ -121,7 +121,7 @@ public class PublicSignupPage
     /**
      * UnSetter for ReturnUrl.
      * The url to which a customer will be returned after a successful signup (public_signup_pages
-     * only)
+     * only).
      */
     public void unsetReturnUrl() {
         returnUrl = null;
@@ -168,7 +168,7 @@ public class PublicSignupPage
 
     /**
      * Getter for Url.
-     * The url where the signup page can be viewed (public_signup_pages only)
+     * The url where the signup page can be viewed (public_signup_pages only).
      * @return Returns the String
      */
     @JsonGetter("url")
@@ -179,7 +179,7 @@ public class PublicSignupPage
 
     /**
      * Setter for Url.
-     * The url where the signup page can be viewed (public_signup_pages only)
+     * The url where the signup page can be viewed (public_signup_pages only).
      * @param url Value for String
      */
     @JsonSetter("url")

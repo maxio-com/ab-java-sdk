@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionState to be used.
  */
@@ -46,7 +45,6 @@ public enum SubscriptionState {
     ON_HOLD,
 
     AWAITING_SIGNUP;
-
 
     private static TreeMap<String, SubscriptionState> valueMap = new TreeMap<>();
     private String value;

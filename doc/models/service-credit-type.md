@@ -14,3 +14,11 @@ The type of entry
 | `CREDIT` |
 | `DEBIT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ServiceCreditType;
+
+ServiceCreditType serviceCreditType = ServiceCreditType.CREDIT;
+```
+

@@ -16,3 +16,11 @@ The current chargeback status.
 | `WON` |
 | `CLOSED` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ChargebackStatus;
+
+ChargebackStatus chargebackStatus = ChargebackStatus.OPEN;
+```
+

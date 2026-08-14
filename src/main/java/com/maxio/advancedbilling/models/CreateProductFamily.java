@@ -21,6 +21,7 @@ public class CreateProductFamily
     private String name;
     private OptionalNullable<String> handle;
     private OptionalNullable<String> description;
+    private Boolean surcharging;
 
     /**
      * Default constructor.
@@ -33,14 +34,17 @@ public class CreateProductFamily
      * @param  name  String value for name.
      * @param  handle  String value for handle.
      * @param  description  String value for description.
+     * @param  surcharging  Boolean value for surcharging.
      */
     public CreateProductFamily(
             String name,
             String handle,
-            String description) {
+            String description,
+            Boolean surcharging) {
         this.name = name;
         this.handle = OptionalNullable.of(handle);
         this.description = OptionalNullable.of(description);
+        this.surcharging = surcharging;
     }
 
     /**
@@ -48,13 +52,15 @@ public class CreateProductFamily
      * @param  name  String value for name.
      * @param  handle  String value for handle.
      * @param  description  String value for description.
+     * @param  surcharging  Boolean value for surcharging.
      */
 
     protected CreateProductFamily(String name, OptionalNullable<String> handle,
-            OptionalNullable<String> description) {
+            OptionalNullable<String> description, Boolean surcharging) {
         this.name = name;
         this.handle = handle;
         this.description = description;
+        this.surcharging = surcharging;
     }
 
     /**
@@ -146,13 +152,37 @@ public class CreateProductFamily
     }
 
     /**
+     * Getter for Surcharging.
+     * Whether surcharging applies to this product family. Defaults to `true` when omitted. Only
+     * applied on sites where surcharging is enabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("surcharging")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSurcharging() {
+        return surcharging;
+    }
+
+    /**
+     * Setter for Surcharging.
+     * Whether surcharging applies to this product family. Defaults to `true` when omitted. Only
+     * applied on sites where surcharging is enabled.
+     * @param surcharging Value for Boolean
+     */
+    @JsonSetter("surcharging")
+    public void setSurcharging(Boolean surcharging) {
+        this.surcharging = surcharging;
+    }
+
+    /**
      * Converts this CreateProductFamily into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "CreateProductFamily [" + "name=" + name + ", handle=" + handle + ", description="
-                + description + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + description + ", surcharging=" + surcharging + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -161,7 +191,8 @@ public class CreateProductFamily
      * @return a new {@link CreateProductFamily.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name);
+        Builder builder = new Builder(name)
+                .surcharging(getSurcharging());
         builder.handle = internalGetHandle();
         builder.description = internalGetDescription();
         return builder;
@@ -174,6 +205,7 @@ public class CreateProductFamily
         private String name;
         private OptionalNullable<String> handle;
         private OptionalNullable<String> description;
+        private Boolean surcharging;
 
         /**
          * Initialization constructor.
@@ -238,11 +270,21 @@ public class CreateProductFamily
         }
 
         /**
+         * Setter for surcharging.
+         * @param  surcharging  Boolean value for surcharging.
+         * @return Builder
+         */
+        public Builder surcharging(Boolean surcharging) {
+            this.surcharging = surcharging;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateProductFamily} object using the set fields.
          * @return {@link CreateProductFamily}
          */
         public CreateProductFamily build() {
-            return new CreateProductFamily(name, handle, description);
+            return new CreateProductFamily(name, handle, description, surcharging);
         }
     }
 }

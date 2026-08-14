@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * GroupTargetType to be used.
  */
@@ -26,7 +25,6 @@ public enum GroupTargetType {
     PARENT,
 
     ELDEST;
-
 
     private static TreeMap<String, GroupTargetType> valueMap = new TreeMap<>();
     private String value;

@@ -139,7 +139,7 @@ public class CreateAllocation
      * Getter for Quantity.
      * The allocated quantity to which to set the line-items allocated quantity. By default, this is
      * an integer. If decimal allocations are enabled for the component, it will be a decimal
-     * number. For On/Off components, use 1for on and 0 for off.
+     * number. For On/Off components, use 1 for on and 0 for off.
      * @return Returns the double
      */
     @JsonGetter("quantity")
@@ -151,7 +151,7 @@ public class CreateAllocation
      * Setter for Quantity.
      * The allocated quantity to which to set the line-items allocated quantity. By default, this is
      * an integer. If decimal allocations are enabled for the component, it will be a decimal
-     * number. For On/Off components, use 1for on and 0 for off.
+     * number. For On/Off components, use 1 for on and 0 for off.
      * @param quantity Value for double
      */
     @JsonSetter("quantity")

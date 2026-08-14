@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * PrepaymentMethod to be used.
  */
@@ -30,7 +29,6 @@ public enum PrepaymentMethod {
     CREDIT_CARD,
 
     OTHER;
-
 
     private static TreeMap<String, PrepaymentMethod> valueMap = new TreeMap<>();
     private String value;

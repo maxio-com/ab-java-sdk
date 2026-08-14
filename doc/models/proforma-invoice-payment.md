@@ -14,14 +14,16 @@
 | `AppliedAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 | `Prepayment` | `Boolean` | Optional | - | Boolean getPrepayment() | setPrepayment(Boolean prepayment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "memo": "memo4",
-  "original_amount": "original_amount4",
-  "applied_amount": "applied_amount8",
-  "prepayment": false
-}
+```java
+import com.maxio.advancedbilling.models.ProformaInvoicePayment;
+
+ProformaInvoicePayment proformaInvoicePayment = new ProformaInvoicePayment.Builder()
+    .memo("memo2")
+    .originalAmount("original_amount2")
+    .appliedAmount("applied_amount0")
+    .prepayment(false)
+    .build();
 ```
 

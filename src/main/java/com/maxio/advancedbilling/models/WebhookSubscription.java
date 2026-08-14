@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * WebhookSubscription to be used.
  */
@@ -77,6 +76,8 @@ public enum WebhookSubscription {
 
     SUBSCRIPTION_PRODUCT_CHANGE,
 
+    SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED,
+
     SUBSCRIPTION_STATE_CHANGE,
 
     TRIAL_END_NOTICE,
@@ -92,7 +93,6 @@ public enum WebhookSubscription {
     SUBSCRIPTION_PREPAYMENT_ACCOUNT_BALANCE_CHANGED,
 
     SUBSCRIPTION_SERVICE_CREDIT_ACCOUNT_BALANCE_CHANGED;
-
 
     private static TreeMap<String, WebhookSubscription> valueMap = new TreeMap<>();
     private String value;
@@ -128,6 +128,7 @@ public enum WebhookSubscription {
         SUBSCRIPTION_CARD_UPDATE.value = "subscription_card_update";
         SUBSCRIPTION_GROUP_CARD_UPDATE.value = "subscription_group_card_update";
         SUBSCRIPTION_PRODUCT_CHANGE.value = "subscription_product_change";
+        SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED.value = "subscription_product_change_scheduled";
         SUBSCRIPTION_STATE_CHANGE.value = "subscription_state_change";
         TRIAL_END_NOTICE.value = "trial_end_notice";
         UPCOMING_RENEWAL_NOTICE.value = "upcoming_renewal_notice";
@@ -167,6 +168,7 @@ public enum WebhookSubscription {
         valueMap.put("subscription_card_update", SUBSCRIPTION_CARD_UPDATE);
         valueMap.put("subscription_group_card_update", SUBSCRIPTION_GROUP_CARD_UPDATE);
         valueMap.put("subscription_product_change", SUBSCRIPTION_PRODUCT_CHANGE);
+        valueMap.put("subscription_product_change_scheduled", SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED);
         valueMap.put("subscription_state_change", SUBSCRIPTION_STATE_CHANGE);
         valueMap.put("trial_end_notice", TRIAL_END_NOTICE);
         valueMap.put("upcoming_renewal_notice", UPCOMING_RENEWAL_NOTICE);

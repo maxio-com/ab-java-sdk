@@ -77,7 +77,7 @@ public class AgreementAcceptance
     /**
      * Getter for TermsUrl.
      * Required when creating a subscription with Maxio Payments. Either terms_url or
-     * provacy_policy_url required when providing agreement_acceptance params.
+     * privacy_policy_url is required when providing agreement_acceptance params.
      * @return Returns the String
      */
     @JsonGetter("terms_url")
@@ -89,7 +89,7 @@ public class AgreementAcceptance
     /**
      * Setter for TermsUrl.
      * Required when creating a subscription with Maxio Payments. Either terms_url or
-     * provacy_policy_url required when providing agreement_acceptance params.
+     * privacy_policy_url is required when providing agreement_acceptance params.
      * @param termsUrl Value for String
      */
     @JsonSetter("terms_url")

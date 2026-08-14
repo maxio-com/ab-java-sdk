@@ -11,19 +11,24 @@
 |  --- | --- | --- | --- | --- | --- |
 | `CurrencyPrices` | [`List<ComponentCurrencyPrice>`](../../doc/models/component-currency-price.md) | Required | - | List<ComponentCurrencyPrice> getCurrencyPrices() | setCurrencyPrices(List<ComponentCurrencyPrice> currencyPrices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency_prices": [
-    {
-      "id": 50,
-      "currency": "currency8",
-      "price": "price4",
-      "formatted_price": "formatted_price6",
-      "price_id": 116
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ComponentCurrencyPrice;
+import com.maxio.advancedbilling.models.ComponentCurrencyPricesResponse;
+import java.util.Arrays;
+
+ComponentCurrencyPricesResponse componentCurrencyPricesResponse = new ComponentCurrencyPricesResponse.Builder(
+    Arrays.asList(
+        new ComponentCurrencyPrice.Builder()
+            .id(50)
+            .currency("currency8")
+            .price("price4")
+            .formattedPrice("formatted_price6")
+            .priceId(116)
+            .build()
+    )
+)
+.build();
 ```
 

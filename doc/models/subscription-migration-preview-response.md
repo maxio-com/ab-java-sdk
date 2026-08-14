@@ -11,16 +11,20 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Migration` | [`SubscriptionMigrationPreview`](../../doc/models/subscription-migration-preview.md) | Required | - | SubscriptionMigrationPreview getMigration() | setMigration(SubscriptionMigrationPreview migration) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "migration": {
-    "prorated_adjustment_in_cents": 196,
-    "charge_in_cents": 78,
-    "payment_due_in_cents": 250,
-    "credit_applied_in_cents": 210
-  }
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionMigrationPreview;
+import com.maxio.advancedbilling.models.SubscriptionMigrationPreviewResponse;
+
+SubscriptionMigrationPreviewResponse subscriptionMigrationPreviewResponse = new SubscriptionMigrationPreviewResponse.Builder(
+    new SubscriptionMigrationPreview.Builder()
+        .proratedAdjustmentInCents(196L)
+        .chargeInCents(78L)
+        .paymentDueInCents(250L)
+        .creditAppliedInCents(210L)
+        .build()
+)
+.build();
 ```
 

@@ -18,3 +18,11 @@ The process used to cancel the subscription, if the subscription has been cancel
 | `UNKNOWN` |
 | `IMPORTED` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CancellationMethod;
+
+CancellationMethod cancellationMethod = CancellationMethod.MERCHANT_UI;
+```
+

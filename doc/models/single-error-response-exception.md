@@ -11,11 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Error` | `String` | Required | - | String getError() | setError(String error) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "error": "error2"
+```java
+try {
+    // make the API call
+} catch (SingleErrorResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

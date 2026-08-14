@@ -21,15 +21,17 @@ Overrides the default address.
 | `Zip` | `String` | Optional | - | String getZip() | setZip(String zip) |
 | `Country` | `String` | Optional | - | String getCountry() | setCountry(String country) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "first_name": "first_name4",
-  "last_name": "last_name2",
-  "phone": "phone6",
-  "address": "address0",
-  "address_2": "address_28"
-}
+```java
+import com.maxio.advancedbilling.models.CreateInvoiceAddress;
+
+CreateInvoiceAddress createInvoiceAddress = new CreateInvoiceAddress.Builder()
+    .firstName("first_name6")
+    .lastName("last_name4")
+    .phone("phone4")
+    .address("address2")
+    .address2("address_20")
+    .build();
 ```
 

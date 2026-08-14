@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Subscription` | [`OverrideSubscription`](../../doc/models/override-subscription.md) | Required | - | OverrideSubscription getSubscription() | setSubscription(OverrideSubscription subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "activated_at": "2016-03-13T12:52:32.123Z",
-    "canceled_at": "2016-03-13T12:52:32.123Z",
-    "cancellation_message": "cancellation_message2",
-    "expires_at": "2016-03-13T12:52:32.123Z",
-    "current_period_starts_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.OverrideSubscription;
+import com.maxio.advancedbilling.models.OverrideSubscriptionRequest;
+
+OverrideSubscriptionRequest overrideSubscriptionRequest = new OverrideSubscriptionRequest.Builder(
+    new OverrideSubscription.Builder()
+        .activatedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .canceledAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .cancellationMessage("cancellation_message2")
+        .expiresAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .currentPeriodStartsAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .build()
+)
+.build();
 ```
 

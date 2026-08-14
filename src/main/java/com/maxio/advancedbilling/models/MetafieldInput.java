@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * MetafieldInput to be used.
  */
@@ -24,7 +23,6 @@ public enum MetafieldInput {
     RADIO,
 
     DROPDOWN;
-
 
     private static TreeMap<String, MetafieldInput> valueMap = new TreeMap<>();
     private String value;

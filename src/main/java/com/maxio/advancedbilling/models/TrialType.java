@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * TrialType to be used.
  */
@@ -20,7 +19,6 @@ public enum TrialType {
     NO_OBLIGATION,
 
     PAYMENT_EXPECTED;
-
 
     private static TreeMap<String, TrialType> valueMap = new TreeMap<>();
     private String value;

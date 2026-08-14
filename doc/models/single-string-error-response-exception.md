@@ -11,11 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | `String` | Optional | - | String getErrors() | setErrors(String errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": "errors4"
+```java
+try {
+    // make the API call
+} catch (SingleStringErrorResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

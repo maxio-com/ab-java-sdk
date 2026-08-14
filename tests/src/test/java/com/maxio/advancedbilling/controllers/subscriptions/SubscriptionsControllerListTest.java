@@ -19,6 +19,7 @@ import com.maxio.advancedbilling.models.SubscriptionListInclude;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.SubscriptionSort;
 import com.maxio.advancedbilling.models.SubscriptionStateFilter;
+import com.maxio.advancedbilling.models.containers.ListSubscriptionsInputProduct;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
@@ -219,11 +220,11 @@ public class SubscriptionsControllerListTest {
         // when
         List<SubscriptionResponse> subscriptionsWithProduct1 = SUBSCRIPTIONS_CONTROLLER
                 .listSubscriptions(new ListSubscriptionsInput.Builder()
-                        .product(PRODUCT1.getId())
+                        .product(ListSubscriptionsInputProduct.fromNumber(PRODUCT1.getId()))
                         .build());
         List<SubscriptionResponse> subscriptionsWithProduct2 = SUBSCRIPTIONS_CONTROLLER
                 .listSubscriptions(new ListSubscriptionsInput.Builder()
-                        .product(PRODUCT2.getId())
+                        .product(ListSubscriptionsInputProduct.fromNumber(PRODUCT2.getId()))
                         .build());
 
         // then
@@ -246,7 +247,7 @@ public class SubscriptionsControllerListTest {
         // when
         List<SubscriptionResponse> subscriptionsWithProductAndPricePoint1 = SUBSCRIPTIONS_CONTROLLER
                 .listSubscriptions(new ListSubscriptionsInput.Builder()
-                        .product(PRODUCT1.getId())
+                        .product(ListSubscriptionsInputProduct.fromNumber(PRODUCT1.getId()))
                         .productPricePointId(CUSTOM_PRICE_POINT1.getId())
                         .build());
         List<SubscriptionResponse> subscriptionsWithPricePoint1 = SUBSCRIPTIONS_CONTROLLER

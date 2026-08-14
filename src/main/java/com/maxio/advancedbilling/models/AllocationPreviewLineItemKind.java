@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * AllocationPreviewLineItemKind to be used.
  */
@@ -24,7 +23,6 @@ public enum AllocationPreviewLineItemKind {
     COUPON,
 
     TAX;
-
 
     private static TreeMap<String, AllocationPreviewLineItemKind> valueMap = new TreeMap<>();
     private String value;

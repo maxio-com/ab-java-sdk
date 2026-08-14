@@ -16,3 +16,11 @@ The type of payment collection to be used in the subscription. For legacy Statem
 | `PREPAID` |
 | `INVOICE` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CollectionMethod;
+
+CollectionMethod collectionMethod = CollectionMethod.AUTOMATIC;
+```
+

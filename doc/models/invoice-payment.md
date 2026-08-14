@@ -22,21 +22,25 @@
 | `ReceivedOn` | `LocalDate` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. Applicable only to<br>`external` payments. | LocalDate getReceivedOn() | setReceivedOn(LocalDate receivedOn) |
 | `Uid` | `String` | Optional | - | String getUid() | setUid(String uid) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "memo": "memo6",
-  "original_amount": "original_amount6",
-  "applied_amount": "applied_amount6",
-  "payment_method": {
-    "details": "details0",
-    "kind": "kind8",
-    "memo": "memo4",
-    "type": "type0",
-    "card_brand": "card_brand6"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.InvoicePayment;
+import com.maxio.advancedbilling.models.InvoicePaymentMethod;
+
+InvoicePayment invoicePayment = new InvoicePayment.Builder()
+    .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .memo("memo6")
+    .originalAmount("original_amount6")
+    .appliedAmount("applied_amount6")
+    .paymentMethod(new InvoicePaymentMethod.Builder()
+        .details("details0")
+        .kind("kind8")
+        .memo("memo4")
+        .type("type0")
+        .cardBrand("card_brand6")
+        .build())
+    .build();
 ```
 

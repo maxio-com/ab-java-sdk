@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionGroupPrepaymentMethod to be used.
  */
@@ -28,7 +27,6 @@ public enum SubscriptionGroupPrepaymentMethod {
     PAYPAL_ACCOUNT,
 
     OTHER;
-
 
     private static TreeMap<String, SubscriptionGroupPrepaymentMethod> valueMap = new TreeMap<>();
     private String value;

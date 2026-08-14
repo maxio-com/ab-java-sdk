@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ListProductsPricePointsInclude to be used.
  */
 public enum ListProductsPricePointsInclude {
     CURRENCY_PRICES;
-
 
     private static TreeMap<String, ListProductsPricePointsInclude> valueMap = new TreeMap<>();
     private String value;

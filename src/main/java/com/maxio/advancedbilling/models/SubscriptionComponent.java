@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentAllocatedQuantity;
+import com.maxio.advancedbilling.models.containers.SubscriptionComponentUnitBalance;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -28,7 +29,7 @@ public class SubscriptionComponent
     private ComponentKind kind;
     private String unitName;
     private Boolean enabled;
-    private Integer unitBalance;
+    private SubscriptionComponentUnitBalance unitBalance;
     private String currency;
     private SubscriptionComponentAllocatedQuantity allocatedQuantity;
     private OptionalNullable<PricingScheme> pricingScheme;
@@ -69,7 +70,7 @@ public class SubscriptionComponent
      * @param  kind  ComponentKind value for kind.
      * @param  unitName  String value for unitName.
      * @param  enabled  Boolean value for enabled.
-     * @param  unitBalance  Integer value for unitBalance.
+     * @param  unitBalance  SubscriptionComponentUnitBalance value for unitBalance.
      * @param  currency  String value for currency.
      * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
      *         allocatedQuantity.
@@ -104,7 +105,7 @@ public class SubscriptionComponent
             ComponentKind kind,
             String unitName,
             Boolean enabled,
-            Integer unitBalance,
+            SubscriptionComponentUnitBalance unitBalance,
             String currency,
             SubscriptionComponentAllocatedQuantity allocatedQuantity,
             PricingScheme pricingScheme,
@@ -172,7 +173,7 @@ public class SubscriptionComponent
      * @param  kind  ComponentKind value for kind.
      * @param  unitName  String value for unitName.
      * @param  enabled  Boolean value for enabled.
-     * @param  unitBalance  Integer value for unitBalance.
+     * @param  unitBalance  SubscriptionComponentUnitBalance value for unitBalance.
      * @param  currency  String value for currency.
      * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
      *         allocatedQuantity.
@@ -203,7 +204,7 @@ public class SubscriptionComponent
      */
 
     protected SubscriptionComponent(Integer id, String name, ComponentKind kind, String unitName,
-            Boolean enabled, Integer unitBalance, String currency,
+            Boolean enabled, SubscriptionComponentUnitBalance unitBalance, String currency,
             SubscriptionComponentAllocatedQuantity allocatedQuantity,
             OptionalNullable<PricingScheme> pricingScheme, Integer componentId,
             OptionalNullable<String> componentHandle, Integer subscriptionId, Boolean recurring,
@@ -332,7 +333,7 @@ public class SubscriptionComponent
 
     /**
      * Getter for Enabled.
-     * (for on/off components) indicates if the component is enabled for the subscription
+     * (for on/off components) indicates if the component is enabled for the subscription.
      * @return Returns the Boolean
      */
     @JsonGetter("enabled")
@@ -343,7 +344,7 @@ public class SubscriptionComponent
 
     /**
      * Setter for Enabled.
-     * (for on/off components) indicates if the component is enabled for the subscription
+     * (for on/off components) indicates if the component is enabled for the subscription.
      * @param enabled Value for Boolean
      */
     @JsonSetter("enabled")
@@ -353,20 +354,20 @@ public class SubscriptionComponent
 
     /**
      * Getter for UnitBalance.
-     * @return Returns the Integer
+     * @return Returns the SubscriptionComponentUnitBalance
      */
     @JsonGetter("unit_balance")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getUnitBalance() {
+    public SubscriptionComponentUnitBalance getUnitBalance() {
         return unitBalance;
     }
 
     /**
      * Setter for UnitBalance.
-     * @param unitBalance Value for Integer
+     * @param unitBalance Value for SubscriptionComponentUnitBalance
      */
     @JsonSetter("unit_balance")
-    public void setUnitBalance(Integer unitBalance) {
+    public void setUnitBalance(SubscriptionComponentUnitBalance unitBalance) {
         this.unitBalance = unitBalance;
     }
 
@@ -972,7 +973,8 @@ public class SubscriptionComponent
 
     /**
      * Getter for Subscription.
-     * An optional object, will be returned if provided `include=subscription` query param.
+     * (Optional) Object that will be returned if the `include=subscription` query param is
+     * provided.
      * @return Returns the SubscriptionComponentSubscription
      */
     @JsonGetter("subscription")
@@ -983,7 +985,8 @@ public class SubscriptionComponent
 
     /**
      * Setter for Subscription.
-     * An optional object, will be returned if provided `include=subscription` query param.
+     * (Optional) Object that will be returned if the `include=subscription` query param is
+     * provided.
      * @param subscription Value for SubscriptionComponentSubscription
      */
     @JsonSetter("subscription")
@@ -1031,7 +1034,7 @@ public class SubscriptionComponent
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of '30' coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @return Returns the Integer
@@ -1044,7 +1047,7 @@ public class SubscriptionComponent
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of '30' coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @param interval Value for Integer
@@ -1172,7 +1175,7 @@ public class SubscriptionComponent
         private ComponentKind kind;
         private String unitName;
         private Boolean enabled;
-        private Integer unitBalance;
+        private SubscriptionComponentUnitBalance unitBalance;
         private String currency;
         private SubscriptionComponentAllocatedQuantity allocatedQuantity;
         private OptionalNullable<PricingScheme> pricingScheme;
@@ -1254,10 +1257,10 @@ public class SubscriptionComponent
 
         /**
          * Setter for unitBalance.
-         * @param  unitBalance  Integer value for unitBalance.
+         * @param  unitBalance  SubscriptionComponentUnitBalance value for unitBalance.
          * @return Builder
          */
-        public Builder unitBalance(Integer unitBalance) {
+        public Builder unitBalance(SubscriptionComponentUnitBalance unitBalance) {
             this.unitBalance = unitBalance;
             return this;
         }

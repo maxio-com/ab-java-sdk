@@ -16,3 +16,11 @@
 | `PAYPAL_ACCOUNT` |
 | `OTHER` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentMethod;
+
+SubscriptionGroupPrepaymentMethod subscriptionGroupPrepaymentMethod = SubscriptionGroupPrepaymentMethod.CHECK;
+```
+

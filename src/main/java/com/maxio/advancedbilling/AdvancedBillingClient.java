@@ -101,7 +101,7 @@ public final class AdvancedBillingClient implements Configuration {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:9.1.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:10.0.0 on OS {os-info}";
 
     /**
      * Current API environment.

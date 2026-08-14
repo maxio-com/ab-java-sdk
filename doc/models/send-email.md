@@ -12,12 +12,15 @@
 | `CanExecute` | `boolean` | Required | - | boolean getCanExecute() | setCanExecute(boolean canExecute) |
 | `Url` | `String` | Required | - | String getUrl() | setUrl(String url) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "can_execute": false,
-  "url": "url2"
-}
+```java
+import com.maxio.advancedbilling.models.SendEmail;
+
+SendEmail sendEmail = new SendEmail.Builder(
+    false,
+    "url2"
+)
+.build();
 ```
 

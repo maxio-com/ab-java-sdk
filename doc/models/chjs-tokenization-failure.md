@@ -12,16 +12,20 @@
 | `Errors` | `String` | Required | - | String getErrors() | setErrors(String errors) |
 | `PaymentProfileParams` | [`PaymentProfileParams`](../../doc/models/payment-profile-params.md) | Optional | PCI-safe cardholder fields only. Full card numbers, CVV, and billing address are never included. | PaymentProfileParams getPaymentProfileParams() | setPaymentProfileParams(PaymentProfileParams paymentProfileParams) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": "errors2",
-  "payment_profile_params": {
-    "first_name": "first_name2",
-    "last_name": "last_name0",
-    "card_type": "card_type2"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ChjsTokenizationFailure;
+import com.maxio.advancedbilling.models.PaymentProfileParams;
+
+ChjsTokenizationFailure chjsTokenizationFailure = new ChjsTokenizationFailure.Builder(
+    "errors2"
+)
+.paymentProfileParams(new PaymentProfileParams.Builder()
+        .firstName("first_name2")
+        .lastName("last_name0")
+        .cardType("card_type2")
+        .build())
+.build();
 ```
 

@@ -22,3 +22,11 @@ A handle for the line item kind
 | `COUPON` |
 | `TAX` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.LineItemKind;
+
+LineItemKind lineItemKind = LineItemKind.PREPAID_USAGE_COMPONENT;
+```
+

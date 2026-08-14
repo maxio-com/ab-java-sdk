@@ -111,7 +111,8 @@ class InvoicesControllerVoidTest {
                 .assertThatErrorListResponse(() -> invoicesController
                         .voidInvoice(paidInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice"))))
                 .isUnprocessableEntity()
-                .hasErrors("Invoice status must be 'open', 'canceled', 'processing' or 'pending' and non-consolidated to be voided.");
+                .hasErrors("Invoice status must be 'open', 'canceled', 'processing', or a pending invoice that is "
+                        + "either non-consolidated or a not-yet-renewed segment to be voided.");
     }
 
     @Test

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * BankAccountType to be used.
  */
@@ -20,7 +19,6 @@ public enum BankAccountType {
     CHECKING,
 
     SAVINGS;
-
 
     private static TreeMap<String, BankAccountType> valueMap = new TreeMap<>();
     private String value;

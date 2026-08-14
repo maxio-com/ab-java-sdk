@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * DebitNoteStatus to be used.
  */
@@ -24,7 +23,6 @@ public enum DebitNoteStatus {
     BANISHED,
 
     PAID;
-
 
     private static TreeMap<String, DebitNoteStatus> valueMap = new TreeMap<>();
     private String value;

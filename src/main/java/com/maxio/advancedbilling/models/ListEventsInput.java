@@ -131,7 +131,7 @@ public class ListEventsInput {
 
     /**
      * Getter for SinceId.
-     * Returns events with an id greater than or equal to the one specified
+     * Returns events with an id greater than or equal to the one specified.
      * @return Returns the Long
      */
     @JsonGetter("since_id")
@@ -142,7 +142,7 @@ public class ListEventsInput {
 
     /**
      * Setter for SinceId.
-     * Returns events with an id greater than or equal to the one specified
+     * Returns events with an id greater than or equal to the one specified.
      * @param sinceId Value for Long
      */
     @JsonSetter("since_id")
@@ -152,7 +152,7 @@ public class ListEventsInput {
 
     /**
      * Getter for MaxId.
-     * Returns events with an id less than or equal to the one specified
+     * Returns events with an id less than or equal to the one specified.
      * @return Returns the Long
      */
     @JsonGetter("max_id")
@@ -163,7 +163,7 @@ public class ListEventsInput {
 
     /**
      * Setter for MaxId.
-     * Returns events with an id less than or equal to the one specified
+     * Returns events with an id less than or equal to the one specified.
      * @param maxId Value for Long
      */
     @JsonSetter("max_id")

@@ -13,13 +13,15 @@
 | `Usage` | `String` | Optional | - | String getUsage() | setUsage(String usage) |
 | `Recurring` | `String` | Optional | - | String getRecurring() | setRecurring(String recurring) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "mrr": "mrr2",
-  "usage": "usage0",
-  "recurring": "recurring4"
-}
+```java
+import com.maxio.advancedbilling.models.SaleRepItemMrr;
+
+SaleRepItemMrr saleRepItemMrr = new SaleRepItemMrr.Builder()
+    .mrr("mrr8")
+    .usage("usage0")
+    .recurring("recurring6")
+    .build();
 ```
 

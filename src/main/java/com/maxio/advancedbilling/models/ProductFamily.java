@@ -26,6 +26,7 @@ public class ProductFamily
     private String handle;
     private OptionalNullable<String> accountingCode;
     private OptionalNullable<String> description;
+    private Boolean surcharging;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
     private OptionalNullable<ZonedDateTime> archivedAt;
@@ -43,6 +44,7 @@ public class ProductFamily
      * @param  handle  String value for handle.
      * @param  accountingCode  String value for accountingCode.
      * @param  description  String value for description.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  archivedAt  ZonedDateTime value for archivedAt.
@@ -53,6 +55,7 @@ public class ProductFamily
             String handle,
             String accountingCode,
             String description,
+            Boolean surcharging,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
             ZonedDateTime archivedAt) {
@@ -61,6 +64,7 @@ public class ProductFamily
         this.handle = handle;
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.description = OptionalNullable.of(description);
+        this.surcharging = surcharging;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.archivedAt = OptionalNullable.of(archivedAt);
@@ -73,6 +77,7 @@ public class ProductFamily
      * @param  handle  String value for handle.
      * @param  accountingCode  String value for accountingCode.
      * @param  description  String value for description.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  archivedAt  ZonedDateTime value for archivedAt.
@@ -80,13 +85,14 @@ public class ProductFamily
 
     protected ProductFamily(Integer id, String name, String handle,
             OptionalNullable<String> accountingCode, OptionalNullable<String> description,
-            ZonedDateTime createdAt, ZonedDateTime updatedAt,
+            Boolean surcharging, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             OptionalNullable<ZonedDateTime> archivedAt) {
         this.id = id;
         this.name = name;
         this.handle = handle;
         this.accountingCode = accountingCode;
         this.description = description;
+        this.surcharging = surcharging;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.archivedAt = archivedAt;
@@ -220,6 +226,29 @@ public class ProductFamily
     }
 
     /**
+     * Getter for Surcharging.
+     * Whether surcharging applies to this product family. Only included on sites where surcharging
+     * is enabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("surcharging")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSurcharging() {
+        return surcharging;
+    }
+
+    /**
+     * Setter for Surcharging.
+     * Whether surcharging applies to this product family. Only included on sites where surcharging
+     * is enabled.
+     * @param surcharging Value for Boolean
+     */
+    @JsonSetter("surcharging")
+    public void setSurcharging(Boolean surcharging) {
+        this.surcharging = surcharging;
+    }
+
+    /**
      * Getter for CreatedAt.
      * @return Returns the ZonedDateTime
      */
@@ -313,8 +342,9 @@ public class ProductFamily
     public String toString() {
         return "ProductFamily [" + "id=" + id + ", name=" + name + ", handle=" + handle
                 + ", accountingCode=" + accountingCode + ", description=" + description
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", archivedAt="
-                + archivedAt + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", surcharging=" + surcharging + ", createdAt=" + createdAt + ", updatedAt="
+                + updatedAt + ", archivedAt=" + archivedAt + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -327,6 +357,7 @@ public class ProductFamily
                 .id(getId())
                 .name(getName())
                 .handle(getHandle())
+                .surcharging(getSurcharging())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
         builder.accountingCode = internalGetAccountingCode();
@@ -344,6 +375,7 @@ public class ProductFamily
         private String handle;
         private OptionalNullable<String> accountingCode;
         private OptionalNullable<String> description;
+        private Boolean surcharging;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
         private OptionalNullable<ZonedDateTime> archivedAt;
@@ -419,6 +451,16 @@ public class ProductFamily
         }
 
         /**
+         * Setter for surcharging.
+         * @param  surcharging  Boolean value for surcharging.
+         * @return Builder
+         */
+        public Builder surcharging(Boolean surcharging) {
+            this.surcharging = surcharging;
+            return this;
+        }
+
+        /**
          * Setter for createdAt.
          * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
@@ -462,8 +504,8 @@ public class ProductFamily
          * @return {@link ProductFamily}
          */
         public ProductFamily build() {
-            return new ProductFamily(id, name, handle, accountingCode, description, createdAt,
-                    updatedAt, archivedAt);
+            return new ProductFamily(id, name, handle, accountingCode, description, surcharging,
+                    createdAt, updatedAt, archivedAt);
         }
     }
 }

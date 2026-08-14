@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * IncludeNullOrNotNull to be used.
  */
@@ -20,7 +19,6 @@ public enum IncludeNullOrNotNull {
     NOT_NULL,
 
     ENUM_NULL;
-
 
     private static TreeMap<String, IncludeNullOrNotNull> valueMap = new TreeMap<>();
     private String value;

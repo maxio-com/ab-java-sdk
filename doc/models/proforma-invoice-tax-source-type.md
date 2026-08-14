@@ -12,3 +12,11 @@
 | `TAX` |
 | `AVALARA` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ProformaInvoiceTaxSourceType;
+
+ProformaInvoiceTaxSourceType proformaInvoiceTaxSourceType = ProformaInvoiceTaxSourceType.TAX;
+```
+

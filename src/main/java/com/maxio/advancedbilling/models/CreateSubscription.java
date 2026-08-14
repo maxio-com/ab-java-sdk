@@ -35,6 +35,7 @@ public class CreateSubscription
     private String receivesInvoiceEmails;
     private String netTerms;
     private Integer customerId;
+    private OptionalNullable<Integer> brandingThemeId;
     private ZonedDateTime nextBillingAt;
     private ZonedDateTime initialBillingAt;
     private Boolean deferSignup;
@@ -96,6 +97,7 @@ public class CreateSubscription
      * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
      * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  deferSignup  Boolean value for deferSignup.
@@ -151,6 +153,7 @@ public class CreateSubscription
             String receivesInvoiceEmails,
             String netTerms,
             Integer customerId,
+            Integer brandingThemeId,
             ZonedDateTime nextBillingAt,
             ZonedDateTime initialBillingAt,
             Boolean deferSignup,
@@ -201,6 +204,7 @@ public class CreateSubscription
         this.receivesInvoiceEmails = receivesInvoiceEmails;
         this.netTerms = netTerms;
         this.customerId = customerId;
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
         this.nextBillingAt = nextBillingAt;
         this.initialBillingAt = initialBillingAt;
         this.deferSignup = deferSignup;
@@ -256,6 +260,7 @@ public class CreateSubscription
      * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
      * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  deferSignup  Boolean value for deferSignup.
@@ -304,9 +309,10 @@ public class CreateSubscription
             String productPricePointHandle, Integer productPricePointId,
             SubscriptionCustomPrice customPrice, String couponCode, List<String> couponCodes,
             CollectionMethod paymentCollectionMethod, String receivesInvoiceEmails, String netTerms,
-            Integer customerId, ZonedDateTime nextBillingAt, ZonedDateTime initialBillingAt,
-            Boolean deferSignup, Integer storedCredentialTransactionId, Integer salesRepId,
-            Integer paymentProfileId, String reference, CustomerAttributes customerAttributes,
+            Integer customerId, OptionalNullable<Integer> brandingThemeId,
+            ZonedDateTime nextBillingAt, ZonedDateTime initialBillingAt, Boolean deferSignup,
+            Integer storedCredentialTransactionId, Integer salesRepId, Integer paymentProfileId,
+            String reference, CustomerAttributes customerAttributes,
             PaymentProfileAttributes paymentProfileAttributes,
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
@@ -333,6 +339,7 @@ public class CreateSubscription
         this.receivesInvoiceEmails = receivesInvoiceEmails;
         this.netTerms = netTerms;
         this.customerId = customerId;
+        this.brandingThemeId = brandingThemeId;
         this.nextBillingAt = nextBillingAt;
         this.initialBillingAt = initialBillingAt;
         this.deferSignup = deferSignup;
@@ -626,6 +633,61 @@ public class CreateSubscription
     }
 
     /**
+     * Internal Getter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("branding_theme_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBrandingThemeId() {
+        return this.brandingThemeId;
+    }
+
+    /**
+     * Getter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     * @return Returns the Integer
+     */
+    public Integer getBrandingThemeId() {
+        return OptionalNullable.getFrom(brandingThemeId);
+    }
+
+    /**
+     * Setter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     * @param brandingThemeId Value for Integer
+     */
+    @JsonSetter("branding_theme_id")
+    public void setBrandingThemeId(Integer brandingThemeId) {
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+    }
+
+    /**
+     * UnSetter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     */
+    public void unsetBrandingThemeId() {
+        brandingThemeId = null;
+    }
+
+    /**
      * Getter for NextBillingAt.
      * (Optional) Set this attribute to a future date/time to sync imported subscriptions to your
      * existing renewal schedule. See the notes on “Date/Time Format” in our [subscription import
@@ -795,7 +857,7 @@ public class CreateSubscription
      * does not exist already, or if you want to use a new (unstored) card or bank account for the
      * subscription, use `payment_profile_attributes` instead to create a new payment profile along
      * with the subscription. (This value is available on an existing subscription via the API as
-     * `credit_card` &gt; id or `bank_account` &gt; id)
+     * `credit_card` &gt; id or `bank_account` &gt; id.)
      * @return Returns the Integer
      */
     @JsonGetter("payment_profile_id")
@@ -811,7 +873,7 @@ public class CreateSubscription
      * does not exist already, or if you want to use a new (unstored) card or bank account for the
      * subscription, use `payment_profile_attributes` instead to create a new payment profile along
      * with the subscription. (This value is available on an existing subscription via the API as
-     * `credit_card` &gt; id or `bank_account` &gt; id)
+     * `credit_card` &gt; id or `bank_account` &gt; id.)
      * @param paymentProfileId Value for Integer
      */
     @JsonSetter("payment_profile_id")
@@ -949,7 +1011,7 @@ public class CreateSubscription
 
     /**
      * Getter for CalendarBilling.
-     * (Optional). Cannot be used when also specifying next_billing_at
+     * (Optional). Cannot be used when also specifying next_billing_at.
      * @return Returns the CalendarBilling
      */
     @JsonGetter("calendar_billing")
@@ -960,7 +1022,7 @@ public class CreateSubscription
 
     /**
      * Setter for CalendarBilling.
-     * (Optional). Cannot be used when also specifying next_billing_at
+     * (Optional). Cannot be used when also specifying next_billing_at.
      * @param calendarBilling Value for CalendarBilling
      */
     @JsonSetter("calendar_billing")
@@ -1319,7 +1381,7 @@ public class CreateSubscription
      * Getter for OfferId.
      * Use in place of passing product and component information to set up the subscription with an
      * existing offer. May be either the Chargify id of the offer or its handle prefixed with
-     * `handle:`.er
+     * `handle:`.
      * @return Returns the CreateSubscriptionOfferId
      */
     @JsonGetter("offer_id")
@@ -1332,7 +1394,7 @@ public class CreateSubscription
      * Setter for OfferId.
      * Use in place of passing product and component information to set up the subscription with an
      * existing offer. May be either the Chargify id of the offer or its handle prefixed with
-     * `handle:`.er
+     * `handle:`.
      * @param offerId Value for CreateSubscriptionOfferId
      */
     @JsonSetter("offer_id")
@@ -1598,23 +1660,24 @@ public class CreateSubscription
                 + ", couponCode=" + couponCode + ", couponCodes=" + couponCodes
                 + ", paymentCollectionMethod=" + paymentCollectionMethod
                 + ", receivesInvoiceEmails=" + receivesInvoiceEmails + ", netTerms=" + netTerms
-                + ", customerId=" + customerId + ", nextBillingAt=" + nextBillingAt
-                + ", initialBillingAt=" + initialBillingAt + ", deferSignup=" + deferSignup
-                + ", storedCredentialTransactionId=" + storedCredentialTransactionId
-                + ", salesRepId=" + salesRepId + ", paymentProfileId=" + paymentProfileId
-                + ", reference=" + reference + ", customerAttributes=" + customerAttributes
-                + ", paymentProfileAttributes=" + paymentProfileAttributes
-                + ", creditCardAttributes=" + creditCardAttributes + ", bankAccountAttributes="
-                + bankAccountAttributes + ", components=" + components + ", calendarBilling="
-                + calendarBilling + ", metafields=" + metafields + ", customerReference="
-                + customerReference + ", group=" + group + ", ref=" + ref + ", cancellationMessage="
-                + cancellationMessage + ", cancellationMethod=" + cancellationMethod + ", currency="
-                + currency + ", expiresAt=" + expiresAt + ", expirationTracksNextBillingChange="
-                + expirationTracksNextBillingChange + ", agreementTerms=" + agreementTerms
-                + ", authorizerFirstName=" + authorizerFirstName + ", authorizerLastName="
-                + authorizerLastName + ", calendarBillingFirstCharge=" + calendarBillingFirstCharge
-                + ", reasonCode=" + reasonCode + ", productChangeDelayed=" + productChangeDelayed
-                + ", offerId=" + offerId + ", prepaidConfiguration=" + prepaidConfiguration
+                + ", customerId=" + customerId + ", brandingThemeId=" + brandingThemeId
+                + ", nextBillingAt=" + nextBillingAt + ", initialBillingAt=" + initialBillingAt
+                + ", deferSignup=" + deferSignup + ", storedCredentialTransactionId="
+                + storedCredentialTransactionId + ", salesRepId=" + salesRepId
+                + ", paymentProfileId=" + paymentProfileId + ", reference=" + reference
+                + ", customerAttributes=" + customerAttributes + ", paymentProfileAttributes="
+                + paymentProfileAttributes + ", creditCardAttributes=" + creditCardAttributes
+                + ", bankAccountAttributes=" + bankAccountAttributes + ", components=" + components
+                + ", calendarBilling=" + calendarBilling + ", metafields=" + metafields
+                + ", customerReference=" + customerReference + ", group=" + group + ", ref=" + ref
+                + ", cancellationMessage=" + cancellationMessage + ", cancellationMethod="
+                + cancellationMethod + ", currency=" + currency + ", expiresAt=" + expiresAt
+                + ", expirationTracksNextBillingChange=" + expirationTracksNextBillingChange
+                + ", agreementTerms=" + agreementTerms + ", authorizerFirstName="
+                + authorizerFirstName + ", authorizerLastName=" + authorizerLastName
+                + ", calendarBillingFirstCharge=" + calendarBillingFirstCharge + ", reasonCode="
+                + reasonCode + ", productChangeDelayed=" + productChangeDelayed + ", offerId="
+                + offerId + ", prepaidConfiguration=" + prepaidConfiguration
                 + ", previousBillingAt=" + previousBillingAt + ", importMrr=" + importMrr
                 + ", canceledAt=" + canceledAt + ", activatedAt=" + activatedAt
                 + ", agreementAcceptance=" + agreementAcceptance + ", achAgreement=" + achAgreement
@@ -1680,6 +1743,7 @@ public class CreateSubscription
                 .achAgreement(getAchAgreement())
                 .dunningCommunicationDelayEnabled(getDunningCommunicationDelayEnabled())
                 .skipBillingManifestTaxes(getSkipBillingManifestTaxes());
+        builder.brandingThemeId = internalGetBrandingThemeId();
         builder.dunningCommunicationDelayTimeZone = internalGetDunningCommunicationDelayTimeZone();
         return builder;
     }
@@ -1699,6 +1763,7 @@ public class CreateSubscription
         private String receivesInvoiceEmails;
         private String netTerms;
         private Integer customerId;
+        private OptionalNullable<Integer> brandingThemeId;
         private ZonedDateTime nextBillingAt;
         private ZonedDateTime initialBillingAt;
         private Boolean deferSignup = false;
@@ -1848,6 +1913,25 @@ public class CreateSubscription
          */
         public Builder customerId(Integer customerId) {
             this.customerId = customerId;
+            return this;
+        }
+
+        /**
+         * Setter for brandingThemeId.
+         * @param  brandingThemeId  Integer value for brandingThemeId.
+         * @return Builder
+         */
+        public Builder brandingThemeId(Integer brandingThemeId) {
+            this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for brandingThemeId.
+         * @return Builder
+         */
+        public Builder unsetBrandingThemeId() {
+            brandingThemeId = null;
             return this;
         }
 
@@ -2267,13 +2351,13 @@ public class CreateSubscription
             return new CreateSubscription(productHandle, productId, productPricePointHandle,
                     productPricePointId, customPrice, couponCode, couponCodes,
                     paymentCollectionMethod, receivesInvoiceEmails, netTerms, customerId,
-                    nextBillingAt, initialBillingAt, deferSignup, storedCredentialTransactionId,
-                    salesRepId, paymentProfileId, reference, customerAttributes,
-                    paymentProfileAttributes, creditCardAttributes, bankAccountAttributes,
-                    components, calendarBilling, metafields, customerReference, group, ref,
-                    cancellationMessage, cancellationMethod, currency, expiresAt,
-                    expirationTracksNextBillingChange, agreementTerms, authorizerFirstName,
-                    authorizerLastName, calendarBillingFirstCharge, reasonCode,
+                    brandingThemeId, nextBillingAt, initialBillingAt, deferSignup,
+                    storedCredentialTransactionId, salesRepId, paymentProfileId, reference,
+                    customerAttributes, paymentProfileAttributes, creditCardAttributes,
+                    bankAccountAttributes, components, calendarBilling, metafields,
+                    customerReference, group, ref, cancellationMessage, cancellationMethod,
+                    currency, expiresAt, expirationTracksNextBillingChange, agreementTerms,
+                    authorizerFirstName, authorizerLastName, calendarBillingFirstCharge, reasonCode,
                     productChangeDelayed, offerId, prepaidConfiguration, previousBillingAt,
                     importMrr, canceledAt, activatedAt, agreementAcceptance, achAgreement,
                     dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,

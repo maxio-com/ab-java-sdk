@@ -15,32 +15,40 @@
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Required | **Default**: `InvoiceEventType.APPLY_DEBIT_NOTE` | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`ApplyDebitNoteEventData`](../../doc/models/apply-debit-note-event-data.md) | Required | Example schema for an `apply_debit_note` event | ApplyDebitNoteEventData getEventData() | setEventData(ApplyDebitNoteEventData eventData) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 164,
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "invoice": {
-    "issue_date": "2024-01-01",
-    "due_date": "2024-01-01",
-    "paid_date": "2024-01-01",
-    "public_url_expires_on": "2024-01-21",
-    "id": 166,
-    "uid": "uid6",
-    "site_id": 92,
-    "customer_id": 204,
-    "subscription_id": 20
-  },
-  "event_type": "apply_debit_note",
-  "event_data": {
-    "debit_note_number": "debit_note_number6",
-    "debit_note_uid": "debit_note_uid2",
-    "original_amount": "original_amount0",
-    "applied_amount": "applied_amount2",
-    "memo": "memo0",
-    "transaction_time": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ApplyDebitNoteEvent;
+import com.maxio.advancedbilling.models.ApplyDebitNoteEventData;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceEventType;
+
+ApplyDebitNoteEvent applyDebitNoteEvent = new ApplyDebitNoteEvent.Builder(
+    180L,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    new Invoice.Builder()
+        .id(166L)
+        .uid("uid6")
+        .siteId(92)
+        .customerId(204)
+        .subscriptionId(20)
+        .issueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .dueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .paidDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .publicUrlExpiresOn(DateTimeHelper.fromSimpleDate("2024-01-21"))
+        .build(),
+    InvoiceEventType.APPLY_DEBIT_NOTE,
+    new ApplyDebitNoteEventData.Builder(
+        "debit_note_number6",
+        "debit_note_uid2",
+        "original_amount0",
+        "applied_amount2"
+    )
+    .memo("memo0")
+    .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build()
+)
+.build();
 ```
 

@@ -15,15 +15,17 @@
 | `NetTermsOnRemittanceSignupsEnabled` | `Boolean` | Optional | **Default**: `false` | Boolean getNetTermsOnRemittanceSignupsEnabled() | setNetTermsOnRemittanceSignupsEnabled(Boolean netTermsOnRemittanceSignupsEnabled) |
 | `CustomNetTermsEnabled` | `Boolean` | Optional | **Default**: `false` | Boolean getCustomNetTermsEnabled() | setCustomNetTermsEnabled(Boolean customNetTermsEnabled) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "default_net_terms": 0,
-  "automatic_net_terms": 0,
-  "remittance_net_terms": 0,
-  "net_terms_on_remittance_signups_enabled": false,
-  "custom_net_terms_enabled": false
-}
+```java
+import com.maxio.advancedbilling.models.NetTerms;
+
+NetTerms netTerms = new NetTerms.Builder()
+    .defaultNetTerms(0)
+    .automaticNetTerms(0)
+    .remittanceNetTerms(0)
+    .netTermsOnRemittanceSignupsEnabled(false)
+    .customNetTermsEnabled(false)
+    .build();
 ```
 

@@ -13,13 +13,15 @@
 | `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
 | `StartingQuantity` | `Integer` | Optional | - | Integer getStartingQuantity() | setStartingQuantity(Integer startingQuantity) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": 242,
-  "price_point_id": 10,
-  "starting_quantity": 50
-}
+```java
+import com.maxio.advancedbilling.models.CreateOfferComponent;
+
+CreateOfferComponent createOfferComponent = new CreateOfferComponent.Builder()
+    .componentId(252)
+    .pricePointId(20)
+    .startingQuantity(196)
+    .build();
 ```
 

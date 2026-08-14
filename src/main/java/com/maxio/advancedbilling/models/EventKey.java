@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * EventKey to be used.
  */
@@ -40,6 +39,8 @@ public enum EventKey {
     SUBSCRIPTION_STATE_CHANGE,
 
     SUBSCRIPTION_PRODUCT_CHANGE,
+
+    SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED,
 
     PENDING_CANCELLATION_CHANGE,
 
@@ -183,7 +184,6 @@ public enum EventKey {
 
     SUBSCRIPTION_TERM_RENEWAL_REMOVED;
 
-
     private static TreeMap<String, EventKey> valueMap = new TreeMap<>();
     private String value;
 
@@ -200,6 +200,7 @@ public enum EventKey {
         RENEWAL_FAILURE.value = "renewal_failure";
         SUBSCRIPTION_STATE_CHANGE.value = "subscription_state_change";
         SUBSCRIPTION_PRODUCT_CHANGE.value = "subscription_product_change";
+        SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED.value = "subscription_product_change_scheduled";
         PENDING_CANCELLATION_CHANGE.value = "pending_cancellation_change";
         EXPIRING_CARD.value = "expiring_card";
         CUSTOMER_UPDATE.value = "customer_update";
@@ -284,6 +285,7 @@ public enum EventKey {
         valueMap.put("renewal_failure", RENEWAL_FAILURE);
         valueMap.put("subscription_state_change", SUBSCRIPTION_STATE_CHANGE);
         valueMap.put("subscription_product_change", SUBSCRIPTION_PRODUCT_CHANGE);
+        valueMap.put("subscription_product_change_scheduled", SUBSCRIPTION_PRODUCT_CHANGE_SCHEDULED);
         valueMap.put("pending_cancellation_change", PENDING_CANCELLATION_CHANGE);
         valueMap.put("expiring_card", EXPIRING_CARD);
         valueMap.put("customer_update", CUSTOMER_UPDATE);

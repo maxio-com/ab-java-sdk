@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * BasicDateField to be used.
  */
@@ -20,7 +19,6 @@ public enum BasicDateField {
     UPDATED_AT,
 
     CREATED_AT;
-
 
     private static TreeMap<String, BasicDateField> valueMap = new TreeMap<>();
     private String value;

@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `AllocationPreview` | [`AllocationPreview`](../../doc/models/allocation-preview.md) | Required | - | AllocationPreview getAllocationPreview() | setAllocationPreview(AllocationPreview allocationPreview) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation_preview": {
-    "start_date": "2016-03-13T12:52:32.123Z",
-    "end_date": "2016-03-13T12:52:32.123Z",
-    "subtotal_in_cents": 240,
-    "total_tax_in_cents": 108,
-    "total_discount_in_cents": 142
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.AllocationPreview;
+import com.maxio.advancedbilling.models.AllocationPreviewResponse;
+
+AllocationPreviewResponse allocationPreviewResponse = new AllocationPreviewResponse.Builder(
+    new AllocationPreview.Builder()
+        .startDate(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .endDate(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .subtotalInCents(240L)
+        .totalTaxInCents(108L)
+        .totalDiscountInCents(142L)
+        .build()
+)
+.build();
 ```
 

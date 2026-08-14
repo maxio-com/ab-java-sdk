@@ -142,11 +142,10 @@ public final class SubscriptionGroupsController extends BaseController {
     }
 
     /**
-     * Returns an array of subscription groups for the site. The response is paginated and will
-     * return a `meta` key with pagination information. #### Account Balance Information Account
-     * balance information for the subscription groups is not returned by default. If this
-     * information is desired, the `include[]=account_balances` parameter must be provided with the
-     * request.
+     * Lists subscription groups for the site. The response is paginated and will return a `meta`
+     * key with pagination information. #### Account Balance Information Account balance information
+     * for the subscription groups is not returned by default. If this information is desired, the
+     * `include[]=account_balances` parameter must be provided with the request.
      * @param  input  ListSubscriptionGroupsInput object containing request parameters
      * @return    Returns the ListSubscriptionGroupsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -323,7 +322,7 @@ public final class SubscriptionGroupsController extends BaseController {
 
     /**
      * Finds the subscription group associated with a subscription. If the subscription is not in a
-     * group, the endpoint will return a 404 code.
+     * group, this endpoint returns an error.
      * @param  subscriptionId  Required parameter: The Advanced Billing id of the subscription
      *         associated with the subscription group
      * @return    Returns the FullSubscriptionGroupResponse response from the API call
@@ -364,7 +363,8 @@ public final class SubscriptionGroupsController extends BaseController {
     }
 
     /**
-     * For sites making use of the [Relationship
+     * Adds an existing subscription to a subscription group. For sites making use of the
+     * [Relationship
      * Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview)
      * and [Customer
      * Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies)
@@ -428,7 +428,8 @@ public final class SubscriptionGroupsController extends BaseController {
     }
 
     /**
-     * For sites making use of the [Relationship
+     * Removes an existing subscription from a subscription group. For sites making use of the
+     * [Relationship
      * Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview)
      * and [Customer
      * Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies)

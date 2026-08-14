@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Customer` | `String` | Optional | - | String getCustomer() | setCustomer(String customer) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "customer": "customer8"
-}
+```java
+import com.maxio.advancedbilling.models.CustomerError;
+
+CustomerError customerError = new CustomerError.Builder()
+    .customer("customer8")
+    .build();
 ```
 

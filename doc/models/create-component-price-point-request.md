@@ -11,26 +11,48 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoint` | [`CreateComponentPricePointRequestPricePoint`](../../doc/models/containers/create-component-price-point-request-price-point.md) | Required | This is a container for any-of cases. | CreateComponentPricePointRequestPricePoint getPricePoint() | setPricePoint(CreateComponentPricePointRequestPricePoint pricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "name": "name0",
-    "pricing_scheme": "per_unit",
-    "prices": [
-      {
-        "starting_quantity": 242,
-        "ending_quantity": 40,
-        "unit_price": 23.26
-      }
-    ],
-    "use_site_exchange_rate": true,
-    "handle": "handle6",
-    "tax_included": false,
-    "interval": 24,
-    "interval_unit": "day"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateComponentPricePoint;
+import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.Price;
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
+import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import java.util.Arrays;
+
+CreateComponentPricePointRequest createComponentPricePointRequest = new CreateComponentPricePointRequest.Builder(
+    CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(
+        new CreateComponentPricePoint.Builder(
+            "name0",
+            PricingScheme.PER_UNIT,
+            Arrays.asList(
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        242
+                    ),
+                    PriceUnitPrice.fromPrecision(
+                        23.26D
+                    )
+                )
+                .endingQuantity(PriceEndingQuantity.fromNumber(
+                        40
+                    ))
+                .build()
+            )
+        )
+        .handle("handle6")
+        .useSiteExchangeRate(true)
+        .taxIncluded(false)
+        .interval(24)
+        .intervalUnit(IntervalUnit.DAY)
+        .build()
+    )
+)
+.build();
 ```
 

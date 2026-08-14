@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * AutoInvite to be used.
  */
@@ -26,7 +25,6 @@ public enum AutoInvite {
      * Automatically send the invitation email.
      */
     YES;
-
 
     private static TreeMap<Integer, AutoInvite> valueMap = new TreeMap<>();
     private Integer value;

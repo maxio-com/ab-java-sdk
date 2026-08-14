@@ -12,3 +12,11 @@
 | `UPGRADE` |
 | `DOWNGRADE` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.AllocationPreviewDirection;
+
+AllocationPreviewDirection allocationPreviewDirection = AllocationPreviewDirection.UPGRADE;
+```
+

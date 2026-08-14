@@ -18,6 +18,7 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.SubscriptionPreview;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import io.apimatic.core.types.BaseModel;
@@ -113,7 +114,7 @@ class SubscriptionsControllerPreviewTest {
                                 .components(List.of(
                                         new CreateSubscriptionComponent.Builder()
                                                 .componentId(CreateSubscriptionComponentComponentId.fromNumber(meteredComponent.getId()))
-                                                .unitBalance(5)
+                                                .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(5))
                                                 .build()
                                 ))
                                 .build()

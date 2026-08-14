@@ -13,7 +13,9 @@
 
 ## Example
 
-```
-next_proforma_invoice
+```java
+import com.maxio.advancedbilling.models.CreateSignupProformaPreviewInclude;
+
+CreateSignupProformaPreviewInclude createSignupProformaPreviewInclude = CreateSignupProformaPreviewInclude.NEXT_PROFORMA_INVOICE;
 ```
 

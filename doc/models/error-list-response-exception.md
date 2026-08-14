@@ -13,15 +13,15 @@ Error which contains list of messages.
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | `List<String>` | Required | - | List<String> getErrors() | setErrors(List<String> errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    "errors5",
-    "errors6",
-    "errors7"
-  ]
+```java
+try {
+    // make the API call
+} catch (ErrorListResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

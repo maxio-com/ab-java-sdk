@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionDateField to be used.
  */
@@ -34,7 +33,6 @@ public enum SubscriptionDateField {
     TRIAL_ENDED_AT,
 
     UPDATED_AT;
-
 
     private static TreeMap<String, SubscriptionDateField> valueMap = new TreeMap<>();
     private String value;

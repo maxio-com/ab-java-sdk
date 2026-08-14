@@ -16,24 +16,28 @@
 | `PreviousPricePoint` | [`ItemPricePointData`](../../doc/models/item-price-point-data.md) | Required | - | ItemPricePointData getPreviousPricePoint() | setPreviousPricePoint(ItemPricePointData previousPricePoint) |
 | `CurrentPricePoint` | [`ItemPricePointData`](../../doc/models/item-price-point-data.md) | Required | - | ItemPricePointData getCurrentPricePoint() | setCurrentPricePoint(ItemPricePointData currentPricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "item_id": 66,
-  "item_type": "item_type6",
-  "item_handle": "item_handle4",
-  "item_name": "item_name8",
-  "previous_price_point": {
-    "id": 216,
-    "handle": "handle6",
-    "name": "name0"
-  },
-  "current_price_point": {
-    "id": 218,
-    "handle": "handle6",
-    "name": "name0"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ItemPricePointChanged;
+import com.maxio.advancedbilling.models.ItemPricePointData;
+
+ItemPricePointChanged itemPricePointChanged = new ItemPricePointChanged.Builder(
+    30,
+    "item_type6",
+    "item_handle4",
+    "item_name8",
+    new ItemPricePointData.Builder()
+        .id(216)
+        .handle("handle6")
+        .name("name0")
+        .build(),
+    new ItemPricePointData.Builder()
+        .id(218)
+        .handle("handle6")
+        .name("name0")
+        .build()
+)
+.build();
 ```
 

@@ -11,11 +11,14 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Reason` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getReason() | setReason(String reason) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason2"
-}
+```java
+import com.maxio.advancedbilling.models.VoidInvoice;
+
+VoidInvoice voidInvoice = new VoidInvoice.Builder(
+    "reason8"
+)
+.build();
 ```
 

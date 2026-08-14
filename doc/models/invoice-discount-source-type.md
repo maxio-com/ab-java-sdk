@@ -13,3 +13,11 @@
 | `REFERRAL` |
 | `ENUM_AD_HOC_COUPON` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoiceDiscountSourceType;
+
+InvoiceDiscountSourceType invoiceDiscountSourceType = InvoiceDiscountSourceType.REFERRAL;
+```
+

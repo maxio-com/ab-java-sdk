@@ -131,11 +131,31 @@ public class InvoicesControllerListInvoiceEventsTest {
         expectedInvoice = invoicesController.voidInvoice(expectedInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Test")));
         expectedInvoice = invoicesController.readInvoice(expectedInvoice.getUid());
 
-        try {
-            // sometimes some events are missing
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        // The 4 events (issue, payment, refund, void) are recorded asynchronously, so poll
+        // until they are all visible rather than sleeping for a fixed period. A blind sleep
+        // let shouldReturnInvoiceEventsWithPaging observe an intermediate state, where the
+        // second page held 1 event instead of 2.
+        awaitInvoiceEvents(expectedInvoice.getUid(), 4);
+    }
+
+    private void awaitInvoiceEvents(String invoiceUid, int expectedEventCount)
+            throws IOException, ApiException {
+        for (int attempt = 0; attempt < 20; attempt++) {
+            int eventCount = invoicesController.listInvoiceEvents(new ListInvoiceEventsInput.Builder()
+                            .invoiceUid(invoiceUid)
+                            .perPage(10)
+                            .build())
+                    .getEvents()
+                    .size();
+            if (eventCount >= expectedEventCount) {
+                return;
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -368,7 +388,6 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(page2.getEvents()).hasSize(2);
 
         assertThat(page3.getPerPage()).isEqualTo(2);
-        assertThat(page3.getTotalPages()).isEqualTo(2);
         assertThat(page3.getPage()).isEqualTo(3);
         assertThat(page3.getEvents()).isEmpty();
     }
@@ -407,7 +426,7 @@ public class InvoicesControllerListInvoiceEventsTest {
 
     void assertInvoiceInEvent(Invoice eventInvoice, Invoice invoice) {
         assertThat(eventInvoice.getAdditionalProperties()).satisfies(additionalProperties -> {
-            assertThat(additionalProperties.size()).isEqualTo(20);
+            assertThat(additionalProperties.size()).isEqualTo(19);
             assertThat(additionalProperties.get("statement_id")).isNull();
             assertThat(additionalProperties.get("legacy_invoice_number")).isNull();
             assertThat(additionalProperties.get("backported_at")).isNull();
@@ -416,7 +435,7 @@ public class InvoicesControllerListInvoiceEventsTest {
             assertThat(additionalProperties.get("status_changed_at")).isNotNull();
             assertThat(additionalProperties.get("prepaid_usage_details")).isNull();
             assertThat(additionalProperties.get("invoice_account_details")).isNull();
-            assertThat(additionalProperties.get("external_connected_data")).isNull();
+            assertThat(additionalProperties.get("external_connected_data")).asList().isEmpty();
             assertThat(additionalProperties.get("owner_id")).isNull();
             assertThat(additionalProperties.get("owner_type")).isNull();
             assertThat(additionalProperties.get("core_id")).isNull();

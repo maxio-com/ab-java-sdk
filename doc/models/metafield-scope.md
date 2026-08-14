@@ -19,15 +19,18 @@ Warning: When updating a metafield's scope attribute, all scope attributes must 
 | `PublicEdit` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields used in [Embeddable Components](page:development-tools/embeddable-components/overview) from being editable by your ecosystem. | IncludeOption getPublicEdit() | setPublicEdit(IncludeOption publicEdit) |
 | `Hosted` | `List<String>` | Optional | - | List<String> getHosted() | setHosted(List<String> hosted) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "csv": "0",
-  "invoices": "0",
-  "statements": "0",
-  "portal": "0",
-  "public_show": "0"
-}
+```java
+import com.maxio.advancedbilling.models.IncludeOption;
+import com.maxio.advancedbilling.models.MetafieldScope;
+
+MetafieldScope metafieldScope = new MetafieldScope.Builder()
+    .csv(IncludeOption.EXCLUDE)
+    .invoices(IncludeOption.EXCLUDE)
+    .statements(IncludeOption.EXCLUDE)
+    .portal(IncludeOption.EXCLUDE)
+    .publicShow(IncludeOption.EXCLUDE)
+    .build();
 ```
 

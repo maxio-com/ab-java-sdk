@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ScheduledRenewalConfiguration` | [`ScheduledRenewalConfiguration`](../../doc/models/scheduled-renewal-configuration.md) | Optional | - | ScheduledRenewalConfiguration getScheduledRenewalConfiguration() | setScheduledRenewalConfiguration(ScheduledRenewalConfiguration scheduledRenewalConfiguration) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "scheduled_renewal_configuration": {
-    "id": 134,
-    "site_id": 60,
-    "subscription_id": 244,
-    "starts_at": "2016-03-13T12:52:32.123Z",
-    "ends_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ScheduledRenewalConfiguration;
+import com.maxio.advancedbilling.models.ScheduledRenewalConfigurationResponse;
+
+ScheduledRenewalConfigurationResponse scheduledRenewalConfigurationResponse = new ScheduledRenewalConfigurationResponse.Builder()
+    .scheduledRenewalConfiguration(new ScheduledRenewalConfiguration.Builder()
+        .id(134)
+        .siteId(60)
+        .subscriptionId(244)
+        .startsAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .endsAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .build())
+    .build();
 ```
 

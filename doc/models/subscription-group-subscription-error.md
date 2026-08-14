@@ -20,31 +20,34 @@ Object which contains subscription errors.
 | `PaymentProfileExpirationYear` | `List<String>` | Optional | - | List<String> getPaymentProfileExpirationYear() | setPaymentProfileExpirationYear(List<String> paymentProfileExpirationYear) |
 | `PaymentProfileFullNumber` | `List<String>` | Optional | - | List<String> getPaymentProfileFullNumber() | setPaymentProfileFullNumber(List<String> paymentProfileFullNumber) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product": [
-    "product7",
-    "product6"
-  ],
-  "product_price_point_id": [
-    "product_price_point_id9",
-    "product_price_point_id0"
-  ],
-  "payment_profile": [
-    "payment_profile4",
-    "payment_profile5"
-  ],
-  "payment_profile.chargify_token": [
-    "payment_profile.chargify_token8",
-    "payment_profile.chargify_token9"
-  ],
-  "base": [
-    "base7",
-    "base8",
-    "base9"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupSubscriptionError;
+import java.util.Arrays;
+
+SubscriptionGroupSubscriptionError subscriptionGroupSubscriptionError = new SubscriptionGroupSubscriptionError.Builder()
+    .product(Arrays.asList(
+        "product7",
+        "product8"
+    ))
+    .productPricePointId(Arrays.asList(
+        "product_price_point_id3",
+        "product_price_point_id4"
+    ))
+    .paymentProfile(Arrays.asList(
+        "payment_profile8",
+        "payment_profile9"
+    ))
+    .paymentProfileChargifyToken(Arrays.asList(
+        "payment_profile.chargify_token2",
+        "payment_profile.chargify_token3"
+    ))
+    .base(Arrays.asList(
+        "base1",
+        "base2",
+        "base3"
+    ))
+    .build();
 ```
 

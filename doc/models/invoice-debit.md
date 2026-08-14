@@ -18,15 +18,19 @@
 | `OriginalAmount` | `String` | Optional | - | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
 | `AppliedAmount` | `String` | Optional | - | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "debit_note_number": "debit_note_number2",
-  "debit_note_uid": "debit_note_uid8",
-  "role": "chargeback",
-  "transaction_time": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.DebitNoteRole;
+import com.maxio.advancedbilling.models.InvoiceDebit;
+
+InvoiceDebit invoiceDebit = new InvoiceDebit.Builder()
+    .uid("uid8")
+    .debitNoteNumber("debit_note_number8")
+    .debitNoteUid("debit_note_uid4")
+    .role(DebitNoteRole.CHARGEBACK)
+    .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

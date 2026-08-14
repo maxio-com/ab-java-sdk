@@ -18,18 +18,21 @@
 | `SendSms` | `boolean` | Required | - | boolean getSendSms() | setSendSms(boolean sendSms) |
 | `SmsBody` | `String` | Optional | - | String getSmsBody() | setSmsBody(String smsBody) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "day_threshold": 88,
-  "action": "action4",
-  "email_body": "email_body4",
-  "email_subject": "email_subject4",
-  "send_email": false,
-  "send_bcc_email": false,
-  "send_sms": false,
-  "sms_body": "sms_body0"
-}
+```java
+import com.maxio.advancedbilling.models.DunningStepData;
+
+DunningStepData dunningStepData = new DunningStepData.Builder(
+    206,
+    "action6",
+    false,
+    false,
+    false
+)
+.emailBody("email_body6")
+.emailSubject("email_subject6")
+.smsBody("sms_body8")
+.build();
 ```
 

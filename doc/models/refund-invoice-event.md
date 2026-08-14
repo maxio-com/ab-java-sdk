@@ -15,41 +15,51 @@
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Required | **Default**: `InvoiceEventType.REFUND_INVOICE` | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`RefundInvoiceEventData`](../../doc/models/refund-invoice-event-data.md) | Required | Example schema for an `refund_invoice` event | RefundInvoiceEventData getEventData() | setEventData(RefundInvoiceEventData eventData) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 54,
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "invoice": {
-    "issue_date": "2024-01-01",
-    "due_date": "2024-01-01",
-    "paid_date": "2024-01-01",
-    "public_url_expires_on": "2024-01-21",
-    "id": 166,
-    "uid": "uid6",
-    "site_id": 92,
-    "customer_id": 204,
-    "subscription_id": 20
-  },
-  "event_type": "refund_invoice",
-  "event_data": {
-    "apply_credit": false,
-    "consolidation_level": "child",
-    "credit_note_attributes": {
-      "uid": "uid2",
-      "site_id": 72,
-      "customer_id": 184,
-      "subscription_id": 0,
-      "number": "number0"
-    },
-    "memo": "memo0",
-    "original_amount": "original_amount0",
-    "payment_id": 204,
-    "refund_amount": "refund_amount8",
-    "refund_id": 248,
-    "transaction_time": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreditNote;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
+import com.maxio.advancedbilling.models.InvoiceEventType;
+import com.maxio.advancedbilling.models.RefundInvoiceEvent;
+import com.maxio.advancedbilling.models.RefundInvoiceEventData;
+
+RefundInvoiceEvent refundInvoiceEvent = new RefundInvoiceEvent.Builder(
+    132L,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    new Invoice.Builder()
+        .id(166L)
+        .uid("uid6")
+        .siteId(92)
+        .customerId(204)
+        .subscriptionId(20)
+        .issueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .dueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .paidDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .publicUrlExpiresOn(DateTimeHelper.fromSimpleDate("2024-01-21"))
+        .build(),
+    InvoiceEventType.REFUND_INVOICE,
+    new RefundInvoiceEventData.Builder(
+        false,
+        new CreditNote.Builder()
+            .uid("uid2")
+            .siteId(72)
+            .customerId(184)
+            .subscriptionId(0)
+            .number("number0")
+            .build(),
+        204,
+        "refund_amount8",
+        248,
+        DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+    )
+    .consolidationLevel(InvoiceConsolidationLevel.CHILD)
+    .memo("memo0")
+    .originalAmount("original_amount0")
+    .build()
+)
+.build();
 ```
 

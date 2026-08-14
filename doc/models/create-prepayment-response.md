@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Prepayment` | [`CreatedPrepayment`](../../doc/models/created-prepayment.md) | Required | - | CreatedPrepayment getPrepayment() | setPrepayment(CreatedPrepayment prepayment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "id": 38,
-    "subscription_id": 148,
-    "amount_in_cents": 124,
-    "memo": "memo2",
-    "created_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreatePrepaymentResponse;
+import com.maxio.advancedbilling.models.CreatedPrepayment;
+
+CreatePrepaymentResponse createPrepaymentResponse = new CreatePrepaymentResponse.Builder(
+    new CreatedPrepayment.Builder()
+        .id(38L)
+        .subscriptionId(148)
+        .amountInCents(124L)
+        .memo("memo2")
+        .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .build()
+)
+.build();
 ```
 

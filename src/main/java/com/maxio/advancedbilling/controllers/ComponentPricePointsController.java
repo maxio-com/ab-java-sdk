@@ -152,12 +152,9 @@ public final class ComponentPricePointsController extends BaseController {
 
     /**
      * Lists the price points associated with a component. You may specify the component by using
-     * either the numeric id or the `handle:gold` syntax. When fetching a component's price points,
-     * if you have defined multiple currencies at the site level, you can optionally pass the
-     * `?currency_prices=true` query param to include an array of currency price data in the
-     * response. If the price point is set to `use_site_exchange_rate: true`, it will return pricing
-     * based on the current exchange rate. If the flag is set to false, it will return all of the
-     * defined prices for each currency.
+     * either the numeric id or the `handle:gold` syntax. If the price point is set to
+     * `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If
+     * the flag is set to false, it will return all of the defined prices for each currency.
      * @param  input  ListComponentPricePointsInput object containing request parameters
      * @return    Returns the ComponentPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -382,7 +379,7 @@ public final class ComponentPricePointsController extends BaseController {
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
      *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
      *         `handle:example-price_point-handle` for a string handle.
-     * @param  currencyPrices  Optional parameter: Include an array of currency price data
+     * @param  currencyPrices  Optional parameter: Include an array of currency price data.
      * @return    Returns the ComponentPricePointCurrencyOverageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

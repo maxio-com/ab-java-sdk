@@ -29,7 +29,7 @@ public class ProductFamiliesControllerListTest {
     void setup() throws IOException, ApiException {
         for (int i = 0; i < 10; ++i) {
             CreateProductFamily request = new CreateProductFamily("Product families list test " + i,
-                    "test-product-families-list-" + i, null);
+                    "test-product-families-list-" + i, null, null);
             ProductFamilyResponse productFamily = productFamiliesController.createProductFamily(
                     new CreateProductFamilyRequest(request));
             productFamilies.add(productFamily);

@@ -13,22 +13,26 @@
 | `FirstName` | `List<String>` | Optional | - | List<String> getFirstName() | setFirstName(List<String> firstName) |
 | `Email` | `List<String>` | Optional | - | List<String> getEmail() | setEmail(List<String> email) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "last_name": [
-    "last_name1",
-    "last_name2",
-    "last_name3"
-  ],
-  "first_name": [
-    "first_name4",
-    "first_name5"
-  ],
-  "email": [
-    "email4"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.PayerError;
+import java.util.Arrays;
+
+PayerError payerError = new PayerError.Builder()
+    .lastName(Arrays.asList(
+        "last_name9"
+    ))
+    .firstName(Arrays.asList(
+        "first_name2",
+        "first_name3",
+        "first_name4"
+    ))
+    .email(Arrays.asList(
+        "email6",
+        "email7",
+        "email8"
+    ))
+    .build();
 ```
 

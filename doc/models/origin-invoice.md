@@ -12,12 +12,14 @@
 | `Uid` | `String` | Optional | The UID of the invoice serving as an origin invoice. | String getUid() | setUid(String uid) |
 | `Number` | `String` | Optional | The number of the invoice serving as an origin invoice. | String getNumber() | setNumber(String number) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid0",
-  "number": "number8"
-}
+```java
+import com.maxio.advancedbilling.models.OriginInvoice;
+
+OriginInvoice originInvoice = new OriginInvoice.Builder()
+    .uid("uid8")
+    .number("number4")
+    .build();
 ```
 

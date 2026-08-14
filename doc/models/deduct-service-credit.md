@@ -12,12 +12,18 @@
 | `Amount` | [`DeductServiceCreditAmount`](../../doc/models/containers/deduct-service-credit-amount.md) | Required | This is a container for one-of cases. | DeductServiceCreditAmount getAmount() | setAmount(DeductServiceCreditAmount amount) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": "String1",
-  "memo": "memo2"
-}
+```java
+import com.maxio.advancedbilling.models.DeductServiceCredit;
+import com.maxio.advancedbilling.models.containers.DeductServiceCreditAmount;
+
+DeductServiceCredit deductServiceCredit = new DeductServiceCredit.Builder(
+    DeductServiceCreditAmount.fromString(
+        "String5"
+    )
+)
+.memo("memo6")
+.build();
 ```
 

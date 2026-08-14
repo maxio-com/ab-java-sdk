@@ -16,20 +16,25 @@ Example schema for an `void_remainder` event
 | `AppliedAmount` | `String` | Required | The amount of the void. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 | `TransactionTime` | `ZonedDateTime` | Required | The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_note_attributes": {
-    "uid": "uid2",
-    "site_id": 72,
-    "customer_id": 184,
-    "subscription_id": 0,
-    "number": "number0"
-  },
-  "memo": "memo6",
-  "applied_amount": "applied_amount4",
-  "transaction_time": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreditNote;
+import com.maxio.advancedbilling.models.VoidRemainderEventData;
+
+VoidRemainderEventData voidRemainderEventData = new VoidRemainderEventData.Builder(
+    new CreditNote.Builder()
+        .uid("uid2")
+        .siteId(72)
+        .customerId(184)
+        .subscriptionId(0)
+        .number("number0")
+        .build(),
+    "memo6",
+    "applied_amount6",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+)
+.build();
 ```
 

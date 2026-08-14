@@ -11,25 +11,36 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Metafields` | [`CreateMetafieldsRequestMetafields`](../../doc/models/containers/create-metafields-request-metafields.md) | Required | This is a container for one-of cases. | CreateMetafieldsRequestMetafields getMetafields() | setMetafields(CreateMetafieldsRequestMetafields metafields) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "metafields": {
-    "name": "my_field",
-    "scope": {
-      "csv": "0",
-      "invoices": "0",
-      "statements": "0",
-      "portal": "0",
-      "public_show": "0",
-      "public_edit": "0"
-    },
-    "input_type": "text",
-    "enum": [
-      "string"
-    ]
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateMetafield;
+import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
+import com.maxio.advancedbilling.models.IncludeOption;
+import com.maxio.advancedbilling.models.MetafieldInput;
+import com.maxio.advancedbilling.models.MetafieldScope;
+import com.maxio.advancedbilling.models.containers.CreateMetafieldsRequestMetafields;
+import java.util.Arrays;
+
+CreateMetafieldsRequest createMetafieldsRequest = new CreateMetafieldsRequest.Builder(
+    CreateMetafieldsRequestMetafields.fromCreateMetafield(
+        new CreateMetafield.Builder()
+            .name("my_field")
+            .scope(new MetafieldScope.Builder()
+                .csv(IncludeOption.EXCLUDE)
+                .invoices(IncludeOption.EXCLUDE)
+                .statements(IncludeOption.EXCLUDE)
+                .portal(IncludeOption.EXCLUDE)
+                .publicShow(IncludeOption.EXCLUDE)
+                .publicEdit(IncludeOption.EXCLUDE)
+                .build())
+            .inputType(MetafieldInput.TEXT)
+            .mEnum(Arrays.asList(
+                "string"
+            ))
+            .build()
+    )
+)
+.build();
 ```
 

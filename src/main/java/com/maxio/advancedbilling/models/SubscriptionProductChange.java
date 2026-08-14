@@ -8,9 +8,15 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionProductChange type.
@@ -19,6 +25,9 @@ public class SubscriptionProductChange
         extends BaseModel {
     private int previousProductId;
     private int newProductId;
+    private OptionalNullable<Integer> previousProductPricePointId;
+    private OptionalNullable<Integer> newProductPricePointId;
+    private OptionalNullable<ZonedDateTime> effectiveAt;
 
     /**
      * Default constructor.
@@ -30,13 +39,57 @@ public class SubscriptionProductChange
      * Initialization constructor.
      * @param  previousProductId  int value for previousProductId.
      * @param  newProductId  int value for newProductId.
+     * @param  previousProductPricePointId  Integer value for previousProductPricePointId.
+     * @param  newProductPricePointId  Integer value for newProductPricePointId.
+     * @param  effectiveAt  ZonedDateTime value for effectiveAt.
      */
-    @JsonCreator
     public SubscriptionProductChange(
-            @JsonProperty("previous_product_id") int previousProductId,
-            @JsonProperty("new_product_id") int newProductId) {
+            int previousProductId,
+            int newProductId,
+            Integer previousProductPricePointId,
+            Integer newProductPricePointId,
+            ZonedDateTime effectiveAt) {
         this.previousProductId = previousProductId;
         this.newProductId = newProductId;
+        this.previousProductPricePointId = OptionalNullable.of(previousProductPricePointId);
+        this.newProductPricePointId = OptionalNullable.of(newProductPricePointId);
+        this.effectiveAt = OptionalNullable.of(effectiveAt);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  previousProductId  int value for previousProductId.
+     * @param  newProductId  int value for newProductId.
+     * @param  previousProductPricePointId  Integer value for previousProductPricePointId.
+     * @param  newProductPricePointId  Integer value for newProductPricePointId.
+     * @param  effectiveAt  ZonedDateTime value for effectiveAt.
+     */
+
+    protected SubscriptionProductChange(int previousProductId, int newProductId,
+            OptionalNullable<Integer> previousProductPricePointId,
+            OptionalNullable<Integer> newProductPricePointId,
+            OptionalNullable<ZonedDateTime> effectiveAt) {
+        this.previousProductId = previousProductId;
+        this.newProductId = newProductId;
+        this.previousProductPricePointId = previousProductPricePointId;
+        this.newProductPricePointId = newProductPricePointId;
+        this.effectiveAt = effectiveAt;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  previousProductId  int value for previousProductId.
+     * @param  newProductId  int value for newProductId.
+     */
+    @JsonCreator
+    protected SubscriptionProductChange(
+            @JsonProperty("previous_product_id") int previousProductId,
+            @JsonProperty("new_product_id") int newProductId) {
+        this(previousProductId, newProductId, OptionalNullable.of(null), OptionalNullable.of(null),
+                OptionalNullable.of(null));
+        unsetPreviousProductPricePointId();
+        unsetNewProductPricePointId();
+        unsetEffectiveAt();
     }
 
     /**
@@ -76,13 +129,129 @@ public class SubscriptionProductChange
     }
 
     /**
+     * Internal Getter for PreviousProductPricePointId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("previous_product_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetPreviousProductPricePointId() {
+        return this.previousProductPricePointId;
+    }
+
+    /**
+     * Getter for PreviousProductPricePointId.
+     * @return Returns the Integer
+     */
+    public Integer getPreviousProductPricePointId() {
+        return OptionalNullable.getFrom(previousProductPricePointId);
+    }
+
+    /**
+     * Setter for PreviousProductPricePointId.
+     * @param previousProductPricePointId Value for Integer
+     */
+    @JsonSetter("previous_product_price_point_id")
+    public void setPreviousProductPricePointId(Integer previousProductPricePointId) {
+        this.previousProductPricePointId = OptionalNullable.of(previousProductPricePointId);
+    }
+
+    /**
+     * UnSetter for PreviousProductPricePointId.
+     */
+    public void unsetPreviousProductPricePointId() {
+        previousProductPricePointId = null;
+    }
+
+    /**
+     * Internal Getter for NewProductPricePointId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("new_product_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetNewProductPricePointId() {
+        return this.newProductPricePointId;
+    }
+
+    /**
+     * Getter for NewProductPricePointId.
+     * @return Returns the Integer
+     */
+    public Integer getNewProductPricePointId() {
+        return OptionalNullable.getFrom(newProductPricePointId);
+    }
+
+    /**
+     * Setter for NewProductPricePointId.
+     * @param newProductPricePointId Value for Integer
+     */
+    @JsonSetter("new_product_price_point_id")
+    public void setNewProductPricePointId(Integer newProductPricePointId) {
+        this.newProductPricePointId = OptionalNullable.of(newProductPricePointId);
+    }
+
+    /**
+     * UnSetter for NewProductPricePointId.
+     */
+    public void unsetNewProductPricePointId() {
+        newProductPricePointId = null;
+    }
+
+    /**
+     * Internal Getter for EffectiveAt.
+     * When the scheduled product change takes effect (the subscription's next renewal). Only sent
+     * for `subscription_product_change_scheduled`.
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("effective_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetEffectiveAt() {
+        return this.effectiveAt;
+    }
+
+    /**
+     * Getter for EffectiveAt.
+     * When the scheduled product change takes effect (the subscription's next renewal). Only sent
+     * for `subscription_product_change_scheduled`.
+     * @return Returns the ZonedDateTime
+     */
+    public ZonedDateTime getEffectiveAt() {
+        return OptionalNullable.getFrom(effectiveAt);
+    }
+
+    /**
+     * Setter for EffectiveAt.
+     * When the scheduled product change takes effect (the subscription's next renewal). Only sent
+     * for `subscription_product_change_scheduled`.
+     * @param effectiveAt Value for ZonedDateTime
+     */
+    @JsonSetter("effective_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setEffectiveAt(ZonedDateTime effectiveAt) {
+        this.effectiveAt = OptionalNullable.of(effectiveAt);
+    }
+
+    /**
+     * UnSetter for EffectiveAt.
+     * When the scheduled product change takes effect (the subscription's next renewal). Only sent
+     * for `subscription_product_change_scheduled`.
+     */
+    public void unsetEffectiveAt() {
+        effectiveAt = null;
+    }
+
+    /**
      * Converts this SubscriptionProductChange into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "SubscriptionProductChange [" + "previousProductId=" + previousProductId
-                + ", newProductId=" + newProductId + ", additionalProperties="
+                + ", newProductId=" + newProductId + ", previousProductPricePointId="
+                + previousProductPricePointId + ", newProductPricePointId=" + newProductPricePointId
+                + ", effectiveAt=" + effectiveAt + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -93,6 +262,9 @@ public class SubscriptionProductChange
      */
     public Builder toBuilder() {
         Builder builder = new Builder(previousProductId, newProductId);
+        builder.previousProductPricePointId = internalGetPreviousProductPricePointId();
+        builder.newProductPricePointId = internalGetNewProductPricePointId();
+        builder.effectiveAt = internalGetEffectiveAt();
         return builder;
     }
 
@@ -102,6 +274,9 @@ public class SubscriptionProductChange
     public static class Builder {
         private int previousProductId;
         private int newProductId;
+        private OptionalNullable<Integer> previousProductPricePointId;
+        private OptionalNullable<Integer> newProductPricePointId;
+        private OptionalNullable<ZonedDateTime> effectiveAt;
 
         /**
          * Initialization constructor.
@@ -140,11 +315,69 @@ public class SubscriptionProductChange
         }
 
         /**
+         * Setter for previousProductPricePointId.
+         * @param  previousProductPricePointId  Integer value for previousProductPricePointId.
+         * @return Builder
+         */
+        public Builder previousProductPricePointId(Integer previousProductPricePointId) {
+            this.previousProductPricePointId = OptionalNullable.of(previousProductPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for previousProductPricePointId.
+         * @return Builder
+         */
+        public Builder unsetPreviousProductPricePointId() {
+            previousProductPricePointId = null;
+            return this;
+        }
+
+        /**
+         * Setter for newProductPricePointId.
+         * @param  newProductPricePointId  Integer value for newProductPricePointId.
+         * @return Builder
+         */
+        public Builder newProductPricePointId(Integer newProductPricePointId) {
+            this.newProductPricePointId = OptionalNullable.of(newProductPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for newProductPricePointId.
+         * @return Builder
+         */
+        public Builder unsetNewProductPricePointId() {
+            newProductPricePointId = null;
+            return this;
+        }
+
+        /**
+         * Setter for effectiveAt.
+         * @param  effectiveAt  ZonedDateTime value for effectiveAt.
+         * @return Builder
+         */
+        public Builder effectiveAt(ZonedDateTime effectiveAt) {
+            this.effectiveAt = OptionalNullable.of(effectiveAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for effectiveAt.
+         * @return Builder
+         */
+        public Builder unsetEffectiveAt() {
+            effectiveAt = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionProductChange} object using the set fields.
          * @return {@link SubscriptionProductChange}
          */
         public SubscriptionProductChange build() {
-            return new SubscriptionProductChange(previousProductId, newProductId);
+            return new SubscriptionProductChange(previousProductId, newProductId,
+                    previousProductPricePointId, newProductPricePointId, effectiveAt);
         }
     }
 }

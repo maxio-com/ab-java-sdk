@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * Status to be used.
  */
@@ -28,7 +27,6 @@ public enum Status {
     ACTIVE,
 
     FULFILLED;
-
 
     private static TreeMap<String, Status> valueMap = new TreeMap<>();
     private String value;

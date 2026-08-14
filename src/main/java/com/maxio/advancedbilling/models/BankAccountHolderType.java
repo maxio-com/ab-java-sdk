@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * BankAccountHolderType to be used.
  */
@@ -20,7 +19,6 @@ public enum BankAccountHolderType {
     PERSONAL,
 
     BUSINESS;
-
 
     private static TreeMap<String, BankAccountHolderType> valueMap = new TreeMap<>();
     private String value;

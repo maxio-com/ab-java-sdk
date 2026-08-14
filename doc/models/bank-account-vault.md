@@ -20,3 +20,11 @@ The vault that stores the payment profile with the provided vault_token. Use `bo
 | `MAXP` |
 | `STRIPE_CONNECT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.BankAccountVault;
+
+BankAccountVault bankAccountVault = BankAccountVault.MAXP;
+```
+

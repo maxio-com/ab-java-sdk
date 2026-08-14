@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * DebitNoteRole to be used.
  */
@@ -20,7 +19,6 @@ public enum DebitNoteRole {
     CHARGEBACK,
 
     REFUND;
-
 
     private static TreeMap<String, DebitNoteRole> valueMap = new TreeMap<>();
     private String value;

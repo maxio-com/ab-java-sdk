@@ -22,15 +22,18 @@
 | `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `Prices` | [`List<SegmentPrice>`](../../doc/models/segment-price.md) | Optional | **Constraints**: *Minimum Items*: `1` | List<SegmentPrice> getPrices() | setPrices(List<SegmentPrice> prices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 6,
-  "component_id": 116,
-  "price_point_id": 140,
-  "event_based_billing_metric_id": 200,
-  "pricing_scheme": "stairstep"
-}
+```java
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.Segment;
+
+Segment segment = new Segment.Builder()
+    .id(118)
+    .componentId(228)
+    .pricePointId(4)
+    .eventBasedBillingMetricId(56)
+    .pricingScheme(PricingScheme.STAIRSTEP)
+    .build();
 ```
 

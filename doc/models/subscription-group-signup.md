@@ -18,34 +18,42 @@
 | `BankAccountAttributes` | [`SubscriptionGroupBankAccount`](../../doc/models/subscription-group-bank-account.md) | Optional | - | SubscriptionGroupBankAccount getBankAccountAttributes() | setBankAccountAttributes(SubscriptionGroupBankAccount bankAccountAttributes) |
 | `Subscriptions` | [`List<SubscriptionGroupSignupItem>`](../../doc/models/subscription-group-signup-item.md) | Required | - | List<SubscriptionGroupSignupItem> getSubscriptions() | setSubscriptions(List<SubscriptionGroupSignupItem> subscriptions) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscriptions": [
-    {
-      "metafields": {
-        "custom_field_name_1": "custom_field_value_1",
-        "custom_field_name_2": "custom_field_value_2"
-      },
-      "product_handle": "product_handle8",
-      "product_id": 144,
-      "product_price_point_id": 68,
-      "product_price_point_handle": "product_price_point_handle4",
-      "offer_id": 40
-    }
-  ],
-  "payment_profile_id": 42,
-  "payer_id": 64,
-  "payer_reference": "payer_reference8",
-  "payment_collection_method": "automatic",
-  "payer_attributes": {
-    "first_name": "first_name2",
-    "last_name": "last_name0",
-    "email": "email4",
-    "cc_emails": "cc_emails2",
-    "organization": "organization6"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CollectionMethod;
+import com.maxio.advancedbilling.models.PayerAttributes;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignup;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupItem;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
+SubscriptionGroupSignup subscriptionGroupSignup = new SubscriptionGroupSignup.Builder(
+    Arrays.asList(
+        new SubscriptionGroupSignupItem.Builder()
+            .productHandle("product_handle8")
+            .productId(144)
+            .productPricePointId(68)
+            .productPricePointHandle("product_price_point_handle4")
+            .offerId(40)
+            .metafields(new LinkedHashMap<String, String>() {{
+                put("custom_field_name_1", "custom_field_value_1");
+                put("custom_field_name_2", "custom_field_value_2");
+            }})
+            .build()
+    )
+)
+.paymentProfileId(124)
+.payerId(146)
+.payerReference("payer_reference0")
+.paymentCollectionMethod(CollectionMethod.PREPAID)
+.payerAttributes(new PayerAttributes.Builder()
+        .firstName("first_name2")
+        .lastName("last_name0")
+        .email("email4")
+        .ccEmails("cc_emails2")
+        .organization("organization6")
+        .build())
+.build();
 ```
 

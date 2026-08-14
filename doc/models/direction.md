@@ -12,3 +12,11 @@
 | `ASC` |
 | `DESC` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.Direction;
+
+Direction direction = Direction.ASC;
+```
+

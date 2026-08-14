@@ -16,15 +16,18 @@
 | `ExpiresAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getExpiresAt() | setExpiresAt(ZonedDateTime expiresAt) |
 | `LastInviteSentAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getLastInviteSentAt() | setLastInviteSentAt(ZonedDateTime lastInviteSentAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "url": "url0",
-  "fetch_count": 222,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "new_link_available_at": "2016-03-13T12:52:32.123Z",
-  "expires_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.PortalManagementLink;
+
+PortalManagementLink portalManagementLink = new PortalManagementLink.Builder()
+    .url("url8")
+    .fetchCount(88)
+    .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .newLinkAvailableAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .expiresAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

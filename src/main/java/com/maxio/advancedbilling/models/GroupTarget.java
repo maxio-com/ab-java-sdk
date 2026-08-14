@@ -60,7 +60,7 @@ public class GroupTarget
     /**
      * Getter for Id.
      * The id of the target customer or subscription to group the existing subscription with.
-     * Ignored and should not be included if type is "self" , "parent", or "eldest"
+     * Ignored and should not be included if type is "self", "parent", or "eldest".
      * @return Returns the Integer
      */
     @JsonGetter("id")
@@ -72,7 +72,7 @@ public class GroupTarget
     /**
      * Setter for Id.
      * The id of the target customer or subscription to group the existing subscription with.
-     * Ignored and should not be included if type is "self" , "parent", or "eldest"
+     * Ignored and should not be included if type is "self", "parent", or "eldest".
      * @param id Value for Integer
      */
     @JsonSetter("id")

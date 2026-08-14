@@ -18,22 +18,27 @@ Example schema for an `void_invoice` event
 | `IsAdvanceInvoice` | `boolean` | Required | If true, the invoice is an advance invoice. | boolean getIsAdvanceInvoice() | setIsAdvanceInvoice(boolean isAdvanceInvoice) |
 | `Reason` | `String` | Required | The reason for the void. | String getReason() | setReason(String reason) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_note_attributes": {
-    "uid": "uid2",
-    "site_id": 72,
-    "customer_id": 184,
-    "subscription_id": 0,
-    "number": "number0"
-  },
-  "memo": "memo6",
-  "applied_amount": "applied_amount6",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "is_advance_invoice": false,
-  "reason": "reason8"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreditNote;
+import com.maxio.advancedbilling.models.VoidInvoiceEventData;
+
+VoidInvoiceEventData voidInvoiceEventData = new VoidInvoiceEventData.Builder(
+    new CreditNote.Builder()
+        .uid("uid2")
+        .siteId(72)
+        .customerId(184)
+        .subscriptionId(0)
+        .number("number0")
+        .build(),
+    "memo6",
+    "applied_amount6",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    false,
+    "reason8"
+)
+.build();
 ```
 

@@ -13,16 +13,16 @@
 | `Name` | `String` | Optional | The product price point name | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | The product price point API handle | String getHandle() | setHandle(String handle) |
 | `PriceInCents` | `Long` | Optional | The product price point price, in integer cents | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
-| `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this product price point would renew every 30 days | Integer getInterval() | setInterval(Integer interval) |
+| `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would mean this product price point would renew every 30 days. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this product price point, either month or day | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 | `TrialPriceInCents` | `Long` | Optional | The product price point trial price, in integer cents | Long getTrialPriceInCents() | setTrialPriceInCents(Long trialPriceInCents) |
-| `TrialInterval` | `Integer` | Optional | The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of day would mean this product price point trial would last 30 days | Integer getTrialInterval() | setTrialInterval(Integer trialInterval) |
+| `TrialInterval` | `Integer` | Optional | The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of day would mean this product price point trial would last 30 days. | Integer getTrialInterval() | setTrialInterval(Integer trialInterval) |
 | `TrialIntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the trial interval unit for this product price point, either month or day | IntervalUnit getTrialIntervalUnit() | setTrialIntervalUnit(IntervalUnit trialIntervalUnit) |
-| `TrialType` | [`TrialType`](../../doc/models/trial-type.md) | Optional | Indicates how a trial is handled when the trail period ends and there is no credit card on file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will not send any emails or statements. For `payment_expected`, the subscription transitions to a Past Due state. Maxio will send normal dunning emails and statements according to your other settings. | TrialType getTrialType() | setTrialType(TrialType trialType) |
+| `TrialType` | [`TrialType`](../../doc/models/trial-type.md) | Optional | Indicates how a trial is handled when the trial period ends and there is no credit card on file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will not send any emails or statements. For `payment_expected`, the subscription transitions to a Past Due state. Maxio will send normal dunning emails and statements according to your other settings. | TrialType getTrialType() | setTrialType(TrialType trialType) |
 | `IntroductoryOffer` | `Boolean` | Optional | reserved for future use | Boolean getIntroductoryOffer() | setIntroductoryOffer(Boolean introductoryOffer) |
 | `InitialChargeInCents` | `Long` | Optional | The product price point initial charge, in integer cents | Long getInitialChargeInCents() | setInitialChargeInCents(Long initialChargeInCents) |
 | `InitialChargeAfterTrial` | `Boolean` | Optional | - | Boolean getInitialChargeAfterTrial() | setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) |
-| `ExpirationInterval` | `Integer` | Optional | The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an expiration_interval_unit of day would mean this product price point would expire after 30 days | Integer getExpirationInterval() | setExpirationInterval(Integer expirationInterval) |
+| `ExpirationInterval` | `Integer` | Optional | The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an expiration_interval_unit of day would mean this product price point would expire after 30 days. | Integer getExpirationInterval() | setExpirationInterval(Integer expirationInterval) |
 | `ExpirationIntervalUnit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | A string representing the expiration interval unit for this product price point, either month, day or never | ExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) |
 | `ProductId` | `Integer` | Optional | The product id this price point belongs to | Integer getProductId() | setProductId(Integer productId) |
 | `ArchivedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this price point was archived | ZonedDateTime getArchivedAt() | setArchivedAt(ZonedDateTime archivedAt) |
@@ -34,15 +34,17 @@
 | `SubscriptionId` | `Integer` | Optional | The subscription id this price point belongs to | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `CurrencyPrices` | [`List<CurrencyPrice>`](../../doc/models/currency-price.md) | Optional | An array of currency pricing data is available when multiple currencies are defined for the site. It varies based on the use_site_exchange_rate setting for the price point. This parameter is present only in the response of read endpoints, after including the appropriate query parameter. | List<CurrencyPrice> getCurrencyPrices() | setCurrencyPrices(List<CurrencyPrice> currencyPrices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 196,
-  "name": "name6",
-  "handle": "handle2",
-  "price_in_cents": 248,
-  "interval": 8
-}
+```java
+import com.maxio.advancedbilling.models.ProductPricePoint;
+
+ProductPricePoint productPricePoint = new ProductPricePoint.Builder()
+    .id(10)
+    .name("name0")
+    .handle("handle6")
+    .priceInCents(178L)
+    .interval(194)
+    .build();
 ```
 

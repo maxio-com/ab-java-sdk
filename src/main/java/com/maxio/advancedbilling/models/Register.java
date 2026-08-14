@@ -104,7 +104,7 @@ public class Register
 
     /**
      * Getter for CurrencyCode.
-     * The ISO 4217 currency code (3 character string) representing the currency of invoice
+     * The ISO 4217 currency code (3 character string) representing the currency of an invoice
      * transaction.
      * @return Returns the String
      */
@@ -116,7 +116,7 @@ public class Register
 
     /**
      * Setter for CurrencyCode.
-     * The ISO 4217 currency code (3 character string) representing the currency of invoice
+     * The ISO 4217 currency code (3 character string) representing the currency of an invoice
      * transaction.
      * @param currencyCode Value for String
      */

@@ -11,16 +11,23 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Components` | [`List<ComponentPricePointAssignment>`](../../doc/models/component-price-point-assignment.md) | Optional | - | List<ComponentPricePointAssignment> getComponents() | setComponents(List<ComponentPricePointAssignment> components) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "components": [
-    {
-      "component_id": 108,
-      "price_point": "String5"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.BulkComponentsPricePointAssignment;
+import com.maxio.advancedbilling.models.ComponentPricePointAssignment;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentPricePoint;
+import java.util.Arrays;
+
+BulkComponentsPricePointAssignment bulkComponentsPricePointAssignment = new BulkComponentsPricePointAssignment.Builder()
+    .components(Arrays.asList(
+        new ComponentPricePointAssignment.Builder()
+            .componentId(108)
+            .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(
+                "String5"
+            ))
+            .build()
+    ))
+    .build();
 ```
 

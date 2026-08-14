@@ -11,15 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`SubscriptionGroupCreateErrorResponseErrors`](../../doc/models/containers/subscription-group-create-error-response-errors.md) | Required | This is a container for one-of cases. | SubscriptionGroupCreateErrorResponseErrors getErrors() | setErrors(SubscriptionGroupCreateErrorResponseErrors errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "members": [
-      "members6"
-    ]
-  }
+```java
+try {
+    // make the API call
+} catch (SubscriptionGroupCreateErrorResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

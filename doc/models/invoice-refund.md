@@ -19,15 +19,17 @@
 | `GatewayHandle` | `String` | Optional | - | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
 | `AchLateReject` | `Boolean` | Optional | - | Boolean getAchLateReject() | setAchLateReject(Boolean achLateReject) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_id": 172,
-  "payment_id": 42,
-  "memo": "memo6",
-  "original_amount": "original_amount6",
-  "applied_amount": "applied_amount6"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceRefund;
+
+InvoiceRefund invoiceRefund = new InvoiceRefund.Builder()
+    .transactionId(166)
+    .paymentId(36)
+    .memo("memo6")
+    .originalAmount("original_amount6")
+    .appliedAmount("applied_amount6")
+    .build();
 ```
 

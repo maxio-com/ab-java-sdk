@@ -18,3 +18,11 @@ A handle for the billing manifest line item kind
 | `COMPONENT` |
 | `TAX` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.BillingManifestLineItemKind;
+
+BillingManifestLineItemKind billingManifestLineItemKind = BillingManifestLineItemKind.COMPONENT;
+```
+

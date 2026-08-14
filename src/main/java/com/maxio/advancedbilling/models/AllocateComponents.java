@@ -256,7 +256,7 @@ public class AllocateComponents
     /**
      * Getter for PaymentCollectionMethod.
      * (Optional) If not passed, the allocation(s) will use the payment collection method on the
-     * subscription
+     * subscription.
      * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
@@ -268,7 +268,7 @@ public class AllocateComponents
     /**
      * Setter for PaymentCollectionMethod.
      * (Optional) If not passed, the allocation(s) will use the payment collection method on the
-     * subscription
+     * subscription.
      * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")

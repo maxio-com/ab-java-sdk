@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CreateInvoiceStatus to be used.
  */
@@ -20,7 +19,6 @@ public enum CreateInvoiceStatus {
     DRAFT,
 
     OPEN;
-
 
     private static TreeMap<String, CreateInvoiceStatus> valueMap = new TreeMap<>();
     private String value;

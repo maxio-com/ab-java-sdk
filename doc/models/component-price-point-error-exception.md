@@ -11,22 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`List<ComponentPricePointErrorItem>`](../../doc/models/component-price-point-error-item.md) | Optional | - | List<ComponentPricePointErrorItem> getErrors() | setErrors(List<ComponentPricePointErrorItem> errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    {
-      "component_id": 236,
-      "message": "message0",
-      "price_point": 122
-    },
-    {
-      "component_id": 236,
-      "message": "message0",
-      "price_point": 122
-    }
-  ]
+```java
+try {
+    // make the API call
+} catch (ComponentPricePointErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

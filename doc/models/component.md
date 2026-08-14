@@ -10,15 +10,15 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | The unique ID assigned to the component by Chargify. This ID can be used to fetch the component from the API. | Integer getId() | setId(Integer id) |
-| `Name` | `String` | Optional | The name of the Component, suitable for display on statements. i.e. Text Messages. | String getName() | setName(String name) |
+| `Name` | `String` | Optional | The name of the Component, suitable for display on statements. e.g., Text Messages. | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | The component API handle | String getHandle() | setHandle(String handle) |
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | - | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
-| `UnitName` | `String` | Optional | The name of the unit that the component’s usage is measured in. i.e. message | String getUnitName() | setUnitName(String unitName) |
+| `UnitName` | `String` | Optional | The name of the unit that the component’s usage is measured in. e.g., message | String getUnitName() | setUnitName(String unitName) |
 | `UnitPrice` | `String` | Optional | The amount the customer will be charged per unit. This field is only populated for ‘per_unit’ pricing schemes, otherwise it may be null. | String getUnitPrice() | setUnitPrice(String unitPrice) |
 | `ProductFamilyId` | `Integer` | Optional | The id of the Product Family to which the Component belongs | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
 | `ProductFamilyName` | `String` | Optional | The name of the Product Family to which the Component belongs | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
 | `ProductFamilyHandle` | `String` | Optional | The handle of the Product Family to which the Component belongs | String getProductFamilyHandle() | setProductFamilyHandle(String productFamilyHandle) |
-| `PricePerUnitInCents` | `Long` | Optional | deprecated - use unit_price instead | Long getPricePerUnitInCents() | setPricePerUnitInCents(Long pricePerUnitInCents) |
+| `PricePerUnitInCents` | `Long` | Optional | deprecated - use unit_price instead. | Long getPricePerUnitInCents() | setPricePerUnitInCents(Long pricePerUnitInCents) |
 | `Kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type | ComponentKind getKind() | setKind(ComponentKind kind) |
 | `Archived` | `Boolean` | Optional | Boolean flag describing whether a component is archived or not. | Boolean getArchived() | setArchived(Boolean archived) |
 | `Description` | `String` | Optional | The description of the component. | String getDescription() | setDescription(String description) |
@@ -42,19 +42,24 @@
 | `UseSiteExchangeRate` | `Boolean` | Optional | - | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `AccountingCode` | `String` | Optional | E.g. Internal ID or SKU Number | String getAccountingCode() | setAccountingCode(String accountingCode) |
 | `EventBasedBillingMetricId` | `Integer` | Optional | (Only for Event Based Components) This is an ID of a metric attached to the component. This metric is used to bill upon collected events. | Integer getEventBasedBillingMetricId() | setEventBasedBillingMetricId(Integer eventBasedBillingMetricId) |
-| `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this component's default price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
+| `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would mean this component’s default price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component's default price point, either month or day. This property is only available for sites with Multifrequency enabled. | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
+| `UnspscCode` | `String` | Optional | (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value is sent as the commodity code on invoice line items for this component instead of the default derived from item_category. | String getUnspscCode() | setUnspscCode(String unspscCode) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "item_category": "Business Software",
-  "id": 24,
-  "name": "name2",
-  "handle": "handle8",
-  "pricing_scheme": "per_unit",
-  "unit_name": "unit_name4"
-}
+```java
+import com.maxio.advancedbilling.models.Component;
+import com.maxio.advancedbilling.models.ItemCategory;
+import com.maxio.advancedbilling.models.PricingScheme;
+
+Component component = new Component.Builder()
+    .id(80)
+    .name("name8")
+    .handle("handle4")
+    .pricingScheme(PricingScheme.PER_UNIT)
+    .unitName("unit_name0")
+    .itemCategory(ItemCategory.ENUM_BUSINESS_SOFTWARE)
+    .build();
 ```
 

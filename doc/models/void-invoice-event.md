@@ -15,38 +15,47 @@
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Required | **Default**: `InvoiceEventType.VOID_INVOICE` | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`VoidInvoiceEventData`](../../doc/models/void-invoice-event-data.md) | Required | Example schema for an `void_invoice` event | VoidInvoiceEventData getEventData() | setEventData(VoidInvoiceEventData eventData) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 16,
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "invoice": {
-    "issue_date": "2024-01-01",
-    "due_date": "2024-01-01",
-    "paid_date": "2024-01-01",
-    "public_url_expires_on": "2024-01-21",
-    "id": 166,
-    "uid": "uid6",
-    "site_id": 92,
-    "customer_id": 204,
-    "subscription_id": 20
-  },
-  "event_type": "void_invoice",
-  "event_data": {
-    "credit_note_attributes": {
-      "uid": "uid2",
-      "site_id": 72,
-      "customer_id": 184,
-      "subscription_id": 0,
-      "number": "number0"
-    },
-    "memo": "memo0",
-    "applied_amount": "applied_amount2",
-    "transaction_time": "2016-03-13T12:52:32.123Z",
-    "is_advance_invoice": false,
-    "reason": "reason2"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.CreditNote;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceEventType;
+import com.maxio.advancedbilling.models.VoidInvoiceEvent;
+import com.maxio.advancedbilling.models.VoidInvoiceEventData;
+
+VoidInvoiceEvent voidInvoiceEvent = new VoidInvoiceEvent.Builder(
+    236L,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    new Invoice.Builder()
+        .id(166L)
+        .uid("uid6")
+        .siteId(92)
+        .customerId(204)
+        .subscriptionId(20)
+        .issueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .dueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .paidDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .publicUrlExpiresOn(DateTimeHelper.fromSimpleDate("2024-01-21"))
+        .build(),
+    InvoiceEventType.VOID_INVOICE,
+    new VoidInvoiceEventData.Builder(
+        new CreditNote.Builder()
+            .uid("uid2")
+            .siteId(72)
+            .customerId(184)
+            .subscriptionId(0)
+            .number("number0")
+            .build(),
+        "memo0",
+        "applied_amount2",
+        DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+        false,
+        "reason2"
+    )
+    .build()
+)
+.build();
 ```
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ProformaInvoiceTaxSourceType to be used.
  */
@@ -20,7 +19,6 @@ public enum ProformaInvoiceTaxSourceType {
     TAX,
 
     AVALARA;
-
 
     private static TreeMap<String, ProformaInvoiceTaxSourceType> valueMap = new TreeMap<>();
     private String value;

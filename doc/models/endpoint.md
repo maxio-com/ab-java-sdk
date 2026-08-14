@@ -15,18 +15,20 @@
 | `Status` | `String` | Optional | - | String getStatus() | setStatus(String status) |
 | `WebhookSubscriptions` | `List<String>` | Optional | - | List<String> getWebhookSubscriptions() | setWebhookSubscriptions(List<String> webhookSubscriptions) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 196,
-  "url": "url2",
-  "site_id": 122,
-  "status": "status0",
-  "webhook_subscriptions": [
-    "webhook_subscriptions4",
-    "webhook_subscriptions3"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.Endpoint;
+import java.util.Arrays;
+
+Endpoint endpoint = new Endpoint.Builder()
+    .id(202)
+    .url("url2")
+    .siteId(128)
+    .status("status0")
+    .webhookSubscriptions(Arrays.asList(
+        "webhook_subscriptions4"
+    ))
+    .build();
 ```
 

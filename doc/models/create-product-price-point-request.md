@@ -11,22 +11,29 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoint` | [`CreateProductPricePoint`](../../doc/models/create-product-price-point.md) | Required | - | CreateProductPricePoint getPricePoint() | setPricePoint(CreateProductPricePoint pricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "name": "name0",
-    "price_in_cents": 196,
-    "interval": 44,
-    "interval_unit": "day",
-    "use_site_exchange_rate": true,
-    "handle": "handle6",
-    "trial_price_in_cents": 108,
-    "trial_interval": 202,
-    "trial_interval_unit": "day",
-    "trial_type": "no_obligation"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateProductPricePoint;
+import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.TrialType;
+
+CreateProductPricePointRequest createProductPricePointRequest = new CreateProductPricePointRequest.Builder(
+    new CreateProductPricePoint.Builder(
+        "name0",
+        196L,
+        44,
+        IntervalUnit.DAY
+    )
+    .handle("handle6")
+    .trialPriceInCents(108L)
+    .trialInterval(202)
+    .trialIntervalUnit(IntervalUnit.DAY)
+    .trialType(TrialType.NO_OBLIGATION)
+    .useSiteExchangeRate(true)
+    .build()
+)
+.build();
 ```
 

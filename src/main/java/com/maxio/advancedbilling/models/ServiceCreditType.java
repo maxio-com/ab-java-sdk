@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ServiceCreditType to be used.
  */
@@ -20,7 +19,6 @@ public enum ServiceCreditType {
     CREDIT,
 
     DEBIT;
-
 
     private static TreeMap<String, ServiceCreditType> valueMap = new TreeMap<>();
     private String value;

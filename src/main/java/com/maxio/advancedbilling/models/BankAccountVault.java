@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * BankAccountVault to be used.
  */
@@ -32,7 +31,6 @@ public enum BankAccountVault {
     MAXP,
 
     STRIPE_CONNECT;
-
 
     private static TreeMap<String, BankAccountVault> valueMap = new TreeMap<>();
     private String value;

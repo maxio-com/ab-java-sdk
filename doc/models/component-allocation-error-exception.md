@@ -11,30 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`List<ComponentAllocationErrorItem>`](../../doc/models/component-allocation-error-item.md) | Optional | - | List<ComponentAllocationErrorItem> getErrors() | setErrors(List<ComponentAllocationErrorItem> errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    {
-      "component_id": 236,
-      "message": "message0",
-      "kind": "kind8",
-      "on": "on0"
-    },
-    {
-      "component_id": 236,
-      "message": "message0",
-      "kind": "kind8",
-      "on": "on0"
-    },
-    {
-      "component_id": 236,
-      "message": "message0",
-      "kind": "kind8",
-      "on": "on0"
-    }
-  ]
+```java
+try {
+    // make the API call
+} catch (ComponentAllocationErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

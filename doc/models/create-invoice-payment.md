@@ -16,15 +16,21 @@
 | `PaymentProfileId` | `Integer` | Optional | The ID of the payment profile to be used for the payment. | Integer getPaymentProfileId() | setPaymentProfileId(Integer paymentProfileId) |
 | `ReceivedOn` | `LocalDate` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. Applicable only to<br>`external` payments. | LocalDate getReceivedOn() | setReceivedOn(LocalDate receivedOn) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": "String9",
-  "memo": "memo0",
-  "method": "cash",
-  "details": "details6",
-  "payment_profile_id": 122
-}
+```java
+import com.maxio.advancedbilling.models.CreateInvoicePayment;
+import com.maxio.advancedbilling.models.InvoicePaymentMethodType;
+import com.maxio.advancedbilling.models.containers.CreateInvoicePaymentAmount;
+
+CreateInvoicePayment createInvoicePayment = new CreateInvoicePayment.Builder()
+    .amount(CreateInvoicePaymentAmount.fromString(
+        "String7"
+    ))
+    .memo("memo8")
+    .method(InvoicePaymentMethodType.ACH)
+    .details("details4")
+    .paymentProfileId(30)
+    .build();
 ```
 

@@ -23,15 +23,18 @@
 | `PeriodType` | `String` | Optional | - | String getPeriodType() | setPeriodType(String periodType) |
 | `ExistingBalanceInCents` | `Long` | Optional | An integer representing the amount of the subscription's current balance | Long getExistingBalanceInCents() | setExistingBalanceInCents(Long existingBalanceInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "start_date": "2016-03-13T12:52:32.123Z",
-  "end_date": "2016-03-13T12:52:32.123Z",
-  "subtotal_in_cents": 4,
-  "total_tax_in_cents": 128,
-  "total_discount_in_cents": 122
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.AllocationPreview;
+
+AllocationPreview allocationPreview = new AllocationPreview.Builder()
+    .startDate(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .endDate(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .subtotalInCents(140L)
+    .totalTaxInCents(8L)
+    .totalDiscountInCents(242L)
+    .build();
 ```
 

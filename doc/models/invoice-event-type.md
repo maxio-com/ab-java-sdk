@@ -27,3 +27,11 @@ Invoice Event Type
 | `FAILED_PAYMENT` |
 | `CHANGE_CHARGEBACK_STATUS` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoiceEventType;
+
+InvoiceEventType invoiceEventType = InvoiceEventType.CREATE_CREDIT_NOTE;
+```
+

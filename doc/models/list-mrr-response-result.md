@@ -17,15 +17,17 @@
 | `CurrencySymbol` | `String` | Optional | - | String getCurrencySymbol() | setCurrencySymbol(String currencySymbol) |
 | `Movements` | [`List<Movement>`](../../doc/models/movement.md) | Optional | - | List<Movement> getMovements() | setMovements(List<Movement> movements) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "page": 150,
-  "per_page": 238,
-  "total_pages": 16,
-  "total_entries": 112,
-  "currency": "currency8"
-}
+```java
+import com.maxio.advancedbilling.models.ListMRRResponseResult;
+
+ListMRRResponseResult listMRRResponseResult = new ListMRRResponseResult.Builder()
+    .page(40)
+    .perPage(208)
+    .totalPages(82)
+    .totalEntries(78)
+    .currency("currency6")
+    .build();
 ```
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoicePaymentMethodType to be used.
  */
@@ -28,7 +27,6 @@ public enum InvoicePaymentMethodType {
     ACH,
 
     OTHER;
-
 
     private static TreeMap<String, InvoicePaymentMethodType> valueMap = new TreeMap<>();
     private String value;

@@ -14,14 +14,16 @@
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |
 | `MaskedCardNumber` | `String` | Optional | - | String getMaskedCardNumber() | setMaskedCardNumber(String maskedCardNumber) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 22,
-  "first_name": "first_name4",
-  "last_name": "last_name2",
-  "masked_card_number": "masked_card_number2"
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupPaymentProfile;
+
+SubscriptionGroupPaymentProfile subscriptionGroupPaymentProfile = new SubscriptionGroupPaymentProfile.Builder()
+    .id(246)
+    .firstName("first_name6")
+    .lastName("last_name4")
+    .maskedCardNumber("masked_card_number4")
+    .build();
 ```
 

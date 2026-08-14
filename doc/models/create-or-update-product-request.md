@@ -11,22 +11,28 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Product` | [`CreateOrUpdateProduct`](../../doc/models/create-or-update-product.md) | Required | - | CreateOrUpdateProduct getProduct() | setProduct(CreateOrUpdateProduct product) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product": {
-    "name": "name0",
-    "handle": "handle6",
-    "description": "description0",
-    "accounting_code": "accounting_code6",
-    "require_credit_card": false,
-    "price_in_cents": 54,
-    "interval": 186,
-    "interval_unit": "day",
-    "trial_price_in_cents": 34,
-    "trial_interval": 88
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
+import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
+
+CreateOrUpdateProductRequest createOrUpdateProductRequest = new CreateOrUpdateProductRequest.Builder(
+    new CreateOrUpdateProduct.Builder(
+        "name0",
+        "description0",
+        54L,
+        186,
+        IntervalUnit.DAY
+    )
+    .handle("handle6")
+    .accountingCode("accounting_code6")
+    .requireCreditCard(false)
+    .trialPriceInCents(34L)
+    .trialInterval(88)
+    .build()
+)
+.build();
 ```
 

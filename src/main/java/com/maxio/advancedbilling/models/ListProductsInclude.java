@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ListProductsInclude to be used.
  */
 public enum ListProductsInclude {
     PREPAID_PRODUCT_PRICE_POINT;
-
 
     private static TreeMap<String, ListProductsInclude> valueMap = new TreeMap<>();
     private String value;

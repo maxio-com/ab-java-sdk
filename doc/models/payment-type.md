@@ -14,3 +14,11 @@
 | `PAYPAL_ACCOUNT` |
 | `APPLE_PAY` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.PaymentType;
+
+PaymentType paymentType = PaymentType.CREDIT_CARD;
+```
+

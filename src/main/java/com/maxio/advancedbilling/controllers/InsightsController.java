@@ -79,9 +79,9 @@ public final class InsightsController extends BaseController {
      * @deprecated
      * 
      * @param  atTime  Optional parameter: submit a timestamp in ISO8601 format to request MRR for a
-     *         historic time
+     *         historic time.
      * @param  subscriptionId  Optional parameter: submit the id of a subscription in order to limit
-     *         results
+     *         results.
      * @return    Returns the MRRResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -180,8 +180,7 @@ public final class InsightsController extends BaseController {
     }
 
     /**
-     * This endpoint returns your site's current MRR, including plan and usage breakouts split per
-     * subscription.
+     * Lists your site's current MRR, including plan and usage breakouts split per subscription.
      * @deprecated
      * 
      * @param  input  ListMrrPerSubscriptionInput object containing request parameters

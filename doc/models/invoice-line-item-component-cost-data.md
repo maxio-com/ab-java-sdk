@@ -11,33 +11,30 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Rates` | [`List<ComponentCostData>`](../../doc/models/component-cost-data.md) | Optional | - | List<ComponentCostData> getRates() | setRates(List<ComponentCostData> rates) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "rates": [
-    {
-      "component_code_id": 116,
-      "price_point_id": 226,
-      "product_id": 94,
-      "quantity": "quantity0",
-      "amount": "amount6"
-    },
-    {
-      "component_code_id": 116,
-      "price_point_id": 226,
-      "product_id": 94,
-      "quantity": "quantity0",
-      "amount": "amount6"
-    },
-    {
-      "component_code_id": 116,
-      "price_point_id": 226,
-      "product_id": 94,
-      "quantity": "quantity0",
-      "amount": "amount6"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ComponentCostData;
+import com.maxio.advancedbilling.models.InvoiceLineItemComponentCostData;
+import java.util.Arrays;
+
+InvoiceLineItemComponentCostData invoiceLineItemComponentCostData = new InvoiceLineItemComponentCostData.Builder()
+    .rates(Arrays.asList(
+        new ComponentCostData.Builder()
+            .componentCodeId(116)
+            .pricePointId(226)
+            .productId(94)
+            .quantity("quantity0")
+            .amount("amount6")
+            .build(),
+        new ComponentCostData.Builder()
+            .componentCodeId(116)
+            .pricePointId(226)
+            .productId(94)
+            .quantity("quantity0")
+            .amount("amount6")
+            .build()
+    ))
+    .build();
 ```
 

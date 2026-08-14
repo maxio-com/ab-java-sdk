@@ -11,14 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Attribute` | `List<String>` | Required | - | List<String> getAttribute() | setAttribute(List<String> attribute) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "attribute": [
-    "attribute6",
-    "attribute7"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.AttributeError;
+import java.util.Arrays;
+
+AttributeError attributeError = new AttributeError.Builder(
+    Arrays.asList(
+        "attribute8",
+        "attribute7"
+    )
+)
+.build();
 ```
 

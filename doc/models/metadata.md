@@ -16,15 +16,18 @@
 | `DeletedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getDeletedAt() | setDeletedAt(ZonedDateTime deletedAt) |
 | `MetafieldId` | `Integer` | Optional | - | Integer getMetafieldId() | setMetafieldId(Integer metafieldId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 12,
-  "value": "value0",
-  "resource_id": 96,
-  "name": "name8",
-  "deleted_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Metadata;
+
+Metadata metadata = new Metadata.Builder()
+    .id(50)
+    .value("value8")
+    .resourceId(134)
+    .name("name6")
+    .deletedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

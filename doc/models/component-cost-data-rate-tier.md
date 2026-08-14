@@ -15,15 +15,17 @@
 | `UnitPrice` | `String` | Optional | - | String getUnitPrice() | setUnitPrice(String unitPrice) |
 | `Amount` | `String` | Optional | - | String getAmount() | setAmount(String amount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "starting_quantity": 132,
-  "ending_quantity": 106,
-  "quantity": "quantity0",
-  "unit_price": "unit_price2",
-  "amount": "amount6"
-}
+```java
+import com.maxio.advancedbilling.models.ComponentCostDataRateTier;
+
+ComponentCostDataRateTier componentCostDataRateTier = new ComponentCostDataRateTier.Builder()
+    .startingQuantity(204)
+    .endingQuantity(178)
+    .quantity("quantity4")
+    .unitPrice("unit_price6")
+    .amount("amount0")
+    .build();
 ```
 

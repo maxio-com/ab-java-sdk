@@ -13,7 +13,9 @@
 
 ## Example
 
-```
-currency_prices
+```java
+import com.maxio.advancedbilling.models.ListComponentsPricePointsInclude;
+
+ListComponentsPricePointsInclude listComponentsPricePointsInclude = ListComponentsPricePointsInclude.CURRENCY_PRICES;
 ```
 

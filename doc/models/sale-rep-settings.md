@@ -17,15 +17,17 @@
 | `SalesRepId` | `Integer` | Optional | - | Integer getSalesRepId() | setSalesRepId(Integer salesRepId) |
 | `SalesRepName` | `String` | Optional | - | String getSalesRepName() | setSalesRepName(String salesRepName) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "customer_name": "customer_name8",
-  "subscription_id": 200,
-  "site_link": "site_link4",
-  "site_name": "site_name8",
-  "subscription_mrr": "subscription_mrr6"
-}
+```java
+import com.maxio.advancedbilling.models.SaleRepSettings;
+
+SaleRepSettings saleRepSettings = new SaleRepSettings.Builder()
+    .customerName("customer_name6")
+    .subscriptionId(202)
+    .siteLink("site_link2")
+    .siteName("site_name6")
+    .subscriptionMrr("subscription_mrr4")
+    .build();
 ```
 

@@ -13,16 +13,21 @@
 | `MrrAmountInCents` | `long` | Required | - | long getMrrAmountInCents() | setMrrAmountInCents(long mrrAmountInCents) |
 | `Breakouts` | [`SubscriptionMRRBreakout`](../../doc/models/subscription-mrr-breakout.md) | Optional | - | SubscriptionMRRBreakout getBreakouts() | setBreakouts(SubscriptionMRRBreakout breakouts) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_id": 4,
-  "mrr_amount_in_cents": 22,
-  "breakouts": {
-    "plan_amount_in_cents": 254,
-    "usage_amount_in_cents": 106
-  }
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionMRR;
+import com.maxio.advancedbilling.models.SubscriptionMRRBreakout;
+
+SubscriptionMRR subscriptionMRR = new SubscriptionMRR.Builder(
+    192,
+    210L
+)
+.breakouts(new SubscriptionMRRBreakout.Builder(
+        254L,
+        106L
+    )
+    .build())
+.build();
 ```
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ProformaInvoiceRole to be used.
  */
@@ -24,7 +23,6 @@ public enum ProformaInvoiceRole {
     PROFORMA_ADHOC,
 
     PROFORMA_AUTOMATIC;
-
 
     private static TreeMap<String, ProformaInvoiceRole> valueMap = new TreeMap<>();
     private String value;

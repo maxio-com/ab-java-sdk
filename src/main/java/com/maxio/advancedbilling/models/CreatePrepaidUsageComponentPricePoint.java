@@ -247,7 +247,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Getter for RolloverPrepaidRemainder.
      * (only for prepaid usage components) Boolean which controls whether or not remaining units
-     * should be rolled over to the next period
+     * should be rolled over to the next period.
      * @return Returns the Boolean
      */
     @JsonGetter("rollover_prepaid_remainder")
@@ -259,7 +259,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Setter for RolloverPrepaidRemainder.
      * (only for prepaid usage components) Boolean which controls whether or not remaining units
-     * should be rolled over to the next period
+     * should be rolled over to the next period.
      * @param rolloverPrepaidRemainder Value for Boolean
      */
     @JsonSetter("rollover_prepaid_remainder")
@@ -270,7 +270,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Getter for RenewPrepaidAllocation.
      * (only for prepaid usage components) Boolean which controls whether or not the allocated
-     * quantity should be renewed at the beginning of each period
+     * quantity should be renewed at the beginning of each period.
      * @return Returns the Boolean
      */
     @JsonGetter("renew_prepaid_allocation")
@@ -282,7 +282,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Setter for RenewPrepaidAllocation.
      * (only for prepaid usage components) Boolean which controls whether or not the allocated
-     * quantity should be renewed at the beginning of each period
+     * quantity should be renewed at the beginning of each period.
      * @param renewPrepaidAllocation Value for Boolean
      */
     @JsonSetter("renew_prepaid_allocation")
@@ -293,7 +293,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Getter for ExpirationInterval.
      * (only for prepaid usage components where rollover_prepaid_remainder is true) The number of
-     * `expiration_interval_unit`s after which rollover amounts should expire
+     * `expiration_interval_unit`s after which rollover amounts should expire.
      * @return Returns the Double
      */
     @JsonGetter("expiration_interval")
@@ -305,7 +305,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Setter for ExpirationInterval.
      * (only for prepaid usage components where rollover_prepaid_remainder is true) The number of
-     * `expiration_interval_unit`s after which rollover amounts should expire
+     * `expiration_interval_unit`s after which rollover amounts should expire.
      * @param expirationInterval Value for Double
      */
     @JsonSetter("expiration_interval")
@@ -316,7 +316,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Internal Getter for ExpirationIntervalUnit.
      * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
-     * representing the expiration interval unit for this component, either month or day
+     * representing the expiration interval unit for this component, either month or day.
      * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
@@ -329,7 +329,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Getter for ExpirationIntervalUnit.
      * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
-     * representing the expiration interval unit for this component, either month or day
+     * representing the expiration interval unit for this component, either month or day.
      * @return Returns the ExpirationIntervalUnit
      */
     public ExpirationIntervalUnit getExpirationIntervalUnit() {
@@ -339,7 +339,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * Setter for ExpirationIntervalUnit.
      * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
-     * representing the expiration interval unit for this component, either month or day
+     * representing the expiration interval unit for this component, either month or day.
      * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
@@ -350,7 +350,7 @@ public class CreatePrepaidUsageComponentPricePoint
     /**
      * UnSetter for ExpirationIntervalUnit.
      * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
-     * representing the expiration interval unit for this component, either month or day
+     * representing the expiration interval unit for this component, either month or day.
      */
     public void unsetExpirationIntervalUnit() {
         expirationIntervalUnit = null;

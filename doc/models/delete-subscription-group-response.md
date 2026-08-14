@@ -12,12 +12,14 @@
 | `Uid` | `String` | Optional | - | String getUid() | setUid(String uid) |
 | `Deleted` | `Boolean` | Optional | - | Boolean getDeleted() | setDeleted(Boolean deleted) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "deleted": false
-}
+```java
+import com.maxio.advancedbilling.models.DeleteSubscriptionGroupResponse;
+
+DeleteSubscriptionGroupResponse deleteSubscriptionGroupResponse = new DeleteSubscriptionGroupResponse.Builder()
+    .uid("uid0")
+    .deleted(false)
+    .build();
 ```
 

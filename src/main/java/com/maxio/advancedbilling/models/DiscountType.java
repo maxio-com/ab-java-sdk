@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * DiscountType to be used.
  */
@@ -20,7 +19,6 @@ public enum DiscountType {
     AMOUNT,
 
     PERCENT;
-
 
     private static TreeMap<String, DiscountType> valueMap = new TreeMap<>();
     private String value;

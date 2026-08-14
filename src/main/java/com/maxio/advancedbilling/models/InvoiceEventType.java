@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceEventType to be used.
  */
@@ -46,7 +45,6 @@ public enum InvoiceEventType {
     FAILED_PAYMENT,
 
     CHANGE_CHARGEBACK_STATUS;
-
 
     private static TreeMap<String, InvoiceEventType> valueMap = new TreeMap<>();
     private String value;

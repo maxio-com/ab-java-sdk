@@ -17,7 +17,9 @@
 
 ## Example
 
-```
-issue_date
+```java
+import com.maxio.advancedbilling.models.InvoiceDateField;
+
+InvoiceDateField invoiceDateField = InvoiceDateField.UPDATED_AT;
 ```
 

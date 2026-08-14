@@ -16,19 +16,22 @@ Contract linked to the scheduled renewal configuration.
 | `Number` | `String` | Optional | - | String getNumber() | setNumber(String number) |
 | `Register` | [`Register`](../../doc/models/register.md) | Optional | - | Register getRegister() | setRegister(Register register) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 136,
-  "maxio_id": "maxio_id8",
-  "number": "number6",
-  "register": {
-    "id": 54,
-    "maxio_id": "maxio_id4",
-    "name": "name2",
-    "currency_code": "currency_code2"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.Contract;
+import com.maxio.advancedbilling.models.Register;
+
+Contract contract = new Contract.Builder()
+    .id(112)
+    .maxioId("maxio_id6")
+    .number("number2")
+    .register(new Register.Builder()
+        .id(54)
+        .maxioId("maxio_id4")
+        .name("name2")
+        .currencyCode("currency_code2")
+        .build())
+    .build();
 ```
 

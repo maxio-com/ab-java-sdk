@@ -83,7 +83,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Getter for LineItems.
-     * Include line items data
+     * Include line items data.
      * @return Returns the Boolean
      */
     @JsonGetter("line_items")
@@ -94,7 +94,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Setter for LineItems.
-     * Include line items data
+     * Include line items data.
      * @param lineItems Value for Boolean
      */
     @JsonSetter("line_items")
@@ -104,7 +104,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Getter for Discounts.
-     * Include discounts data
+     * Include discounts data.
      * @return Returns the Boolean
      */
     @JsonGetter("discounts")
@@ -115,7 +115,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Setter for Discounts.
-     * Include discounts data
+     * Include discounts data.
      * @param discounts Value for Boolean
      */
     @JsonSetter("discounts")
@@ -125,7 +125,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Getter for Taxes.
-     * Include taxes data
+     * Include taxes data.
      * @return Returns the Boolean
      */
     @JsonGetter("taxes")
@@ -136,7 +136,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Setter for Taxes.
-     * Include taxes data
+     * Include taxes data.
      * @param taxes Value for Boolean
      */
     @JsonSetter("taxes")
@@ -146,7 +146,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Getter for Credits.
-     * Include credits data
+     * Include credits data.
      * @return Returns the Boolean
      */
     @JsonGetter("credits")
@@ -157,7 +157,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Setter for Credits.
-     * Include credits data
+     * Include credits data.
      * @param credits Value for Boolean
      */
     @JsonSetter("credits")
@@ -167,7 +167,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Getter for Payments.
-     * Include payments data
+     * Include payments data.
      * @return Returns the Boolean
      */
     @JsonGetter("payments")
@@ -178,7 +178,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Setter for Payments.
-     * Include payments data
+     * Include payments data.
      * @param payments Value for Boolean
      */
     @JsonSetter("payments")
@@ -188,7 +188,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Getter for CustomFields.
-     * Include custom fields data
+     * Include custom fields data.
      * @return Returns the Boolean
      */
     @JsonGetter("custom_fields")
@@ -199,7 +199,7 @@ public class ListSubscriptionGroupProformaInvoicesInput {
 
     /**
      * Setter for CustomFields.
-     * Include custom fields data
+     * Include custom fields data.
      * @param customFields Value for Boolean
      */
     @JsonSetter("custom_fields")

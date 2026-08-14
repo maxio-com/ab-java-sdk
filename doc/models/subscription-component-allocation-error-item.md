@@ -12,12 +12,14 @@
 | `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
 | `Message` | `String` | Optional | - | String getMessage() | setMessage(String message) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "kind": "kind0",
-  "message": "message8"
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionComponentAllocationErrorItem;
+
+SubscriptionComponentAllocationErrorItem subscriptionComponentAllocationErrorItem = new SubscriptionComponentAllocationErrorItem.Builder()
+    .kind("kind6")
+    .message("message8")
+    .build();
 ```
 

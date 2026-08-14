@@ -1,7 +1,7 @@
 
 # Historic Usage
 
-Optional for Event Based Components. If the `include=historic_usages` query param is provided, the last ten billing periods will be returned.
+(Optional) For Event Based Components. If the `include=historic_usages` query param is provided, the last ten billing periods will be returned.
 
 ## Structure
 
@@ -15,13 +15,16 @@ Optional for Event Based Components. If the `include=historic_usages` query para
 | `BillingPeriodStartsAt` | `ZonedDateTime` | Optional | Start date of billing period | ZonedDateTime getBillingPeriodStartsAt() | setBillingPeriodStartsAt(ZonedDateTime billingPeriodStartsAt) |
 | `BillingPeriodEndsAt` | `ZonedDateTime` | Optional | End date of billing period | ZonedDateTime getBillingPeriodEndsAt() | setBillingPeriodEndsAt(ZonedDateTime billingPeriodEndsAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_usage_quantity": 26.6,
-  "billing_period_starts_at": "2016-03-13T12:52:32.123Z",
-  "billing_period_ends_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.HistoricUsage;
+
+HistoricUsage historicUsage = new HistoricUsage.Builder()
+    .totalUsageQuantity(140.74D)
+    .billingPeriodStartsAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .billingPeriodEndsAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

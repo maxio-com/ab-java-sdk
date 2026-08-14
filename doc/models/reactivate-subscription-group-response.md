@@ -19,18 +19,22 @@
 | `State` | `String` | Optional | - | String getState() | setState(String state) |
 | `CancelAtEndOfPeriod` | `Boolean` | Optional | - | Boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(Boolean cancelAtEndOfPeriod) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "scheme": 66,
-  "customer_id": 86,
-  "payment_profile_id": 250,
-  "subscription_ids": [
-    196,
-    197
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ReactivateSubscriptionGroupResponse;
+import java.util.Arrays;
+
+ReactivateSubscriptionGroupResponse reactivateSubscriptionGroupResponse = new ReactivateSubscriptionGroupResponse.Builder()
+    .uid("uid0")
+    .scheme(10)
+    .customerId(30)
+    .paymentProfileId(62)
+    .subscriptionIds(Arrays.asList(
+        140,
+        141,
+        142
+    ))
+    .build();
 ```
 

@@ -16,7 +16,9 @@ Allows to filter by `created_at` or `updated_at`.
 
 ## Example
 
-```
-updated_at
+```java
+import com.maxio.advancedbilling.models.BasicDateField;
+
+BasicDateField basicDateField = BasicDateField.UPDATED_AT;
 ```
 

@@ -144,7 +144,7 @@ public class CancellationOptions
 
     /**
      * Internal Getter for ScheduledCancellationAt.
-     * Schedules the cancellation on the provided date. This is option is not applicable for prepaid
+     * Schedules the cancellation on the provided date. This option is not applicable for prepaid
      * subscriptions. To use this option, the Schedule Subscription Cancellation feature must be
      * enabled on your site.
      * @return Returns the Internal ZonedDateTime
@@ -158,7 +158,7 @@ public class CancellationOptions
 
     /**
      * Getter for ScheduledCancellationAt.
-     * Schedules the cancellation on the provided date. This is option is not applicable for prepaid
+     * Schedules the cancellation on the provided date. This option is not applicable for prepaid
      * subscriptions. To use this option, the Schedule Subscription Cancellation feature must be
      * enabled on your site.
      * @return Returns the ZonedDateTime
@@ -169,7 +169,7 @@ public class CancellationOptions
 
     /**
      * Setter for ScheduledCancellationAt.
-     * Schedules the cancellation on the provided date. This is option is not applicable for prepaid
+     * Schedules the cancellation on the provided date. This option is not applicable for prepaid
      * subscriptions. To use this option, the Schedule Subscription Cancellation feature must be
      * enabled on your site.
      * @param scheduledCancellationAt Value for ZonedDateTime
@@ -182,7 +182,7 @@ public class CancellationOptions
 
     /**
      * UnSetter for ScheduledCancellationAt.
-     * Schedules the cancellation on the provided date. This is option is not applicable for prepaid
+     * Schedules the cancellation on the provided date. This option is not applicable for prepaid
      * subscriptions. To use this option, the Schedule Subscription Cancellation feature must be
      * enabled on your site.
      */

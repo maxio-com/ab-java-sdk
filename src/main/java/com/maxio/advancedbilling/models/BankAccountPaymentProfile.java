@@ -228,7 +228,7 @@ public class BankAccountPaymentProfile
      * Getter for Id.
      * The Chargify-assigned ID of the stored bank account. This value can be used as an input to
      * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
-     * for the same customer
+     * for the same customer.
      * @return Returns the Integer
      */
     @JsonGetter("id")
@@ -241,7 +241,7 @@ public class BankAccountPaymentProfile
      * Setter for Id.
      * The Chargify-assigned ID of the stored bank account. This value can be used as an input to
      * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
-     * for the same customer
+     * for the same customer.
      * @param id Value for Integer
      */
     @JsonSetter("id")
@@ -293,7 +293,7 @@ public class BankAccountPaymentProfile
 
     /**
      * Getter for CustomerId.
-     * The Chargify-assigned id for the customer record to which the bank account belongs
+     * The Chargify-assigned ID for the customer record to which the bank account belongs
      * @return Returns the Integer
      */
     @JsonGetter("customer_id")
@@ -304,7 +304,7 @@ public class BankAccountPaymentProfile
 
     /**
      * Setter for CustomerId.
-     * The Chargify-assigned id for the customer record to which the bank account belongs
+     * The Chargify-assigned ID for the customer record to which the bank account belongs
      * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")
@@ -657,7 +657,7 @@ public class BankAccountPaymentProfile
     /**
      * Internal Getter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      * @return Returns the Internal String
      */
     @JsonGetter("masked_bank_routing_number")
@@ -670,7 +670,7 @@ public class BankAccountPaymentProfile
     /**
      * Getter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      * @return Returns the String
      */
     public String getMaskedBankRoutingNumber() {
@@ -680,7 +680,7 @@ public class BankAccountPaymentProfile
     /**
      * Setter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      * @param maskedBankRoutingNumber Value for String
      */
     @JsonSetter("masked_bank_routing_number")
@@ -691,7 +691,7 @@ public class BankAccountPaymentProfile
     /**
      * UnSetter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      */
     public void unsetMaskedBankRoutingNumber() {
         maskedBankRoutingNumber = null;
@@ -700,7 +700,7 @@ public class BankAccountPaymentProfile
     /**
      * Internal Getter for MaskedBankAccountNumber.
      * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
+     * marked with X's (i.e. 'XXXXXXX1111').
      * @return Returns the Internal String
      */
     @JsonGetter("masked_bank_account_number")
@@ -713,7 +713,7 @@ public class BankAccountPaymentProfile
     /**
      * Getter for MaskedBankAccountNumber.
      * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
+     * marked with X's (i.e. 'XXXXXXX1111').
      * @return Returns the String
      */
     public String getMaskedBankAccountNumber() {
@@ -723,7 +723,7 @@ public class BankAccountPaymentProfile
     /**
      * Setter for MaskedBankAccountNumber.
      * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
+     * marked with X's (i.e. 'XXXXXXX1111').
      * @param maskedBankAccountNumber Value for String
      */
     @JsonSetter("masked_bank_account_number")
@@ -734,7 +734,7 @@ public class BankAccountPaymentProfile
     /**
      * UnSetter for MaskedBankAccountNumber.
      * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
+     * marked with X's (i.e. 'XXXXXXX1111').
      */
     public void unsetMaskedBankAccountNumber() {
         maskedBankAccountNumber = null;
@@ -802,8 +802,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Getter for Verified.
-     * denotes whether a bank account has been verified by providing the amounts of two small
-     * deposits made into the account
+     * Denotes whether a bank account has been verified by providing the amounts of two small
+     * deposits made into the account.
      * @return Returns the Boolean
      */
     @JsonGetter("verified")
@@ -814,8 +814,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Setter for Verified.
-     * denotes whether a bank account has been verified by providing the amounts of two small
-     * deposits made into the account
+     * Denotes whether a bank account has been verified by providing the amounts of two small
+     * deposits made into the account.
      * @param verified Value for Boolean
      */
     @JsonSetter("verified")

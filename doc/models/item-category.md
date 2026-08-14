@@ -19,7 +19,9 @@ One of the following: Business Software, Consumer Software, Digital Services, Ph
 
 ## Example
 
-```
-Business Software
+```java
+import com.maxio.advancedbilling.models.ItemCategory;
+
+ItemCategory itemCategory = ItemCategory.OTHER;
 ```
 

@@ -18,25 +18,31 @@
 | `Ids` | `List<Integer>` | Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. | List<Integer> getIds() | setIds(List<Integer> ids) |
 | `ArchivedAt` | [`IncludeNullOrNotNull`](../../doc/models/include-null-or-not-null.md) | Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. | IncludeNullOrNotNull getArchivedAt() | setArchivedAt(IncludeNullOrNotNull archivedAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "start_date": "2011-12-17",
-  "end_date": "2011-12-15",
-  "start_datetime": "12/19/2011 09:15:30",
-  "end_datetime": "06/07/2019 17:20:06",
-  "type": [
-    "catalog",
-    "default",
-    "custom"
-  ],
-  "ids": [
-    1,
-    2,
-    3
-  ],
-  "date_field": "updated_at"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.BasicDateField;
+import com.maxio.advancedbilling.models.ListPricePointsFilter;
+import com.maxio.advancedbilling.models.PricePointType;
+import java.util.Arrays;
+
+ListPricePointsFilter listPricePointsFilter = new ListPricePointsFilter.Builder()
+    .dateField(BasicDateField.UPDATED_AT)
+    .startDate(DateTimeHelper.fromSimpleDate("2011-12-17"))
+    .endDate(DateTimeHelper.fromSimpleDate("2011-12-15"))
+    .startDatetime(DateTimeHelper.fromRfc8601DateTime("2011-12-19T09:15:30+00:00"))
+    .endDatetime(DateTimeHelper.fromRfc8601DateTime("2019-06-07T17:20:06Z"))
+    .type(Arrays.asList(
+        PricePointType.CATALOG,
+        PricePointType.ENUM_DEFAULT,
+        PricePointType.CUSTOM
+    ))
+    .ids(Arrays.asList(
+        1,
+        2,
+        3
+    ))
+    .build();
 ```
 

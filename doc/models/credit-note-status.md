@@ -14,3 +14,11 @@ Current status of the credit note.
 | `OPEN` |
 | `APPLIED` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CreditNoteStatus;
+
+CreditNoteStatus creditNoteStatus = CreditNoteStatus.OPEN;
+```
+

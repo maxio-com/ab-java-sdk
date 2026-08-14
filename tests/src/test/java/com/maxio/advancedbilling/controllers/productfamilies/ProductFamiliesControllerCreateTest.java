@@ -28,7 +28,7 @@ public class ProductFamiliesControllerCreateTest {
 
         // when
         ProductFamily productFamily = productFamiliesController.createProductFamily(
-                new CreateProductFamilyRequest(new CreateProductFamily(name, handle, "description"))
+                new CreateProductFamilyRequest(new CreateProductFamily(name, handle, "description", null))
         ).getProductFamily();
 
         // then
@@ -50,7 +50,7 @@ public class ProductFamiliesControllerCreateTest {
 
         // when
         ProductFamily productFamily = productFamiliesController.createProductFamily(
-                new CreateProductFamilyRequest(new CreateProductFamily(name, handle, null))
+                new CreateProductFamilyRequest(new CreateProductFamily(name, handle, null, null))
         ).getProductFamily();
 
         // then
@@ -69,7 +69,8 @@ public class ProductFamiliesControllerCreateTest {
         // given
         String handle = "product-families-test-duplicate-" + randomAlphabetic(10).toLowerCase();
         String name = "product families test duplicate " + randomAlphabetic(10).toLowerCase();
-        CreateProductFamilyRequest body = new CreateProductFamilyRequest(new CreateProductFamily(name, handle, null));
+        CreateProductFamilyRequest body = new CreateProductFamilyRequest(
+                new CreateProductFamily(name, handle, null, null));
         productFamiliesController.createProductFamily(body);
 
         // when then
@@ -82,7 +83,7 @@ public class ProductFamiliesControllerCreateTest {
     @Test
     void shouldThrowExceptionIfNameIsBlank() {
         // given
-        CreateProductFamilyRequest body = new CreateProductFamilyRequest(new CreateProductFamily(null, null, null));
+        CreateProductFamilyRequest body = new CreateProductFamilyRequest(new CreateProductFamily(null, null, null, null));
 
         // when then
         assertThatErrorListResponse(() -> productFamiliesController.createProductFamily(body))
@@ -96,7 +97,7 @@ public class ProductFamiliesControllerCreateTest {
         // when - then
         assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getProductFamiliesController()
                 .createProductFamily(new CreateProductFamilyRequest(
-                        new CreateProductFamily("test product family invalid credentials", null, null)
+                        new CreateProductFamily("test product family invalid credentials", null, null, null)
                 )));
     }
 

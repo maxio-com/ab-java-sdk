@@ -19,3 +19,11 @@ Price point type. We expose the following types:
 | `ENUM_DEFAULT` |
 | `CUSTOM` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.PricePointType;
+
+PricePointType pricePointType = PricePointType.ENUM_DEFAULT;
+```
+

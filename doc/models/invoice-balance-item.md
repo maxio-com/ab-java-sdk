@@ -13,13 +13,15 @@
 | `Number` | `String` | Optional | - | String getNumber() | setNumber(String number) |
 | `OutstandingAmount` | `String` | Optional | - | String getOutstandingAmount() | setOutstandingAmount(String outstandingAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "number": "number6",
-  "outstanding_amount": "outstanding_amount6"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceBalanceItem;
+
+InvoiceBalanceItem invoiceBalanceItem = new InvoiceBalanceItem.Builder()
+    .uid("uid8")
+    .number("number6")
+    .outstandingAmount("outstanding_amount6")
+    .build();
 ```
 

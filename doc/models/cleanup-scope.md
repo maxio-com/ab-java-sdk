@@ -14,3 +14,11 @@ all: Will clear all products, customers, and related subscriptions from the site
 | `ALL` |
 | `CUSTOMERS` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CleanupScope;
+
+CleanupScope cleanupScope = CleanupScope.ALL;
+```
+

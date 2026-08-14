@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ReactivationCharge to be used.
  */
@@ -22,7 +21,6 @@ public enum ReactivationCharge {
     IMMEDIATE,
 
     DELAYED;
-
 
     private static TreeMap<String, ReactivationCharge> valueMap = new TreeMap<>();
     private String value;

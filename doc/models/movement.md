@@ -19,15 +19,18 @@
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `SubscriberName` | `String` | Optional | - | String getSubscriberName() | setSubscriberName(String subscriberName) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "amount_in_cents": 174,
-  "amount_formatted": "amount_formatted4",
-  "description": "description2",
-  "category": "category0"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Movement;
+
+Movement movement = new Movement.Builder()
+    .timestamp(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .amountInCents(34L)
+    .amountFormatted("amount_formatted6")
+    .description("description4")
+    .category("category2")
+    .build();
 ```
 

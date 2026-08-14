@@ -15,3 +15,11 @@ Role for the price.
 | `TRIAL` |
 | `INITIAL` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CurrencyPriceRole;
+
+CurrencyPriceRole currencyPriceRole = CurrencyPriceRole.INITIAL;
+```
+

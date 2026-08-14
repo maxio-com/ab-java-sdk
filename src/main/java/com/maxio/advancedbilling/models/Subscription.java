@@ -629,9 +629,9 @@ public class Subscription
 
     /**
      * Getter for ProductPriceInCents.
-     * (Added Nov 5 2013) The recurring amount of the product (and version),currently subscribed.
-     * NOTE: this may differ from the current price of,the product, if you’ve changed the price of
-     * the product but haven’t,moved this subscription to a newer version.
+     * (Added Nov 5 2013) The recurring amount of the product (and version), currently subscribed.
+     * NOTE: this may differ from the current price of the product, if you’ve changed the price of
+     * the product but haven’t moved this subscription to a newer version.
      * @return Returns the Long
      */
     @JsonGetter("product_price_in_cents")
@@ -642,9 +642,9 @@ public class Subscription
 
     /**
      * Setter for ProductPriceInCents.
-     * (Added Nov 5 2013) The recurring amount of the product (and version),currently subscribed.
-     * NOTE: this may differ from the current price of,the product, if you’ve changed the price of
-     * the product but haven’t,moved this subscription to a newer version.
+     * (Added Nov 5 2013) The recurring amount of the product (and version), currently subscribed.
+     * NOTE: this may differ from the current price of the product, if you’ve changed the price of
+     * the product but haven’t moved this subscription to a newer version.
      * @param productPriceInCents Value for Long
      */
     @JsonSetter("product_price_in_cents")
@@ -677,8 +677,8 @@ public class Subscription
 
     /**
      * Internal Getter for CurrentPeriodEndsAt.
-     * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
-     * scheduled attempted charge will occur)
+     * Timestamp relating to the end of the current (recurring) period (i.e., when the next
+     * regularly scheduled attempted charge will occur)
      * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("current_period_ends_at")
@@ -690,8 +690,8 @@ public class Subscription
 
     /**
      * Getter for CurrentPeriodEndsAt.
-     * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
-     * scheduled attempted charge will occur)
+     * Timestamp relating to the end of the current (recurring) period (i.e., when the next
+     * regularly scheduled attempted charge will occur)
      * @return Returns the ZonedDateTime
      */
     public ZonedDateTime getCurrentPeriodEndsAt() {
@@ -700,8 +700,8 @@ public class Subscription
 
     /**
      * Setter for CurrentPeriodEndsAt.
-     * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
-     * scheduled attempted charge will occur)
+     * Timestamp relating to the end of the current (recurring) period (i.e., when the next
+     * regularly scheduled attempted charge will occur)
      * @param currentPeriodEndsAt Value for ZonedDateTime
      */
     @JsonSetter("current_period_ends_at")
@@ -712,8 +712,8 @@ public class Subscription
 
     /**
      * UnSetter for CurrentPeriodEndsAt.
-     * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
-     * scheduled attempted charge will occur)
+     * Timestamp relating to the end of the current (recurring) period (i.e., when the next
+     * regularly scheduled attempted charge will occur)
      */
     public void unsetCurrentPeriodEndsAt() {
         currentPeriodEndsAt = null;
@@ -721,11 +721,11 @@ public class Subscription
 
     /**
      * Internal Getter for NextAssessmentAt.
-     * Timestamp that indicates when capture of payment will be tried or,retried. This value will
-     * usually track the current_period_ends_at, but,will diverge if a renewal payment fails and
-     * must be retried. In that,case, the current_period_ends_at will advance to the end of the
-     * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
-     * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
+     * Timestamp that indicates when capture of payment will be tried or retried. This value will
+     * usually track the current_period_ends_at, but will diverge if a renewal payment fails and
+     * must be retried. In that case, the current_period_ends_at will advance to the end of the next
+     * period (time doesn’t stop because a payment was missed) but the next_assessment_at will be
+     * scheduled for the auto-retry time (e.g., 24 hours in the future, in some cases).
      * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("next_assessment_at")
@@ -737,11 +737,11 @@ public class Subscription
 
     /**
      * Getter for NextAssessmentAt.
-     * Timestamp that indicates when capture of payment will be tried or,retried. This value will
-     * usually track the current_period_ends_at, but,will diverge if a renewal payment fails and
-     * must be retried. In that,case, the current_period_ends_at will advance to the end of the
-     * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
-     * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
+     * Timestamp that indicates when capture of payment will be tried or retried. This value will
+     * usually track the current_period_ends_at, but will diverge if a renewal payment fails and
+     * must be retried. In that case, the current_period_ends_at will advance to the end of the next
+     * period (time doesn’t stop because a payment was missed) but the next_assessment_at will be
+     * scheduled for the auto-retry time (e.g., 24 hours in the future, in some cases).
      * @return Returns the ZonedDateTime
      */
     public ZonedDateTime getNextAssessmentAt() {
@@ -750,11 +750,11 @@ public class Subscription
 
     /**
      * Setter for NextAssessmentAt.
-     * Timestamp that indicates when capture of payment will be tried or,retried. This value will
-     * usually track the current_period_ends_at, but,will diverge if a renewal payment fails and
-     * must be retried. In that,case, the current_period_ends_at will advance to the end of the
-     * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
-     * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
+     * Timestamp that indicates when capture of payment will be tried or retried. This value will
+     * usually track the current_period_ends_at, but will diverge if a renewal payment fails and
+     * must be retried. In that case, the current_period_ends_at will advance to the end of the next
+     * period (time doesn’t stop because a payment was missed) but the next_assessment_at will be
+     * scheduled for the auto-retry time (e.g., 24 hours in the future, in some cases).
      * @param nextAssessmentAt Value for ZonedDateTime
      */
     @JsonSetter("next_assessment_at")
@@ -765,11 +765,11 @@ public class Subscription
 
     /**
      * UnSetter for NextAssessmentAt.
-     * Timestamp that indicates when capture of payment will be tried or,retried. This value will
-     * usually track the current_period_ends_at, but,will diverge if a renewal payment fails and
-     * must be retried. In that,case, the current_period_ends_at will advance to the end of the
-     * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
-     * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
+     * Timestamp that indicates when capture of payment will be tried or retried. This value will
+     * usually track the current_period_ends_at, but will diverge if a renewal payment fails and
+     * must be retried. In that case, the current_period_ends_at will advance to the end of the next
+     * period (time doesn’t stop because a payment was missed) but the next_assessment_at will be
+     * scheduled for the auto-retry time (e.g., 24 hours in the future, in some cases).
      */
     public void unsetNextAssessmentAt() {
         nextAssessmentAt = null;
@@ -857,7 +857,7 @@ public class Subscription
 
     /**
      * Internal Getter for ActivatedAt.
-     * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
+     * Timestamp for when the subscription began (i.e., when it came out of trial, or when it began
      * in the case of no trial)
      * @return Returns the Internal ZonedDateTime
      */
@@ -870,7 +870,7 @@ public class Subscription
 
     /**
      * Getter for ActivatedAt.
-     * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
+     * Timestamp for when the subscription began (i.e., when it came out of trial, or when it began
      * in the case of no trial)
      * @return Returns the ZonedDateTime
      */
@@ -880,7 +880,7 @@ public class Subscription
 
     /**
      * Setter for ActivatedAt.
-     * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
+     * Timestamp for when the subscription began (i.e., when it came out of trial, or when it began
      * in the case of no trial)
      * @param activatedAt Value for ZonedDateTime
      */
@@ -892,7 +892,7 @@ public class Subscription
 
     /**
      * UnSetter for ActivatedAt.
-     * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
+     * Timestamp for when the subscription began (i.e., when it came out of trial, or when it began
      * in the case of no trial)
      */
     public void unsetActivatedAt() {
@@ -1189,7 +1189,7 @@ public class Subscription
     /**
      * Getter for PreviousState.
      * Only valid for webhook payloads The previous state for webhooks that have indicated a change
-     * in state. For normal API calls, this will always be the same as the state (current state)
+     * in state. For normal API calls, this will always be the same as the state (current state).
      * @return Returns the SubscriptionState
      */
     @JsonGetter("previous_state")
@@ -1201,7 +1201,7 @@ public class Subscription
     /**
      * Setter for PreviousState.
      * Only valid for webhook payloads The previous state for webhooks that have indicated a change
-     * in state. For normal API calls, this will always be the same as the state (current state)
+     * in state. For normal API calls, this will always be the same as the state (current state).
      * @param previousState Value for SubscriptionState
      */
     @JsonSetter("previous_state")
@@ -1232,8 +1232,8 @@ public class Subscription
 
     /**
      * Getter for SignupRevenue.
-     * The revenue, formatted as a string of decimal separated dollars and,cents, from the
-     * subscription signup ($50.00 would be formatted as,50.00)
+     * The revenue, formatted as a string of decimal separated dollars and cents, from the
+     * subscription signup ($50.00 would be formatted as 50.00)
      * @return Returns the String
      */
     @JsonGetter("signup_revenue")
@@ -1244,8 +1244,8 @@ public class Subscription
 
     /**
      * Setter for SignupRevenue.
-     * The revenue, formatted as a string of decimal separated dollars and,cents, from the
-     * subscription signup ($50.00 would be formatted as,50.00)
+     * The revenue, formatted as a string of decimal separated dollars and cents, from the
+     * subscription signup ($50.00 would be formatted as 50.00)
      * @param signupRevenue Value for String
      */
     @JsonSetter("signup_revenue")
@@ -1763,7 +1763,7 @@ public class Subscription
 
     /**
      * Internal Getter for ReasonCode.
-     * The churn reason code associated to a cancelled subscription.
+     * The churn reason code associated to a canceled subscription.
      * @return Returns the Internal String
      */
     @JsonGetter("reason_code")
@@ -1775,7 +1775,7 @@ public class Subscription
 
     /**
      * Getter for ReasonCode.
-     * The churn reason code associated to a cancelled subscription.
+     * The churn reason code associated to a canceled subscription.
      * @return Returns the String
      */
     public String getReasonCode() {
@@ -1784,7 +1784,7 @@ public class Subscription
 
     /**
      * Setter for ReasonCode.
-     * The churn reason code associated to a cancelled subscription.
+     * The churn reason code associated to a canceled subscription.
      * @param reasonCode Value for String
      */
     @JsonSetter("reason_code")
@@ -1794,7 +1794,7 @@ public class Subscription
 
     /**
      * UnSetter for ReasonCode.
-     * The churn reason code associated to a cancelled subscription.
+     * The churn reason code associated to a canceled subscription.
      */
     public void unsetReasonCode() {
         reasonCode = null;
@@ -2145,7 +2145,7 @@ public class Subscription
 
     /**
      * Internal Getter for Reference.
-     * The reference value (provided by your app) for the subscription istelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @return Returns the Internal String
      */
     @JsonGetter("reference")
@@ -2157,7 +2157,7 @@ public class Subscription
 
     /**
      * Getter for Reference.
-     * The reference value (provided by your app) for the subscription istelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @return Returns the String
      */
     public String getReference() {
@@ -2166,7 +2166,7 @@ public class Subscription
 
     /**
      * Setter for Reference.
-     * The reference value (provided by your app) for the subscription istelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @param reference Value for String
      */
     @JsonSetter("reference")
@@ -2176,7 +2176,7 @@ public class Subscription
 
     /**
      * UnSetter for Reference.
-     * The reference value (provided by your app) for the subscription istelf.
+     * The reference value (provided by your app) for the subscription itself.
      */
     public void unsetReference() {
         reference = null;
@@ -2225,7 +2225,7 @@ public class Subscription
     /**
      * Getter for PrepaidDunning.
      * Boolean representing whether the subscription is prepaid and currently in dunning. Only
-     * returned for Relationship Invoicing sites with the feature enabled
+     * returned for Relationship Invoicing sites with the feature enabled.
      * @return Returns the Boolean
      */
     @JsonGetter("prepaid_dunning")
@@ -2237,7 +2237,7 @@ public class Subscription
     /**
      * Setter for PrepaidDunning.
      * Boolean representing whether the subscription is prepaid and currently in dunning. Only
-     * returned for Relationship Invoicing sites with the feature enabled
+     * returned for Relationship Invoicing sites with the feature enabled.
      * @param prepaidDunning Value for Boolean
      */
     @JsonSetter("prepaid_dunning")
@@ -2248,7 +2248,7 @@ public class Subscription
     /**
      * Getter for Coupons.
      * Additional coupon data. To use this data you also have to include the following param in the
-     * request`include[]=coupons`. Only in Read Subscription Endpoint.
+     * request: `include[]=coupons`. Only in Read Subscription Endpoint.
      * @return Returns the List of SubscriptionIncludedCoupon
      */
     @JsonGetter("coupons")
@@ -2260,7 +2260,7 @@ public class Subscription
     /**
      * Setter for Coupons.
      * Additional coupon data. To use this data you also have to include the following param in the
-     * request`include[]=coupons`. Only in Read Subscription Endpoint.
+     * request: `include[]=coupons`. Only in Read Subscription Endpoint.
      * @param coupons Value for List of SubscriptionIncludedCoupon
      */
     @JsonSetter("coupons")

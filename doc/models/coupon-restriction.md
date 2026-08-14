@@ -15,15 +15,18 @@
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 180,
-  "item_type": "Component",
-  "item_id": 184,
-  "name": "name4",
-  "handle": "handle0"
-}
+```java
+import com.maxio.advancedbilling.models.CouponRestriction;
+import com.maxio.advancedbilling.models.RestrictionType;
+
+CouponRestriction couponRestriction = new CouponRestriction.Builder()
+    .id(66)
+    .itemType(RestrictionType.COMPONENT)
+    .itemId(214)
+    .name("name0")
+    .handle("handle6")
+    .build();
 ```
 

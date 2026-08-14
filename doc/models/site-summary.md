@@ -15,21 +15,24 @@
 | `SiteCurrency` | `String` | Optional | - | String getSiteCurrency() | setSiteCurrency(String siteCurrency) |
 | `Stats` | [`SiteStatistics`](../../doc/models/site-statistics.md) | Optional | - | SiteStatistics getStats() | setStats(SiteStatistics stats) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "seller_name": "seller_name0",
-  "site_name": "site_name4",
-  "site_id": 218,
-  "site_currency": "site_currency6",
-  "stats": {
-    "total_subscriptions": 110,
-    "subscriptions_today": 228,
-    "total_revenue": "total_revenue6",
-    "revenue_today": "revenue_today4",
-    "revenue_this_month": "revenue_this_month4"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.SiteStatistics;
+import com.maxio.advancedbilling.models.SiteSummary;
+
+SiteSummary siteSummary = new SiteSummary.Builder()
+    .sellerName("seller_name4")
+    .siteName("site_name8")
+    .siteId(252)
+    .siteCurrency("site_currency0")
+    .stats(new SiteStatistics.Builder()
+        .totalSubscriptions(110)
+        .subscriptionsToday(228)
+        .totalRevenue("total_revenue6")
+        .revenueToday("revenue_today4")
+        .revenueThisMonth("revenue_this_month4")
+        .build())
+    .build();
 ```
 

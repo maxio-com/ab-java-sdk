@@ -93,8 +93,8 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `atTime` | `ZonedDateTime` | Query, Optional | submit a timestamp in ISO8601 format to request MRR for a historic time |
-| `subscriptionId` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results |
+| `atTime` | `ZonedDateTime` | Query, Optional | submit a timestamp in ISO8601 format to request MRR for a historic time. |
+| `subscriptionId` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results. |
 
 ## Response Type
 
@@ -257,7 +257,7 @@ try {
 
 **This endpoint is deprecated.**
 
-This endpoint returns your site's current MRR, including plan and usage breakouts split per subscription.
+Lists your site's current MRR, including plan and usage breakouts split per subscription.
 
 ```java
 SubscriptionMRRResponse listMrrPerSubscription(

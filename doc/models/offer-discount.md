@@ -13,13 +13,15 @@
 | `CouponId` | `Integer` | Optional | - | Integer getCouponId() | setCouponId(Integer couponId) |
 | `CouponName` | `String` | Optional | - | String getCouponName() | setCouponName(String couponName) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "coupon_code": "coupon_code8",
-  "coupon_id": 86,
-  "coupon_name": "coupon_name4"
-}
+```java
+import com.maxio.advancedbilling.models.OfferDiscount;
+
+OfferDiscount offerDiscount = new OfferDiscount.Builder()
+    .couponCode("coupon_code6")
+    .couponId(202)
+    .couponName("coupon_name6")
+    .build();
 ```
 

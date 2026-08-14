@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ListSubscriptionComponentsInclude to be used.
  */
@@ -20,7 +19,6 @@ public enum ListSubscriptionComponentsInclude {
     SUBSCRIPTION,
 
     HISTORIC_USAGES;
-
 
     private static TreeMap<String, ListSubscriptionComponentsInclude> valueMap = new TreeMap<>();
     private String value;

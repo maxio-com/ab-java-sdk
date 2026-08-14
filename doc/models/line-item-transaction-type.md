@@ -19,3 +19,11 @@ A handle for the line item transaction type
 | `INFO_TRANSACTION` |
 | `PAYMENT_AUTHORIZATION` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.LineItemTransactionType;
+
+LineItemTransactionType lineItemTransactionType = LineItemTransactionType.PAYMENT;
+```
+

@@ -654,7 +654,7 @@ public class ProformaInvoice
 
     /**
      * Getter for Role.
-     * 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic
+     * 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic.
      * @return Returns the ProformaInvoiceRole
      */
     @JsonGetter("role")
@@ -665,7 +665,7 @@ public class ProformaInvoice
 
     /**
      * Setter for Role.
-     * 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic
+     * 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic.
      * @param role Value for ProformaInvoiceRole
      */
     @JsonSetter("role")
@@ -696,7 +696,7 @@ public class ProformaInvoice
 
     /**
      * Getter for Customer.
-     * Information about the customer who is owner or recipient the invoiced subscription.
+     * Information about the customer who is owner or recipient of the invoiced subscription.
      * @return Returns the InvoiceCustomer
      */
     @JsonGetter("customer")
@@ -707,7 +707,7 @@ public class ProformaInvoice
 
     /**
      * Setter for Customer.
-     * Information about the customer who is owner or recipient the invoiced subscription.
+     * Information about the customer who is owner or recipient of the invoiced subscription.
      * @param customer Value for InvoiceCustomer
      */
     @JsonSetter("customer")

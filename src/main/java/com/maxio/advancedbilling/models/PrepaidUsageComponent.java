@@ -41,6 +41,7 @@ public class PrepaidUsageComponent
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
     private List<Integer> publicSignupPageIds;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -71,6 +72,7 @@ public class PrepaidUsageComponent
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
+     * @param  unspscCode  String value for unspscCode.
      */
     public PrepaidUsageComponent(
             String name,
@@ -93,7 +95,8 @@ public class PrepaidUsageComponent
             ExpirationIntervalUnit expirationIntervalUnit,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds) {
+            List<Integer> publicSignupPageIds,
+            String unspscCode) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -115,6 +118,7 @@ public class PrepaidUsageComponent
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -140,6 +144,7 @@ public class PrepaidUsageComponent
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected PrepaidUsageComponent(String name, String unitName, PricingScheme pricingScheme,
@@ -152,7 +157,7 @@ public class PrepaidUsageComponent
             Boolean renewPrepaidAllocation, Double expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
             Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds) {
+            List<Integer> publicSignupPageIds, OptionalNullable<String> unspscCode) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -174,12 +179,13 @@ public class PrepaidUsageComponent
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
+        this.unspscCode = unspscCode;
     }
 
     /**
      * Getter for Name.
      * A name for this component that is suitable for showing customers and displaying on billing
-     * statements, ie. "Minutes".
+     * statements, e.g., "Minutes".
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -190,7 +196,7 @@ public class PrepaidUsageComponent
     /**
      * Setter for Name.
      * A name for this component that is suitable for showing customers and displaying on billing
-     * statements, ie. "Minutes".
+     * statements, e.g., "Minutes".
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -201,7 +207,7 @@ public class PrepaidUsageComponent
     /**
      * Getter for UnitName.
      * The name of the unit of measurement for the component. It should be singular since it will be
-     * automatically pluralized when necessary. i.e. “message”, which may then be shown as “5
+     * automatically pluralized when necessary. e.g., “message”, which may then be shown as “5
      * messages” on a subscription’s component line-item
      * @return Returns the String
      */
@@ -213,7 +219,7 @@ public class PrepaidUsageComponent
     /**
      * Setter for UnitName.
      * The name of the unit of measurement for the component. It should be singular since it will be
-     * automatically pluralized when necessary. i.e. “message”, which may then be shown as “5
+     * automatically pluralized when necessary. e.g., “message”, which may then be shown as “5
      * messages” on a subscription’s component line-item
      * @param unitName Value for String
      */
@@ -245,7 +251,7 @@ public class PrepaidUsageComponent
 
     /**
      * Getter for Handle.
-     * A unique identifier for your use that can be used to retrieve this component is subsequent
+     * A unique identifier for your use that can be used to retrieve this component in subsequent
      * requests. Must start with a letter or number and may only contain lowercase letters, numbers,
      * or the characters '.', ':', '-', or '_'.
      * @return Returns the String
@@ -258,7 +264,7 @@ public class PrepaidUsageComponent
 
     /**
      * Setter for Handle.
-     * A unique identifier for your use that can be used to retrieve this component is subsequent
+     * A unique identifier for your use that can be used to retrieve this component in subsequent
      * requests. Must start with a letter or number and may only contain lowercase letters, numbers,
      * or the characters '.', ':', '-', or '_'.
      * @param handle Value for String
@@ -447,8 +453,8 @@ public class PrepaidUsageComponent
      * Getter for UnitPrice.
      * The amount the customer will be charged per unit when the pricing scheme is “per_unit”. For
      * On/Off Components, this is the amount that the customer will be charged when they turn the
-     * component on for the subscription. The price can contain up to 8 decimal places. i.e. 1.00 or
-     * 0.0012 or 0.00000065
+     * component on for the subscription. The price can contain up to 8 decimal places. e.g., 1.00
+     * or 0.0012 or 0.00000065
      * @return Returns the PrepaidUsageComponentUnitPrice
      */
     @JsonGetter("unit_price")
@@ -461,8 +467,8 @@ public class PrepaidUsageComponent
      * Setter for UnitPrice.
      * The amount the customer will be charged per unit when the pricing scheme is “per_unit”. For
      * On/Off Components, this is the amount that the customer will be charged when they turn the
-     * component on for the subscription. The price can contain up to 8 decimal places. i.e. 1.00 or
-     * 0.0012 or 0.00000065
+     * component on for the subscription. The price can contain up to 8 decimal places. e.g., 1.00
+     * or 0.0012 or 0.00000065
      * @param unitPrice Value for PrepaidUsageComponentUnitPrice
      */
     @JsonSetter("unit_price")
@@ -539,7 +545,7 @@ public class PrepaidUsageComponent
     /**
      * Getter for RolloverPrepaidRemainder.
      * Boolean which controls whether or not remaining units should be rolled over to the next
-     * period
+     * period.
      * @return Returns the Boolean
      */
     @JsonGetter("rollover_prepaid_remainder")
@@ -551,7 +557,7 @@ public class PrepaidUsageComponent
     /**
      * Setter for RolloverPrepaidRemainder.
      * Boolean which controls whether or not remaining units should be rolled over to the next
-     * period
+     * period.
      * @param rolloverPrepaidRemainder Value for Boolean
      */
     @JsonSetter("rollover_prepaid_remainder")
@@ -562,7 +568,7 @@ public class PrepaidUsageComponent
     /**
      * Getter for RenewPrepaidAllocation.
      * Boolean which controls whether or not the allocated quantity should be renewed at the
-     * beginning of each period
+     * beginning of each period.
      * @return Returns the Boolean
      */
     @JsonGetter("renew_prepaid_allocation")
@@ -574,7 +580,7 @@ public class PrepaidUsageComponent
     /**
      * Setter for RenewPrepaidAllocation.
      * Boolean which controls whether or not the allocated quantity should be renewed at the
-     * beginning of each period
+     * beginning of each period.
      * @param renewPrepaidAllocation Value for Boolean
      */
     @JsonSetter("renew_prepaid_allocation")
@@ -698,6 +704,53 @@ public class PrepaidUsageComponent
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this PrepaidUsageComponent into string format.
      * @return String representation of this class
      */
@@ -714,7 +767,8 @@ public class PrepaidUsageComponent
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
                 + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
                 + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", unspscCode=" + unspscCode + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -741,6 +795,7 @@ public class PrepaidUsageComponent
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -769,6 +824,7 @@ public class PrepaidUsageComponent
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
+        private OptionalNullable<String> unspscCode;
 
         /**
          * Initialization constructor.
@@ -1029,6 +1085,25 @@ public class PrepaidUsageComponent
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PrepaidUsageComponent} object using the set fields.
          * @return {@link PrepaidUsageComponent}
          */
@@ -1038,7 +1113,7 @@ public class PrepaidUsageComponent
                     pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
                     rolloverPrepaidRemainder, renewPrepaidAllocation, expirationInterval,
                     expirationIntervalUnit, displayOnHostedPage, allowFractionalQuantities,
-                    publicSignupPageIds);
+                    publicSignupPageIds, unspscCode);
         }
     }
 }

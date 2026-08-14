@@ -12,12 +12,14 @@
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Value` | `String` | Optional | - | String getValue() | setValue(String value) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name4",
-  "value": "value6"
-}
+```java
+import com.maxio.advancedbilling.models.CreateMetadata;
+
+CreateMetadata createMetadata = new CreateMetadata.Builder()
+    .name("name0")
+    .value("value2")
+    .build();
 ```
 

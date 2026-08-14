@@ -19,32 +19,42 @@ Example schema for an `apply_credit_note` event
 | `TransactionTime` | `ZonedDateTime` | Optional | The time the credit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
 | `Memo` | `String` | Optional | The credit note memo. | String getMemo() | setMemo(String memo) |
 | `Role` | `String` | Optional | The role of the credit note (e.g. 'general') | String getRole() | setRole(String role) |
-| `ConsolidatedInvoice` | `Boolean` | Optional | Shows whether it was applied to consolidated invoice or not | Boolean getConsolidatedInvoice() | setConsolidatedInvoice(Boolean consolidatedInvoice) |
+| `ConsolidatedInvoice` | `Boolean` | Optional | Shows whether it was applied to consolidated invoice or not. | Boolean getConsolidatedInvoice() | setConsolidatedInvoice(Boolean consolidatedInvoice) |
 | `AppliedCreditNotes` | [`List<AppliedCreditNoteData>`](../../doc/models/applied-credit-note-data.md) | Optional | List of credit notes applied to children invoices (if consolidated invoice) | List<AppliedCreditNoteData> getAppliedCreditNotes() | setAppliedCreditNotes(List<AppliedCreditNoteData> appliedCreditNotes) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "credit_note_number": "credit_note_number4",
-  "credit_note_uid": "credit_note_uid4",
-  "original_amount": "original_amount6",
-  "applied_amount": "applied_amount6",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "memo": "memo6",
-  "role": "role4",
-  "consolidated_invoice": false,
-  "applied_credit_notes": [
-    {
-      "uid": "uid4",
-      "number": "number8"
-    },
-    {
-      "uid": "uid4",
-      "number": "number8"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.AppliedCreditNoteData;
+import com.maxio.advancedbilling.models.ApplyCreditNoteEventData;
+import java.util.Arrays;
+
+ApplyCreditNoteEventData applyCreditNoteEventData = new ApplyCreditNoteEventData.Builder(
+    "uid0",
+    "credit_note_number6",
+    "credit_note_uid4",
+    "original_amount4",
+    "applied_amount8"
+)
+.transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+.memo("memo4")
+.role("role4")
+.consolidatedInvoice(false)
+.appliedCreditNotes(Arrays.asList(
+        new AppliedCreditNoteData.Builder()
+            .uid("uid4")
+            .number("number8")
+            .build(),
+        new AppliedCreditNoteData.Builder()
+            .uid("uid4")
+            .number("number8")
+            .build(),
+        new AppliedCreditNoteData.Builder()
+            .uid("uid4")
+            .number("number8")
+            .build()
+    ))
+.build();
 ```
 

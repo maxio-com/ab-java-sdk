@@ -13,7 +13,9 @@
 
 ## Example
 
-```
-created_at
+```java
+import com.maxio.advancedbilling.models.ListEventsDateField;
+
+ListEventsDateField listEventsDateField = ListEventsDateField.CREATED_AT;
 ```
 

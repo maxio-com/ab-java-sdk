@@ -17,17 +17,19 @@
 | `AmountInCents` | `Long` | Optional | **Constraints**: `>= 0` | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Percentage` | `String` | Optional | - | String getPercentage() | setPercentage(String percentage) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "code": "\"ABCD_10\"",
-  "use_count": 2,
-  "uses_allowed": 10,
-  "expires_at": "\"2023-07-13T05:18:58-04:00\"",
-  "amount_in_cents": 1000,
-  "percentage": "\"15.0\"",
-  "recurring": false
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionIncludedCoupon;
+
+SubscriptionIncludedCoupon subscriptionIncludedCoupon = new SubscriptionIncludedCoupon.Builder()
+    .code("\"ABCD_10\"")
+    .useCount(2)
+    .usesAllowed(10)
+    .expiresAt("\"2023-07-13T05:18:58-04:00\"")
+    .recurring(false)
+    .amountInCents(1000L)
+    .percentage("\"15.0\"")
+    .build();
 ```
 

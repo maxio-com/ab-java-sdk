@@ -223,7 +223,7 @@ public class AllocationPreviewLineItem
 
     /**
      * Getter for Direction.
-     * Visible when using Fine-grained Component Control
+     * Visible when using Fine-grained Component Control.
      * @return Returns the AllocationPreviewDirection
      */
     @JsonGetter("direction")
@@ -234,7 +234,7 @@ public class AllocationPreviewLineItem
 
     /**
      * Setter for Direction.
-     * Visible when using Fine-grained Component Control
+     * Visible when using Fine-grained Component Control.
      * @param direction Value for AllocationPreviewDirection
      */
     @JsonSetter("direction")

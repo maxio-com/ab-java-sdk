@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ListEventsDateField to be used.
  */
 public enum ListEventsDateField {
     CREATED_AT;
-
 
     private static TreeMap<String, ListEventsDateField> valueMap = new TreeMap<>();
     private String value;

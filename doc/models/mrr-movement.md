@@ -14,14 +14,16 @@
 | `SubscriberDelta` | `Integer` | Optional | - | Integer getSubscriberDelta() | setSubscriberDelta(Integer subscriberDelta) |
 | `LeadDelta` | `Integer` | Optional | - | Integer getLeadDelta() | setLeadDelta(Integer leadDelta) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": 210,
-  "category": "category0",
-  "subscriber_delta": 170,
-  "lead_delta": 198
-}
+```java
+import com.maxio.advancedbilling.models.MRRMovement;
+
+MRRMovement mRRMovement = new MRRMovement.Builder()
+    .amount(116)
+    .category("category4")
+    .subscriberDelta(100)
+    .leadDelta(128)
+    .build();
 ```
 

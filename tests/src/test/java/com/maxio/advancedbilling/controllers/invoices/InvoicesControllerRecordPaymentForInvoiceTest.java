@@ -194,7 +194,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
                 assertThat(productLineItem).isNotNull();
                 assertThat(productLineItem.getUid()).isNotNull();
                 assertThat(productLineItem.getTitle()).isEqualTo(product.getName());
-                assertThat(productLineItem.getDescription()).isNotBlank();
+                assertThat(productLineItem.getDescription()).isNull();
                 assertThat(productLineItem.getQuantity()).isEqualTo("1.0");
                 assertThat(productLineItem.getUnitPrice()).isEqualTo("12.5");
                 assertThat(productLineItem.getSubtotalAmount()).isEqualTo("12.5");

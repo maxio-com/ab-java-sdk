@@ -16,15 +16,17 @@
 | `Zip` | `String` | Optional | - | String getZip() | setZip(String zip) |
 | `Country` | `String` | Optional | - | String getCountry() | setCountry(String country) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "street": "street0",
-  "line2": "line24",
-  "city": "city0",
-  "state": "state6",
-  "zip": "zip4"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceAddress;
+
+InvoiceAddress invoiceAddress = new InvoiceAddress.Builder()
+    .street("street2")
+    .line2("line26")
+    .city("city2")
+    .state("state8")
+    .zip("zip6")
+    .build();
 ```
 

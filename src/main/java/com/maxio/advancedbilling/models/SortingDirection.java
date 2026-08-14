@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SortingDirection to be used.
  */
@@ -20,7 +19,6 @@ public enum SortingDirection {
     ASC,
 
     DESC;
-
 
     private static TreeMap<String, SortingDirection> valueMap = new TreeMap<>();
     private String value;

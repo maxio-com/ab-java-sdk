@@ -11,23 +11,29 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Invoices` | [`List<Invoice>`](../../doc/models/invoice.md) | Required | - | List<Invoice> getInvoices() | setInvoices(List<Invoice> invoices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "invoices": [
-    {
-      "issue_date": "2024-01-01",
-      "due_date": "2024-01-01",
-      "paid_date": "2024-01-01",
-      "public_url_expires_on": "2024-01-21",
-      "id": 196,
-      "uid": "uid6",
-      "site_id": 122,
-      "customer_id": 234,
-      "subscription_id": 50
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.ListInvoicesResponse;
+import java.util.Arrays;
+
+ListInvoicesResponse listInvoicesResponse = new ListInvoicesResponse.Builder(
+    Arrays.asList(
+        new Invoice.Builder()
+            .id(196L)
+            .uid("uid6")
+            .siteId(122)
+            .customerId(234)
+            .subscriptionId(50)
+            .issueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+            .dueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+            .paidDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+            .publicUrlExpiresOn(DateTimeHelper.fromSimpleDate("2024-01-21"))
+            .build()
+    )
+)
+.build();
 ```
 

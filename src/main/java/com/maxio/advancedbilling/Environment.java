@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * Environment to be used.
  */
@@ -26,7 +25,6 @@ public enum Environment {
      * Advanced Billing environment hosted in EU. Use only when you requested EU hosting for your AB account.
      */
     EU;
-
 
     private static TreeMap<String, Environment> valueMap = new TreeMap<>();
     private String value;

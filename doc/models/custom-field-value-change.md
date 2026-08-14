@@ -17,17 +17,20 @@
 | `ResourceType` | `String` | Required | - | String getResourceType() | setResourceType(String resourceType) |
 | `ResourceId` | `int` | Required | - | int getResourceId() | setResourceId(int resourceId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "event_type": "event_type2",
-  "metafield_name": "metafield_name6",
-  "metafield_id": 78,
-  "old_value": "old_value2",
-  "new_value": "new_value8",
-  "resource_type": "resource_type2",
-  "resource_id": 74
-}
+```java
+import com.maxio.advancedbilling.models.CustomFieldValueChange;
+
+CustomFieldValueChange customFieldValueChange = new CustomFieldValueChange.Builder(
+    "event_type8",
+    "metafield_name2",
+    138,
+    "old_value6",
+    "new_value2",
+    "resource_type6",
+    14
+)
+.build();
 ```
 

@@ -125,7 +125,9 @@ EventEventSpecificData.fromComponentAllocationChange(
 EventEventSpecificData.fromMeteredUsage(
         new MeteredUsage.Builder(
             "previous_unit_balance6",
-            80,
+            MeteredUsageNewUnitBalance.fromNumber(
+                2
+            ),
             42,
             4,
             "component_handle8",
@@ -146,8 +148,12 @@ EventEventSpecificData.fromPrepaidUsage(
         new PrepaidUsage.Builder(
             "previous_unit_balance0",
             "previous_overage_unit_balance4",
-            252,
-            224,
+            PrepaidUsageNewUnitBalance.fromNumber(
+                174
+            ),
+            PrepaidUsageNewOverageUnitBalance.fromNumber(
+                146
+            ),
             214,
             106,
             176,

@@ -35,6 +35,7 @@ public class OnOffComponent
     private List<Integer> publicSignupPageIds;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -59,6 +60,7 @@ public class OnOffComponent
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  unspscCode  String value for unspscCode.
      */
     public OnOffComponent(
             String name,
@@ -75,7 +77,8 @@ public class OnOffComponent
             Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds,
             Integer interval,
-            IntervalUnit intervalUnit) {
+            IntervalUnit intervalUnit,
+            String unspscCode) {
         this.name = name;
         this.description = description;
         this.handle = handle;
@@ -91,6 +94,7 @@ public class OnOffComponent
         this.publicSignupPageIds = publicSignupPageIds;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -110,6 +114,7 @@ public class OnOffComponent
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected OnOffComponent(String name, OnOffComponentUnitPrice unitPrice, String description,
@@ -117,7 +122,7 @@ public class OnOffComponent
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             String taxCode, Boolean hideDateRangeOnInvoice, Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds, Integer interval,
-            OptionalNullable<IntervalUnit> intervalUnit) {
+            OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode) {
         this.name = name;
         this.description = description;
         this.handle = handle;
@@ -133,12 +138,13 @@ public class OnOffComponent
         this.publicSignupPageIds = publicSignupPageIds;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
+        this.unspscCode = unspscCode;
     }
 
     /**
      * Getter for Name.
      * A name for this component that is suitable for showing customers and displaying on billing
-     * statements, ie. "Minutes".
+     * statements, e.g., "Minutes".
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -149,7 +155,7 @@ public class OnOffComponent
     /**
      * Setter for Name.
      * A name for this component that is suitable for showing customers and displaying on billing
-     * statements, ie. "Minutes".
+     * statements, e.g., "Minutes".
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -180,7 +186,7 @@ public class OnOffComponent
 
     /**
      * Getter for Handle.
-     * A unique identifier for your use that can be used to retrieve this component is subsequent
+     * A unique identifier for your use that can be used to retrieve this component in subsequent
      * requests. Must start with a letter or number and may only contain lowercase letters, numbers,
      * or the characters '.', ':', '-', or '_'.
      * @return Returns the String
@@ -193,7 +199,7 @@ public class OnOffComponent
 
     /**
      * Setter for Handle.
-     * A unique identifier for your use that can be used to retrieve this component is subsequent
+     * A unique identifier for your use that can be used to retrieve this component in subsequent
      * requests. Must start with a letter or number and may only contain lowercase letters, numbers,
      * or the characters '.', ':', '-', or '_'.
      * @param handle Value for String
@@ -332,7 +338,8 @@ public class OnOffComponent
     /**
      * Getter for UnitPrice.
      * This is the amount that the customer will be charged when they turn the component on for the
-     * subscription. The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * subscription. The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
+     * 0.00000065
      * @return Returns the OnOffComponentUnitPrice
      */
     @JsonGetter("unit_price")
@@ -343,7 +350,8 @@ public class OnOffComponent
     /**
      * Setter for UnitPrice.
      * This is the amount that the customer will be charged when they turn the component on for the
-     * subscription. The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * subscription. The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or
+     * 0.00000065
      * @param unitPrice Value for OnOffComponentUnitPrice
      */
     @JsonSetter("unit_price")
@@ -458,7 +466,7 @@ public class OnOffComponent
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component's default price point would renew every 30 days. This property is only
      * available for sites with Multifrequency enabled.
      * @return Returns the Integer
@@ -471,7 +479,7 @@ public class OnOffComponent
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component's default price point would renew every 30 days. This property is only
      * available for sites with Multifrequency enabled.
      * @param interval Value for Integer
@@ -525,6 +533,53 @@ public class OnOffComponent
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this OnOffComponent into string format.
      * @return String representation of this class
      */
@@ -537,8 +592,8 @@ public class OnOffComponent
                 + hideDateRangeOnInvoice + ", displayOnHostedPage=" + displayOnHostedPage
                 + ", allowFractionalQuantities=" + allowFractionalQuantities
                 + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", intervalUnit=" + intervalUnit + ", unspscCode=" + unspscCode
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -561,6 +616,7 @@ public class OnOffComponent
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         builder.intervalUnit = internalGetIntervalUnit();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -583,6 +639,7 @@ public class OnOffComponent
         private List<Integer> publicSignupPageIds;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
+        private OptionalNullable<String> unspscCode;
 
         /**
          * Initialization constructor.
@@ -778,6 +835,25 @@ public class OnOffComponent
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OnOffComponent} object using the set fields.
          * @return {@link OnOffComponent}
          */
@@ -785,7 +861,7 @@ public class OnOffComponent
             return new OnOffComponent(name, unitPrice, description, handle, taxable, upgradeCharge,
                     downgradeCredit, pricePoints, taxCode, hideDateRangeOnInvoice,
                     displayOnHostedPage, allowFractionalQuantities, publicSignupPageIds, interval,
-                    intervalUnit);
+                    intervalUnit, unspscCode);
         }
     }
 }

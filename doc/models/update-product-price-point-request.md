@@ -11,14 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoint` | [`UpdateProductPricePoint`](../../doc/models/update-product-price-point.md) | Required | - | UpdateProductPricePoint getPricePoint() | setPricePoint(UpdateProductPricePoint pricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "handle": "handle6",
-    "price_in_cents": 196
-  }
-}
+```java
+import com.maxio.advancedbilling.models.UpdateProductPricePoint;
+import com.maxio.advancedbilling.models.UpdateProductPricePointRequest;
+
+UpdateProductPricePointRequest updateProductPricePointRequest = new UpdateProductPricePointRequest.Builder(
+    new UpdateProductPricePoint.Builder()
+        .handle("handle6")
+        .priceInCents(196L)
+        .build()
+)
+.build();
 ```
 

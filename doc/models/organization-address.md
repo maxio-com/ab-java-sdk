@@ -18,15 +18,17 @@
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Phone` | `String` | Optional | - | String getPhone() | setPhone(String phone) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "street": "street4",
-  "line2": "line28",
-  "city": "city4",
-  "state": "state0",
-  "zip": "zip2"
-}
+```java
+import com.maxio.advancedbilling.models.OrganizationAddress;
+
+OrganizationAddress organizationAddress = new OrganizationAddress.Builder()
+    .street("street2")
+    .line2("line26")
+    .city("city2")
+    .state("state8")
+    .zip("zip6")
+    .build();
 ```
 

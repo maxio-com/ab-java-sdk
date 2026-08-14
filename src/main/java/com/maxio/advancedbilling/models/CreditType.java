@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CreditType to be used.
  */
@@ -22,7 +21,6 @@ public enum CreditType {
     PRORATED,
 
     NONE;
-
 
     private static TreeMap<String, CreditType> valueMap = new TreeMap<>();
     private String value;
