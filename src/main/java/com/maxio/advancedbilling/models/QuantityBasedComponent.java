@@ -27,6 +27,7 @@ public class QuantityBasedComponent
     private Boolean taxable;
     private PricingScheme pricingScheme;
     private List<Price> prices;
+    private SecondaryPricing secondaryPricing;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private List<ComponentPricePointItem> pricePoints;
@@ -56,6 +57,7 @@ public class QuantityBasedComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
@@ -78,6 +80,7 @@ public class QuantityBasedComponent
             String handle,
             Boolean taxable,
             List<Price> prices,
+            SecondaryPricing secondaryPricing,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
             List<ComponentPricePointItem> pricePoints,
@@ -98,6 +101,7 @@ public class QuantityBasedComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.pricePoints = pricePoints;
@@ -122,6 +126,7 @@ public class QuantityBasedComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
@@ -139,7 +144,7 @@ public class QuantityBasedComponent
 
     protected QuantityBasedComponent(String name, String unitName, PricingScheme pricingScheme,
             String description, String handle, Boolean taxable, List<Price> prices,
-            OptionalNullable<CreditType> upgradeCharge,
+            SecondaryPricing secondaryPricing, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             QuantityBasedComponentUnitPrice unitPrice, String taxCode,
             Boolean hideDateRangeOnInvoice, Boolean recurring, Boolean displayOnHostedPage,
@@ -152,6 +157,7 @@ public class QuantityBasedComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.pricePoints = pricePoints;
@@ -307,7 +313,7 @@ public class QuantityBasedComponent
     /**
      * Getter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
+     * Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @return Returns the List of Price
      */
@@ -320,13 +326,42 @@ public class QuantityBasedComponent
     /**
      * Setter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
+     * Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @param prices Value for List of Price
      */
     @JsonSetter("prices")
     public void setPrices(List<Price> prices) {
         this.prices = prices;
+    }
+
+    /**
+     * Getter for SecondaryPricing.
+     * Hybrid Pricing only. The secondary pricing model that takes over once usage passes the
+     * primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites
+     * with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at
+     * the primary model's highest `ending_quantity`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @return Returns the SecondaryPricing
+     */
+    @JsonGetter("secondary_pricing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SecondaryPricing getSecondaryPricing() {
+        return secondaryPricing;
+    }
+
+    /**
+     * Setter for SecondaryPricing.
+     * Hybrid Pricing only. The secondary pricing model that takes over once usage passes the
+     * primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites
+     * with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at
+     * the primary model's highest `ending_quantity`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @param secondaryPricing Value for SecondaryPricing
+     */
+    @JsonSetter("secondary_pricing")
+    public void setSecondaryPricing(SecondaryPricing secondaryPricing) {
+        this.secondaryPricing = secondaryPricing;
     }
 
     /**
@@ -708,14 +743,15 @@ public class QuantityBasedComponent
     public String toString() {
         return "QuantityBasedComponent [" + "name=" + name + ", unitName=" + unitName
                 + ", pricingScheme=" + pricingScheme + ", description=" + description + ", handle="
-                + handle + ", taxable=" + taxable + ", prices=" + prices + ", upgradeCharge="
-                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", pricePoints="
-                + pricePoints + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode
-                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", recurring=" + recurring
-                + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
-                + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds
-                + ", interval=" + interval + ", intervalUnit=" + intervalUnit + ", unspscCode="
-                + unspscCode + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + handle + ", taxable=" + taxable + ", prices=" + prices + ", secondaryPricing="
+                + secondaryPricing + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit="
+                + downgradeCredit + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
+                + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
+                + ", recurring=" + recurring + ", displayOnHostedPage=" + displayOnHostedPage
+                + ", allowFractionalQuantities=" + allowFractionalQuantities
+                + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + ", unspscCode=" + unspscCode
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -729,6 +765,7 @@ public class QuantityBasedComponent
                 .handle(getHandle())
                 .taxable(getTaxable())
                 .prices(getPrices())
+                .secondaryPricing(getSecondaryPricing())
                 .pricePoints(getPricePoints())
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
@@ -756,6 +793,7 @@ public class QuantityBasedComponent
         private String handle;
         private Boolean taxable;
         private List<Price> prices;
+        private SecondaryPricing secondaryPricing;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private List<ComponentPricePointItem> pricePoints;
@@ -855,6 +893,16 @@ public class QuantityBasedComponent
          */
         public Builder prices(List<Price> prices) {
             this.prices = prices;
+            return this;
+        }
+
+        /**
+         * Setter for secondaryPricing.
+         * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
+         * @return Builder
+         */
+        public Builder secondaryPricing(SecondaryPricing secondaryPricing) {
+            this.secondaryPricing = secondaryPricing;
             return this;
         }
 
@@ -1030,8 +1078,8 @@ public class QuantityBasedComponent
          */
         public QuantityBasedComponent build() {
             return new QuantityBasedComponent(name, unitName, pricingScheme, description, handle,
-                    taxable, prices, upgradeCharge, downgradeCredit, pricePoints, unitPrice,
-                    taxCode, hideDateRangeOnInvoice, recurring, displayOnHostedPage,
+                    taxable, prices, secondaryPricing, upgradeCharge, downgradeCredit, pricePoints,
+                    unitPrice, taxCode, hideDateRangeOnInvoice, recurring, displayOnHostedPage,
                     allowFractionalQuantities, publicSignupPageIds, interval, intervalUnit,
                     unspscCode);
         }

@@ -31,6 +31,11 @@
 | `Hide` | `Boolean` | Optional | - | Boolean getHide() | setHide(Boolean hide) |
 | `ComponentCostData` | [`InvoiceLineItemComponentCostData`](../../doc/models/invoice-line-item-component-cost-data.md) | Optional | - | InvoiceLineItemComponentCostData getComponentCostData() | setComponentCostData(InvoiceLineItemComponentCostData componentCostData) |
 | `ProductPricePointId` | `Integer` | Optional | The price point ID of the line item's product | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
+| `ListUnitPrice` | `String` | Optional | The unit price from the list price point, in decimal format. Returned only when list vs sales pricing is enabled for the site. | String getListUnitPrice() | setListUnitPrice(String listUnitPrice) |
+| `ListTotalAmount` | `String` | Optional | The total amount for the line item at the list price, in decimal format | String getListTotalAmount() | setListTotalAmount(String listTotalAmount) |
+| `ListDiscountAmount` | `String` | Optional | The difference between the list total and the sales total, in decimal format | String getListDiscountAmount() | setListDiscountAmount(String listDiscountAmount) |
+| `ListDiscountRate` | `String` | Optional | The list discount as a fraction of the list total, in decimal format. For example, `"0.25"` is a 25% discount. | String getListDiscountRate() | setListDiscountRate(String listDiscountRate) |
+| `ListPricePointId` | `Integer` | Optional | The ID of the list price point this line item's sales price is compared against | Integer getListPricePointId() | setListPricePointId(Integer listPricePointId) |
 | `CustomItem` | `Boolean` | Optional | - | Boolean getCustomItem() | setCustomItem(Boolean customItem) |
 | `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
 | `PrepaidAllocationExpiresAt` | `LocalDate` | Optional | The date a prepaid allocation is set to expire. Only present on line items representing prepaid component allocations. The format is `"YYYY-MM-DD"`. | LocalDate getPrepaidAllocationExpiresAt() | setPrepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) |

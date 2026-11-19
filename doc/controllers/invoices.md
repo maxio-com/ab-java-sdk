@@ -1,5 +1,9 @@
 # Invoices
 
+The Invoice object is the billing document generated for a subscription, itemizing charges, taxes, and payments, and tracking amounts owed.
+
+The role indicates what triggered the invoice (signup, renewal, usage, proration, etc.), and the status and due_date reflect where an invoice stands in the payment lifecycle. For more information, see [Get Started with Invoicing](https://docs.maxio.com/billing/invoicing/overview/get-started-with-invoicing).
+
 ```java
 InvoicesController invoicesController = client.getInvoicesController();
 ```
@@ -1241,8 +1245,10 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ```java
 ListCreditNotesInput listCreditNotesInput = new ListCreditNotesInput.Builder()
+    .dateField(CreditNoteDateField.ISSUE_DATE)
     .page(1)
     .perPage(50)
+    .direction(Direction.DESC)
     .lineItems(false)
     .discounts(false)
     .taxes(false)
@@ -2497,6 +2503,7 @@ Product handle (with handle: prefix) or id from the scope of current subscriptio
 #### Component id
 
 Component handle (with handle: prefix) or id from the scope of current subscription's site can be provided with `component_id`. If `component_id` is used, following fields cannot be used: `title`, `product_id`. By default `unit_price` is taken from product's default price point, but can be overwritten by passing `unit_price` or `price_point_id`. At this moment price points are supported only for quantity based, on/off and metered components. For prepaid and event based billing components `unit_price` is required.
+A Wallet Product can't be invoiced this way: a line item for one returns `422` ("Wallet Products can only be invoiced through a wallet purchase"). Use [Create Wallet Purchase](../../doc/controllers/wallet-purchases.md#create-wallet-purchase) instead.
 
 ### Coupons
 
@@ -2974,7 +2981,7 @@ Sends an invoice to the customer via email. This endpoint supports the delivery 
 
 If no recipient email addresses are specified in the request, then the subscription's default email configuration will be used. For example, if `recipient_emails` is left blank, then the invoice will be delivered to the subscription's customer email address.
 
-On success, a 204 no-content response will be returned. The response does not indicate that email(s) have been delivered, but instead indicates that emails have been successfully queued for delivery. If _any_ invalid or malformed email address is found in the request body, the entire request will be rejected and a 422 response will be returned.
+On success, a 204 no-content response will be returned. The response does not indicate that email(s) have been delivered, but instead indicates that emails have been successfully queued for delivery. If _any_ invalid or malformed email address is found in the request body, the entire request will be rejected and a 422 response will be returned. A 422 response will also be returned if the invoice is in `draft`, `pending`, or `processing` status, or if the invoice cannot be found within the site instance.
 
 ```java
 Void sendInvoice(

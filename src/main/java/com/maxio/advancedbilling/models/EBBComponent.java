@@ -31,7 +31,9 @@ public class EBBComponent
     private EBBComponentUnitPrice unitPrice;
     private String taxCode;
     private Boolean hideDateRangeOnInvoice;
-    private int eventBasedBillingMetricId;
+    private Integer eventBasedBillingMetricId;
+    private Integer meteringMeterId;
+    private String meteringFormula;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
     private OptionalNullable<String> unspscCode;
@@ -47,7 +49,6 @@ public class EBBComponent
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
      * @param  pricingScheme  PricingScheme value for pricingScheme.
-     * @param  eventBasedBillingMetricId  int value for eventBasedBillingMetricId.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
@@ -56,6 +57,9 @@ public class EBBComponent
      * @param  unitPrice  EBBComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
+     * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  meteringMeterId  Integer value for meteringMeterId.
+     * @param  meteringFormula  String value for meteringFormula.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  unspscCode  String value for unspscCode.
@@ -64,7 +68,6 @@ public class EBBComponent
             String name,
             String unitName,
             PricingScheme pricingScheme,
-            int eventBasedBillingMetricId,
             String description,
             String handle,
             Boolean taxable,
@@ -73,6 +76,9 @@ public class EBBComponent
             EBBComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
+            Integer eventBasedBillingMetricId,
+            Integer meteringMeterId,
+            String meteringFormula,
             Integer interval,
             IntervalUnit intervalUnit,
             String unspscCode) {
@@ -88,6 +94,8 @@ public class EBBComponent
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.meteringMeterId = meteringMeterId;
+        this.meteringFormula = meteringFormula;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.unspscCode = OptionalNullable.of(unspscCode);
@@ -98,7 +106,6 @@ public class EBBComponent
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
      * @param  pricingScheme  PricingScheme value for pricingScheme.
-     * @param  eventBasedBillingMetricId  int value for eventBasedBillingMetricId.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
@@ -107,17 +114,20 @@ public class EBBComponent
      * @param  unitPrice  EBBComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
+     * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  meteringMeterId  Integer value for meteringMeterId.
+     * @param  meteringFormula  String value for meteringFormula.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  unspscCode  String value for unspscCode.
      */
 
     protected EBBComponent(String name, String unitName, PricingScheme pricingScheme,
-            int eventBasedBillingMetricId, String description, String handle, Boolean taxable,
-            List<Price> prices, List<ComponentPricePointItem> pricePoints,
-            EBBComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            Integer interval, OptionalNullable<IntervalUnit> intervalUnit,
-            OptionalNullable<String> unspscCode) {
+            String description, String handle, Boolean taxable, List<Price> prices,
+            List<ComponentPricePointItem> pricePoints, EBBComponentUnitPrice unitPrice,
+            String taxCode, Boolean hideDateRangeOnInvoice, Integer eventBasedBillingMetricId,
+            Integer meteringMeterId, String meteringFormula, Integer interval,
+            OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -130,6 +140,8 @@ public class EBBComponent
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.meteringMeterId = meteringMeterId;
+        this.meteringFormula = meteringFormula;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.unspscCode = unspscCode;
@@ -275,7 +287,7 @@ public class EBBComponent
     /**
      * Getter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
+     * Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @return Returns the List of Price
      */
@@ -288,7 +300,7 @@ public class EBBComponent
     /**
      * Setter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
+     * Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @param prices Value for List of Price
      */
@@ -389,22 +401,83 @@ public class EBBComponent
 
     /**
      * Getter for EventBasedBillingMetricId.
-     * The ID of an event based billing metric that will be attached to this component.
-     * @return Returns the int
+     * ID of a site-owned metric. Required to create a component with legacy Events Based Billing.
+     * During migration, a meter linked to the metric is attached automatically when present. Sites
+     * using Maxio Metering ignore this input; provide metering_meter_id or metering_formula
+     * instead.
+     * @return Returns the Integer
      */
     @JsonGetter("event_based_billing_metric_id")
-    public int getEventBasedBillingMetricId() {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getEventBasedBillingMetricId() {
         return eventBasedBillingMetricId;
     }
 
     /**
      * Setter for EventBasedBillingMetricId.
-     * The ID of an event based billing metric that will be attached to this component.
-     * @param eventBasedBillingMetricId Value for int
+     * ID of a site-owned metric. Required to create a component with legacy Events Based Billing.
+     * During migration, a meter linked to the metric is attached automatically when present. Sites
+     * using Maxio Metering ignore this input; provide metering_meter_id or metering_formula
+     * instead.
+     * @param eventBasedBillingMetricId Value for Integer
      */
     @JsonSetter("event_based_billing_metric_id")
-    public void setEventBasedBillingMetricId(int eventBasedBillingMetricId) {
+    public void setEventBasedBillingMetricId(Integer eventBasedBillingMetricId) {
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+    }
+
+    /**
+     * Getter for MeteringMeterId.
+     * ID of a merchant-owned Maxio Metering meter. To create a component with Maxio Metering,
+     * provide this ID or metering_formula, but not both. Meter IDs and legacy metric IDs identify
+     * different resources. Sites using Events Based Billing ignore this input and require
+     * event_based_billing_metric_id instead.
+     * @return Returns the Integer
+     */
+    @JsonGetter("metering_meter_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getMeteringMeterId() {
+        return meteringMeterId;
+    }
+
+    /**
+     * Setter for MeteringMeterId.
+     * ID of a merchant-owned Maxio Metering meter. To create a component with Maxio Metering,
+     * provide this ID or metering_formula, but not both. Meter IDs and legacy metric IDs identify
+     * different resources. Sites using Events Based Billing ignore this input and require
+     * event_based_billing_metric_id instead.
+     * @param meteringMeterId Value for Integer
+     */
+    @JsonSetter("metering_meter_id")
+    public void setMeteringMeterId(Integer meteringMeterId) {
+        this.meteringMeterId = meteringMeterId;
+    }
+
+    /**
+     * Getter for MeteringFormula.
+     * An Advanced Formula using Maxio Metering meters available to the site. To create a component
+     * with Maxio Metering, provide a non-blank formula or metering_meter_id, but not both. Sites
+     * using Events Based Billing ignore this input and require event_based_billing_metric_id
+     * instead.
+     * @return Returns the String
+     */
+    @JsonGetter("metering_formula")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getMeteringFormula() {
+        return meteringFormula;
+    }
+
+    /**
+     * Setter for MeteringFormula.
+     * An Advanced Formula using Maxio Metering meters available to the site. To create a component
+     * with Maxio Metering, provide a non-blank formula or metering_meter_id, but not both. Sites
+     * using Events Based Billing ignore this input and require event_based_billing_metric_id
+     * instead.
+     * @param meteringFormula Value for String
+     */
+    @JsonSetter("metering_formula")
+    public void setMeteringFormula(String meteringFormula) {
+        this.meteringFormula = meteringFormula;
     }
 
     /**
@@ -529,12 +602,14 @@ public class EBBComponent
     @Override
     public String toString() {
         return "EBBComponent [" + "name=" + name + ", unitName=" + unitName + ", pricingScheme="
-                + pricingScheme + ", eventBasedBillingMetricId=" + eventBasedBillingMetricId
-                + ", description=" + description + ", handle=" + handle + ", taxable=" + taxable
-                + ", prices=" + prices + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
-                + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
-                + ", interval=" + interval + ", intervalUnit=" + intervalUnit + ", unspscCode="
-                + unspscCode + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + pricingScheme + ", description=" + description + ", handle=" + handle
+                + ", taxable=" + taxable + ", prices=" + prices + ", pricePoints=" + pricePoints
+                + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice="
+                + hideDateRangeOnInvoice + ", eventBasedBillingMetricId="
+                + eventBasedBillingMetricId + ", meteringMeterId=" + meteringMeterId
+                + ", meteringFormula=" + meteringFormula + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + ", unspscCode=" + unspscCode
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -543,7 +618,7 @@ public class EBBComponent
      * @return a new {@link EBBComponent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name, unitName, pricingScheme, eventBasedBillingMetricId)
+        Builder builder = new Builder(name, unitName, pricingScheme)
                 .description(getDescription())
                 .handle(getHandle())
                 .taxable(getTaxable())
@@ -552,6 +627,9 @@ public class EBBComponent
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
+                .eventBasedBillingMetricId(getEventBasedBillingMetricId())
+                .meteringMeterId(getMeteringMeterId())
+                .meteringFormula(getMeteringFormula())
                 .interval(getInterval());
         builder.intervalUnit = internalGetIntervalUnit();
         builder.unspscCode = internalGetUnspscCode();
@@ -565,7 +643,6 @@ public class EBBComponent
         private String name;
         private String unitName;
         private PricingScheme pricingScheme;
-        private int eventBasedBillingMetricId;
         private String description;
         private String handle;
         private Boolean taxable;
@@ -574,6 +651,9 @@ public class EBBComponent
         private EBBComponentUnitPrice unitPrice;
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
+        private Integer eventBasedBillingMetricId;
+        private Integer meteringMeterId;
+        private String meteringFormula;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
         private OptionalNullable<String> unspscCode;
@@ -589,14 +669,11 @@ public class EBBComponent
          * @param  name  String value for name.
          * @param  unitName  String value for unitName.
          * @param  pricingScheme  PricingScheme value for pricingScheme.
-         * @param  eventBasedBillingMetricId  int value for eventBasedBillingMetricId.
          */
-        public Builder(String name, String unitName, PricingScheme pricingScheme,
-                int eventBasedBillingMetricId) {
+        public Builder(String name, String unitName, PricingScheme pricingScheme) {
             this.name = name;
             this.unitName = unitName;
             this.pricingScheme = pricingScheme;
-            this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         }
 
         /**
@@ -626,16 +703,6 @@ public class EBBComponent
          */
         public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
-            return this;
-        }
-
-        /**
-         * Setter for eventBasedBillingMetricId.
-         * @param  eventBasedBillingMetricId  int value for eventBasedBillingMetricId.
-         * @return Builder
-         */
-        public Builder eventBasedBillingMetricId(int eventBasedBillingMetricId) {
-            this.eventBasedBillingMetricId = eventBasedBillingMetricId;
             return this;
         }
 
@@ -720,6 +787,36 @@ public class EBBComponent
         }
 
         /**
+         * Setter for eventBasedBillingMetricId.
+         * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+         * @return Builder
+         */
+        public Builder eventBasedBillingMetricId(Integer eventBasedBillingMetricId) {
+            this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+            return this;
+        }
+
+        /**
+         * Setter for meteringMeterId.
+         * @param  meteringMeterId  Integer value for meteringMeterId.
+         * @return Builder
+         */
+        public Builder meteringMeterId(Integer meteringMeterId) {
+            this.meteringMeterId = meteringMeterId;
+            return this;
+        }
+
+        /**
+         * Setter for meteringFormula.
+         * @param  meteringFormula  String value for meteringFormula.
+         * @return Builder
+         */
+        public Builder meteringFormula(String meteringFormula) {
+            this.meteringFormula = meteringFormula;
+            return this;
+        }
+
+        /**
          * Setter for interval.
          * @param  interval  Integer value for interval.
          * @return Builder
@@ -772,9 +869,10 @@ public class EBBComponent
          * @return {@link EBBComponent}
          */
         public EBBComponent build() {
-            return new EBBComponent(name, unitName, pricingScheme, eventBasedBillingMetricId,
-                    description, handle, taxable, prices, pricePoints, unitPrice, taxCode,
-                    hideDateRangeOnInvoice, interval, intervalUnit, unspscCode);
+            return new EBBComponent(name, unitName, pricingScheme, description, handle, taxable,
+                    prices, pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
+                    eventBasedBillingMetricId, meteringMeterId, meteringFormula, interval,
+                    intervalUnit, unspscCode);
         }
     }
 }

@@ -59,7 +59,10 @@ public class Product
     private OptionalNullable<String> itemCategory;
     private Integer productPricePointId;
     private OptionalNullable<String> productPricePointHandle;
+    private OptionalNullable<Integer> productPricePointListPricePointId;
+    private OptionalNullable<String> productPricePointListPricePointHandle;
     private OptionalNullable<String> unspscCode;
+    private OptionalNullable<List<FeatureCatalogItem>> features;
 
     /**
      * Default constructor.
@@ -106,7 +109,12 @@ public class Product
      * @param  itemCategory  String value for itemCategory.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
+     * @param  productPricePointListPricePointId  Integer value for
+     *         productPricePointListPricePointId.
+     * @param  productPricePointListPricePointHandle  String value for
+     *         productPricePointListPricePointHandle.
      * @param  unspscCode  String value for unspscCode.
+     * @param  features  List of FeatureCatalogItem value for features.
      */
     public Product(
             Integer id,
@@ -146,7 +154,10 @@ public class Product
             String itemCategory,
             Integer productPricePointId,
             String productPricePointHandle,
-            String unspscCode) {
+            Integer productPricePointListPricePointId,
+            String productPricePointListPricePointHandle,
+            String unspscCode,
+            List<FeatureCatalogItem> features) {
         this.id = id;
         this.name = name;
         this.handle = OptionalNullable.of(handle);
@@ -184,7 +195,12 @@ public class Product
         this.itemCategory = OptionalNullable.of(itemCategory);
         this.productPricePointId = productPricePointId;
         this.productPricePointHandle = OptionalNullable.of(productPricePointHandle);
+        this.productPricePointListPricePointId =
+                OptionalNullable.of(productPricePointListPricePointId);
+        this.productPricePointListPricePointHandle =
+                OptionalNullable.of(productPricePointListPricePointHandle);
         this.unspscCode = OptionalNullable.of(unspscCode);
+        this.features = OptionalNullable.of(features);
     }
 
     /**
@@ -226,7 +242,12 @@ public class Product
      * @param  itemCategory  String value for itemCategory.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
+     * @param  productPricePointListPricePointId  Integer value for
+     *         productPricePointListPricePointId.
+     * @param  productPricePointListPricePointHandle  String value for
+     *         productPricePointListPricePointHandle.
      * @param  unspscCode  String value for unspscCode.
+     * @param  features  List of FeatureCatalogItem value for features.
      */
 
     protected Product(Integer id, String name, OptionalNullable<String> handle,
@@ -248,7 +269,10 @@ public class Product
             Integer defaultProductPricePointId, OptionalNullable<Boolean> useSiteExchangeRate,
             OptionalNullable<String> itemCategory, Integer productPricePointId,
             OptionalNullable<String> productPricePointHandle,
-            OptionalNullable<String> unspscCode) {
+            OptionalNullable<Integer> productPricePointListPricePointId,
+            OptionalNullable<String> productPricePointListPricePointHandle,
+            OptionalNullable<String> unspscCode,
+            OptionalNullable<List<FeatureCatalogItem>> features) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -286,7 +310,10 @@ public class Product
         this.itemCategory = itemCategory;
         this.productPricePointId = productPricePointId;
         this.productPricePointHandle = productPricePointHandle;
+        this.productPricePointListPricePointId = productPricePointListPricePointId;
+        this.productPricePointListPricePointHandle = productPricePointListPricePointHandle;
         this.unspscCode = unspscCode;
+        this.features = features;
     }
 
     /**
@@ -1410,6 +1437,92 @@ public class Product
     }
 
     /**
+     * Internal Getter for ProductPricePointListPricePointId.
+     * The ID of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("product_price_point_list_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetProductPricePointListPricePointId() {
+        return this.productPricePointListPricePointId;
+    }
+
+    /**
+     * Getter for ProductPricePointListPricePointId.
+     * The ID of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     * @return Returns the Integer
+     */
+    public Integer getProductPricePointListPricePointId() {
+        return OptionalNullable.getFrom(productPricePointListPricePointId);
+    }
+
+    /**
+     * Setter for ProductPricePointListPricePointId.
+     * The ID of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     * @param productPricePointListPricePointId Value for Integer
+     */
+    @JsonSetter("product_price_point_list_price_point_id")
+    public void setProductPricePointListPricePointId(Integer productPricePointListPricePointId) {
+        this.productPricePointListPricePointId = OptionalNullable.of(productPricePointListPricePointId);
+    }
+
+    /**
+     * UnSetter for ProductPricePointListPricePointId.
+     * The ID of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     */
+    public void unsetProductPricePointListPricePointId() {
+        productPricePointListPricePointId = null;
+    }
+
+    /**
+     * Internal Getter for ProductPricePointListPricePointHandle.
+     * The handle of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("product_price_point_list_price_point_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetProductPricePointListPricePointHandle() {
+        return this.productPricePointListPricePointHandle;
+    }
+
+    /**
+     * Getter for ProductPricePointListPricePointHandle.
+     * The handle of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     * @return Returns the String
+     */
+    public String getProductPricePointListPricePointHandle() {
+        return OptionalNullable.getFrom(productPricePointListPricePointHandle);
+    }
+
+    /**
+     * Setter for ProductPricePointListPricePointHandle.
+     * The handle of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     * @param productPricePointListPricePointHandle Value for String
+     */
+    @JsonSetter("product_price_point_list_price_point_handle")
+    public void setProductPricePointListPricePointHandle(String productPricePointListPricePointHandle) {
+        this.productPricePointListPricePointHandle = OptionalNullable.of(productPricePointListPricePointHandle);
+    }
+
+    /**
+     * UnSetter for ProductPricePointListPricePointHandle.
+     * The handle of the catalog price point used as the list price for the subscription's custom
+     * product price. Returned only when list vs sales pricing is enabled for the site.
+     */
+    public void unsetProductPricePointListPricePointHandle() {
+        productPricePointListPricePointHandle = null;
+    }
+
+    /**
      * Internal Getter for UnspscCode.
      * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
      * is sent as the commodity code on invoice line items for this product instead of the default
@@ -1457,6 +1570,49 @@ public class Product
     }
 
     /**
+     * Internal Getter for Features.
+     * The active feature catalog items attached to this product. Present only when the request
+     * includes `include_features=true`.
+     * @return Returns the Internal List of FeatureCatalogItem
+     */
+    @JsonGetter("features")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<FeatureCatalogItem>> internalGetFeatures() {
+        return this.features;
+    }
+
+    /**
+     * Getter for Features.
+     * The active feature catalog items attached to this product. Present only when the request
+     * includes `include_features=true`.
+     * @return Returns the List of FeatureCatalogItem
+     */
+    public List<FeatureCatalogItem> getFeatures() {
+        return OptionalNullable.getFrom(features);
+    }
+
+    /**
+     * Setter for Features.
+     * The active feature catalog items attached to this product. Present only when the request
+     * includes `include_features=true`.
+     * @param features Value for List of FeatureCatalogItem
+     */
+    @JsonSetter("features")
+    public void setFeatures(List<FeatureCatalogItem> features) {
+        this.features = OptionalNullable.of(features);
+    }
+
+    /**
+     * UnSetter for Features.
+     * The active feature catalog items attached to this product. Present only when the request
+     * includes `include_features=true`.
+     */
+    public void unsetFeatures() {
+        features = null;
+    }
+
+    /**
      * Converts this Product into string format.
      * @return String representation of this class
      */
@@ -1481,8 +1637,11 @@ public class Product
                 + ", defaultProductPricePointId=" + defaultProductPricePointId
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", itemCategory=" + itemCategory
                 + ", productPricePointId=" + productPricePointId + ", productPricePointHandle="
-                + productPricePointHandle + ", unspscCode=" + unspscCode + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + productPricePointHandle + ", productPricePointListPricePointId="
+                + productPricePointListPricePointId + ", productPricePointListPricePointHandle="
+                + productPricePointListPricePointHandle + ", unspscCode=" + unspscCode
+                + ", features=" + features + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**
@@ -1529,7 +1688,11 @@ public class Product
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.itemCategory = internalGetItemCategory();
         builder.productPricePointHandle = internalGetProductPricePointHandle();
+        builder.productPricePointListPricePointId = internalGetProductPricePointListPricePointId();
+        builder.productPricePointListPricePointHandle =
+                internalGetProductPricePointListPricePointHandle();
         builder.unspscCode = internalGetUnspscCode();
+        builder.features = internalGetFeatures();
         return builder;
     }
 
@@ -1574,7 +1737,10 @@ public class Product
         private OptionalNullable<String> itemCategory;
         private Integer productPricePointId;
         private OptionalNullable<String> productPricePointHandle;
+        private OptionalNullable<Integer> productPricePointListPricePointId;
+        private OptionalNullable<String> productPricePointListPricePointHandle;
         private OptionalNullable<String> unspscCode;
+        private OptionalNullable<List<FeatureCatalogItem>> features;
 
 
 
@@ -2111,6 +2277,50 @@ public class Product
         }
 
         /**
+         * Setter for productPricePointListPricePointId.
+         * @param  productPricePointListPricePointId  Integer value for
+         *         productPricePointListPricePointId.
+         * @return Builder
+         */
+        public Builder productPricePointListPricePointId(
+                Integer productPricePointListPricePointId) {
+            this.productPricePointListPricePointId =
+                    OptionalNullable.of(productPricePointListPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for productPricePointListPricePointId.
+         * @return Builder
+         */
+        public Builder unsetProductPricePointListPricePointId() {
+            productPricePointListPricePointId = null;
+            return this;
+        }
+
+        /**
+         * Setter for productPricePointListPricePointHandle.
+         * @param  productPricePointListPricePointHandle  String value for
+         *         productPricePointListPricePointHandle.
+         * @return Builder
+         */
+        public Builder productPricePointListPricePointHandle(
+                String productPricePointListPricePointHandle) {
+            this.productPricePointListPricePointHandle =
+                    OptionalNullable.of(productPricePointListPricePointHandle);
+            return this;
+        }
+
+        /**
+         * UnSetter for productPricePointListPricePointHandle.
+         * @return Builder
+         */
+        public Builder unsetProductPricePointListPricePointHandle() {
+            productPricePointListPricePointHandle = null;
+            return this;
+        }
+
+        /**
          * Setter for unspscCode.
          * @param  unspscCode  String value for unspscCode.
          * @return Builder
@@ -2130,6 +2340,25 @@ public class Product
         }
 
         /**
+         * Setter for features.
+         * @param  features  List of FeatureCatalogItem value for features.
+         * @return Builder
+         */
+        public Builder features(List<FeatureCatalogItem> features) {
+            this.features = OptionalNullable.of(features);
+            return this;
+        }
+
+        /**
+         * UnSetter for features.
+         * @return Builder
+         */
+        public Builder unsetFeatures() {
+            features = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Product} object using the set fields.
          * @return {@link Product}
          */
@@ -2142,7 +2371,8 @@ public class Product
                     productFamily, publicSignupPages, productPricePointName, requestBillingAddress,
                     requireBillingAddress, requireShippingAddress, taxCode,
                     defaultProductPricePointId, useSiteExchangeRate, itemCategory,
-                    productPricePointId, productPricePointHandle, unspscCode);
+                    productPricePointId, productPricePointHandle, productPricePointListPricePointId,
+                    productPricePointListPricePointHandle, unspscCode, features);
         }
     }
 }

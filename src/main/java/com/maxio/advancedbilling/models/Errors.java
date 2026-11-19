@@ -7,7 +7,6 @@
 package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.List;
  */
 public class Errors
         extends BaseModel {
-    private List<String> perPage;
     private List<String> pricePoint;
 
     /**
@@ -28,33 +26,11 @@ public class Errors
 
     /**
      * Initialization constructor.
-     * @param  perPage  List of String value for perPage.
      * @param  pricePoint  List of String value for pricePoint.
      */
     public Errors(
-            List<String> perPage,
             List<String> pricePoint) {
-        this.perPage = perPage;
         this.pricePoint = pricePoint;
-    }
-
-    /**
-     * Getter for PerPage.
-     * @return Returns the List of String
-     */
-    @JsonGetter("per_page")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<String> getPerPage() {
-        return perPage;
-    }
-
-    /**
-     * Setter for PerPage.
-     * @param perPage Value for List of String
-     */
-    @JsonSetter("per_page")
-    public void setPerPage(List<String> perPage) {
-        this.perPage = perPage;
     }
 
     /**
@@ -62,7 +38,6 @@ public class Errors
      * @return Returns the List of String
      */
     @JsonGetter("price_point")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getPricePoint() {
         return pricePoint;
     }
@@ -82,8 +57,8 @@ public class Errors
      */
     @Override
     public String toString() {
-        return "Errors [" + "perPage=" + perPage + ", pricePoint=" + pricePoint
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "Errors [" + "pricePoint=" + pricePoint + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -92,9 +67,7 @@ public class Errors
      * @return a new {@link Errors.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .perPage(getPerPage())
-                .pricePoint(getPricePoint());
+        Builder builder = new Builder(pricePoint);
         return builder;
     }
 
@@ -102,19 +75,20 @@ public class Errors
      * Class to build instances of {@link Errors}.
      */
     public static class Builder {
-        private List<String> perPage;
         private List<String> pricePoint;
 
-
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
         /**
-         * Setter for perPage.
-         * @param  perPage  List of String value for perPage.
-         * @return Builder
+         * Initialization constructor.
+         * @param  pricePoint  List of String value for pricePoint.
          */
-        public Builder perPage(List<String> perPage) {
-            this.perPage = perPage;
-            return this;
+        public Builder(List<String> pricePoint) {
+            this.pricePoint = pricePoint;
         }
 
         /**
@@ -132,7 +106,7 @@ public class Errors
          * @return {@link Errors}
          */
         public Errors build() {
-            return new Errors(perPage, pricePoint);
+            return new Errors(pricePoint);
         }
     }
 }

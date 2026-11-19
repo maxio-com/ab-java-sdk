@@ -26,6 +26,9 @@
 | `ProductVersion` | `Integer` | Optional | The version of the product being credited. | Integer getProductVersion() | setProductVersion(Integer productVersion) |
 | `ComponentId` | `Integer` | Optional | The ID of the component being credited. Will be `nil` for non-component credits. | Integer getComponentId() | setComponentId(Integer componentId) |
 | `PricePointId` | `Integer` | Optional | The price point ID of the component being credited. Will be `nil` for non-component credits. | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
+| `ListUnitPrice` | `String` | Optional | The unit price from the list price point, in decimal format | String getListUnitPrice() | setListUnitPrice(String listUnitPrice) |
+| `ListTotalAmount` | `String` | Optional | The total amount for the line item at the list price, in decimal format | String getListTotalAmount() | setListTotalAmount(String listTotalAmount) |
+| `ListPricePointId` | `Integer` | Optional | The ID of the list price point this line item's sales price is compared against | Integer getListPricePointId() | setListPricePointId(Integer listPricePointId) |
 | `BillingScheduleItemId` | `Integer` | Optional | - | Integer getBillingScheduleItemId() | setBillingScheduleItemId(Integer billingScheduleItemId) |
 | `CustomItem` | `Boolean` | Optional | - | Boolean getCustomItem() | setCustomItem(Boolean customItem) |
 | `PrepaidAllocationExpiresAt` | `LocalDate` | Optional | The date a prepaid allocation is set to expire. Only present on line items representing prepaid component allocations. The format is `"YYYY-MM-DD"`. | LocalDate getPrepaidAllocationExpiresAt() | setPrepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) |

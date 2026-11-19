@@ -58,9 +58,9 @@ public final class ComponentPricePointsController extends BaseController {
      * Sets a new default price point for the component. This new default will apply to all new
      * subscriptions going forward - existing subscriptions will remain on their current price
      * point. See [Price Points
-     * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Points-Components)
-     * for more information on price points and moving subscriptions between price points. Note:
-     * Custom price points are not able to be set as the default for a component.
+     * Documentation](https://docs.maxio.com/billing/catalog/products/set-product-price-points) for
+     * more information on price points and moving subscriptions between price points. Note: Custom
+     * price points are not able to be set as the default for a component.
      * @param  componentId  Required parameter: The Advanced Billing id of the component to which
      *         the price point belongs
      * @param  pricePointId  Required parameter: The Advanced Billing id of the price point

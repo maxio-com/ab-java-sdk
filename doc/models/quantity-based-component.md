@@ -15,7 +15,8 @@
 | `Handle` | `String` | Optional | A unique identifier for your use that can be used to retrieve this component in subsequent requests. Must start with a letter or number and may only contain lowercase letters, numbers, or the characters '.', ':', '-', or '_'.<br><br>**Constraints**: *Pattern*: `^[a-z0-9][a-z0-9\-_:.]*$` | String getHandle() | setHandle(String handle) |
 | `Taxable` | `Boolean` | Optional | Boolean flag describing whether a component is taxable or not. | Boolean getTaxable() | setTaxable(Boolean taxable) |
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
-| `Prices` | [`List<Price>`](../../doc/models/price.md) | Optional | (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules) for an overview of how price brackets work for different pricing schemes. | List<Price> getPrices() | setPrices(List<Price> prices) |
+| `Prices` | [`List<Price>`](../../doc/models/price.md) | Optional | (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules) for an overview of how price brackets work for different pricing schemes. | List<Price> getPrices() | setPrices(List<Price> prices) |
+| `SecondaryPricing` | [`SecondaryPricing`](../../doc/models/secondary-pricing.md) | Optional | Hybrid Pricing only. The secondary pricing model that takes over once usage passes the primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at the primary model's highest `ending_quantity`. See [Hybrid Pricing](page:introduction/basic-concepts/hybrid-pricing). | SecondaryPricing getSecondaryPricing() | setSecondaryPricing(SecondaryPricing secondaryPricing) |
 | `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
 | `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
 | `PricePoints` | [`List<ComponentPricePointItem>`](../../doc/models/component-price-point-item.md) | Optional | - | List<ComponentPricePointItem> getPricePoints() | setPricePoints(List<ComponentPricePointItem> pricePoints) |
@@ -33,10 +34,10 @@
 ## Example
 
 ```java
-import com.maxio.advancedbilling.models.CreditType;
 import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
+import com.maxio.advancedbilling.models.SecondaryPricing;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
@@ -64,7 +65,35 @@ QuantityBasedComponent quantityBasedComponent = new QuantityBasedComponent.Build
             ))
         .build()
     ))
-.upgradeCharge(CreditType.FULL)
+.secondaryPricing(new SecondaryPricing.Builder()
+        .pricingScheme(PricingScheme.STAIRSTEP)
+        .prices(Arrays.asList(
+            new Price.Builder(
+                PriceStartingQuantity.fromNumber(
+                    242
+                ),
+                PriceUnitPrice.fromPrecision(
+                    23.26D
+                )
+            )
+            .endingQuantity(PriceEndingQuantity.fromNumber(
+                    40
+                ))
+            .build(),
+            new Price.Builder(
+                PriceStartingQuantity.fromNumber(
+                    242
+                ),
+                PriceUnitPrice.fromPrecision(
+                    23.26D
+                )
+            )
+            .endingQuantity(PriceEndingQuantity.fromNumber(
+                    40
+                ))
+            .build()
+        ))
+        .build())
 .build();
 ```
 

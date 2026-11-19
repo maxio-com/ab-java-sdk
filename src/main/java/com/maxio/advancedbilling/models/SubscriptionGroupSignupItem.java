@@ -24,6 +24,8 @@ public class SubscriptionGroupSignupItem
     private String productPricePointHandle;
     private Integer offerId;
     private String reference;
+    private Integer customerId;
+    private String customerReference;
     private Boolean primary;
     private String currency;
     private List<String> couponCodes;
@@ -46,6 +48,8 @@ public class SubscriptionGroupSignupItem
      * @param  productPricePointHandle  String value for productPricePointHandle.
      * @param  offerId  Integer value for offerId.
      * @param  reference  String value for reference.
+     * @param  customerId  Integer value for customerId.
+     * @param  customerReference  String value for customerReference.
      * @param  primary  Boolean value for primary.
      * @param  currency  String value for currency.
      * @param  couponCodes  List of String value for couponCodes.
@@ -61,6 +65,8 @@ public class SubscriptionGroupSignupItem
             String productPricePointHandle,
             Integer offerId,
             String reference,
+            Integer customerId,
+            String customerReference,
             Boolean primary,
             String currency,
             List<String> couponCodes,
@@ -74,6 +80,8 @@ public class SubscriptionGroupSignupItem
         this.productPricePointHandle = productPricePointHandle;
         this.offerId = offerId;
         this.reference = reference;
+        this.customerId = customerId;
+        this.customerReference = customerReference;
         this.primary = primary;
         this.currency = currency;
         this.couponCodes = couponCodes;
@@ -215,6 +223,54 @@ public class SubscriptionGroupSignupItem
     @JsonSetter("reference")
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    /**
+     * Getter for CustomerId.
+     * (Optional) The ID of the customer the subscription belongs to. The customer must be the payer
+     * or a customer below the payer in the customer hierarchy. If you omit both `customer_id` and
+     * `customer_reference`, the subscription belongs to the payer.
+     * @return Returns the Integer
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    /**
+     * Setter for CustomerId.
+     * (Optional) The ID of the customer the subscription belongs to. The customer must be the payer
+     * or a customer below the payer in the customer hierarchy. If you omit both `customer_id` and
+     * `customer_reference`, the subscription belongs to the payer.
+     * @param customerId Value for Integer
+     */
+    @JsonSetter("customer_id")
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    /**
+     * Getter for CustomerReference.
+     * (Optional) The reference of the customer the subscription belongs to, matched
+     * case-insensitively. Use in place of `customer_id`. If you pass both, `customer_id` is used.
+     * @return Returns the String
+     */
+    @JsonGetter("customer_reference")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCustomerReference() {
+        return customerReference;
+    }
+
+    /**
+     * Setter for CustomerReference.
+     * (Optional) The reference of the customer the subscription belongs to, matched
+     * case-insensitively. Use in place of `customer_id`. If you pass both, `customer_id` is used.
+     * @param customerReference Value for String
+     */
+    @JsonSetter("customer_reference")
+    public void setCustomerReference(String customerReference) {
+        this.customerReference = customerReference;
     }
 
     /**
@@ -381,7 +437,8 @@ public class SubscriptionGroupSignupItem
         return "SubscriptionGroupSignupItem [" + "productHandle=" + productHandle + ", productId="
                 + productId + ", productPricePointId=" + productPricePointId
                 + ", productPricePointHandle=" + productPricePointHandle + ", offerId=" + offerId
-                + ", reference=" + reference + ", primary=" + primary + ", currency=" + currency
+                + ", reference=" + reference + ", customerId=" + customerId + ", customerReference="
+                + customerReference + ", primary=" + primary + ", currency=" + currency
                 + ", couponCodes=" + couponCodes + ", components=" + components + ", customPrice="
                 + customPrice + ", calendarBilling=" + calendarBilling + ", metafields="
                 + metafields + ", additionalProperties=" + getAdditionalProperties() + "]";
@@ -400,6 +457,8 @@ public class SubscriptionGroupSignupItem
                 .productPricePointHandle(getProductPricePointHandle())
                 .offerId(getOfferId())
                 .reference(getReference())
+                .customerId(getCustomerId())
+                .customerReference(getCustomerReference())
                 .primary(getPrimary())
                 .currency(getCurrency())
                 .couponCodes(getCouponCodes())
@@ -420,6 +479,8 @@ public class SubscriptionGroupSignupItem
         private String productPricePointHandle;
         private Integer offerId;
         private String reference;
+        private Integer customerId;
+        private String customerReference;
         private Boolean primary;
         private String currency;
         private List<String> couponCodes;
@@ -487,6 +548,26 @@ public class SubscriptionGroupSignupItem
          */
         public Builder reference(String reference) {
             this.reference = reference;
+            return this;
+        }
+
+        /**
+         * Setter for customerId.
+         * @param  customerId  Integer value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(Integer customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        /**
+         * Setter for customerReference.
+         * @param  customerReference  String value for customerReference.
+         * @return Builder
+         */
+        public Builder customerReference(String customerReference) {
+            this.customerReference = customerReference;
             return this;
         }
 
@@ -566,8 +647,9 @@ public class SubscriptionGroupSignupItem
          */
         public SubscriptionGroupSignupItem build() {
             return new SubscriptionGroupSignupItem(productHandle, productId, productPricePointId,
-                    productPricePointHandle, offerId, reference, primary, currency, couponCodes,
-                    components, customPrice, calendarBilling, metafields);
+                    productPricePointHandle, offerId, reference, customerId, customerReference,
+                    primary, currency, couponCodes, components, customPrice, calendarBilling,
+                    metafields);
         }
     }
 }

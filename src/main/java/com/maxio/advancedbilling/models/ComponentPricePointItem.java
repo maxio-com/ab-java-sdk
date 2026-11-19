@@ -25,6 +25,7 @@ public class ComponentPricePointItem
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
     private List<Price> prices;
+    private SecondaryPricing secondaryPricing;
 
     /**
      * Default constructor.
@@ -40,6 +41,7 @@ public class ComponentPricePointItem
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of Price value for prices.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
      */
     public ComponentPricePointItem(
             String name,
@@ -47,13 +49,15 @@ public class ComponentPricePointItem
             PricingScheme pricingScheme,
             Integer interval,
             IntervalUnit intervalUnit,
-            List<Price> prices) {
+            List<Price> prices,
+            SecondaryPricing secondaryPricing) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
     }
 
     /**
@@ -64,16 +68,19 @@ public class ComponentPricePointItem
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of Price value for prices.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
      */
 
     protected ComponentPricePointItem(String name, String handle, PricingScheme pricingScheme,
-            Integer interval, OptionalNullable<IntervalUnit> intervalUnit, List<Price> prices) {
+            Integer interval, OptionalNullable<IntervalUnit> intervalUnit, List<Price> prices,
+            SecondaryPricing secondaryPricing) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
     }
 
     /**
@@ -227,6 +234,33 @@ public class ComponentPricePointItem
     }
 
     /**
+     * Getter for SecondaryPricing.
+     * Hybrid Pricing only. Applies only to price points of Quantity-Based and Metered Components on
+     * Sites with Hybrid Pricing enabled; ignored for other component types and on Sites without
+     * Hybrid Pricing. Omit it to create a normal, non-hybrid price point. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @return Returns the SecondaryPricing
+     */
+    @JsonGetter("secondary_pricing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SecondaryPricing getSecondaryPricing() {
+        return secondaryPricing;
+    }
+
+    /**
+     * Setter for SecondaryPricing.
+     * Hybrid Pricing only. Applies only to price points of Quantity-Based and Metered Components on
+     * Sites with Hybrid Pricing enabled; ignored for other component types and on Sites without
+     * Hybrid Pricing. Omit it to create a normal, non-hybrid price point. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @param secondaryPricing Value for SecondaryPricing
+     */
+    @JsonSetter("secondary_pricing")
+    public void setSecondaryPricing(SecondaryPricing secondaryPricing) {
+        this.secondaryPricing = secondaryPricing;
+    }
+
+    /**
      * Converts this ComponentPricePointItem into string format.
      * @return String representation of this class
      */
@@ -234,8 +268,8 @@ public class ComponentPricePointItem
     public String toString() {
         return "ComponentPricePointItem [" + "name=" + name + ", handle=" + handle
                 + ", pricingScheme=" + pricingScheme + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", prices=" + prices + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + intervalUnit + ", prices=" + prices + ", secondaryPricing=" + secondaryPricing
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -249,7 +283,8 @@ public class ComponentPricePointItem
                 .handle(getHandle())
                 .pricingScheme(getPricingScheme())
                 .interval(getInterval())
-                .prices(getPrices());
+                .prices(getPrices())
+                .secondaryPricing(getSecondaryPricing());
         builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
@@ -264,6 +299,7 @@ public class ComponentPricePointItem
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
         private List<Price> prices;
+        private SecondaryPricing secondaryPricing;
 
 
 
@@ -337,12 +373,22 @@ public class ComponentPricePointItem
         }
 
         /**
+         * Setter for secondaryPricing.
+         * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
+         * @return Builder
+         */
+        public Builder secondaryPricing(SecondaryPricing secondaryPricing) {
+            this.secondaryPricing = secondaryPricing;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ComponentPricePointItem} object using the set fields.
          * @return {@link ComponentPricePointItem}
          */
         public ComponentPricePointItem build() {
             return new ComponentPricePointItem(name, handle, pricingScheme, interval, intervalUnit,
-                    prices);
+                    prices, secondaryPricing);
         }
     }
 }

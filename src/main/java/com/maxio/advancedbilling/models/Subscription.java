@@ -497,13 +497,13 @@ public class Subscription
      * automatically. An interface is being built for you to review problems resulting from these
      * events to take manual action when needed. * `unpaid` - Indicates an unpaid subscription. A
      * subscription is marked unpaid if the retry period expires and you have configured your
-     * [Dunning](https://maxio.zendesk.com/hc/en-us/articles/24287076583565-Dunning-Overview)
+     * [Dunning](https://docs.maxio.com/billing/subscriptions/dunning/overview/understanding-how-dunning-works)
      * settings to have a Final Action of `mark the subscription unpaid`. * **End of Life States** *
      * `canceled` - Indicates a canceled subscription. This may happen at your request (via the API
      * or the web interface) or due to the expiration of the
-     * [Dunning](https://maxio.zendesk.com/hc/en-us/articles/24287076583565-Dunning-Overview)
+     * [Dunning](https://docs.maxio.com/billing/subscriptions/dunning/overview/understanding-how-dunning-works)
      * process without payment. See the
-     * [Reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming)
+     * [Reactivation](https://docs.maxio.com/billing/subscriptions/management/state-management/understand-reactivation-and-resume-scenarios)
      * documentation for info on how to restart a canceled subscription. While a subscription is
      * canceled, its period will not advance, it will not accrue any new charges, and Advanced
      * Billing will not attempt to collect the overdue balance. * `expired` - Indicates a
@@ -518,10 +518,10 @@ public class Subscription
      * prepayment is applied, it will return to an active state. * `trial_ended` - A subscription in
      * a trial_ended state is a subscription that completed a no-obligation trial and did not have a
      * card on file at the expiration of the trial period. See [Product Pricing – No Obligation
-     * Trials](https://maxio.zendesk.com/hc/en-us/articles/24261076617869-Product-Editing) for more
-     * details. See [Subscription
-     * States](https://maxio.zendesk.com/hc/en-us/articles/24252119027853-Subscription-States) for
-     * more info about subscription states and state transitions.
+     * Trials](https://docs.maxio.com/billing/catalog/plans/creating-plans) for more details. See
+     * [Subscription
+     * States](https://docs.maxio.com/billing/subscriptions/management/subscription-states/understand-subscription-states)
+     * for more info about subscription states and state transitions.
      * @return Returns the SubscriptionState
      */
     @JsonGetter("state")
@@ -553,13 +553,13 @@ public class Subscription
      * automatically. An interface is being built for you to review problems resulting from these
      * events to take manual action when needed. * `unpaid` - Indicates an unpaid subscription. A
      * subscription is marked unpaid if the retry period expires and you have configured your
-     * [Dunning](https://maxio.zendesk.com/hc/en-us/articles/24287076583565-Dunning-Overview)
+     * [Dunning](https://docs.maxio.com/billing/subscriptions/dunning/overview/understanding-how-dunning-works)
      * settings to have a Final Action of `mark the subscription unpaid`. * **End of Life States** *
      * `canceled` - Indicates a canceled subscription. This may happen at your request (via the API
      * or the web interface) or due to the expiration of the
-     * [Dunning](https://maxio.zendesk.com/hc/en-us/articles/24287076583565-Dunning-Overview)
+     * [Dunning](https://docs.maxio.com/billing/subscriptions/dunning/overview/understanding-how-dunning-works)
      * process without payment. See the
-     * [Reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming)
+     * [Reactivation](https://docs.maxio.com/billing/subscriptions/management/state-management/understand-reactivation-and-resume-scenarios)
      * documentation for info on how to restart a canceled subscription. While a subscription is
      * canceled, its period will not advance, it will not accrue any new charges, and Advanced
      * Billing will not attempt to collect the overdue balance. * `expired` - Indicates a
@@ -574,10 +574,10 @@ public class Subscription
      * prepayment is applied, it will return to an active state. * `trial_ended` - A subscription in
      * a trial_ended state is a subscription that completed a no-obligation trial and did not have a
      * card on file at the expiration of the trial period. See [Product Pricing – No Obligation
-     * Trials](https://maxio.zendesk.com/hc/en-us/articles/24261076617869-Product-Editing) for more
-     * details. See [Subscription
-     * States](https://maxio.zendesk.com/hc/en-us/articles/24252119027853-Subscription-States) for
-     * more info about subscription states and state transitions.
+     * Trials](https://docs.maxio.com/billing/catalog/plans/creating-plans) for more details. See
+     * [Subscription
+     * States](https://docs.maxio.com/billing/subscriptions/management/subscription-states/understand-subscription-states)
+     * for more info about subscription states and state transitions.
      * @param state Value for SubscriptionState
      */
     @JsonSetter("state")

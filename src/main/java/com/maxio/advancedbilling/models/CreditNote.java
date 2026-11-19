@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class CreditNote
     private Integer siteId;
     private Integer customerId;
     private Integer subscriptionId;
-    private String number;
-    private Integer sequenceNumber;
+    private OptionalNullable<String> number;
+    private OptionalNullable<Integer> sequenceNumber;
     private LocalDate issueDate;
     private LocalDate appliedDate;
     private CreditNoteStatus status;
@@ -112,6 +113,76 @@ public class CreditNote
             List<InvoiceTax> taxes,
             List<CreditNoteApplication> applications,
             List<InvoiceRefund> refunds,
+            List<OriginInvoice> originInvoices) {
+        this.uid = uid;
+        this.siteId = siteId;
+        this.customerId = customerId;
+        this.subscriptionId = subscriptionId;
+        this.number = OptionalNullable.of(number);
+        this.sequenceNumber = OptionalNullable.of(sequenceNumber);
+        this.issueDate = issueDate;
+        this.appliedDate = appliedDate;
+        this.status = status;
+        this.currency = currency;
+        this.memo = memo;
+        this.seller = seller;
+        this.customer = customer;
+        this.billingAddress = billingAddress;
+        this.shippingAddress = shippingAddress;
+        this.subtotalAmount = subtotalAmount;
+        this.discountAmount = discountAmount;
+        this.taxAmount = taxAmount;
+        this.totalAmount = totalAmount;
+        this.appliedAmount = appliedAmount;
+        this.remainingAmount = remainingAmount;
+        this.lineItems = lineItems;
+        this.discounts = discounts;
+        this.taxes = taxes;
+        this.applications = applications;
+        this.refunds = refunds;
+        this.originInvoices = originInvoices;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  siteId  Integer value for siteId.
+     * @param  customerId  Integer value for customerId.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  number  String value for number.
+     * @param  sequenceNumber  Integer value for sequenceNumber.
+     * @param  issueDate  LocalDate value for issueDate.
+     * @param  appliedDate  LocalDate value for appliedDate.
+     * @param  status  CreditNoteStatus value for status.
+     * @param  currency  String value for currency.
+     * @param  memo  String value for memo.
+     * @param  seller  InvoiceSeller value for seller.
+     * @param  customer  InvoiceCustomer value for customer.
+     * @param  billingAddress  InvoiceAddress value for billingAddress.
+     * @param  shippingAddress  InvoiceAddress value for shippingAddress.
+     * @param  subtotalAmount  String value for subtotalAmount.
+     * @param  discountAmount  String value for discountAmount.
+     * @param  taxAmount  String value for taxAmount.
+     * @param  totalAmount  String value for totalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  remainingAmount  String value for remainingAmount.
+     * @param  lineItems  List of CreditNoteLineItem value for lineItems.
+     * @param  discounts  List of InvoiceDiscount value for discounts.
+     * @param  taxes  List of InvoiceTax value for taxes.
+     * @param  applications  List of CreditNoteApplication value for applications.
+     * @param  refunds  List of InvoiceRefund value for refunds.
+     * @param  originInvoices  List of OriginInvoice value for originInvoices.
+     */
+
+    protected CreditNote(String uid, Integer siteId, Integer customerId, Integer subscriptionId,
+            OptionalNullable<String> number, OptionalNullable<Integer> sequenceNumber,
+            LocalDate issueDate, LocalDate appliedDate, CreditNoteStatus status, String currency,
+            String memo, InvoiceSeller seller, InvoiceCustomer customer,
+            InvoiceAddress billingAddress, InvoiceAddress shippingAddress, String subtotalAmount,
+            String discountAmount, String taxAmount, String totalAmount, String appliedAmount,
+            String remainingAmount, List<CreditNoteLineItem> lineItems,
+            List<InvoiceDiscount> discounts, List<InvoiceTax> taxes,
+            List<CreditNoteApplication> applications, List<InvoiceRefund> refunds,
             List<OriginInvoice> originInvoices) {
         this.uid = uid;
         this.siteId = siteId;
@@ -229,51 +300,109 @@ public class CreditNote
     }
 
     /**
-     * Getter for Number.
+     * Internal Getter for Number.
      * A unique, identifying string that appears on the credit note and in places it is referenced.
      * While the UID is long and not appropriate to show to customers, the number is usually shorter
-     * and consumable by the customer and the merchant alike.
-     * @return Returns the String
+     * and consumable by the customer and the merchant alike. A saved credit note always has a
+     * number. The value is `null` only in `refund_invoice` event data when the refund did not
+     * create a credit note (`apply_credit` is `false`).
+     * @return Returns the Internal String
      */
     @JsonGetter("number")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNumber() {
+        return this.number;
+    }
+
+    /**
+     * Getter for Number.
+     * A unique, identifying string that appears on the credit note and in places it is referenced.
+     * While the UID is long and not appropriate to show to customers, the number is usually shorter
+     * and consumable by the customer and the merchant alike. A saved credit note always has a
+     * number. The value is `null` only in `refund_invoice` event data when the refund did not
+     * create a credit note (`apply_credit` is `false`).
+     * @return Returns the String
+     */
     public String getNumber() {
-        return number;
+        return OptionalNullable.getFrom(number);
     }
 
     /**
      * Setter for Number.
      * A unique, identifying string that appears on the credit note and in places it is referenced.
      * While the UID is long and not appropriate to show to customers, the number is usually shorter
-     * and consumable by the customer and the merchant alike.
+     * and consumable by the customer and the merchant alike. A saved credit note always has a
+     * number. The value is `null` only in `refund_invoice` event data when the refund did not
+     * create a credit note (`apply_credit` is `false`).
      * @param number Value for String
      */
     @JsonSetter("number")
     public void setNumber(String number) {
-        this.number = number;
+        this.number = OptionalNullable.of(number);
+    }
+
+    /**
+     * UnSetter for Number.
+     * A unique, identifying string that appears on the credit note and in places it is referenced.
+     * While the UID is long and not appropriate to show to customers, the number is usually shorter
+     * and consumable by the customer and the merchant alike. A saved credit note always has a
+     * number. The value is `null` only in `refund_invoice` event data when the refund did not
+     * create a credit note (`apply_credit` is `false`).
+     */
+    public void unsetNumber() {
+        number = null;
+    }
+
+    /**
+     * Internal Getter for SequenceNumber.
+     * A monotonically increasing number assigned to credit notes as they are created. This number
+     * is unique within a site and can be used to sort and order credit notes. A saved credit note
+     * always has a sequence number. The value is `null` only in `refund_invoice` event data when
+     * the refund did not create a credit note (`apply_credit` is `false`).
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("sequence_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSequenceNumber() {
+        return this.sequenceNumber;
     }
 
     /**
      * Getter for SequenceNumber.
      * A monotonically increasing number assigned to credit notes as they are created. This number
-     * is unique within a site and can be used to sort and order credit notes.
+     * is unique within a site and can be used to sort and order credit notes. A saved credit note
+     * always has a sequence number. The value is `null` only in `refund_invoice` event data when
+     * the refund did not create a credit note (`apply_credit` is `false`).
      * @return Returns the Integer
      */
-    @JsonGetter("sequence_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getSequenceNumber() {
-        return sequenceNumber;
+        return OptionalNullable.getFrom(sequenceNumber);
     }
 
     /**
      * Setter for SequenceNumber.
      * A monotonically increasing number assigned to credit notes as they are created. This number
-     * is unique within a site and can be used to sort and order credit notes.
+     * is unique within a site and can be used to sort and order credit notes. A saved credit note
+     * always has a sequence number. The value is `null` only in `refund_invoice` event data when
+     * the refund did not create a credit note (`apply_credit` is `false`).
      * @param sequenceNumber Value for Integer
      */
     @JsonSetter("sequence_number")
     public void setSequenceNumber(Integer sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
+        this.sequenceNumber = OptionalNullable.of(sequenceNumber);
+    }
+
+    /**
+     * UnSetter for SequenceNumber.
+     * A monotonically increasing number assigned to credit notes as they are created. This number
+     * is unique within a site and can be used to sort and order credit notes. A saved credit note
+     * always has a sequence number. The value is `null` only in `refund_invoice` event data when
+     * the refund did not create a credit note (`apply_credit` is `false`).
+     */
+    public void unsetSequenceNumber() {
+        sequenceNumber = null;
     }
 
     /**
@@ -725,7 +854,7 @@ public class CreditNote
     /**
      * Getter for OriginInvoices.
      * An array of origin invoices for the credit note. Learn more about [Origin Invoice from our
-     * docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices).
+     * docs](https://docs.maxio.com/billing/invoicing/working-with-invoices/how-credit-notes-work#how-origin-invoices-work).
      * @return Returns the List of OriginInvoice
      */
     @JsonGetter("origin_invoices")
@@ -737,7 +866,7 @@ public class CreditNote
     /**
      * Setter for OriginInvoices.
      * An array of origin invoices for the credit note. Learn more about [Origin Invoice from our
-     * docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices).
+     * docs](https://docs.maxio.com/billing/invoicing/working-with-invoices/how-credit-notes-work#how-origin-invoices-work).
      * @param originInvoices Value for List of OriginInvoice
      */
     @JsonSetter("origin_invoices")
@@ -776,8 +905,6 @@ public class CreditNote
                 .siteId(getSiteId())
                 .customerId(getCustomerId())
                 .subscriptionId(getSubscriptionId())
-                .number(getNumber())
-                .sequenceNumber(getSequenceNumber())
                 .issueDate(getIssueDate())
                 .appliedDate(getAppliedDate())
                 .status(getStatus())
@@ -799,6 +926,8 @@ public class CreditNote
                 .applications(getApplications())
                 .refunds(getRefunds())
                 .originInvoices(getOriginInvoices());
+        builder.number = internalGetNumber();
+        builder.sequenceNumber = internalGetSequenceNumber();
         return builder;
     }
 
@@ -810,8 +939,8 @@ public class CreditNote
         private Integer siteId;
         private Integer customerId;
         private Integer subscriptionId;
-        private String number;
-        private Integer sequenceNumber;
+        private OptionalNullable<String> number;
+        private OptionalNullable<Integer> sequenceNumber;
         private LocalDate issueDate;
         private LocalDate appliedDate;
         private CreditNoteStatus status;
@@ -882,7 +1011,16 @@ public class CreditNote
          * @return Builder
          */
         public Builder number(String number) {
-            this.number = number;
+            this.number = OptionalNullable.of(number);
+            return this;
+        }
+
+        /**
+         * UnSetter for number.
+         * @return Builder
+         */
+        public Builder unsetNumber() {
+            number = null;
             return this;
         }
 
@@ -892,7 +1030,16 @@ public class CreditNote
          * @return Builder
          */
         public Builder sequenceNumber(Integer sequenceNumber) {
-            this.sequenceNumber = sequenceNumber;
+            this.sequenceNumber = OptionalNullable.of(sequenceNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for sequenceNumber.
+         * @return Builder
+         */
+        public Builder unsetSequenceNumber() {
+            sequenceNumber = null;
             return this;
         }
 

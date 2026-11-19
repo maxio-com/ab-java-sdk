@@ -22,7 +22,7 @@ SubscriptionComponentResponse subscriptionComponentResponse = new SubscriptionCo
     .component(new SubscriptionComponent.Builder()
         .id(80)
         .name("name8")
-        .kind(ComponentKind.QUANTITY_BASED_COMPONENT)
+        .kind(ComponentKind.EVENT_BASED_COMPONENT)
         .unitName("unit_name0")
         .enabled(false)
         .build())

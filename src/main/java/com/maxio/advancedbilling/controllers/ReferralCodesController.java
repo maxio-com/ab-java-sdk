@@ -35,8 +35,8 @@ public final class ReferralCodesController extends BaseController {
      * Validates whether a referral code is valid and applicable within your site. This method is
      * useful for validating referral codes that are entered by a customer. For more information,
      * see [Understanding
-     * Referrals](https://docs.maxio.com/hc/en-us/articles/24286981223693-Understanding-Referrals)
-     * in the product documentation.
+     * Referrals](https://docs.maxio.com/configuration/advanced-billing/understand-referrals) in the
+     * product documentation.
      * @param  code  Required parameter: The referral code you are trying to validate
      * @return    Returns the ReferralValidationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

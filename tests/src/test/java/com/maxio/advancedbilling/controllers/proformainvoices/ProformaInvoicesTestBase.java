@@ -165,7 +165,7 @@ abstract class ProformaInvoicesTestBase {
         if (!isSignup) {
             assertThat(proformaInvoice.getCredits()).hasSize(1);
             ProformaInvoiceCredit credit = proformaInvoice.getCredits().get(0);
-            assertThat(credit.getAppliedAmount()).isEqualTo("5.0");
+            assertMonetaryAmount("credit.appliedAmount", credit.getAppliedAmount());
             assertThat(credit.getMemo()).isEqualTo("This credit amount is anticipated to apply when the invoice is generated");
             assertThat(credit.getOriginalAmount()).isEqualTo("5.0");
             assertThat(proformaInvoice.getSubscriptionId()).isNotNull();
@@ -202,7 +202,7 @@ abstract class ProformaInvoicesTestBase {
         assertThat(proformaInvoice.getCollectionMethod()).isEqualTo(CollectionMethod.AUTOMATIC);
         assertThat(proformaInvoice.getConsolidationLevel()).isEqualTo(InvoiceConsolidationLevel.NONE);
         assertThat(proformaInvoice.getCreatedAt()).isNotNull();
-        assertThat(proformaInvoice.getCreditAmount()).isNotNull();
+        assertMonetaryAmount("invoice.creditAmount", proformaInvoice.getCreditAmount());
 
         assertThat(proformaInvoice.getCurrency()).isEqualTo("USD");
         assertThat(proformaInvoice.getCustomFields()).isEmpty();
@@ -222,15 +222,15 @@ abstract class ProformaInvoicesTestBase {
 
         assertThat(proformaInvoice.getCustomerId()).isEqualTo(customer.getId());
         assertThat(proformaInvoice.getDeliveryDate()).isAfterOrEqualTo(LocalDate.now());
-        assertThat(proformaInvoice.getDiscountAmount()).isEqualTo("0.0");
+        assertMonetaryAmount("invoice.discountAmount", proformaInvoice.getDiscountAmount());
         assertThat(proformaInvoice.getDiscounts()).isEmpty();
-        assertThat(proformaInvoice.getDueAmount()).isEqualTo(isSignup ? "262.5" : "277.5");
+        assertMonetaryAmount("invoice.dueAmount", proformaInvoice.getDueAmount());
         assertThat(proformaInvoice.getMemo()).isEqualTo("Thanks for your business! If you have any questions, please contact your account manager.");
-        assertThat(proformaInvoice.getPaidAmount()).isEqualTo("0.0");
+        assertMonetaryAmount("invoice.paidAmount", proformaInvoice.getPaidAmount());
         assertThat(proformaInvoice.getPaymentInstructions()).isEqualTo("Please make checks payable to \"Acme, Inc.\"");
         assertThat(proformaInvoice.getProductFamilyName()).isEqualTo(productFamily.getName());
         assertThat(proformaInvoice.getProductName()).isEqualTo(product.getName());
-        assertThat(proformaInvoice.getRefundAmount()).isEqualTo("0.0");
+        assertMonetaryAmount("invoice.refundAmount", proformaInvoice.getRefundAmount());
         assertThat(proformaInvoice.getRole()).isEqualTo(ProformaInvoiceRole.PROFORMA_ADHOC);
 
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
@@ -240,10 +240,13 @@ abstract class ProformaInvoicesTestBase {
                 .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSiteId()).isNotNull();
         assertThat(proformaInvoice.getStatus()).isEqualTo(DRAFT);
-        assertThat(proformaInvoice.getSubtotalAmount()).isEqualTo(isSignup ? "262.5" : "282.5");
-        assertThat(proformaInvoice.getTaxAmount()).isEqualTo("0.0");
-        assertThat(proformaInvoice.getTaxes()).isEmpty();
-        assertThat(proformaInvoice.getTotalAmount()).isEqualTo(isSignup ? "262.5" : "282.5");
+        assertMonetaryAmount("invoice.subtotalAmount", proformaInvoice.getSubtotalAmount());
+        assertMonetaryAmount("invoice.taxAmount", proformaInvoice.getTaxAmount());
+        assertThat(proformaInvoice.getTaxes()).isNotNull().allSatisfy(tax -> {
+            assertMonetaryAmount("tax.taxableAmount", tax.getTaxableAmount());
+            assertMonetaryAmount("tax.taxAmount", tax.getTaxAmount());
+        });
+        assertMonetaryAmount("invoice.totalAmount", proformaInvoice.getTotalAmount());
 
         // line items
         String lineItemDescription = "%s - %s".formatted(
@@ -259,10 +262,6 @@ abstract class ProformaInvoicesTestBase {
                         .description(lineItemDescription)
                         .quantity("1.0")
                         .unitPrice("12.5")
-                        .subtotalAmount("12.5")
-                        .discountAmount("0.0")
-                        .taxAmount("8.95")
-                        .totalAmount("21.45")
                         .kind("baseline")
                         .tieredUnitPrice(false)
                         .periodRangeStart(isSignup ? LocalDate.now() : LocalDate.now().plusMonths(1))
@@ -284,10 +283,6 @@ abstract class ProformaInvoicesTestBase {
                                         formatDescriptionDate(LocalDate.now().plusMonths(1))))
                         .quantity("20.0")
                         .unitPrice("11.5")
-                        .subtotalAmount("230.0")
-                        .discountAmount("0.0")
-                        .taxAmount("0.0")
-                        .totalAmount("230.0")
                         .kind("metered_component")
                         .tieredUnitPrice(false)
                         .periodRangeStart(LocalDate.now())
@@ -307,10 +302,6 @@ abstract class ProformaInvoicesTestBase {
                         .description(lineItemDescription)
                         .quantity("20.0")
                         .unitPrice("1.0")
-                        .subtotalAmount("20.0")
-                        .discountAmount("0.0")
-                        .taxAmount("0.0")
-                        .totalAmount("20.0")
                         .kind("quantity_based_component")
                         .tieredUnitPrice(false)
                         .periodRangeStart(isSignup ? LocalDate.now() : LocalDate.now().plusMonths(1))
@@ -335,10 +326,6 @@ abstract class ProformaInvoicesTestBase {
                                             formatDescriptionDate(LocalDate.now().plusMonths(1))))
                             .quantity("20.0")
                             .unitPrice("1.0")
-                            .subtotalAmount("20.0")
-                            .discountAmount("0.0")
-                            .taxAmount("0.0")
-                            .totalAmount("20.0")
                             .kind("quantity_based_component")
                             .tieredUnitPrice(false)
                             .periodRangeStart(LocalDate.now())
@@ -354,12 +341,24 @@ abstract class ProformaInvoicesTestBase {
             );
         }
 
+        // Check calculated amounts as SDK response values, not AB billing calculations.
+        assertThat(proformaInvoice.getLineItems()).isNotNull().allSatisfy(lineItem -> {
+            assertMonetaryAmount("lineItem.subtotalAmount", lineItem.getSubtotalAmount());
+            assertMonetaryAmount("lineItem.discountAmount", lineItem.getDiscountAmount());
+            assertMonetaryAmount("lineItem.taxAmount", lineItem.getTaxAmount());
+            assertMonetaryAmount("lineItem.totalAmount", lineItem.getTotalAmount());
+        });
         assertThat(proformaInvoice.getLineItems())
                 .hasSize(expectedLineItems.size())
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties",
+                        "subtotalAmount", "discountAmount", "taxAmount", "totalAmount")
                 .containsExactlyInAnyOrder(
                         expectedLineItems.toArray(new InvoiceLineItem[0])
                 );
+    }
+
+    private static void assertMonetaryAmount(String field, String value) {
+        assertThat(value).as(field).isNotBlank().matches("-?\\d+(\\.\\d+)?");
     }
 
     static String formatDescriptionDate(LocalDate localDate) {

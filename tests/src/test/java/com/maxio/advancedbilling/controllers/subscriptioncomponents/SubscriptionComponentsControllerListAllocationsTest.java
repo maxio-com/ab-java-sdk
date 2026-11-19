@@ -84,9 +84,9 @@ public class SubscriptionComponentsControllerListAllocationsTest {
                 .listAllocations(subscription.getId(), quantityBasedComponent.getId(), null);
 
         // then
-        assertAllocation(createAllocation3, allocationResponses.get(0).getAllocation(), quantityBasedComponent, subscription.getId());
-        assertAllocation(createAllocation2, allocationResponses.get(1).getAllocation(), quantityBasedComponent, subscription.getId());
-        assertAllocation(createAllocation1, allocationResponses.get(2).getAllocation(), quantityBasedComponent, subscription.getId());
+        assertAllocation(createAllocation3, allocationResponses.get(0).getAllocation(), quantityBasedComponent, subscription.getId(), "4.1");
+        assertAllocation(createAllocation2, allocationResponses.get(1).getAllocation(), quantityBasedComponent, subscription.getId(), "2.4");
+        assertAllocation(createAllocation1, allocationResponses.get(2).getAllocation(), quantityBasedComponent, subscription.getId(), "0.0");
     }
 
     @Test

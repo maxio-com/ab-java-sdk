@@ -40,7 +40,7 @@ public final class EventsController extends BaseController {
      * information is **especially** useful to track down issues that arise when subscriptions are
      * not created due to errors. Within the UI, Events are referred to as Site Activity. For more
      * information, see [Site
-     * Activity](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-Activity). Use
+     * Activity](https://docs.maxio.com/configuration/advanced-billing/sites/site-activity). Use
      * query string filters to narrow down results. You can use the `filter` parameter to filter by
      * event key. ### Legacy Filters The following keys are no longer supported. +
      * `payment_failure_recreated` + `payment_success_recreated` + `renewal_failure_recreated` +

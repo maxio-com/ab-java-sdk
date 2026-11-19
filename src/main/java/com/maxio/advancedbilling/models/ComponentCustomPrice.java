@@ -30,6 +30,7 @@ public class ComponentCustomPrice
     private Boolean rolloverPrepaidRemainder;
     private OptionalNullable<Integer> expirationInterval;
     private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
+    private List<SubscriptionComponentCustomPriceSegment> segments;
 
     /**
      * Default constructor.
@@ -50,6 +51,7 @@ public class ComponentCustomPrice
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
+     * @param  segments  List of SubscriptionComponentCustomPriceSegment value for segments.
      */
     public ComponentCustomPrice(
             List<Price> prices,
@@ -62,7 +64,8 @@ public class ComponentCustomPrice
             Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder,
             Integer expirationInterval,
-            ExpirationIntervalUnit expirationIntervalUnit) {
+            ExpirationIntervalUnit expirationIntervalUnit,
+            List<SubscriptionComponentCustomPriceSegment> segments) {
         this.taxIncluded = taxIncluded;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
@@ -74,6 +77,7 @@ public class ComponentCustomPrice
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.expirationInterval = OptionalNullable.of(expirationInterval);
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+        this.segments = segments;
     }
 
     /**
@@ -89,6 +93,7 @@ public class ComponentCustomPrice
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
+     * @param  segments  List of SubscriptionComponentCustomPriceSegment value for segments.
      */
 
     protected ComponentCustomPrice(List<Price> prices, Boolean taxIncluded,
@@ -96,7 +101,8 @@ public class ComponentCustomPrice
             OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<Integer> listPricePointId,
             Boolean useDefaultListPrice, Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder, OptionalNullable<Integer> expirationInterval,
-            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit) {
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
+            List<SubscriptionComponentCustomPriceSegment> segments) {
         this.taxIncluded = taxIncluded;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
@@ -108,6 +114,7 @@ public class ComponentCustomPrice
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.expirationInterval = expirationInterval;
         this.expirationIntervalUnit = expirationIntervalUnit;
+        this.segments = segments;
     }
 
     /**
@@ -265,8 +272,9 @@ public class ComponentCustomPrice
 
     /**
      * Getter for UseDefaultListPrice.
-     * When true, list price calculations will continue to use the default price point even when a
-     * `custom_price` is supplied.
+     * (Optional) When list vs sales pricing is enabled and `list_price_point_id` is omitted, the
+     * component's default price point is used as the list price unless this is `false`. Defaults to
+     * `true`.
      * @return Returns the Boolean
      */
     @JsonGetter("use_default_list_price")
@@ -277,8 +285,9 @@ public class ComponentCustomPrice
 
     /**
      * Setter for UseDefaultListPrice.
-     * When true, list price calculations will continue to use the default price point even when a
-     * `custom_price` is supplied.
+     * (Optional) When list vs sales pricing is enabled and `list_price_point_id` is omitted, the
+     * component's default price point is used as the list price unless this is `false`. Defaults to
+     * `true`.
      * @param useDefaultListPrice Value for Boolean
      */
     @JsonSetter("use_default_list_price")
@@ -439,6 +448,51 @@ public class ComponentCustomPrice
     }
 
     /**
+     * Getter for Segments.
+     * Applicable only to segmented event-based components on sites using Maxio Metering.
+     * Per-segment rates for the component: each entry sets the pricing scheme and prices for one
+     * segment of the component's meter, identified by its property values. Accepted only by Create
+     * Subscription and Update Subscription, which save the segment rates. Preview Subscription and
+     * the signup proforma invoice endpoints validate segments the same way but do not save them.
+     * Every other endpoint that accepts a component `custom_price` returns `422 Unprocessable
+     * Entity` when the `segments` key is present, even when its value is `null` or an empty array.
+     * Omit this property unless you are setting segment rates. Saved segment rates take effect as
+     * soon as the request succeeds and price all of the current billing period's usage at the new
+     * rates, including usage recorded before the request. To read them back, take the
+     * `price_point_id` of the subscription's component (for example, from [Read Subscription
+     * Component]($e/Subscription%20Components/readSubscriptionComponent)) and call `GET
+     * /components/{component_id}/price_points/{price_point_id}/segments.json`.
+     * @return Returns the List of SubscriptionComponentCustomPriceSegment
+     */
+    @JsonGetter("segments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<SubscriptionComponentCustomPriceSegment> getSegments() {
+        return segments;
+    }
+
+    /**
+     * Setter for Segments.
+     * Applicable only to segmented event-based components on sites using Maxio Metering.
+     * Per-segment rates for the component: each entry sets the pricing scheme and prices for one
+     * segment of the component's meter, identified by its property values. Accepted only by Create
+     * Subscription and Update Subscription, which save the segment rates. Preview Subscription and
+     * the signup proforma invoice endpoints validate segments the same way but do not save them.
+     * Every other endpoint that accepts a component `custom_price` returns `422 Unprocessable
+     * Entity` when the `segments` key is present, even when its value is `null` or an empty array.
+     * Omit this property unless you are setting segment rates. Saved segment rates take effect as
+     * soon as the request succeeds and price all of the current billing period's usage at the new
+     * rates, including usage recorded before the request. To read them back, take the
+     * `price_point_id` of the subscription's component (for example, from [Read Subscription
+     * Component]($e/Subscription%20Components/readSubscriptionComponent)) and call `GET
+     * /components/{component_id}/price_points/{price_point_id}/segments.json`.
+     * @param segments Value for List of SubscriptionComponentCustomPriceSegment
+     */
+    @JsonSetter("segments")
+    public void setSegments(List<SubscriptionComponentCustomPriceSegment> segments) {
+        this.segments = segments;
+    }
+
+    /**
      * Converts this ComponentCustomPrice into string format.
      * @return String representation of this class
      */
@@ -450,7 +504,8 @@ public class ComponentCustomPrice
                 + useDefaultListPrice + ", renewPrepaidAllocation=" + renewPrepaidAllocation
                 + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder + ", expirationInterval="
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", segments=" + segments + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**
@@ -465,7 +520,8 @@ public class ComponentCustomPrice
                 .interval(getInterval())
                 .useDefaultListPrice(getUseDefaultListPrice())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
-                .rolloverPrepaidRemainder(getRolloverPrepaidRemainder());
+                .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
+                .segments(getSegments());
         builder.intervalUnit = internalGetIntervalUnit();
         builder.listPricePointId = internalGetListPricePointId();
         builder.expirationInterval = internalGetExpirationInterval();
@@ -488,6 +544,7 @@ public class ComponentCustomPrice
         private Boolean rolloverPrepaidRemainder;
         private OptionalNullable<Integer> expirationInterval;
         private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
+        private List<SubscriptionComponentCustomPriceSegment> segments;
 
         /**
          * Initialization constructor.
@@ -650,13 +707,23 @@ public class ComponentCustomPrice
         }
 
         /**
+         * Setter for segments.
+         * @param  segments  List of SubscriptionComponentCustomPriceSegment value for segments.
+         * @return Builder
+         */
+        public Builder segments(List<SubscriptionComponentCustomPriceSegment> segments) {
+            this.segments = segments;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ComponentCustomPrice} object using the set fields.
          * @return {@link ComponentCustomPrice}
          */
         public ComponentCustomPrice build() {
             return new ComponentCustomPrice(prices, taxIncluded, pricingScheme, interval,
                     intervalUnit, listPricePointId, useDefaultListPrice, renewPrepaidAllocation,
-                    rolloverPrepaidRemainder, expirationInterval, expirationIntervalUnit);
+                    rolloverPrepaidRemainder, expirationInterval, expirationIntervalUnit, segments);
         }
     }
 }

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
+| `Id` | `Integer` | Optional | The ID of the stored currency price. This is `null` when the price point uses the site exchange rate (`use_site_exchange_rate: true`), because the price is calculated from the rate and is not stored. | Integer getId() | setId(Integer id) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
 | `Price` | `String` | Optional | - | String getPrice() | setPrice(String price) |
 | `FormattedPrice` | `String` | Optional | - | String getFormattedPrice() | setFormattedPrice(String formattedPrice) |

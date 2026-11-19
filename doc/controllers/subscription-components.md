@@ -194,6 +194,13 @@ try {
 
 Updates the price points on one or more of a subscription's components.
 
+The `component_id` key can take either a:
+
+1. Component id (integer)
+2. Component handle with the `handle:` prefix (string), for example `handle:my-component`
+
+The response returns each `component_id` in the same form that you sent.
+
 The `price_point` key can take either a:
 
 1. Price point id (integer)
@@ -230,21 +237,35 @@ int subscriptionId = 222;
 BulkComponentsPricePointAssignment body = new BulkComponentsPricePointAssignment.Builder()
     .components(Arrays.asList(
         new ComponentPricePointAssignment.Builder()
-            .componentId(997)
+            .componentId(ComponentPricePointAssignmentComponentId.fromNumber(
+                997
+            ))
             .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(
                 1022
             ))
             .build(),
         new ComponentPricePointAssignment.Builder()
-            .componentId(998)
+            .componentId(ComponentPricePointAssignmentComponentId.fromNumber(
+                998
+            ))
             .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(
                 "wholesale-handle"
             ))
             .build(),
         new ComponentPricePointAssignment.Builder()
-            .componentId(999)
+            .componentId(ComponentPricePointAssignmentComponentId.fromNumber(
+                999
+            ))
             .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(
                 "_default"
+            ))
+            .build(),
+        new ComponentPricePointAssignment.Builder()
+            .componentId(ComponentPricePointAssignmentComponentId.fromString(
+                "handle:my-component"
+            ))
+            .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(
+                1023
             ))
             .build()
     ))
@@ -433,23 +454,27 @@ When creating an allocation via the API, you can pass the `upgrade_charge`, `dow
 
 > **Note:** These proration and accrual fields are ignored for Prepaid Components since this component type always generates charges immediately without proration.
 
-For information on prorated components and upgrade/downgrade schemes, see [Setting Component Allocations.](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration)
+For information on prorated components and upgrade/downgrade schemes, see [Setting Component Allocations.](https://docs.maxio.com/billing/subscriptions/management/product-allocations/configure-proration-schemes-for-products)
 
 ### Order of Resolution for upgrade_charge and downgrade_credit
 
 1. Per allocation in API call (within a single allocation of the `allocations` array)
-2. [Component-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview)
+2. [Component-level default value](https://docs.maxio.com/billing/subscriptions/management/product-allocations/understand-how-products-are-billed)
 3. Allocation API call top level (outside of the `allocations` array)
-4. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
+4. [Site-level default value](https://docs.maxio.com/billing/subscriptions/management/product-allocations/configure-proration-schemes-for-products#proration-schemes)
 
 ### Order of Resolution for accrue charge
 
 1. Allocation API call top level (outside of the `allocations` array)
-2. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
+2. [Site-level default value](https://docs.maxio.com/billing/subscriptions/management/product-allocations/configure-proration-schemes-for-products#proration-schemes)
 
 > **Note:** Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.
 
-For more information, see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product Documentation.
+For more information, see the [Component Allocations](https://docs.maxio.com/billing/subscriptions/management/product-allocations/understand-how-products-are-billed) product Documentation.
+
+## Segment-Level Custom Pricing
+
+This endpoint does not support segment-level custom pricing. A request whose component `custom_price` includes a `segments` key, whatever its value, returns `422 Unprocessable Entity` with a message such as "Segment-level custom pricing is not supported on this endpoint", and nothing is saved. To set segment rates for a subscription, send `custom_price.segments` to [Create Subscription](../../doc/controllers/subscriptions.md#create-subscription) or [Update Subscription](../../doc/controllers/subscriptions.md#update-subscription).
 
 ```java
 AllocationResponse allocateComponent(
@@ -698,18 +723,22 @@ The charges and/or credits that are created will be rolled up into a single tota
 ### Order of Resolution for upgrade_charge and downgrade_credit
 
 1. Per allocation in API call (within a single allocation of the `allocations` array)
-2. [Component-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview)
+2. [Component-level default value](https://docs.maxio.com/billing/subscriptions/management/product-allocations/understand-how-products-are-billed)
 3. Allocation API call top level (outside of the `allocations` array)
-4. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
+4. [Site-level default value](https://docs.maxio.com/billing/subscriptions/management/product-allocations/configure-proration-schemes-for-products#proration-schemes)
 
 ### Order of Resolution for accrue charge
 
 1. Allocation API call top level (outside of the `allocations` array)
-2. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
+2. [Site-level default value](https://docs.maxio.com/billing/subscriptions/management/product-allocations/configure-proration-schemes-for-products#proration-schemes)
 
 > **Note:** Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.
 
-For more information, see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product documentation.
+For more information, see the [Component Allocations](https://docs.maxio.com/billing/subscriptions/management/product-allocations/understand-how-products-are-billed) product documentation.
+
+## Segment-Level Custom Pricing
+
+This endpoint does not support segment-level custom pricing. A request whose component `custom_price` includes a `segments` key, whatever its value, returns `422 Unprocessable Entity` with a message such as "Segment-level custom pricing is not supported on this endpoint", and nothing is saved. To set segment rates for a subscription, send `custom_price.segments` to [Create Subscription](../../doc/controllers/subscriptions.md#create-subscription) or [Update Subscription](../../doc/controllers/subscriptions.md#update-subscription).
 
 ```java
 List<AllocationResponse> allocateComponents(
@@ -827,6 +856,10 @@ Previews a potential subscription's **quantity-based** or **on/off** component a
 When the allocation uses multiple different types of `upgrade_charge`s or `downgrade_credit`s, the Allocation is viewed as an Allocation which uses "Fine-Grained Component Control". As a result, the response will not include `direction` and `proration` within the `allocation_preview`, but at the `line_items` and `allocations` level respectfully.
 
 See example below for Fine-Grained Component Control response.
+
+## Segment-Level Custom Pricing
+
+This endpoint does not support segment-level custom pricing. A request whose component `custom_price` includes a `segments` key, whatever its value, returns `422 Unprocessable Entity` with a message such as "Segment-level custom pricing is not supported on this endpoint", and nothing is saved. To set segment rates for a subscription, send `custom_price.segments` to [Create Subscription](../../doc/controllers/subscriptions.md#create-subscription) or [Update Subscription](../../doc/controllers/subscriptions.md#update-subscription).
 
 ```java
 AllocationPreviewResponse previewAllocations(
@@ -1138,15 +1171,15 @@ Records an instance of metered or prepaid usage for a subscription.
 
 You can report metered or prepaid usage to Advanced Billing as often as you wish. You can report usage as it happens or periodically, such as each night or once per billing period.
 
-Full documentation on how to create Components in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components). Additionally, for information on how to record component usage against a subscription, see the following resources:
+Full documentation on how to create Components in the Advanced Billing UI can be located [here](https://docs.maxio.com/billing/catalog/products/create-and-manage-products). Additionally, for information on how to record component usage against a subscription, see the following resources:
 
 It is not possible to record metered usage for more than one component at a time. Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
 
 See the following product documentation articles for more information:
 
-- [Create and Manage Components](https://maxio.zendesk.com/hc/en-us/articles/24261149711501-Create-Edit-and-Archive-Components)
-- [Recording Metered Component Usage](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-metered-component-usage)
-- [Reporting Prepaid Component Status](https://maxio.zendesk.com/hc/en-us/articles/24251890500109-Reporting-Component-Allocations#reporting-prepaid-component-status)
+- [Create and Manage Components](https://docs.maxio.com/billing/catalog/products/create-and-manage-products)
+- [Recording Metered Component Usage](https://docs.maxio.com/billing/subscriptions/management/product-allocations/report-product-usage-and-allocations#report-metered-product-usage)
+- [Reporting Prepaid Component Status](https://docs.maxio.com/billing/subscriptions/management/product-allocations/report-product-usage-and-allocations#report-prepaid-product-status)
 
 The `quantity` from usage for each component is accumulated to the `unit_balance` on the [Component Line Item](../../doc/controllers/subscription-components.md#read-subscription-component) for the subscription.
 
@@ -1185,6 +1218,10 @@ To reduce the quantity to `0`, POST the following payload:
 ```
 
 The `unit_balance` has a floor of `0`; negative unit balances are never allowed. For example, if the usage balance is 100 and you deduct 200 units, the unit balance would then be `0`, not `-100`.
+
+## Segment-Level Custom Pricing
+
+This endpoint does not support segment-level custom pricing. A request whose component `custom_price` includes a `segments` key, whatever its value, returns `422 Unprocessable Entity` with a message such as "Segment-level custom pricing is not supported on this endpoint", and nothing is saved. To set segment rates for a subscription, send `custom_price.segments` to [Create Subscription](../../doc/controllers/subscriptions.md#create-subscription) or [Update Subscription](../../doc/controllers/subscriptions.md#update-subscription).
 
 ```java
 UsageResponse createUsage(
@@ -1363,11 +1400,15 @@ Activates an event-based component for a single subscription.
 
 To bill your subscribers on your Events data under the Events-Based Billing feature, the components must be activated for the subscriber.
 
-For more information, see [Design Your Catalog](https://docs.maxio.com/hc/en-us/articles/24181036583053-Design-Your-Catalog?method=componenttypes).
+For more information, see [Design Your Catalog](https://docs.maxio.com/getting-started/quick-start-guides/catalog/design-your-catalog).
 
 Use this endpoint to activate an event-based component for a single subscription. Activating an event-based component causes billing for events when the subscription is renewed.
 
 Note: it is possible to stream events for a subscription at any time, regardless of component activation status. The activation status only determines if the subscription should be billed for event-based component usage at renewal.
+
+## Segment-Level Custom Pricing
+
+This endpoint does not support segment-level custom pricing. A request whose component `custom_price` includes a `segments` key, whatever its value, returns `422 Unprocessable Entity` with a message such as "Segment-level custom pricing is not supported on this endpoint", and nothing is saved. To set segment rates for a subscription, send `custom_price.segments` to [Create Subscription](../../doc/controllers/subscriptions.md#create-subscription) or [Update Subscription](../../doc/controllers/subscriptions.md#update-subscription).
 
 ```java
 Void activateEventBasedComponent(
@@ -1484,7 +1525,7 @@ These events can then be transformed, enriched, or analyzed to form the computed
 
 This API allows you to stream events into the Advanced Billing data ingestion engine.
 
-For more information, see [Design Your Catalog](https://docs.maxio.com/hc/en-us/articles/24181036583053-Design-Your-Catalog?method=componenttypes).
+For more information, see [Design Your Catalog](https://docs.maxio.com/getting-started/quick-start-guides/catalog/design-your-catalog).
 
 Note: this endpoint differs from the standard URL for this API in that `events` and your site subdomain are included in the path. For example:
 

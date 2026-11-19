@@ -13,6 +13,7 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionComponent;
 import com.maxio.advancedbilling.models.SubscriptionComponentResponse;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentComponentId;
 import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentPricePoint;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -58,7 +59,7 @@ class SubscriptionComponentsBulkResetSubscriptionComponentsPricePointsTest {
                         subscription.getId(),
                         new BulkComponentsPricePointAssignment(List.of(
                                 new ComponentPricePointAssignment.Builder()
-                                        .componentId(meteredComponent.getId())
+                                        .componentId(ComponentPricePointAssignmentComponentId.fromNumber(meteredComponent.getId()))
                                         .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(TEST_SETUP
                                                         .createPricePointForComponent(meteredComponent.getId(), 12.5)
                                                         .getId()
@@ -66,7 +67,7 @@ class SubscriptionComponentsBulkResetSubscriptionComponentsPricePointsTest {
                                         )
                                         .build(),
                                 new ComponentPricePointAssignment.Builder()
-                                        .componentId(quantityBasedComponent.getId())
+                                        .componentId(ComponentPricePointAssignmentComponentId.fromNumber(quantityBasedComponent.getId()))
                                         .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(TEST_SETUP
                                                         .createComponentPricePoint(quantityBasedComponent.getId())
                                                         .getHandle()

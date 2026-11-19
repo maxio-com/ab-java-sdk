@@ -27,6 +27,8 @@ public class UpdateComponentPricePoint
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
     private List<UpdatePrice> prices;
+    private UpdateSecondaryPricing secondaryPricing;
+    private PricingScheme secondaryPricingScheme;
 
     /**
      * Default constructor.
@@ -44,6 +46,8 @@ public class UpdateComponentPricePoint
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of UpdatePrice value for prices.
+     * @param  secondaryPricing  UpdateSecondaryPricing value for secondaryPricing.
+     * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
      */
     public UpdateComponentPricePoint(
             String name,
@@ -53,7 +57,9 @@ public class UpdateComponentPricePoint
             Boolean taxIncluded,
             Integer interval,
             IntervalUnit intervalUnit,
-            List<UpdatePrice> prices) {
+            List<UpdatePrice> prices,
+            UpdateSecondaryPricing secondaryPricing,
+            PricingScheme secondaryPricingScheme) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
@@ -62,6 +68,8 @@ public class UpdateComponentPricePoint
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
+        this.secondaryPricingScheme = secondaryPricingScheme;
     }
 
     /**
@@ -74,11 +82,14 @@ public class UpdateComponentPricePoint
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of UpdatePrice value for prices.
+     * @param  secondaryPricing  UpdateSecondaryPricing value for secondaryPricing.
+     * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
      */
 
     protected UpdateComponentPricePoint(String name, String handle, PricingScheme pricingScheme,
             Boolean useSiteExchangeRate, Boolean taxIncluded, Integer interval,
-            OptionalNullable<IntervalUnit> intervalUnit, List<UpdatePrice> prices) {
+            OptionalNullable<IntervalUnit> intervalUnit, List<UpdatePrice> prices,
+            UpdateSecondaryPricing secondaryPricing, PricingScheme secondaryPricingScheme) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
@@ -87,6 +98,8 @@ public class UpdateComponentPricePoint
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
+        this.secondaryPricingScheme = secondaryPricingScheme;
     }
 
     /**
@@ -284,6 +297,60 @@ public class UpdateComponentPricePoint
     }
 
     /**
+     * Getter for SecondaryPricing.
+     * Hybrid Pricing only. Changes the secondary pricing model of an existing hybrid price point.
+     * Send `pricing_scheme` (or the top-level `secondary_pricing_scheme`) every time you send this
+     * block; a block without a scheme returns `422`. Brackets sent without an `id` are added to the
+     * existing ones rather than replacing them, so to change a bracket set, update existing
+     * brackets by `id` and remove the ones you no longer want with `_destroy: true`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @return Returns the UpdateSecondaryPricing
+     */
+    @JsonGetter("secondary_pricing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public UpdateSecondaryPricing getSecondaryPricing() {
+        return secondaryPricing;
+    }
+
+    /**
+     * Setter for SecondaryPricing.
+     * Hybrid Pricing only. Changes the secondary pricing model of an existing hybrid price point.
+     * Send `pricing_scheme` (or the top-level `secondary_pricing_scheme`) every time you send this
+     * block; a block without a scheme returns `422`. Brackets sent without an `id` are added to the
+     * existing ones rather than replacing them, so to change a bracket set, update existing
+     * brackets by `id` and remove the ones you no longer want with `_destroy: true`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @param secondaryPricing Value for UpdateSecondaryPricing
+     */
+    @JsonSetter("secondary_pricing")
+    public void setSecondaryPricing(UpdateSecondaryPricing secondaryPricing) {
+        this.secondaryPricing = secondaryPricing;
+    }
+
+    /**
+     * Getter for SecondaryPricingScheme.
+     * Hybrid Pricing only. Alternative to `secondary_pricing.pricing_scheme`; when both are sent,
+     * `secondary_pricing.pricing_scheme` is used.
+     * @return Returns the PricingScheme
+     */
+    @JsonGetter("secondary_pricing_scheme")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PricingScheme getSecondaryPricingScheme() {
+        return secondaryPricingScheme;
+    }
+
+    /**
+     * Setter for SecondaryPricingScheme.
+     * Hybrid Pricing only. Alternative to `secondary_pricing.pricing_scheme`; when both are sent,
+     * `secondary_pricing.pricing_scheme` is used.
+     * @param secondaryPricingScheme Value for PricingScheme
+     */
+    @JsonSetter("secondary_pricing_scheme")
+    public void setSecondaryPricingScheme(PricingScheme secondaryPricingScheme) {
+        this.secondaryPricingScheme = secondaryPricingScheme;
+    }
+
+    /**
      * Converts this UpdateComponentPricePoint into string format.
      * @return String representation of this class
      */
@@ -292,7 +359,8 @@ public class UpdateComponentPricePoint
         return "UpdateComponentPricePoint [" + "name=" + name + ", handle=" + handle
                 + ", pricingScheme=" + pricingScheme + ", useSiteExchangeRate="
                 + useSiteExchangeRate + ", taxIncluded=" + taxIncluded + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", prices=" + prices
+                + ", intervalUnit=" + intervalUnit + ", prices=" + prices + ", secondaryPricing="
+                + secondaryPricing + ", secondaryPricingScheme=" + secondaryPricingScheme
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -309,7 +377,9 @@ public class UpdateComponentPricePoint
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .taxIncluded(getTaxIncluded())
                 .interval(getInterval())
-                .prices(getPrices());
+                .prices(getPrices())
+                .secondaryPricing(getSecondaryPricing())
+                .secondaryPricingScheme(getSecondaryPricingScheme());
         builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
@@ -326,6 +396,8 @@ public class UpdateComponentPricePoint
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
         private List<UpdatePrice> prices;
+        private UpdateSecondaryPricing secondaryPricing;
+        private PricingScheme secondaryPricingScheme;
 
 
 
@@ -419,12 +491,33 @@ public class UpdateComponentPricePoint
         }
 
         /**
+         * Setter for secondaryPricing.
+         * @param  secondaryPricing  UpdateSecondaryPricing value for secondaryPricing.
+         * @return Builder
+         */
+        public Builder secondaryPricing(UpdateSecondaryPricing secondaryPricing) {
+            this.secondaryPricing = secondaryPricing;
+            return this;
+        }
+
+        /**
+         * Setter for secondaryPricingScheme.
+         * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
+         * @return Builder
+         */
+        public Builder secondaryPricingScheme(PricingScheme secondaryPricingScheme) {
+            this.secondaryPricingScheme = secondaryPricingScheme;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateComponentPricePoint} object using the set fields.
          * @return {@link UpdateComponentPricePoint}
          */
         public UpdateComponentPricePoint build() {
             return new UpdateComponentPricePoint(name, handle, pricingScheme, useSiteExchangeRate,
-                    taxIncluded, interval, intervalUnit, prices);
+                    taxIncluded, interval, intervalUnit, prices, secondaryPricing,
+                    secondaryPricingScheme);
         }
     }
 }

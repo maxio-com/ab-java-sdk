@@ -19,6 +19,7 @@ public class ListSegmentsForPricePointInput {
     private Integer page;
     private Integer perPage;
     private ListSegmentsFilter filter;
+    private Boolean currencyPrices;
 
     /**
      * Default constructor.
@@ -35,18 +36,21 @@ public class ListSegmentsForPricePointInput {
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  filter  ListSegmentsFilter value for filter.
+     * @param  currencyPrices  Boolean value for currencyPrices.
      */
     public ListSegmentsForPricePointInput(
             String componentId,
             String pricePointId,
             Integer page,
             Integer perPage,
-            ListSegmentsFilter filter) {
+            ListSegmentsFilter filter,
+            Boolean currencyPrices) {
         this.componentId = componentId;
         this.pricePointId = pricePointId;
         this.page = page;
         this.perPage = perPage;
         this.filter = filter;
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -165,6 +169,29 @@ public class ListSegmentsForPricePointInput {
     }
 
     /**
+     * Getter for CurrencyPrices.
+     * (Optional) If you have defined multiple currencies at the site level, pass `true` to include
+     * each segment's `currency_prices` in the response. Use in query: `currency_prices=true`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("currency_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getCurrencyPrices() {
+        return currencyPrices;
+    }
+
+    /**
+     * Setter for CurrencyPrices.
+     * (Optional) If you have defined multiple currencies at the site level, pass `true` to include
+     * each segment's `currency_prices` in the response. Use in query: `currency_prices=true`.
+     * @param currencyPrices Value for Boolean
+     */
+    @JsonSetter("currency_prices")
+    public void setCurrencyPrices(Boolean currencyPrices) {
+        this.currencyPrices = currencyPrices;
+    }
+
+    /**
      * Converts this ListSegmentsForPricePointInput into string format.
      * @return String representation of this class
      */
@@ -172,7 +199,7 @@ public class ListSegmentsForPricePointInput {
     public String toString() {
         return "ListSegmentsForPricePointInput [" + "componentId=" + componentId + ", pricePointId="
                 + pricePointId + ", page=" + page + ", perPage=" + perPage + ", filter=" + filter
-                + "]";
+                + ", currencyPrices=" + currencyPrices + "]";
     }
 
     /**
@@ -184,7 +211,8 @@ public class ListSegmentsForPricePointInput {
         Builder builder = new Builder(componentId, pricePointId)
                 .page(getPage())
                 .perPage(getPerPage())
-                .filter(getFilter());
+                .filter(getFilter())
+                .currencyPrices(getCurrencyPrices());
         return builder;
     }
 
@@ -197,6 +225,7 @@ public class ListSegmentsForPricePointInput {
         private Integer page = 1;
         private Integer perPage = 30;
         private ListSegmentsFilter filter;
+        private Boolean currencyPrices;
 
         /**
          * Initialization constructor.
@@ -265,12 +294,22 @@ public class ListSegmentsForPricePointInput {
         }
 
         /**
+         * Setter for currencyPrices.
+         * @param  currencyPrices  Boolean value for currencyPrices.
+         * @return Builder
+         */
+        public Builder currencyPrices(Boolean currencyPrices) {
+            this.currencyPrices = currencyPrices;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListSegmentsForPricePointInput} object using the set fields.
          * @return {@link ListSegmentsForPricePointInput}
          */
         public ListSegmentsForPricePointInput build() {
             return new ListSegmentsForPricePointInput(componentId, pricePointId, page, perPage,
-                    filter);
+                    filter, currencyPrices);
         }
     }
 }

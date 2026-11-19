@@ -46,6 +46,9 @@ public class Customer
     private Boolean taxExempt;
     private Boolean surcharging;
     private OptionalNullable<String> vatNumber;
+    private OptionalNullable<String> vatCountry;
+    private OptionalNullable<EntityIdentifierKind> entityIdentifierKind;
+    private OptionalNullable<String> entityIdentifierValue;
     private OptionalNullable<Integer> parentId;
     private OptionalNullable<String> locale;
     private OptionalNullable<String> defaultSubscriptionGroupUid;
@@ -88,6 +91,9 @@ public class Customer
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  surcharging  Boolean value for surcharging.
      * @param  vatNumber  String value for vatNumber.
+     * @param  vatCountry  String value for vatCountry.
+     * @param  entityIdentifierKind  EntityIdentifierKind value for entityIdentifierKind.
+     * @param  entityIdentifierValue  String value for entityIdentifierValue.
      * @param  parentId  Integer value for parentId.
      * @param  locale  String value for locale.
      * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
@@ -123,6 +129,9 @@ public class Customer
             Boolean taxExempt,
             Boolean surcharging,
             String vatNumber,
+            String vatCountry,
+            EntityIdentifierKind entityIdentifierKind,
+            String entityIdentifierValue,
             Integer parentId,
             String locale,
             String defaultSubscriptionGroupUid,
@@ -156,6 +165,9 @@ public class Customer
         this.taxExempt = taxExempt;
         this.surcharging = surcharging;
         this.vatNumber = OptionalNullable.of(vatNumber);
+        this.vatCountry = OptionalNullable.of(vatCountry);
+        this.entityIdentifierKind = OptionalNullable.of(entityIdentifierKind);
+        this.entityIdentifierValue = OptionalNullable.of(entityIdentifierValue);
         this.parentId = OptionalNullable.of(parentId);
         this.locale = OptionalNullable.of(locale);
         this.defaultSubscriptionGroupUid = OptionalNullable.of(defaultSubscriptionGroupUid);
@@ -193,6 +205,9 @@ public class Customer
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  surcharging  Boolean value for surcharging.
      * @param  vatNumber  String value for vatNumber.
+     * @param  vatCountry  String value for vatCountry.
+     * @param  entityIdentifierKind  EntityIdentifierKind value for entityIdentifierKind.
+     * @param  entityIdentifierValue  String value for entityIdentifierValue.
      * @param  parentId  Integer value for parentId.
      * @param  locale  String value for locale.
      * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
@@ -216,8 +231,10 @@ public class Customer
             OptionalNullable<ZonedDateTime> portalInviteLastSentAt,
             OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt, Boolean taxExempt,
             Boolean surcharging, OptionalNullable<String> vatNumber,
-            OptionalNullable<Integer> parentId, OptionalNullable<String> locale,
-            OptionalNullable<String> defaultSubscriptionGroupUid,
+            OptionalNullable<String> vatCountry,
+            OptionalNullable<EntityIdentifierKind> entityIdentifierKind,
+            OptionalNullable<String> entityIdentifierValue, OptionalNullable<Integer> parentId,
+            OptionalNullable<String> locale, OptionalNullable<String> defaultSubscriptionGroupUid,
             OptionalNullable<String> salesforceId, OptionalNullable<String> taxExemptReason,
             OptionalNullable<Integer> defaultAutoRenewalProfileId, OptionalNullable<String> maxioid,
             OptionalNullable<Integer> brandingThemeId) {
@@ -246,6 +263,9 @@ public class Customer
         this.taxExempt = taxExempt;
         this.surcharging = surcharging;
         this.vatNumber = vatNumber;
+        this.vatCountry = vatCountry;
+        this.entityIdentifierKind = entityIdentifierKind;
+        this.entityIdentifierValue = entityIdentifierValue;
         this.parentId = parentId;
         this.locale = locale;
         this.defaultSubscriptionGroupUid = defaultSubscriptionGroupUid;
@@ -1076,7 +1096,8 @@ public class Customer
      * The VAT business identification number for the customer. This number is used to determine VAT
      * tax opt out rules. It is not validated when added or updated on a customer record. Instead,
      * it is validated via VIES before calculating taxes. Only valid business identification numbers
-     * will allow for VAT opt out.
+     * will allow for VAT opt out. When the customer holds an entity identifier, this field returns
+     * that identifier's value, whatever its kind.
      * @return Returns the Internal String
      */
     @JsonGetter("vat_number")
@@ -1091,7 +1112,8 @@ public class Customer
      * The VAT business identification number for the customer. This number is used to determine VAT
      * tax opt out rules. It is not validated when added or updated on a customer record. Instead,
      * it is validated via VIES before calculating taxes. Only valid business identification numbers
-     * will allow for VAT opt out.
+     * will allow for VAT opt out. When the customer holds an entity identifier, this field returns
+     * that identifier's value, whatever its kind.
      * @return Returns the String
      */
     public String getVatNumber() {
@@ -1103,7 +1125,8 @@ public class Customer
      * The VAT business identification number for the customer. This number is used to determine VAT
      * tax opt out rules. It is not validated when added or updated on a customer record. Instead,
      * it is validated via VIES before calculating taxes. Only valid business identification numbers
-     * will allow for VAT opt out.
+     * will allow for VAT opt out. When the customer holds an entity identifier, this field returns
+     * that identifier's value, whatever its kind.
      * @param vatNumber Value for String
      */
     @JsonSetter("vat_number")
@@ -1116,10 +1139,148 @@ public class Customer
      * The VAT business identification number for the customer. This number is used to determine VAT
      * tax opt out rules. It is not validated when added or updated on a customer record. Instead,
      * it is validated via VIES before calculating taxes. Only valid business identification numbers
-     * will allow for VAT opt out.
+     * will allow for VAT opt out. When the customer holds an entity identifier, this field returns
+     * that identifier's value, whatever its kind.
      */
     public void unsetVatNumber() {
         vatNumber = null;
+    }
+
+    /**
+     * Internal Getter for VatCountry.
+     * The two-letter ISO 3166-1 country code that qualifies the customer's VAT number. Set to
+     * `null` when an identifier is stored through `entity_identifier_kind` for a kind that is not
+     * tied to a VAT country, meaning `company_reg`, `gln`, `duns`, or `lei`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("vat_country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetVatCountry() {
+        return this.vatCountry;
+    }
+
+    /**
+     * Getter for VatCountry.
+     * The two-letter ISO 3166-1 country code that qualifies the customer's VAT number. Set to
+     * `null` when an identifier is stored through `entity_identifier_kind` for a kind that is not
+     * tied to a VAT country, meaning `company_reg`, `gln`, `duns`, or `lei`.
+     * @return Returns the String
+     */
+    public String getVatCountry() {
+        return OptionalNullable.getFrom(vatCountry);
+    }
+
+    /**
+     * Setter for VatCountry.
+     * The two-letter ISO 3166-1 country code that qualifies the customer's VAT number. Set to
+     * `null` when an identifier is stored through `entity_identifier_kind` for a kind that is not
+     * tied to a VAT country, meaning `company_reg`, `gln`, `duns`, or `lei`.
+     * @param vatCountry Value for String
+     */
+    @JsonSetter("vat_country")
+    public void setVatCountry(String vatCountry) {
+        this.vatCountry = OptionalNullable.of(vatCountry);
+    }
+
+    /**
+     * UnSetter for VatCountry.
+     * The two-letter ISO 3166-1 country code that qualifies the customer's VAT number. Set to
+     * `null` when an identifier is stored through `entity_identifier_kind` for a kind that is not
+     * tied to a VAT country, meaning `company_reg`, `gln`, `duns`, or `lei`.
+     */
+    public void unsetVatCountry() {
+        vatCountry = null;
+    }
+
+    /**
+     * Internal Getter for EntityIdentifierKind.
+     * The kind of tax or business identifier held by the customer. Returned as `null` when the
+     * customer has no entity identifier, including a legacy customer whose `vat_number` predates
+     * entity identifiers.
+     * @return Returns the Internal EntityIdentifierKind
+     */
+    @JsonGetter("entity_identifier_kind")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<EntityIdentifierKind> internalGetEntityIdentifierKind() {
+        return this.entityIdentifierKind;
+    }
+
+    /**
+     * Getter for EntityIdentifierKind.
+     * The kind of tax or business identifier held by the customer. Returned as `null` when the
+     * customer has no entity identifier, including a legacy customer whose `vat_number` predates
+     * entity identifiers.
+     * @return Returns the EntityIdentifierKind
+     */
+    public EntityIdentifierKind getEntityIdentifierKind() {
+        return OptionalNullable.getFrom(entityIdentifierKind);
+    }
+
+    /**
+     * Setter for EntityIdentifierKind.
+     * The kind of tax or business identifier held by the customer. Returned as `null` when the
+     * customer has no entity identifier, including a legacy customer whose `vat_number` predates
+     * entity identifiers.
+     * @param entityIdentifierKind Value for EntityIdentifierKind
+     */
+    @JsonSetter("entity_identifier_kind")
+    public void setEntityIdentifierKind(EntityIdentifierKind entityIdentifierKind) {
+        this.entityIdentifierKind = OptionalNullable.of(entityIdentifierKind);
+    }
+
+    /**
+     * UnSetter for EntityIdentifierKind.
+     * The kind of tax or business identifier held by the customer. Returned as `null` when the
+     * customer has no entity identifier, including a legacy customer whose `vat_number` predates
+     * entity identifiers.
+     */
+    public void unsetEntityIdentifierKind() {
+        entityIdentifierKind = null;
+    }
+
+    /**
+     * Internal Getter for EntityIdentifierValue.
+     * The value of the customer's tax or business identifier. Returned as `null` when the customer
+     * has no entity identifier.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("entity_identifier_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEntityIdentifierValue() {
+        return this.entityIdentifierValue;
+    }
+
+    /**
+     * Getter for EntityIdentifierValue.
+     * The value of the customer's tax or business identifier. Returned as `null` when the customer
+     * has no entity identifier.
+     * @return Returns the String
+     */
+    public String getEntityIdentifierValue() {
+        return OptionalNullable.getFrom(entityIdentifierValue);
+    }
+
+    /**
+     * Setter for EntityIdentifierValue.
+     * The value of the customer's tax or business identifier. Returned as `null` when the customer
+     * has no entity identifier.
+     * @param entityIdentifierValue Value for String
+     */
+    @JsonSetter("entity_identifier_value")
+    public void setEntityIdentifierValue(String entityIdentifierValue) {
+        this.entityIdentifierValue = OptionalNullable.of(entityIdentifierValue);
+    }
+
+    /**
+     * UnSetter for EntityIdentifierValue.
+     * The value of the customer's tax or business identifier. Returned as `null` when the customer
+     * has no entity identifier.
+     */
+    public void unsetEntityIdentifierValue() {
+        entityIdentifierValue = null;
     }
 
     /**
@@ -1458,7 +1619,9 @@ public class Customer
                 + ", portalInviteLastSentAt=" + portalInviteLastSentAt
                 + ", portalInviteLastAcceptedAt=" + portalInviteLastAcceptedAt + ", taxExempt="
                 + taxExempt + ", surcharging=" + surcharging + ", vatNumber=" + vatNumber
-                + ", parentId=" + parentId + ", locale=" + locale + ", defaultSubscriptionGroupUid="
+                + ", vatCountry=" + vatCountry + ", entityIdentifierKind=" + entityIdentifierKind
+                + ", entityIdentifierValue=" + entityIdentifierValue + ", parentId=" + parentId
+                + ", locale=" + locale + ", defaultSubscriptionGroupUid="
                 + defaultSubscriptionGroupUid + ", salesforceId=" + salesforceId
                 + ", taxExemptReason=" + taxExemptReason + ", defaultAutoRenewalProfileId="
                 + defaultAutoRenewalProfileId + ", maxioid=" + maxioid + ", brandingThemeId="
@@ -1497,6 +1660,9 @@ public class Customer
         builder.portalInviteLastSentAt = internalGetPortalInviteLastSentAt();
         builder.portalInviteLastAcceptedAt = internalGetPortalInviteLastAcceptedAt();
         builder.vatNumber = internalGetVatNumber();
+        builder.vatCountry = internalGetVatCountry();
+        builder.entityIdentifierKind = internalGetEntityIdentifierKind();
+        builder.entityIdentifierValue = internalGetEntityIdentifierValue();
         builder.parentId = internalGetParentId();
         builder.locale = internalGetLocale();
         builder.defaultSubscriptionGroupUid = internalGetDefaultSubscriptionGroupUid();
@@ -1537,6 +1703,9 @@ public class Customer
         private Boolean taxExempt;
         private Boolean surcharging;
         private OptionalNullable<String> vatNumber;
+        private OptionalNullable<String> vatCountry;
+        private OptionalNullable<EntityIdentifierKind> entityIdentifierKind;
+        private OptionalNullable<String> entityIdentifierValue;
         private OptionalNullable<Integer> parentId;
         private OptionalNullable<String> locale;
         private OptionalNullable<String> defaultSubscriptionGroupUid;
@@ -1952,6 +2121,63 @@ public class Customer
         }
 
         /**
+         * Setter for vatCountry.
+         * @param  vatCountry  String value for vatCountry.
+         * @return Builder
+         */
+        public Builder vatCountry(String vatCountry) {
+            this.vatCountry = OptionalNullable.of(vatCountry);
+            return this;
+        }
+
+        /**
+         * UnSetter for vatCountry.
+         * @return Builder
+         */
+        public Builder unsetVatCountry() {
+            vatCountry = null;
+            return this;
+        }
+
+        /**
+         * Setter for entityIdentifierKind.
+         * @param  entityIdentifierKind  EntityIdentifierKind value for entityIdentifierKind.
+         * @return Builder
+         */
+        public Builder entityIdentifierKind(EntityIdentifierKind entityIdentifierKind) {
+            this.entityIdentifierKind = OptionalNullable.of(entityIdentifierKind);
+            return this;
+        }
+
+        /**
+         * UnSetter for entityIdentifierKind.
+         * @return Builder
+         */
+        public Builder unsetEntityIdentifierKind() {
+            entityIdentifierKind = null;
+            return this;
+        }
+
+        /**
+         * Setter for entityIdentifierValue.
+         * @param  entityIdentifierValue  String value for entityIdentifierValue.
+         * @return Builder
+         */
+        public Builder entityIdentifierValue(String entityIdentifierValue) {
+            this.entityIdentifierValue = OptionalNullable.of(entityIdentifierValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for entityIdentifierValue.
+         * @return Builder
+         */
+        public Builder unsetEntityIdentifierValue() {
+            entityIdentifierValue = null;
+            return this;
+        }
+
+        /**
          * Setter for parentId.
          * @param  parentId  Integer value for parentId.
          * @return Builder
@@ -2111,7 +2337,8 @@ public class Customer
             return new Customer(firstName, lastName, email, ccEmails, organization, reference, id,
                     createdAt, updatedAt, address, address2, city, state, stateName, zip, country,
                     countryName, phone, verified, portalCustomerCreatedAt, portalInviteLastSentAt,
-                    portalInviteLastAcceptedAt, taxExempt, surcharging, vatNumber, parentId, locale,
+                    portalInviteLastAcceptedAt, taxExempt, surcharging, vatNumber, vatCountry,
+                    entityIdentifierKind, entityIdentifierValue, parentId, locale,
                     defaultSubscriptionGroupUid, salesforceId, taxExemptReason,
                     defaultAutoRenewalProfileId, maxioid, brandingThemeId);
         }

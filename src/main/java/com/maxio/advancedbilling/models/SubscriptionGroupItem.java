@@ -20,6 +20,7 @@ public class SubscriptionGroupItem
         extends BaseModel {
     private Integer id;
     private OptionalNullable<String> reference;
+    private Integer customerId;
     private Integer productId;
     private OptionalNullable<String> productHandle;
     private Integer productPricePointId;
@@ -39,6 +40,7 @@ public class SubscriptionGroupItem
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  reference  String value for reference.
+     * @param  customerId  Integer value for customerId.
      * @param  productId  Integer value for productId.
      * @param  productHandle  String value for productHandle.
      * @param  productPricePointId  Integer value for productPricePointId.
@@ -51,6 +53,7 @@ public class SubscriptionGroupItem
     public SubscriptionGroupItem(
             Integer id,
             String reference,
+            Integer customerId,
             Integer productId,
             String productHandle,
             Integer productPricePointId,
@@ -61,6 +64,7 @@ public class SubscriptionGroupItem
             Long balanceInCents) {
         this.id = id;
         this.reference = OptionalNullable.of(reference);
+        this.customerId = customerId;
         this.productId = productId;
         this.productHandle = OptionalNullable.of(productHandle);
         this.productPricePointId = productPricePointId;
@@ -75,6 +79,7 @@ public class SubscriptionGroupItem
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  reference  String value for reference.
+     * @param  customerId  Integer value for customerId.
      * @param  productId  Integer value for productId.
      * @param  productHandle  String value for productHandle.
      * @param  productPricePointId  Integer value for productPricePointId.
@@ -86,11 +91,12 @@ public class SubscriptionGroupItem
      */
 
     protected SubscriptionGroupItem(Integer id, OptionalNullable<String> reference,
-            Integer productId, OptionalNullable<String> productHandle, Integer productPricePointId,
-            String productPricePointHandle, String currency, OptionalNullable<String> couponCode,
-            Long totalRevenueInCents, Long balanceInCents) {
+            Integer customerId, Integer productId, OptionalNullable<String> productHandle,
+            Integer productPricePointId, String productPricePointHandle, String currency,
+            OptionalNullable<String> couponCode, Long totalRevenueInCents, Long balanceInCents) {
         this.id = id;
         this.reference = reference;
+        this.customerId = customerId;
         this.productId = productId;
         this.productHandle = productHandle;
         this.productPricePointId = productPricePointId;
@@ -153,6 +159,29 @@ public class SubscriptionGroupItem
      */
     public void unsetReference() {
         reference = null;
+    }
+
+    /**
+     * Getter for CustomerId.
+     * The ID of the customer the subscription belongs to. This is the payer unless the signup
+     * request named another customer for the subscription.
+     * @return Returns the Integer
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    /**
+     * Setter for CustomerId.
+     * The ID of the customer the subscription belongs to. This is the payer unless the signup
+     * request named another customer for the subscription.
+     * @param customerId Value for Integer
+     */
+    @JsonSetter("customer_id")
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     /**
@@ -345,12 +374,12 @@ public class SubscriptionGroupItem
      */
     @Override
     public String toString() {
-        return "SubscriptionGroupItem [" + "id=" + id + ", reference=" + reference + ", productId="
-                + productId + ", productHandle=" + productHandle + ", productPricePointId="
-                + productPricePointId + ", productPricePointHandle=" + productPricePointHandle
-                + ", currency=" + currency + ", couponCode=" + couponCode + ", totalRevenueInCents="
-                + totalRevenueInCents + ", balanceInCents=" + balanceInCents
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "SubscriptionGroupItem [" + "id=" + id + ", reference=" + reference + ", customerId="
+                + customerId + ", productId=" + productId + ", productHandle=" + productHandle
+                + ", productPricePointId=" + productPricePointId + ", productPricePointHandle="
+                + productPricePointHandle + ", currency=" + currency + ", couponCode=" + couponCode
+                + ", totalRevenueInCents=" + totalRevenueInCents + ", balanceInCents="
+                + balanceInCents + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -361,6 +390,7 @@ public class SubscriptionGroupItem
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
+                .customerId(getCustomerId())
                 .productId(getProductId())
                 .productPricePointId(getProductPricePointId())
                 .productPricePointHandle(getProductPricePointHandle())
@@ -379,6 +409,7 @@ public class SubscriptionGroupItem
     public static class Builder {
         private Integer id;
         private OptionalNullable<String> reference;
+        private Integer customerId;
         private Integer productId;
         private OptionalNullable<String> productHandle;
         private Integer productPricePointId;
@@ -416,6 +447,16 @@ public class SubscriptionGroupItem
          */
         public Builder unsetReference() {
             reference = null;
+            return this;
+        }
+
+        /**
+         * Setter for customerId.
+         * @param  customerId  Integer value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(Integer customerId) {
+            this.customerId = customerId;
             return this;
         }
 
@@ -522,7 +563,7 @@ public class SubscriptionGroupItem
          * @return {@link SubscriptionGroupItem}
          */
         public SubscriptionGroupItem build() {
-            return new SubscriptionGroupItem(id, reference, productId, productHandle,
+            return new SubscriptionGroupItem(id, reference, customerId, productId, productHandle,
                     productPricePointId, productPricePointHandle, currency, couponCode,
                     totalRevenueInCents, balanceInCents);
         }

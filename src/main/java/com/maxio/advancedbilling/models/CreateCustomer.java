@@ -33,6 +33,9 @@ public class CreateCustomer
     private String phone;
     private String locale;
     private String vatNumber;
+    private String vatCountry;
+    private EntityIdentifierKind entityIdentifierKind;
+    private String entityIdentifierValue;
     private Boolean taxExempt;
     private Boolean surcharging;
     private String taxExemptReason;
@@ -63,6 +66,9 @@ public class CreateCustomer
      * @param  phone  String value for phone.
      * @param  locale  String value for locale.
      * @param  vatNumber  String value for vatNumber.
+     * @param  vatCountry  String value for vatCountry.
+     * @param  entityIdentifierKind  EntityIdentifierKind value for entityIdentifierKind.
+     * @param  entityIdentifierValue  String value for entityIdentifierValue.
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  surcharging  Boolean value for surcharging.
      * @param  taxExemptReason  String value for taxExemptReason.
@@ -86,6 +92,9 @@ public class CreateCustomer
             String phone,
             String locale,
             String vatNumber,
+            String vatCountry,
+            EntityIdentifierKind entityIdentifierKind,
+            String entityIdentifierValue,
             Boolean taxExempt,
             Boolean surcharging,
             String taxExemptReason,
@@ -107,6 +116,9 @@ public class CreateCustomer
         this.phone = phone;
         this.locale = locale;
         this.vatNumber = vatNumber;
+        this.vatCountry = vatCountry;
+        this.entityIdentifierKind = entityIdentifierKind;
+        this.entityIdentifierValue = entityIdentifierValue;
         this.taxExempt = taxExempt;
         this.surcharging = surcharging;
         this.taxExemptReason = taxExemptReason;
@@ -132,6 +144,9 @@ public class CreateCustomer
      * @param  phone  String value for phone.
      * @param  locale  String value for locale.
      * @param  vatNumber  String value for vatNumber.
+     * @param  vatCountry  String value for vatCountry.
+     * @param  entityIdentifierKind  EntityIdentifierKind value for entityIdentifierKind.
+     * @param  entityIdentifierValue  String value for entityIdentifierValue.
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  surcharging  Boolean value for surcharging.
      * @param  taxExemptReason  String value for taxExemptReason.
@@ -143,9 +158,10 @@ public class CreateCustomer
     protected CreateCustomer(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address, String address2, String city,
             String state, String zip, String country, String phone, String locale, String vatNumber,
-            Boolean taxExempt, Boolean surcharging, String taxExemptReason,
-            OptionalNullable<Integer> parentId, OptionalNullable<String> salesforceId,
-            OptionalNullable<Integer> brandingThemeId) {
+            String vatCountry, EntityIdentifierKind entityIdentifierKind,
+            String entityIdentifierValue, Boolean taxExempt, Boolean surcharging,
+            String taxExemptReason, OptionalNullable<Integer> parentId,
+            OptionalNullable<String> salesforceId, OptionalNullable<Integer> brandingThemeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -161,6 +177,9 @@ public class CreateCustomer
         this.phone = phone;
         this.locale = locale;
         this.vatNumber = vatNumber;
+        this.vatCountry = vatCountry;
+        this.entityIdentifierKind = entityIdentifierKind;
+        this.entityIdentifierValue = entityIdentifierValue;
         this.taxExempt = taxExempt;
         this.surcharging = surcharging;
         this.taxExemptReason = taxExemptReason;
@@ -454,6 +473,91 @@ public class CreateCustomer
     }
 
     /**
+     * Getter for VatCountry.
+     * The two-letter ISO 3166-1 country code that qualifies the customer's tax ID. Required when
+     * `entity_identifier_kind` is `vat_eu` or `national_tax`, and used to derive the kind when only
+     * the legacy `vat_number` is sent.
+     * @return Returns the String
+     */
+    @JsonGetter("vat_country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getVatCountry() {
+        return vatCountry;
+    }
+
+    /**
+     * Setter for VatCountry.
+     * The two-letter ISO 3166-1 country code that qualifies the customer's tax ID. Required when
+     * `entity_identifier_kind` is `vat_eu` or `national_tax`, and used to derive the kind when only
+     * the legacy `vat_number` is sent.
+     * @param vatCountry Value for String
+     */
+    @JsonSetter("vat_country")
+    public void setVatCountry(String vatCountry) {
+        this.vatCountry = vatCountry;
+    }
+
+    /**
+     * Getter for EntityIdentifierKind.
+     * The kind of tax or business identifier held by the customer: - `vat_eu`: an EU VAT number.
+     * Requires `vat_country` to be an EU member state code or `GB`. - `national_tax`: a national
+     * tax ID registered outside the EU. Requires `vat_country` to be one of `AL`, `AM`, `AR`, `AU`,
+     * `BR`, `CA`, `CH`, `DZ`, `IN`, `MX`, `NO`, `NZ`, or `ZA`. - `company_reg`: a company
+     * registration number, such as a French SIREN. No `vat_country` is required. - `gln`: a Global
+     * Location Number. The value must be 13 digits. - `duns`: a D-U-N-S Number. The value must be 9
+     * digits. - `lei`: a Legal Entity Identifier. The value must be 20 characters: 18 letters or
+     * digits followed by 2 digits. A customer holds one identifier at a time. Saving an identifier
+     * of a different kind replaces the existing one.
+     * @return Returns the EntityIdentifierKind
+     */
+    @JsonGetter("entity_identifier_kind")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public EntityIdentifierKind getEntityIdentifierKind() {
+        return entityIdentifierKind;
+    }
+
+    /**
+     * Setter for EntityIdentifierKind.
+     * The kind of tax or business identifier held by the customer: - `vat_eu`: an EU VAT number.
+     * Requires `vat_country` to be an EU member state code or `GB`. - `national_tax`: a national
+     * tax ID registered outside the EU. Requires `vat_country` to be one of `AL`, `AM`, `AR`, `AU`,
+     * `BR`, `CA`, `CH`, `DZ`, `IN`, `MX`, `NO`, `NZ`, or `ZA`. - `company_reg`: a company
+     * registration number, such as a French SIREN. No `vat_country` is required. - `gln`: a Global
+     * Location Number. The value must be 13 digits. - `duns`: a D-U-N-S Number. The value must be 9
+     * digits. - `lei`: a Legal Entity Identifier. The value must be 20 characters: 18 letters or
+     * digits followed by 2 digits. A customer holds one identifier at a time. Saving an identifier
+     * of a different kind replaces the existing one.
+     * @param entityIdentifierKind Value for EntityIdentifierKind
+     */
+    @JsonSetter("entity_identifier_kind")
+    public void setEntityIdentifierKind(EntityIdentifierKind entityIdentifierKind) {
+        this.entityIdentifierKind = entityIdentifierKind;
+    }
+
+    /**
+     * Getter for EntityIdentifierValue.
+     * The customer's tax or business identifier, sent together with `entity_identifier_kind`.
+     * Advanced Billing trims surrounding whitespace and stores the value in uppercase.
+     * @return Returns the String
+     */
+    @JsonGetter("entity_identifier_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getEntityIdentifierValue() {
+        return entityIdentifierValue;
+    }
+
+    /**
+     * Setter for EntityIdentifierValue.
+     * The customer's tax or business identifier, sent together with `entity_identifier_kind`.
+     * Advanced Billing trims surrounding whitespace and stores the value in uppercase.
+     * @param entityIdentifierValue Value for String
+     */
+    @JsonSetter("entity_identifier_value")
+    public void setEntityIdentifierValue(String entityIdentifierValue) {
+        this.entityIdentifierValue = entityIdentifierValue;
+    }
+
+    /**
      * Getter for TaxExempt.
      * @return Returns the Boolean
      */
@@ -654,10 +758,11 @@ public class CreateCustomer
                 + ", reference=" + reference + ", address=" + address + ", address2=" + address2
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
-                + ", taxExempt=" + taxExempt + ", surcharging=" + surcharging + ", taxExemptReason="
-                + taxExemptReason + ", parentId=" + parentId + ", salesforceId=" + salesforceId
-                + ", brandingThemeId=" + brandingThemeId + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", vatCountry=" + vatCountry + ", entityIdentifierKind=" + entityIdentifierKind
+                + ", entityIdentifierValue=" + entityIdentifierValue + ", taxExempt=" + taxExempt
+                + ", surcharging=" + surcharging + ", taxExemptReason=" + taxExemptReason
+                + ", parentId=" + parentId + ", salesforceId=" + salesforceId + ", brandingThemeId="
+                + brandingThemeId + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -679,6 +784,9 @@ public class CreateCustomer
                 .phone(getPhone())
                 .locale(getLocale())
                 .vatNumber(getVatNumber())
+                .vatCountry(getVatCountry())
+                .entityIdentifierKind(getEntityIdentifierKind())
+                .entityIdentifierValue(getEntityIdentifierValue())
                 .taxExempt(getTaxExempt())
                 .surcharging(getSurcharging())
                 .taxExemptReason(getTaxExemptReason());
@@ -707,6 +815,9 @@ public class CreateCustomer
         private String phone;
         private String locale;
         private String vatNumber;
+        private String vatCountry;
+        private EntityIdentifierKind entityIdentifierKind;
+        private String entityIdentifierValue;
         private Boolean taxExempt;
         private Boolean surcharging;
         private String taxExemptReason;
@@ -883,6 +994,36 @@ public class CreateCustomer
         }
 
         /**
+         * Setter for vatCountry.
+         * @param  vatCountry  String value for vatCountry.
+         * @return Builder
+         */
+        public Builder vatCountry(String vatCountry) {
+            this.vatCountry = vatCountry;
+            return this;
+        }
+
+        /**
+         * Setter for entityIdentifierKind.
+         * @param  entityIdentifierKind  EntityIdentifierKind value for entityIdentifierKind.
+         * @return Builder
+         */
+        public Builder entityIdentifierKind(EntityIdentifierKind entityIdentifierKind) {
+            this.entityIdentifierKind = entityIdentifierKind;
+            return this;
+        }
+
+        /**
+         * Setter for entityIdentifierValue.
+         * @param  entityIdentifierValue  String value for entityIdentifierValue.
+         * @return Builder
+         */
+        public Builder entityIdentifierValue(String entityIdentifierValue) {
+            this.entityIdentifierValue = entityIdentifierValue;
+            return this;
+        }
+
+        /**
          * Setter for taxExempt.
          * @param  taxExempt  Boolean value for taxExempt.
          * @return Builder
@@ -976,8 +1117,8 @@ public class CreateCustomer
         public CreateCustomer build() {
             return new CreateCustomer(firstName, lastName, email, ccEmails, organization, reference,
                     address, address2, city, state, zip, country, phone, locale, vatNumber,
-                    taxExempt, surcharging, taxExemptReason, parentId, salesforceId,
-                    brandingThemeId);
+                    vatCountry, entityIdentifierKind, entityIdentifierValue, taxExempt, surcharging,
+                    taxExemptReason, parentId, salesforceId, brandingThemeId);
         }
     }
 }

@@ -98,6 +98,8 @@ public class ProformaInvoiceTax
 
     /**
      * Getter for SourceType.
+     * The source of the tax. `Tax` is a tax configured in Advanced Billing. The other values
+     * identify the tax service that calculated the tax.
      * @return Returns the ProformaInvoiceTaxSourceType
      */
     @JsonGetter("source_type")
@@ -108,6 +110,8 @@ public class ProformaInvoiceTax
 
     /**
      * Setter for SourceType.
+     * The source of the tax. `Tax` is a tax configured in Advanced Billing. The other values
+     * identify the tax service that calculated the tax.
      * @param sourceType Value for ProformaInvoiceTaxSourceType
      */
     @JsonSetter("source_type")

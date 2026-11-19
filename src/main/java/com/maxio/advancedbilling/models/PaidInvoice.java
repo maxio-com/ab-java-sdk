@@ -69,7 +69,7 @@ public class PaidInvoice
     /**
      * Getter for Status.
      * The current status of the invoice. See [Invoice
-     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
+     * Statuses](https://docs.maxio.com/billing/invoicing/overview/understand-how-invoices-are-generated#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -82,7 +82,7 @@ public class PaidInvoice
     /**
      * Setter for Status.
      * The current status of the invoice. See [Invoice
-     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
+     * Statuses](https://docs.maxio.com/billing/invoicing/overview/understand-how-invoices-are-generated#invoice-statuses)
      * for more.
      * @param status Value for InvoiceStatus
      */

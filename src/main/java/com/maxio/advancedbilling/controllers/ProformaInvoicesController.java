@@ -461,7 +461,12 @@ public final class ProformaInvoicesController extends BaseController {
      * payment profile to populate a shipping or billing address. A product and customer first name,
      * last name, and email are the minimum requirements. We recommend associating the proforma
      * invoice with a customer_id to easily find their proforma invoices, since the subscription_id
-     * will always be blank.
+     * will always be blank. ## Segment-Level Custom Pricing When a component's `custom_price`
+     * includes `segments`, this endpoint validates them with the same rules as [Create
+     * Subscription]($e/Subscriptions/createSubscription) and returns the same `422 Unprocessable
+     * Entity` errors. No segment rates are persisted. Valid segment rates do not change the totals
+     * returned here, because no usage has been recorded for a subscription that is only being
+     * signed up.
      * @param  body  Optional parameter:
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -514,7 +519,12 @@ public final class ProformaInvoicesController extends BaseController {
      * create or signup preview request. For example, you can specify components, coupons/a
      * referral, offers, custom pricing, and an existing customer or payment profile to populate a
      * shipping or billing address. A product and customer first name, last name, and email are the
-     * minimum requirements.
+     * minimum requirements. ## Segment-Level Custom Pricing When a component's `custom_price`
+     * includes `segments`, this endpoint validates them with the same rules as [Create
+     * Subscription]($e/Subscriptions/createSubscription) and returns the same `422 Unprocessable
+     * Entity` errors. No segment rates are persisted. Valid segment rates do not change the totals
+     * returned here, because no usage has been recorded for a subscription that is only being
+     * signed up.
      * @param  include  Optional parameter: Choose to include a proforma invoice preview for the
      *         first renewal. Use in query `include=next_proforma_invoice`.
      * @param  body  Optional parameter:

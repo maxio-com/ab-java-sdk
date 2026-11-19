@@ -25,7 +25,7 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
         productsController.archiveProduct(product.getId());
 
         // then
-        Product archivedProduct = productsController.readProduct(product.getId()).getProduct();
+        Product archivedProduct = productsController.readProduct(product.getId(), null).getProduct();
         assertAll(
                 () -> assertThat(archivedProduct.getId()).isEqualTo(product.getId()),
                 () -> assertThat(archivedProduct.getArchivedAt()).isNotNull(),

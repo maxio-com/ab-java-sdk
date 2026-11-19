@@ -18,7 +18,17 @@ import java.util.TreeMap;
 public enum ProformaInvoiceTaxSourceType {
     TAX,
 
-    AVALARA;
+    AVALARA,
+
+    ANROK,
+
+    TAXJAR,
+
+    NUMERAL,
+
+    SPHERE,
+
+    TAXWIRE;
 
     private static TreeMap<String, ProformaInvoiceTaxSourceType> valueMap = new TreeMap<>();
     private String value;
@@ -26,9 +36,19 @@ public enum ProformaInvoiceTaxSourceType {
     static {
         TAX.value = "Tax";
         AVALARA.value = "Avalara";
+        ANROK.value = "Anrok";
+        TAXJAR.value = "TaxJar";
+        NUMERAL.value = "Numeral";
+        SPHERE.value = "Sphere";
+        TAXWIRE.value = "Taxwire";
 
         valueMap.put("Tax", TAX);
         valueMap.put("Avalara", AVALARA);
+        valueMap.put("Anrok", ANROK);
+        valueMap.put("TaxJar", TAXJAR);
+        valueMap.put("Numeral", NUMERAL);
+        valueMap.put("Sphere", SPHERE);
+        valueMap.put("Taxwire", TAXWIRE);
     }
 
     /**

@@ -35,6 +35,8 @@ public class Site
     private NetTerms netTerms;
     private Boolean multiFrequencyEnabled;
     private Boolean autoRenewalsEnabled;
+    private Boolean listPricingEnabled;
+    private Boolean planlessSubscriptionsEnabled;
     private Boolean portalEnabled;
     private Boolean test;
 
@@ -65,6 +67,8 @@ public class Site
      * @param  netTerms  NetTerms value for netTerms.
      * @param  multiFrequencyEnabled  Boolean value for multiFrequencyEnabled.
      * @param  autoRenewalsEnabled  Boolean value for autoRenewalsEnabled.
+     * @param  listPricingEnabled  Boolean value for listPricingEnabled.
+     * @param  planlessSubscriptionsEnabled  Boolean value for planlessSubscriptionsEnabled.
      * @param  portalEnabled  Boolean value for portalEnabled.
      * @param  test  Boolean value for test.
      */
@@ -87,6 +91,8 @@ public class Site
             NetTerms netTerms,
             Boolean multiFrequencyEnabled,
             Boolean autoRenewalsEnabled,
+            Boolean listPricingEnabled,
+            Boolean planlessSubscriptionsEnabled,
             Boolean portalEnabled,
             Boolean test) {
         this.id = id;
@@ -107,6 +113,8 @@ public class Site
         this.netTerms = netTerms;
         this.multiFrequencyEnabled = multiFrequencyEnabled;
         this.autoRenewalsEnabled = autoRenewalsEnabled;
+        this.listPricingEnabled = listPricingEnabled;
+        this.planlessSubscriptionsEnabled = planlessSubscriptionsEnabled;
         this.portalEnabled = portalEnabled;
         this.test = test;
     }
@@ -460,6 +468,48 @@ public class Site
     }
 
     /**
+     * Getter for ListPricingEnabled.
+     * Indicates whether the site has list vs sales pricing enabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("list_pricing_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getListPricingEnabled() {
+        return listPricingEnabled;
+    }
+
+    /**
+     * Setter for ListPricingEnabled.
+     * Indicates whether the site has list vs sales pricing enabled.
+     * @param listPricingEnabled Value for Boolean
+     */
+    @JsonSetter("list_pricing_enabled")
+    public void setListPricingEnabled(Boolean listPricingEnabled) {
+        this.listPricingEnabled = listPricingEnabled;
+    }
+
+    /**
+     * Getter for PlanlessSubscriptionsEnabled.
+     * Indicates whether the site allows subscriptions without a plan.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("planless_subscriptions_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getPlanlessSubscriptionsEnabled() {
+        return planlessSubscriptionsEnabled;
+    }
+
+    /**
+     * Setter for PlanlessSubscriptionsEnabled.
+     * Indicates whether the site allows subscriptions without a plan.
+     * @param planlessSubscriptionsEnabled Value for Boolean
+     */
+    @JsonSetter("planless_subscriptions_enabled")
+    public void setPlanlessSubscriptionsEnabled(Boolean planlessSubscriptionsEnabled) {
+        this.planlessSubscriptionsEnabled = planlessSubscriptionsEnabled;
+    }
+
+    /**
      * Getter for PortalEnabled.
      * Whether the Billing Portal is enabled for this site.
      * @return Returns the Boolean
@@ -516,8 +566,10 @@ public class Site
                 + defaultPaymentCollectionMethod + ", organizationAddress=" + organizationAddress
                 + ", taxConfiguration=" + taxConfiguration + ", netTerms=" + netTerms
                 + ", multiFrequencyEnabled=" + multiFrequencyEnabled + ", autoRenewalsEnabled="
-                + autoRenewalsEnabled + ", portalEnabled=" + portalEnabled + ", test=" + test
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + autoRenewalsEnabled + ", listPricingEnabled=" + listPricingEnabled
+                + ", planlessSubscriptionsEnabled=" + planlessSubscriptionsEnabled
+                + ", portalEnabled=" + portalEnabled + ", test=" + test + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -545,6 +597,8 @@ public class Site
                 .netTerms(getNetTerms())
                 .multiFrequencyEnabled(getMultiFrequencyEnabled())
                 .autoRenewalsEnabled(getAutoRenewalsEnabled())
+                .listPricingEnabled(getListPricingEnabled())
+                .planlessSubscriptionsEnabled(getPlanlessSubscriptionsEnabled())
                 .portalEnabled(getPortalEnabled())
                 .test(getTest());
         return builder;
@@ -572,6 +626,8 @@ public class Site
         private NetTerms netTerms;
         private Boolean multiFrequencyEnabled;
         private Boolean autoRenewalsEnabled;
+        private Boolean listPricingEnabled;
+        private Boolean planlessSubscriptionsEnabled;
         private Boolean portalEnabled;
         private Boolean test;
 
@@ -760,6 +816,26 @@ public class Site
         }
 
         /**
+         * Setter for listPricingEnabled.
+         * @param  listPricingEnabled  Boolean value for listPricingEnabled.
+         * @return Builder
+         */
+        public Builder listPricingEnabled(Boolean listPricingEnabled) {
+            this.listPricingEnabled = listPricingEnabled;
+            return this;
+        }
+
+        /**
+         * Setter for planlessSubscriptionsEnabled.
+         * @param  planlessSubscriptionsEnabled  Boolean value for planlessSubscriptionsEnabled.
+         * @return Builder
+         */
+        public Builder planlessSubscriptionsEnabled(Boolean planlessSubscriptionsEnabled) {
+            this.planlessSubscriptionsEnabled = planlessSubscriptionsEnabled;
+            return this;
+        }
+
+        /**
          * Setter for portalEnabled.
          * @param  portalEnabled  Boolean value for portalEnabled.
          * @return Builder
@@ -789,7 +865,7 @@ public class Site
                     customerHierarchyEnabled, whopaysEnabled, whopaysDefaultPayer,
                     allocationSettings, defaultPaymentCollectionMethod, organizationAddress,
                     taxConfiguration, netTerms, multiFrequencyEnabled, autoRenewalsEnabled,
-                    portalEnabled, test);
+                    listPricingEnabled, planlessSubscriptionsEnabled, portalEnabled, test);
         }
     }
 }

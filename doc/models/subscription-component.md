@@ -39,6 +39,7 @@
 | `Subscription` | [`SubscriptionComponentSubscription`](../../doc/models/subscription-component-subscription.md) | Optional | (Optional) Object that will be returned if the `include=subscription` query param is provided. | SubscriptionComponentSubscription getSubscription() | setSubscription(SubscriptionComponentSubscription subscription) |
 | `HistoricUsages` | [`List<HistoricUsage>`](../../doc/models/historic-usage.md) | Optional | - | List<HistoricUsage> getHistoricUsages() | setHistoricUsages(List<HistoricUsage> historicUsages) |
 | `DisplayOnHostedPage` | `Boolean` | Optional | - | Boolean getDisplayOnHostedPage() | setDisplayOnHostedPage(Boolean displayOnHostedPage) |
+| `ListPricePointId` | `Integer` | Optional | The ID of the catalog price point used as the list price for this component's custom price. Returned only when list vs sales pricing is enabled for the site. | Integer getListPricePointId() | setListPricePointId(Integer listPricePointId) |
 | `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of '30' coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component price point, either month or day. This property is only available for sites with Multifrequency enabled. | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 
@@ -51,7 +52,7 @@ import com.maxio.advancedbilling.models.SubscriptionComponent;
 SubscriptionComponent subscriptionComponent = new SubscriptionComponent.Builder()
     .id(254)
     .name("name8")
-    .kind(ComponentKind.QUANTITY_BASED_COMPONENT)
+    .kind(ComponentKind.ON_OFF_COMPONENT)
     .unitName("unit_name0")
     .enabled(false)
     .build();

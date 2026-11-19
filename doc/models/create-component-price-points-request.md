@@ -16,9 +16,9 @@
 ```java
 import com.maxio.advancedbilling.models.CreateComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateComponentPricePointsRequest;
-import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.SecondaryPricing;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointsRequestPricePoints;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
@@ -71,10 +71,38 @@ CreateComponentPricePointsRequest createComponentPricePointsRequest = new Create
                 )
             )
             .handle("handle6")
+            .secondaryPricing(new SecondaryPricing.Builder()
+                    .pricingScheme(PricingScheme.STAIRSTEP)
+                    .prices(Arrays.asList(
+                        new Price.Builder(
+                            PriceStartingQuantity.fromNumber(
+                                242
+                            ),
+                            PriceUnitPrice.fromPrecision(
+                                23.26D
+                            )
+                        )
+                        .endingQuantity(PriceEndingQuantity.fromNumber(
+                                40
+                            ))
+                        .build(),
+                        new Price.Builder(
+                            PriceStartingQuantity.fromNumber(
+                                242
+                            ),
+                            PriceUnitPrice.fromPrecision(
+                                23.26D
+                            )
+                        )
+                        .endingQuantity(PriceEndingQuantity.fromNumber(
+                                40
+                            ))
+                        .build()
+                    ))
+                    .build())
+            .secondaryPricingScheme(PricingScheme.STAIRSTEP)
             .useSiteExchangeRate(false)
             .taxIncluded(false)
-            .interval(24)
-            .intervalUnit(IntervalUnit.DAY)
             .build()
         )
     )

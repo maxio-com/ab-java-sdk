@@ -92,7 +92,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * post-authentication flow where a 422 Unprocessable Entity status is returned with an
      * action_link that will direct the customer through 3DS Authentication. See the [3D Secure
      * Post-Authentication
-     * Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow)
+     * Flow](https://docs.maxio.com/configuration/advanced-billing/maxiojs-formerly-chargifyjs/handle-3d-secure-post-authentication)
      * article in the product documentation to learn how to manage the redirect flow.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:

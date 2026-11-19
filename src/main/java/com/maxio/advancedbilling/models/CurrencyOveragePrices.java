@@ -41,11 +41,14 @@ public class CurrencyOveragePrices
     private List<ComponentCurrencyPrice> currencyPrices;
     private List<ComponentPrice> overagePrices;
     private PricingScheme overagePricingScheme;
+    private List<ComponentPrice> secondaryPrices;
+    private PricingScheme secondaryPricingScheme;
     private Boolean renewPrepaidAllocation;
     private Boolean rolloverPrepaidRemainder;
     private OptionalNullable<Integer> expirationInterval;
     private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private List<ComponentCurrencyPrice> currencyOveragePrices;
+    private List<ComponentCurrencyPrice> currencySecondaryPrices;
 
     /**
      * Default constructor.
@@ -74,12 +77,16 @@ public class CurrencyOveragePrices
      * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
      * @param  overagePrices  List of ComponentPrice value for overagePrices.
      * @param  overagePricingScheme  PricingScheme value for overagePricingScheme.
+     * @param  secondaryPrices  List of ComponentPrice value for secondaryPrices.
+     * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  currencyOveragePrices  List of ComponentCurrencyPrice value for
      *         currencyOveragePrices.
+     * @param  currencySecondaryPrices  List of ComponentCurrencyPrice value for
+     *         currencySecondaryPrices.
      */
     public CurrencyOveragePrices(
             Integer id,
@@ -101,11 +108,14 @@ public class CurrencyOveragePrices
             List<ComponentCurrencyPrice> currencyPrices,
             List<ComponentPrice> overagePrices,
             PricingScheme overagePricingScheme,
+            List<ComponentPrice> secondaryPrices,
+            PricingScheme secondaryPricingScheme,
             Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder,
             Integer expirationInterval,
             ExpirationIntervalUnit expirationIntervalUnit,
-            List<ComponentCurrencyPrice> currencyOveragePrices) {
+            List<ComponentCurrencyPrice> currencyOveragePrices,
+            List<ComponentCurrencyPrice> currencySecondaryPrices) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -125,11 +135,14 @@ public class CurrencyOveragePrices
         this.currencyPrices = currencyPrices;
         this.overagePrices = overagePrices;
         this.overagePricingScheme = overagePricingScheme;
+        this.secondaryPrices = secondaryPrices;
+        this.secondaryPricingScheme = secondaryPricingScheme;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.expirationInterval = OptionalNullable.of(expirationInterval);
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.currencyOveragePrices = currencyOveragePrices;
+        this.currencySecondaryPrices = currencySecondaryPrices;
     }
 
     /**
@@ -153,12 +166,16 @@ public class CurrencyOveragePrices
      * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
      * @param  overagePrices  List of ComponentPrice value for overagePrices.
      * @param  overagePricingScheme  PricingScheme value for overagePricingScheme.
+     * @param  secondaryPrices  List of ComponentPrice value for secondaryPrices.
+     * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  currencyOveragePrices  List of ComponentCurrencyPrice value for
      *         currencyOveragePrices.
+     * @param  currencySecondaryPrices  List of ComponentCurrencyPrice value for
+     *         currencySecondaryPrices.
      */
 
     protected CurrencyOveragePrices(Integer id, PricePointType type, Boolean mDefault, String name,
@@ -168,10 +185,12 @@ public class CurrencyOveragePrices
             Integer subscriptionId, Boolean taxIncluded, OptionalNullable<Integer> interval,
             OptionalNullable<IntervalUnit> intervalUnit,
             List<ComponentCurrencyPrice> currencyPrices, List<ComponentPrice> overagePrices,
-            PricingScheme overagePricingScheme, Boolean renewPrepaidAllocation,
+            PricingScheme overagePricingScheme, List<ComponentPrice> secondaryPrices,
+            PricingScheme secondaryPricingScheme, Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder, OptionalNullable<Integer> expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
-            List<ComponentCurrencyPrice> currencyOveragePrices) {
+            List<ComponentCurrencyPrice> currencyOveragePrices,
+            List<ComponentCurrencyPrice> currencySecondaryPrices) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -191,11 +210,14 @@ public class CurrencyOveragePrices
         this.currencyPrices = currencyPrices;
         this.overagePrices = overagePrices;
         this.overagePricingScheme = overagePricingScheme;
+        this.secondaryPrices = secondaryPrices;
+        this.secondaryPricingScheme = secondaryPricingScheme;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.expirationInterval = expirationInterval;
         this.expirationIntervalUnit = expirationIntervalUnit;
         this.currencyOveragePrices = currencyOveragePrices;
+        this.currencySecondaryPrices = currencySecondaryPrices;
     }
 
     /**
@@ -685,6 +707,50 @@ public class CurrencyOveragePrices
     }
 
     /**
+     * Getter for SecondaryPrices.
+     * Returned only for hybrid price points. An array of secondary price brackets. Hybrid price
+     * points never return `overage_prices` or `overage_pricing_scheme`.
+     * @return Returns the List of ComponentPrice
+     */
+    @JsonGetter("secondary_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<ComponentPrice> getSecondaryPrices() {
+        return secondaryPrices;
+    }
+
+    /**
+     * Setter for SecondaryPrices.
+     * Returned only for hybrid price points. An array of secondary price brackets. Hybrid price
+     * points never return `overage_prices` or `overage_pricing_scheme`.
+     * @param secondaryPrices Value for List of ComponentPrice
+     */
+    @JsonSetter("secondary_prices")
+    public void setSecondaryPrices(List<ComponentPrice> secondaryPrices) {
+        this.secondaryPrices = secondaryPrices;
+    }
+
+    /**
+     * Getter for SecondaryPricingScheme.
+     * Returned only for hybrid price points. Pricing scheme for the secondary pricing model.
+     * @return Returns the PricingScheme
+     */
+    @JsonGetter("secondary_pricing_scheme")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PricingScheme getSecondaryPricingScheme() {
+        return secondaryPricingScheme;
+    }
+
+    /**
+     * Setter for SecondaryPricingScheme.
+     * Returned only for hybrid price points. Pricing scheme for the secondary pricing model.
+     * @param secondaryPricingScheme Value for PricingScheme
+     */
+    @JsonSetter("secondary_pricing_scheme")
+    public void setSecondaryPricingScheme(PricingScheme secondaryPricingScheme) {
+        this.secondaryPricingScheme = secondaryPricingScheme;
+    }
+
+    /**
      * Getter for RenewPrepaidAllocation.
      * Applicable only to prepaid usage components. Boolean which controls whether or not the
      * allocated quantity should be renewed at the beginning of each period.
@@ -840,6 +906,31 @@ public class CurrencyOveragePrices
     }
 
     /**
+     * Getter for CurrencySecondaryPrices.
+     * Returned only for hybrid price points, by List All Component Price Points with
+     * `include=currency_secondary_prices` or `include=currency_overage_prices`. An array of
+     * currency pricing data for secondary prices.
+     * @return Returns the List of ComponentCurrencyPrice
+     */
+    @JsonGetter("currency_secondary_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<ComponentCurrencyPrice> getCurrencySecondaryPrices() {
+        return currencySecondaryPrices;
+    }
+
+    /**
+     * Setter for CurrencySecondaryPrices.
+     * Returned only for hybrid price points, by List All Component Price Points with
+     * `include=currency_secondary_prices` or `include=currency_overage_prices`. An array of
+     * currency pricing data for secondary prices.
+     * @param currencySecondaryPrices Value for List of ComponentCurrencyPrice
+     */
+    @JsonSetter("currency_secondary_prices")
+    public void setCurrencySecondaryPrices(List<ComponentCurrencyPrice> currencySecondaryPrices) {
+        this.currencySecondaryPrices = currencySecondaryPrices;
+    }
+
+    /**
      * Converts this CurrencyOveragePrices into string format.
      * @return String representation of this class
      */
@@ -853,10 +944,12 @@ public class CurrencyOveragePrices
                 + subscriptionId + ", taxIncluded=" + taxIncluded + ", interval=" + interval
                 + ", intervalUnit=" + intervalUnit + ", currencyPrices=" + currencyPrices
                 + ", overagePrices=" + overagePrices + ", overagePricingScheme="
-                + overagePricingScheme + ", renewPrepaidAllocation=" + renewPrepaidAllocation
-                + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder + ", expirationInterval="
-                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
-                + ", currencyOveragePrices=" + currencyOveragePrices + ", additionalProperties="
+                + overagePricingScheme + ", secondaryPrices=" + secondaryPrices
+                + ", secondaryPricingScheme=" + secondaryPricingScheme + ", renewPrepaidAllocation="
+                + renewPrepaidAllocation + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder
+                + ", expirationInterval=" + expirationInterval + ", expirationIntervalUnit="
+                + expirationIntervalUnit + ", currencyOveragePrices=" + currencyOveragePrices
+                + ", currencySecondaryPrices=" + currencySecondaryPrices + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -882,9 +975,12 @@ public class CurrencyOveragePrices
                 .currencyPrices(getCurrencyPrices())
                 .overagePrices(getOveragePrices())
                 .overagePricingScheme(getOveragePricingScheme())
+                .secondaryPrices(getSecondaryPrices())
+                .secondaryPricingScheme(getSecondaryPricingScheme())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
                 .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
-                .currencyOveragePrices(getCurrencyOveragePrices());
+                .currencyOveragePrices(getCurrencyOveragePrices())
+                .currencySecondaryPrices(getCurrencySecondaryPrices());
         builder.handle = internalGetHandle();
         builder.archivedAt = internalGetArchivedAt();
         builder.interval = internalGetInterval();
@@ -917,11 +1013,14 @@ public class CurrencyOveragePrices
         private List<ComponentCurrencyPrice> currencyPrices;
         private List<ComponentPrice> overagePrices;
         private PricingScheme overagePricingScheme;
+        private List<ComponentPrice> secondaryPrices;
+        private PricingScheme secondaryPricingScheme;
         private Boolean renewPrepaidAllocation;
         private Boolean rolloverPrepaidRemainder;
         private OptionalNullable<Integer> expirationInterval;
         private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private List<ComponentCurrencyPrice> currencyOveragePrices;
+        private List<ComponentCurrencyPrice> currencySecondaryPrices;
 
 
 
@@ -1152,6 +1251,26 @@ public class CurrencyOveragePrices
         }
 
         /**
+         * Setter for secondaryPrices.
+         * @param  secondaryPrices  List of ComponentPrice value for secondaryPrices.
+         * @return Builder
+         */
+        public Builder secondaryPrices(List<ComponentPrice> secondaryPrices) {
+            this.secondaryPrices = secondaryPrices;
+            return this;
+        }
+
+        /**
+         * Setter for secondaryPricingScheme.
+         * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
+         * @return Builder
+         */
+        public Builder secondaryPricingScheme(PricingScheme secondaryPricingScheme) {
+            this.secondaryPricingScheme = secondaryPricingScheme;
+            return this;
+        }
+
+        /**
          * Setter for renewPrepaidAllocation.
          * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
          * @return Builder
@@ -1221,6 +1340,18 @@ public class CurrencyOveragePrices
         }
 
         /**
+         * Setter for currencySecondaryPrices.
+         * @param  currencySecondaryPrices  List of ComponentCurrencyPrice value for
+         *         currencySecondaryPrices.
+         * @return Builder
+         */
+        public Builder currencySecondaryPrices(
+                List<ComponentCurrencyPrice> currencySecondaryPrices) {
+            this.currencySecondaryPrices = currencySecondaryPrices;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CurrencyOveragePrices} object using the set fields.
          * @return {@link CurrencyOveragePrices}
          */
@@ -1228,9 +1359,9 @@ public class CurrencyOveragePrices
             return new CurrencyOveragePrices(id, type, mDefault, name, pricingScheme, componentId,
                     handle, archivedAt, createdAt, updatedAt, prices, useSiteExchangeRate,
                     subscriptionId, taxIncluded, interval, intervalUnit, currencyPrices,
-                    overagePrices, overagePricingScheme, renewPrepaidAllocation,
-                    rolloverPrepaidRemainder, expirationInterval, expirationIntervalUnit,
-                    currencyOveragePrices);
+                    overagePrices, overagePricingScheme, secondaryPrices, secondaryPricingScheme,
+                    renewPrepaidAllocation, rolloverPrepaidRemainder, expirationInterval,
+                    expirationIntervalUnit, currencyOveragePrices, currencySecondaryPrices);
         }
     }
 }
