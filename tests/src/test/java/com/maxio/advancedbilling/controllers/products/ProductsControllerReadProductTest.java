@@ -17,7 +17,7 @@ public class ProductsControllerReadProductTest extends ProductsControllerTestBas
         Product product = createProduct();
 
         // when
-        Product readProduct = productsController.readProduct(product.getId()).getProduct();
+        Product readProduct = productsController.readProduct(product.getId(), null).getProduct();
 
         // then
         assertThat(readProduct).usingRecursiveComparison().isEqualTo(product);
@@ -26,7 +26,7 @@ public class ProductsControllerReadProductTest extends ProductsControllerTestBas
     @Test
     void shouldNotArchiveNotOwnedProduct() {
         // when - then
-        assertNotFound(() -> productsController.readProduct(99999999));
+        assertNotFound(() -> productsController.readProduct(99999999, null));
     }
 
 }

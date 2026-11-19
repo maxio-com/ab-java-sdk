@@ -53,7 +53,7 @@ public class ProductFamiliesControllerListProductsTest {
             Product product = new ProductResponse(testSetup.createProduct(productFamily, b -> b
                     .name("product family list product test " + iterator))).getProduct();
             client.getProductsController().archiveProduct(product.getId());
-            archivedProducts.add(client.getProductsController().readProduct(product.getId()));
+            archivedProducts.add(client.getProductsController().readProduct(product.getId(), null));
         }
 
         sleep(1000);
@@ -68,8 +68,8 @@ public class ProductFamiliesControllerListProductsTest {
                 .promoteProductPricePointToDefault(pricePoint2.getProductId(), pricePoint2.getId());
 
         // refresh modified products
-        existingProducts.set(2, client.getProductsController().readProduct(existingProducts.get(2).getProduct().getId()));
-        existingProducts.set(8, client.getProductsController().readProduct(existingProducts.get(8).getProduct().getId()));
+        existingProducts.set(2, client.getProductsController().readProduct(existingProducts.get(2).getProduct().getId(), null));
+        existingProducts.set(8, client.getProductsController().readProduct(existingProducts.get(8).getProduct().getId(), null));
 
         existingProductsWithoutExchange.add(existingProducts.get(2));
         existingProductsWithoutExchange.add(existingProducts.get(8));

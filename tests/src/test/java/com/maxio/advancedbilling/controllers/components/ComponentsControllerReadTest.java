@@ -20,7 +20,7 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
 
         // when
         Component foundComponent = COMPONENTS_CONTROLLER
-                        .readComponent(productFamilyId, String.valueOf(component.getId()))
+                        .readComponent(productFamilyId, String.valueOf(component.getId()), null)
                         .getComponent();
 
         // then
@@ -35,7 +35,7 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
 
         // when
         Component foundComponent = COMPONENTS_CONTROLLER
-                .readComponent(productFamilyId, "handle:" + component.getHandle())
+                .readComponent(productFamilyId, "handle:" + component.getHandle(), null)
                 .getComponent();
 
         // then
@@ -46,13 +46,13 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
     @Test
     void shouldNotReadNonExistentComponentUsingId() {
         assertNotFound(() -> COMPONENTS_CONTROLLER.readComponent(productFamilyId,
-                "non-existent-id"));
+                "non-existent-id", null));
     }
 
     @Test
     void shouldNotReadNonExistentComponentUsingHandle() {
         assertNotFound(() -> COMPONENTS_CONTROLLER.readComponent(productFamilyId,
-                "handle:non-existent-id"));
+                "handle:non-existent-id", null));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
 
         // when - then
         assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentsController()
-                .readComponent(productFamilyId, String.valueOf(component.getId())));
+                .readComponent(productFamilyId, String.valueOf(component.getId()), null));
     }
 
 }

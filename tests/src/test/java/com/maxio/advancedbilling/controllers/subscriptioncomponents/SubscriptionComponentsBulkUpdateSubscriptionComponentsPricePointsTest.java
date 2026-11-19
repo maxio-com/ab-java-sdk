@@ -12,6 +12,7 @@ import com.maxio.advancedbilling.models.ComponentPricePointErrorItem;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentComponentId;
 import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentPricePoint;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -68,11 +69,11 @@ class SubscriptionComponentsBulkUpdateSubscriptionComponentsPricePointsTest {
                         subscription.getId(),
                         new BulkComponentsPricePointAssignment(List.of(
                                 new ComponentPricePointAssignment.Builder()
-                                        .componentId(meteredComponent.getId())
+                                        .componentId(ComponentPricePointAssignmentComponentId.fromNumber(meteredComponent.getId()))
                                         .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(perUnitPricePoint.getId()))
                                         .build(),
                                 new ComponentPricePointAssignment.Builder()
-                                        .componentId(quantityBasedComponent.getId())
+                                        .componentId(ComponentPricePointAssignmentComponentId.fromNumber(quantityBasedComponent.getId()))
                                         .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(volumePricePoint.getHandle()))
                                         .build()
                         ))
@@ -85,11 +86,11 @@ class SubscriptionComponentsBulkUpdateSubscriptionComponentsPricePointsTest {
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("additionalProperties")
                 .containsExactlyInAnyOrder(
                         new ComponentPricePointAssignment.Builder()
-                                .componentId(meteredComponent.getId())
+                                .componentId(ComponentPricePointAssignmentComponentId.fromNumber(meteredComponent.getId()))
                                 .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(perUnitPricePoint.getId()))
                                 .build(),
                         new ComponentPricePointAssignment.Builder()
-                                .componentId(quantityBasedComponent.getId())
+                                .componentId(ComponentPricePointAssignmentComponentId.fromNumber(quantityBasedComponent.getId()))
                                 .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(volumePricePoint.getHandle()))
                                 .build()
                 );
@@ -131,7 +132,7 @@ class SubscriptionComponentsBulkUpdateSubscriptionComponentsPricePointsTest {
                         // request
                         new BulkComponentsPricePointAssignment(List.of(
                                 new ComponentPricePointAssignment.Builder()
-                                        .componentId(meteredComponent.getId())
+                                        .componentId(ComponentPricePointAssignmentComponentId.fromNumber(meteredComponent.getId()))
                                         .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(123))
                                         .build()
                         )),
@@ -148,7 +149,7 @@ class SubscriptionComponentsBulkUpdateSubscriptionComponentsPricePointsTest {
                         // request
                         new BulkComponentsPricePointAssignment(List.of(
                                 new ComponentPricePointAssignment.Builder()
-                                        .componentId(123)
+                                        .componentId(ComponentPricePointAssignmentComponentId.fromNumber(123))
                                         .pricePoint(ComponentPricePointAssignmentPricePoint.fromNumber(componentPricePoint.getId()))
                                         .build()
                         )),
