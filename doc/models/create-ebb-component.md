@@ -29,8 +29,7 @@ CreateEBBComponent createEBBComponent = new CreateEBBComponent.Builder(
     new EBBComponent.Builder(
         "name8",
         "unit_name0",
-        PricingScheme.STAIRSTEP,
-        68
+        PricingScheme.STAIRSTEP
     )
     .description("description8")
     .handle("handle4")

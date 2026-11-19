@@ -27,6 +27,9 @@ public class UpdateComponent
     private OptionalNullable<ItemCategory> itemCategory;
     private Boolean displayOnHostedPage;
     private OptionalNullable<CreditType> upgradeCharge;
+    private Integer eventBasedBillingMetricId;
+    private Integer meteringMeterId;
+    private String meteringFormula;
     private OptionalNullable<String> unspscCode;
 
     /**
@@ -46,6 +49,9 @@ public class UpdateComponent
      * @param  itemCategory  ItemCategory value for itemCategory.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  meteringMeterId  Integer value for meteringMeterId.
+     * @param  meteringFormula  String value for meteringFormula.
      * @param  unspscCode  String value for unspscCode.
      */
     public UpdateComponent(
@@ -58,6 +64,9 @@ public class UpdateComponent
             ItemCategory itemCategory,
             Boolean displayOnHostedPage,
             CreditType upgradeCharge,
+            Integer eventBasedBillingMetricId,
+            Integer meteringMeterId,
+            String meteringFormula,
             String unspscCode) {
         this.handle = handle;
         this.name = name;
@@ -68,6 +77,9 @@ public class UpdateComponent
         this.itemCategory = OptionalNullable.of(itemCategory);
         this.displayOnHostedPage = displayOnHostedPage;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+        this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.meteringMeterId = meteringMeterId;
+        this.meteringFormula = meteringFormula;
         this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
@@ -82,6 +94,9 @@ public class UpdateComponent
      * @param  itemCategory  ItemCategory value for itemCategory.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  meteringMeterId  Integer value for meteringMeterId.
+     * @param  meteringFormula  String value for meteringFormula.
      * @param  unspscCode  String value for unspscCode.
      */
 
@@ -89,6 +104,7 @@ public class UpdateComponent
             OptionalNullable<String> accountingCode, Boolean taxable,
             OptionalNullable<String> taxCode, OptionalNullable<ItemCategory> itemCategory,
             Boolean displayOnHostedPage, OptionalNullable<CreditType> upgradeCharge,
+            Integer eventBasedBillingMetricId, Integer meteringMeterId, String meteringFormula,
             OptionalNullable<String> unspscCode) {
         this.handle = handle;
         this.name = name;
@@ -99,6 +115,9 @@ public class UpdateComponent
         this.itemCategory = itemCategory;
         this.displayOnHostedPage = displayOnHostedPage;
         this.upgradeCharge = upgradeCharge;
+        this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.meteringMeterId = meteringMeterId;
+        this.meteringFormula = meteringFormula;
         this.unspscCode = unspscCode;
     }
 
@@ -390,6 +409,81 @@ public class UpdateComponent
     }
 
     /**
+     * Getter for EventBasedBillingMetricId.
+     * For components using legacy Events Based Billing, changes the attached site-owned metric. An
+     * unchanged metric ID does not change the source. Sites using Maxio Metering ignore this input.
+     * This ID does not identify a Maxio Metering meter.
+     * @return Returns the Integer
+     */
+    @JsonGetter("event_based_billing_metric_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getEventBasedBillingMetricId() {
+        return eventBasedBillingMetricId;
+    }
+
+    /**
+     * Setter for EventBasedBillingMetricId.
+     * For components using legacy Events Based Billing, changes the attached site-owned metric. An
+     * unchanged metric ID does not change the source. Sites using Maxio Metering ignore this input.
+     * This ID does not identify a Maxio Metering meter.
+     * @param eventBasedBillingMetricId Value for Integer
+     */
+    @JsonSetter("event_based_billing_metric_id")
+    public void setEventBasedBillingMetricId(Integer eventBasedBillingMetricId) {
+        this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+    }
+
+    /**
+     * Getter for MeteringMeterId.
+     * For components using Maxio Metering, changes the attached merchant-owned meter. Do not supply
+     * together with a non-blank metering_formula. Ignored for components using legacy Events Based
+     * Billing; not applicable to other component kinds.
+     * @return Returns the Integer
+     */
+    @JsonGetter("metering_meter_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getMeteringMeterId() {
+        return meteringMeterId;
+    }
+
+    /**
+     * Setter for MeteringMeterId.
+     * For components using Maxio Metering, changes the attached merchant-owned meter. Do not supply
+     * together with a non-blank metering_formula. Ignored for components using legacy Events Based
+     * Billing; not applicable to other component kinds.
+     * @param meteringMeterId Value for Integer
+     */
+    @JsonSetter("metering_meter_id")
+    public void setMeteringMeterId(Integer meteringMeterId) {
+        this.meteringMeterId = meteringMeterId;
+    }
+
+    /**
+     * Getter for MeteringFormula.
+     * For components using Maxio Metering, sets an Advanced Formula using meters available to the
+     * site. Supply a non-blank formula; do not supply together with metering_meter_id. Ignored for
+     * components using legacy Events Based Billing; not applicable to other component kinds.
+     * @return Returns the String
+     */
+    @JsonGetter("metering_formula")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getMeteringFormula() {
+        return meteringFormula;
+    }
+
+    /**
+     * Setter for MeteringFormula.
+     * For components using Maxio Metering, sets an Advanced Formula using meters available to the
+     * site. Supply a non-blank formula; do not supply together with metering_meter_id. Ignored for
+     * components using legacy Events Based Billing; not applicable to other component kinds.
+     * @param meteringFormula Value for String
+     */
+    @JsonSetter("metering_formula")
+    public void setMeteringFormula(String meteringFormula) {
+        this.meteringFormula = meteringFormula;
+    }
+
+    /**
      * Internal Getter for UnspscCode.
      * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
      * is sent as the commodity code on invoice line items for this component instead of the default
@@ -446,7 +540,9 @@ public class UpdateComponent
                 + description + ", accountingCode=" + accountingCode + ", taxable=" + taxable
                 + ", taxCode=" + taxCode + ", itemCategory=" + itemCategory
                 + ", displayOnHostedPage=" + displayOnHostedPage + ", upgradeCharge="
-                + upgradeCharge + ", unspscCode=" + unspscCode + ", additionalProperties="
+                + upgradeCharge + ", eventBasedBillingMetricId=" + eventBasedBillingMetricId
+                + ", meteringMeterId=" + meteringMeterId + ", meteringFormula=" + meteringFormula
+                + ", unspscCode=" + unspscCode + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -460,7 +556,10 @@ public class UpdateComponent
                 .handle(getHandle())
                 .name(getName())
                 .taxable(getTaxable())
-                .displayOnHostedPage(getDisplayOnHostedPage());
+                .displayOnHostedPage(getDisplayOnHostedPage())
+                .eventBasedBillingMetricId(getEventBasedBillingMetricId())
+                .meteringMeterId(getMeteringMeterId())
+                .meteringFormula(getMeteringFormula());
         builder.description = internalGetDescription();
         builder.accountingCode = internalGetAccountingCode();
         builder.taxCode = internalGetTaxCode();
@@ -483,6 +582,9 @@ public class UpdateComponent
         private OptionalNullable<ItemCategory> itemCategory;
         private Boolean displayOnHostedPage;
         private OptionalNullable<CreditType> upgradeCharge;
+        private Integer eventBasedBillingMetricId;
+        private Integer meteringMeterId;
+        private String meteringFormula;
         private OptionalNullable<String> unspscCode;
 
 
@@ -623,6 +725,36 @@ public class UpdateComponent
         }
 
         /**
+         * Setter for eventBasedBillingMetricId.
+         * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+         * @return Builder
+         */
+        public Builder eventBasedBillingMetricId(Integer eventBasedBillingMetricId) {
+            this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+            return this;
+        }
+
+        /**
+         * Setter for meteringMeterId.
+         * @param  meteringMeterId  Integer value for meteringMeterId.
+         * @return Builder
+         */
+        public Builder meteringMeterId(Integer meteringMeterId) {
+            this.meteringMeterId = meteringMeterId;
+            return this;
+        }
+
+        /**
+         * Setter for meteringFormula.
+         * @param  meteringFormula  String value for meteringFormula.
+         * @return Builder
+         */
+        public Builder meteringFormula(String meteringFormula) {
+            this.meteringFormula = meteringFormula;
+            return this;
+        }
+
+        /**
          * Setter for unspscCode.
          * @param  unspscCode  String value for unspscCode.
          * @return Builder
@@ -647,7 +779,8 @@ public class UpdateComponent
          */
         public UpdateComponent build() {
             return new UpdateComponent(handle, name, description, accountingCode, taxable, taxCode,
-                    itemCategory, displayOnHostedPage, upgradeCharge, unspscCode);
+                    itemCategory, displayOnHostedPage, upgradeCharge, eventBasedBillingMetricId,
+                    meteringMeterId, meteringFormula, unspscCode);
         }
     }
 }

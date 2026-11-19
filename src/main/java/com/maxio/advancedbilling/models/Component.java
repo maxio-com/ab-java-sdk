@@ -55,6 +55,7 @@ public class Component
     private OptionalNullable<Boolean> useSiteExchangeRate;
     private OptionalNullable<String> accountingCode;
     private Integer eventBasedBillingMetricId;
+    private Integer meteringMeterId;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
     private OptionalNullable<String> unspscCode;
@@ -101,6 +102,7 @@ public class Component
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  accountingCode  String value for accountingCode.
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  meteringMeterId  Integer value for meteringMeterId.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  unspscCode  String value for unspscCode.
@@ -140,6 +142,7 @@ public class Component
             Boolean useSiteExchangeRate,
             String accountingCode,
             Integer eventBasedBillingMetricId,
+            Integer meteringMeterId,
             Integer interval,
             IntervalUnit intervalUnit,
             String unspscCode,
@@ -177,6 +180,7 @@ public class Component
         this.useSiteExchangeRate = OptionalNullable.of(useSiteExchangeRate);
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.meteringMeterId = meteringMeterId;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.unspscCode = OptionalNullable.of(unspscCode);
@@ -218,6 +222,7 @@ public class Component
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  accountingCode  String value for accountingCode.
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  meteringMeterId  Integer value for meteringMeterId.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  unspscCode  String value for unspscCode.
@@ -241,7 +246,7 @@ public class Component
             Boolean hideDateRangeOnInvoice, Boolean allowFractionalQuantities,
             OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
-            Integer eventBasedBillingMetricId, Integer interval,
+            Integer eventBasedBillingMetricId, Integer meteringMeterId, Integer interval,
             OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode,
             OptionalNullable<List<FeatureCatalogItem>> features) {
         this.id = id;
@@ -277,6 +282,7 @@ public class Component
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.accountingCode = accountingCode;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.meteringMeterId = meteringMeterId;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.unspscCode = unspscCode;
@@ -1330,8 +1336,9 @@ public class Component
 
     /**
      * Getter for EventBasedBillingMetricId.
-     * (Only for Event Based Components) This is an ID of a metric attached to the component. This
-     * metric is used to bill upon collected events.
+     * The ID of an attached metric from legacy Events Based Billing. Omitted if no metric is
+     * attached. If the metric is linked to a Maxio Metering meter, the response can include both
+     * event_based_billing_metric_id and metering_meter_id.
      * @return Returns the Integer
      */
     @JsonGetter("event_based_billing_metric_id")
@@ -1342,13 +1349,41 @@ public class Component
 
     /**
      * Setter for EventBasedBillingMetricId.
-     * (Only for Event Based Components) This is an ID of a metric attached to the component. This
-     * metric is used to bill upon collected events.
+     * The ID of an attached metric from legacy Events Based Billing. Omitted if no metric is
+     * attached. If the metric is linked to a Maxio Metering meter, the response can include both
+     * event_based_billing_metric_id and metering_meter_id.
      * @param eventBasedBillingMetricId Value for Integer
      */
     @JsonSetter("event_based_billing_metric_id")
     public void setEventBasedBillingMetricId(Integer eventBasedBillingMetricId) {
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+    }
+
+    /**
+     * Getter for MeteringMeterId.
+     * The ID of an attached single Maxio Metering meter. Omitted if no single meter is attached,
+     * including when the component uses only an Advanced Formula. If a legacy Events Based Billing
+     * metric is linked to the meter, the response can include both metering_meter_id and
+     * event_based_billing_metric_id.
+     * @return Returns the Integer
+     */
+    @JsonGetter("metering_meter_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getMeteringMeterId() {
+        return meteringMeterId;
+    }
+
+    /**
+     * Setter for MeteringMeterId.
+     * The ID of an attached single Maxio Metering meter. Omitted if no single meter is attached,
+     * including when the component uses only an Advanced Formula. If a legacy Events Based Billing
+     * metric is linked to the meter, the response can include both metering_meter_id and
+     * event_based_billing_metric_id.
+     * @param meteringMeterId Value for Integer
+     */
+    @JsonSetter("metering_meter_id")
+    public void setMeteringMeterId(Integer meteringMeterId) {
+        this.meteringMeterId = meteringMeterId;
     }
 
     /**
@@ -1531,9 +1566,10 @@ public class Component
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", itemCategory="
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
-                + eventBasedBillingMetricId + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", unspscCode=" + unspscCode + ", features=" + features
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + eventBasedBillingMetricId + ", meteringMeterId=" + meteringMeterId + ", interval="
+                + interval + ", intervalUnit=" + intervalUnit + ", unspscCode=" + unspscCode
+                + ", features=" + features + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**
@@ -1557,6 +1593,7 @@ public class Component
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .eventBasedBillingMetricId(getEventBasedBillingMetricId())
+                .meteringMeterId(getMeteringMeterId())
                 .interval(getInterval());
         builder.handle = internalGetHandle();
         builder.pricingScheme = internalGetPricingScheme();
@@ -1620,6 +1657,7 @@ public class Component
         private OptionalNullable<Boolean> useSiteExchangeRate;
         private OptionalNullable<String> accountingCode;
         private Integer eventBasedBillingMetricId;
+        private Integer meteringMeterId;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
         private OptionalNullable<String> unspscCode;
@@ -2129,6 +2167,16 @@ public class Component
         }
 
         /**
+         * Setter for meteringMeterId.
+         * @param  meteringMeterId  Integer value for meteringMeterId.
+         * @return Builder
+         */
+        public Builder meteringMeterId(Integer meteringMeterId) {
+            this.meteringMeterId = meteringMeterId;
+            return this;
+        }
+
+        /**
          * Setter for interval.
          * @param  interval  Integer value for interval.
          * @return Builder
@@ -2206,8 +2254,8 @@ public class Component
                     pricePointCount, pricePointsUrl, defaultPricePointName, taxable, taxCode,
                     recurring, upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
                     hideDateRangeOnInvoice, allowFractionalQuantities, itemCategory,
-                    useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, interval,
-                    intervalUnit, unspscCode, features);
+                    useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, meteringMeterId,
+                    interval, intervalUnit, unspscCode, features);
         }
     }
 }
