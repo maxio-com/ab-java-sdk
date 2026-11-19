@@ -140,14 +140,14 @@ public class InvoicesControllerListInvoiceEventsTest {
 
     private void awaitInvoiceEvents(String invoiceUid, int expectedEventCount)
             throws IOException, ApiException {
+        List<InvoiceEvent> observedEvents = List.of();
         for (int attempt = 0; attempt < 20; attempt++) {
-            int eventCount = invoicesController.listInvoiceEvents(new ListInvoiceEventsInput.Builder()
+            observedEvents = invoicesController.listInvoiceEvents(new ListInvoiceEventsInput.Builder()
                             .invoiceUid(invoiceUid)
                             .perPage(10)
                             .build())
-                    .getEvents()
-                    .size();
-            if (eventCount >= expectedEventCount) {
+                    .getEvents();
+            if (observedEvents.size() >= expectedEventCount) {
                 return;
             }
             try {
@@ -157,6 +157,11 @@ public class InvoicesControllerListInvoiceEventsTest {
                 throw new RuntimeException(e);
             }
         }
+        List<String> eventTypes = observedEvents.stream()
+                .map(event -> event.match(new EventExtractor<>(Object.class)).getClass().getSimpleName())
+                .toList();
+        throw new AssertionError("Invoice %s: expected at least %d events after 20 attempts, but saw %d. Event types: %s"
+                .formatted(invoiceUid, expectedEventCount, observedEvents.size(), eventTypes));
     }
 
     @AfterAll
