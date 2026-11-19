@@ -36,7 +36,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerCreateEventsBasedTest {
 
-    private static final int PRECONFIGURED_METRIC_ID = 2377;
+    // Merchant-owned Count meter on java-sdk-preconfigured.
+    private static final int PRECONFIGURED_METER_ID = 1772;
     private static final int PRECONFIGURED_PRODUCT_FAMILY_ID = 2721199;
 
     private final AdvancedBillingClient client = TestClientProvider.getPreconfiguredSiteClient();
@@ -68,7 +69,7 @@ public class ComponentsControllerCreateEventsBasedTest {
                 .taxable(true)
                 .taxCode("txcode4")
                 .hideDateRangeOnInvoice(false)
-                .eventBasedBillingMetricId(PRECONFIGURED_METRIC_ID)
+                .meteringMeterId(PRECONFIGURED_METER_ID)
                 .pricePoints(List.of(
                         new ComponentPricePointItem.Builder()
                                 .name("Price Point " + randomNumeric(10))
@@ -115,7 +116,7 @@ public class ComponentsControllerCreateEventsBasedTest {
         assertThat(component.getUpdatedAt()).isNotNull();
         assertThat(component.getPricingScheme()).isEqualTo(PricingScheme.PER_UNIT);
         assertThat(component.getUnitName()).isEqualTo(ebbComponent.getUnitName());
-        assertThat(component.getEventBasedBillingMetricId()).isEqualTo(ebbComponent.getEventBasedBillingMetricId());
+        assertThat(component.getMeteringMeterId()).isEqualTo(ebbComponent.getMeteringMeterId());
         assertThat(component.getPricePerUnitInCents()).isNull();
         assertThat(component.getArchived()).isFalse();
         assertThat(component.getDefaultPricePointId()).isNotNull();
@@ -174,7 +175,7 @@ public class ComponentsControllerCreateEventsBasedTest {
                         new CreateEBBComponent(ebbComponent)))
                 .hasErrors("Handle must start with a letter or number and may only contain lowercase letters, numbers, or the characters ':', '-', or '_'.",
                         "Unit name: cannot be blank.",
-                        "Metric: cannot be blank.",
+                        "Must have either a meter or a formula meter",
                         "At least 1 price bracket must be defined")
                 .isUnprocessableEntity();
     }
@@ -188,7 +189,7 @@ public class ComponentsControllerCreateEventsBasedTest {
                 .pricingScheme(PricingScheme.PER_UNIT)
                 .unitPrice(EBBComponentUnitPrice.fromPrecision(10.0))
                 .unitName("u")
-                .eventBasedBillingMetricId(PRECONFIGURED_METRIC_ID)
+                .meteringMeterId(PRECONFIGURED_METER_ID)
                 .build();
         Component component = componentsController.createEventBasedComponent(String.valueOf(PRECONFIGURED_PRODUCT_FAMILY_ID),
                 new CreateEBBComponent(createComponent)).getComponent();
