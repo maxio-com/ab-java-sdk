@@ -48,17 +48,21 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | `getAdvanceInvoiceController()` | Provides access to AdvanceInvoice controller. | `AdvanceInvoiceController` |
 | `getBillingPortalController()` | Provides access to BillingPortal controller. | `BillingPortalController` |
 | `getCouponsController()` | Provides access to Coupons controller. | `CouponsController` |
+| `getComponentFeaturesController()` | Provides access to ComponentFeatures controller. | `ComponentFeaturesController` |
 | `getComponentsController()` | Provides access to Components controller. | `ComponentsController` |
 | `getComponentPricePointsController()` | Provides access to ComponentPricePoints controller. | `ComponentPricePointsController` |
 | `getCustomersController()` | Provides access to Customers controller. | `CustomersController` |
 | `getCustomFieldsController()` | Provides access to CustomFields controller. | `CustomFieldsController` |
+| `getEntitlementsController()` | Provides access to Entitlements controller. | `EntitlementsController` |
 | `getEventsController()` | Provides access to Events controller. | `EventsController` |
 | `getEventsBasedBillingSegmentsController()` | Provides access to EventsBasedBillingSegments controller. | `EventsBasedBillingSegmentsController` |
+| `getFeatureTemplatesController()` | Provides access to FeatureTemplates controller. | `FeatureTemplatesController` |
 | `getInsightsController()` | Provides access to Insights controller. | `InsightsController` |
 | `getInvoicesController()` | Provides access to Invoices controller. | `InvoicesController` |
 | `getOffersController()` | Provides access to Offers controller. | `OffersController` |
 | `getPaymentProfilesController()` | Provides access to PaymentProfiles controller. | `PaymentProfilesController` |
 | `getProductFamiliesController()` | Provides access to ProductFamilies controller. | `ProductFamiliesController` |
+| `getProductFeaturesController()` | Provides access to ProductFeatures controller. | `ProductFeaturesController` |
 | `getProductsController()` | Provides access to Products controller. | `ProductsController` |
 | `getProductPricePointsController()` | Provides access to ProductPricePoints controller. | `ProductPricePointsController` |
 | `getProformaInvoicesController()` | Provides access to ProformaInvoices controller. | `ProformaInvoicesController` |
@@ -76,6 +80,11 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | `getSubscriptionProductsController()` | Provides access to SubscriptionProducts controller. | `SubscriptionProductsController` |
 | `getSubscriptionRenewalsController()` | Provides access to SubscriptionRenewals controller. | `SubscriptionRenewalsController` |
 | `getSubscriptionStatusController()` | Provides access to SubscriptionStatus controller. | `SubscriptionStatusController` |
+| `getWalletsController()` | Provides access to Wallets controller. | `WalletsController` |
+| `getWalletTransactionsController()` | Provides access to WalletTransactions controller. | `WalletTransactionsController` |
+| `getWalletAdjustmentsController()` | Provides access to WalletAdjustments controller. | `WalletAdjustmentsController` |
+| `getWalletPurchasesController()` | Provides access to WalletPurchases controller. | `WalletPurchasesController` |
+| `getWalletProductsController()` | Provides access to WalletProducts controller. | `WalletProductsController` |
 | `getWebhooksController()` | Provides access to Webhooks controller. | `WebhooksController` |
 
 ### Methods

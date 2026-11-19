@@ -9,14 +9,16 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for ComponentCurrencyPrice type.
  */
 public class ComponentCurrencyPrice
         extends BaseModel {
-    private Integer id;
+    private OptionalNullable<Integer> id;
     private String currency;
     private String price;
     private String formattedPrice;
@@ -45,6 +47,26 @@ public class ComponentCurrencyPrice
             String formattedPrice,
             Integer priceId,
             Integer pricePointId) {
+        this.id = OptionalNullable.of(id);
+        this.currency = currency;
+        this.price = price;
+        this.formattedPrice = formattedPrice;
+        this.priceId = priceId;
+        this.pricePointId = pricePointId;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  currency  String value for currency.
+     * @param  price  String value for price.
+     * @param  formattedPrice  String value for formattedPrice.
+     * @param  priceId  Integer value for priceId.
+     * @param  pricePointId  Integer value for pricePointId.
+     */
+
+    protected ComponentCurrencyPrice(OptionalNullable<Integer> id, String currency, String price,
+            String formattedPrice, Integer priceId, Integer pricePointId) {
         this.id = id;
         this.currency = currency;
         this.price = price;
@@ -54,22 +76,50 @@ public class ComponentCurrencyPrice
     }
 
     /**
-     * Getter for Id.
-     * @return Returns the Integer
+     * Internal Getter for Id.
+     * The ID of the stored currency price. This is `null` when the price point uses the site
+     * exchange rate (`use_site_exchange_rate: true`), because the price is calculated from the rate
+     * and is not stored.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Id.
+     * The ID of the stored currency price. This is `null` when the price point uses the site
+     * exchange rate (`use_site_exchange_rate: true`), because the price is calculated from the rate
+     * and is not stored.
+     * @return Returns the Integer
+     */
     public Integer getId() {
-        return id;
+        return OptionalNullable.getFrom(id);
     }
 
     /**
      * Setter for Id.
+     * The ID of the stored currency price. This is `null` when the price point uses the site
+     * exchange rate (`use_site_exchange_rate: true`), because the price is calculated from the rate
+     * and is not stored.
      * @param id Value for Integer
      */
     @JsonSetter("id")
     public void setId(Integer id) {
-        this.id = id;
+        this.id = OptionalNullable.of(id);
+    }
+
+    /**
+     * UnSetter for Id.
+     * The ID of the stored currency price. This is `null` when the price point uses the site
+     * exchange rate (`use_site_exchange_rate: true`), because the price is calculated from the rate
+     * and is not stored.
+     */
+    public void unsetId() {
+        id = null;
     }
 
     /**
@@ -186,12 +236,12 @@ public class ComponentCurrencyPrice
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .id(getId())
                 .currency(getCurrency())
                 .price(getPrice())
                 .formattedPrice(getFormattedPrice())
                 .priceId(getPriceId())
                 .pricePointId(getPricePointId());
+        builder.id = internalGetId();
         return builder;
     }
 
@@ -199,7 +249,7 @@ public class ComponentCurrencyPrice
      * Class to build instances of {@link ComponentCurrencyPrice}.
      */
     public static class Builder {
-        private Integer id;
+        private OptionalNullable<Integer> id;
         private String currency;
         private String price;
         private String formattedPrice;
@@ -214,7 +264,16 @@ public class ComponentCurrencyPrice
          * @return Builder
          */
         public Builder id(Integer id) {
-            this.id = id;
+            this.id = OptionalNullable.of(id);
+            return this;
+        }
+
+        /**
+         * UnSetter for id.
+         * @return Builder
+         */
+        public Builder unsetId() {
+            id = null;
             return this;
         }
 

@@ -16,15 +16,23 @@ import java.util.TreeMap;
  * ListComponentsPricePointsInclude to be used.
  */
 public enum ListComponentsPricePointsInclude {
-    CURRENCY_PRICES;
+    CURRENCY_PRICES,
+
+    CURRENCY_OVERAGE_PRICES,
+
+    CURRENCY_SECONDARY_PRICES;
 
     private static TreeMap<String, ListComponentsPricePointsInclude> valueMap = new TreeMap<>();
     private String value;
 
     static {
         CURRENCY_PRICES.value = "currency_prices";
+        CURRENCY_OVERAGE_PRICES.value = "currency_overage_prices";
+        CURRENCY_SECONDARY_PRICES.value = "currency_secondary_prices";
 
         valueMap.put("currency_prices", CURRENCY_PRICES);
+        valueMap.put("currency_overage_prices", CURRENCY_OVERAGE_PRICES);
+        valueMap.put("currency_secondary_prices", CURRENCY_SECONDARY_PRICES);
     }
 
     /**

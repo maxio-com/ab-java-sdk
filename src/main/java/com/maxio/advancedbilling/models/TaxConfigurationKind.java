@@ -22,7 +22,17 @@ public enum TaxConfigurationKind {
 
     ENUM_LINKED_AVALARA,
 
-    ENUM_DIGITAL_RIVER;
+    ENUM_DIGITAL_RIVER,
+
+    ANROK,
+
+    TAXJAR,
+
+    NUMERAL,
+
+    SPHERE,
+
+    TAXWIRE;
 
     private static TreeMap<String, TaxConfigurationKind> valueMap = new TreeMap<>();
     private String value;
@@ -32,11 +42,21 @@ public enum TaxConfigurationKind {
         ENUM_MANAGED_AVALARA.value = "managed avalara";
         ENUM_LINKED_AVALARA.value = "linked avalara";
         ENUM_DIGITAL_RIVER.value = "digital river";
+        ANROK.value = "anrok";
+        TAXJAR.value = "taxjar";
+        NUMERAL.value = "numeral";
+        SPHERE.value = "sphere";
+        TAXWIRE.value = "taxwire";
 
         valueMap.put("custom", CUSTOM);
         valueMap.put("managed avalara", ENUM_MANAGED_AVALARA);
         valueMap.put("linked avalara", ENUM_LINKED_AVALARA);
         valueMap.put("digital river", ENUM_DIGITAL_RIVER);
+        valueMap.put("anrok", ANROK);
+        valueMap.put("taxjar", TAXJAR);
+        valueMap.put("numeral", NUMERAL);
+        valueMap.put("sphere", SPHERE);
+        valueMap.put("taxwire", TAXWIRE);
     }
 
     /**

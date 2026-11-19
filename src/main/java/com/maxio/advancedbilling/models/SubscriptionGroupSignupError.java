@@ -57,8 +57,8 @@ public class SubscriptionGroupSignupError
 
     /**
      * Getter for Subscriptions.
-     * Object that as key have subscription position in request subscriptions array and as value
-     * subscription errors object.
+     * Subscription errors keyed by the subscription's `reference` from the request, or by its
+     * zero-based position in the `subscriptions` array when it has no reference.
      * @return Returns the Map of String, SubscriptionGroupSubscriptionError
      */
     @JsonGetter("subscriptions")
@@ -69,8 +69,8 @@ public class SubscriptionGroupSignupError
 
     /**
      * Setter for Subscriptions.
-     * Object that as key have subscription position in request subscriptions array and as value
-     * subscription errors object.
+     * Subscription errors keyed by the subscription's `reference` from the request, or by its
+     * zero-based position in the `subscriptions` array when it has no reference.
      * @param subscriptions Value for Map of String, SubscriptionGroupSubscriptionError
      */
     @JsonSetter("subscriptions")

@@ -10,8 +10,8 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.EventBasedBillingListSegmentsErrorsException;
-import com.maxio.advancedbilling.exceptions.EventBasedBillingSegmentErrorsException;
-import com.maxio.advancedbilling.exceptions.EventBasedBillingSegmentException;
+import com.maxio.advancedbilling.exceptions.EventBasedBillingSegmentWriteErrorResponseException;
+import com.maxio.advancedbilling.exceptions.SegmentPricePointErrorsErrorException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BulkCreateSegments;
 import com.maxio.advancedbilling.models.BulkUpdateSegments;
@@ -43,7 +43,13 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * Creates a new segment for a component with a segmented metric. It allows you to specify
      * properties to bill upon and prices for each Segment. You can only pass as many
      * "property_values" as the related Metric has segmenting properties defined. You may specify
-     * component and/or price point by using either the numeric ID or the `handle:gold` syntax.
+     * component and/or price point by using either the numeric ID or the `handle:gold` syntax. ##
+     * Custom Price Points This endpoint changes segments on catalog price points only. If the price
+     * point is a subscription's custom price point, the request returns `422 Unprocessable Entity`
+     * with a `price_point` error such as "Segments on a subscription's custom price point can't be
+     * changed here. Set them with custom_price on the subscription or component endpoints.", and
+     * nothing is saved. To change a subscription's segment rates, send `custom_price.segments` to
+     * [Update Subscription]($e/Subscriptions/updateSubscription).
      * @param  componentId  Required parameter: ID or Handle for the Component
      * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
      *         Component
@@ -93,7 +99,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new EventBasedBillingSegmentErrorsException(reason, context)))
+                                (reason, context) -> new EventBasedBillingSegmentWriteErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -102,7 +108,13 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * Lists segments created for a given price point, in order of creation. You can pass `page` and
      * `per_page` parameters in order to access all of the segments. By default it will return `30`
      * records. You can set `per_page` to `200` at most. You may specify component and/or price
-     * point by using either the numeric ID or the `handle:gold` syntax.
+     * point by using either the numeric ID or the `handle:gold` syntax. ## Subscription Segment
+     * Rates This endpoint also returns the segments of a subscription's custom price point,
+     * including segment rates set through `custom_price.segments` on [Create
+     * Subscription]($e/Subscriptions/createSubscription) or [Update
+     * Subscription]($e/Subscriptions/updateSubscription). Use the subscription component's
+     * `price_point_id`, available from [Read Subscription
+     * Component]($e/Subscription%20Components/readSubscriptionComponent).
      * @param  input  ListSegmentsForPricePointInput object containing request parameters
      * @return    Returns the ListSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -129,6 +141,8 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("filter")
                                 .value(input.getFilter()).isRequired(false))
+                        .queryParam(param -> param.key("currency_prices")
+                                .value(input.getCurrencyPrices()).isRequired(false))
                         .templateParam(param -> param.key("component_id").value(input.getComponentId())
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("price_point_id").value(input.getPricePointId())
@@ -155,7 +169,13 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
     /**
      * Updates a single segment for a component with a segmented metric. You can also update the
      * pricing for the segment. You can specify component and/or price point by using either the
-     * numeric ID or the `handle:gold` syntax.
+     * numeric ID or the `handle:gold` syntax. ## Custom Price Points This endpoint changes segments
+     * on catalog price points only. If the segment belongs to a subscription's custom price point,
+     * or the `price_point_id` in the URL names one, the request returns `422 Unprocessable Entity`
+     * with a `price_point` error such as "Segments on a subscription's custom price point can't be
+     * changed here. Set them with custom_price on the subscription or component endpoints.", and
+     * nothing is saved. To change a subscription's segment rates, send `custom_price.segments` to
+     * [Update Subscription]($e/Subscriptions/updateSubscription).
      * @param  componentId  Required parameter: ID or Handle of the Component
      * @param  pricePointId  Required parameter: ID or Handle of the Price Point belonging to the
      *         Component
@@ -210,14 +230,21 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new EventBasedBillingSegmentErrorsException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
 
     /**
      * Deletes a segment with the specified ID. You may specify component and/or price point by
-     * using either the numeric ID or the `handle:gold` syntax.
+     * using either the numeric ID or the `handle:gold` syntax. ## Custom Price Points This endpoint
+     * changes segments on catalog price points only. If the segment belongs to a subscription's
+     * custom price point, the request returns `422 Unprocessable Entity` with a `price_point` error
+     * such as "Segments on a subscription's custom price point can't be changed here. Set them with
+     * custom_price on the subscription or component endpoints.", and nothing is saved. The check
+     * uses the segment's own price point, whichever `price_point_id` the URL names. To change a
+     * subscription's segment rates, send `custom_price.segments` to [Update
+     * Subscription]($e/Subscriptions/updateSubscription).
      * @param  componentId  Required parameter: ID or Handle of the Component
      * @param  pricePointId  Required parameter: ID or Handle of the Price Point belonging to the
      *         Component
@@ -261,7 +288,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new ApiException(reason, context)))
+                                (reason, context) -> new SegmentPricePointErrorsErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -271,7 +298,13 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * records. If any of the records contain an error the whole request would fail and none of the
      * requested segments get created. The error response contains a message for only the one
      * segment that failed validation, with the corresponding index in the array. You may specify
-     * component and/or price point by using either the numeric ID or the `handle:gold` syntax.
+     * component and/or price point by using either the numeric ID or the `handle:gold` syntax. ##
+     * Custom Price Points This endpoint changes segments on catalog price points only. If the price
+     * point is a subscription's custom price point, the request returns `422 Unprocessable Entity`
+     * with a `price_point` error such as "Segments on a subscription's custom price point can't be
+     * changed here. Set them with custom_price on the subscription or component endpoints.", and
+     * nothing is saved. To change a subscription's segment rates, send `custom_price.segments` to
+     * [Update Subscription]($e/Subscriptions/updateSubscription).
      * @param  componentId  Required parameter: ID or Handle for the Component
      * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
      *         Component
@@ -321,7 +354,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new EventBasedBillingSegmentException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -331,7 +364,13 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * records. If any of the records contain an error the whole request would fail and none of the
      * requested segments get updated. The error response contains a message for only the one
      * segment that failed validation, with the corresponding index in the array. You may specify
-     * component and/or price point by using either the numeric ID or the `handle:gold` syntax.
+     * component and/or price point by using either the numeric ID or the `handle:gold` syntax. ##
+     * Custom Price Points This endpoint changes segments on catalog price points only. If the price
+     * point is a subscription's custom price point, the request returns `422 Unprocessable Entity`
+     * with a `price_point` error such as "Segments on a subscription's custom price point can't be
+     * changed here. Set them with custom_price on the subscription or component endpoints.", and
+     * nothing is saved. To change a subscription's segment rates, send `custom_price.segments` to
+     * [Update Subscription]($e/Subscriptions/updateSubscription).
      * @param  componentId  Required parameter: ID or Handle for the Component
      * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
      *         Component
@@ -381,7 +420,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new EventBasedBillingSegmentException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

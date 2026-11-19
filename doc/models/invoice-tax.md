@@ -12,7 +12,7 @@
 | `Uid` | `String` | Optional | - | String getUid() | setUid(String uid) |
 | `Title` | `String` | Optional | - | String getTitle() | setTitle(String title) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
-| `SourceType` | [`ProformaInvoiceTaxSourceType`](../../doc/models/proforma-invoice-tax-source-type.md) | Optional | - | ProformaInvoiceTaxSourceType getSourceType() | setSourceType(ProformaInvoiceTaxSourceType sourceType) |
+| `SourceType` | [`ProformaInvoiceTaxSourceType`](../../doc/models/proforma-invoice-tax-source-type.md) | Optional | The source of the tax. `Tax` is a tax configured in Advanced Billing. The other values identify the tax service that calculated the tax. | ProformaInvoiceTaxSourceType getSourceType() | setSourceType(ProformaInvoiceTaxSourceType sourceType) |
 | `SourceId` | `Integer` | Optional | - | Integer getSourceId() | setSourceId(Integer sourceId) |
 | `Percentage` | `String` | Optional | - | String getPercentage() | setPercentage(String percentage) |
 | `TaxableAmount` | `String` | Optional | - | String getTaxableAmount() | setTaxableAmount(String taxableAmount) |
@@ -34,7 +34,7 @@ InvoiceTax invoiceTax = new InvoiceTax.Builder()
     .uid("uid2")
     .title("title8")
     .description("description2")
-    .sourceType(ProformaInvoiceTaxSourceType.TAX)
+    .sourceType(ProformaInvoiceTaxSourceType.TAXJAR)
     .sourceId(86)
     .build();
 ```

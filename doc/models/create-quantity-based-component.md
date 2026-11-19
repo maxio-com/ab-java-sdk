@@ -15,10 +15,10 @@
 
 ```java
 import com.maxio.advancedbilling.models.CreateQuantityBasedComponent;
-import com.maxio.advancedbilling.models.CreditType;
 import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
+import com.maxio.advancedbilling.models.SecondaryPricing;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
@@ -59,7 +59,35 @@ CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBa
                 ))
             .build()
         ))
-    .upgradeCharge(CreditType.PRORATED)
+    .secondaryPricing(new SecondaryPricing.Builder()
+            .pricingScheme(PricingScheme.STAIRSTEP)
+            .prices(Arrays.asList(
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        242
+                    ),
+                    PriceUnitPrice.fromPrecision(
+                        23.26D
+                    )
+                )
+                .endingQuantity(PriceEndingQuantity.fromNumber(
+                        40
+                    ))
+                .build(),
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        242
+                    ),
+                    PriceUnitPrice.fromPrecision(
+                        23.26D
+                    )
+                )
+                .endingQuantity(PriceEndingQuantity.fromNumber(
+                        40
+                    ))
+                .build()
+            ))
+            .build())
     .build()
 )
 .build();

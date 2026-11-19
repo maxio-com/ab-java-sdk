@@ -46,7 +46,10 @@
 | `ItemCategory` | `String` | Optional | One of the following: Business Software, Consumer Software, Digital Services, Physical Goods, Other | String getItemCategory() | setItemCategory(String itemCategory) |
 | `ProductPricePointId` | `Integer` | Optional | - | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `ProductPricePointHandle` | `String` | Optional | - | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
+| `ProductPricePointListPricePointId` | `Integer` | Optional | The ID of the catalog price point used as the list price for the subscription's custom product price. Returned only when list vs sales pricing is enabled for the site. | Integer getProductPricePointListPricePointId() | setProductPricePointListPricePointId(Integer productPricePointListPricePointId) |
+| `ProductPricePointListPricePointHandle` | `String` | Optional | The handle of the catalog price point used as the list price for the subscription's custom product price. Returned only when list vs sales pricing is enabled for the site. | String getProductPricePointListPricePointHandle() | setProductPricePointListPricePointHandle(String productPricePointListPricePointHandle) |
 | `UnspscCode` | `String` | Optional | (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value is sent as the commodity code on invoice line items for this product instead of the default derived from item_category. | String getUnspscCode() | setUnspscCode(String unspscCode) |
+| `Features` | [`List<FeatureCatalogItem>`](../../doc/models/feature-catalog-item.md) | Optional | The active feature catalog items attached to this product. Present only when the request includes `include_features=true`. | List<FeatureCatalogItem> getFeatures() | setFeatures(List<FeatureCatalogItem> features) |
 
 ## Example
 

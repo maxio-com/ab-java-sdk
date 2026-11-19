@@ -29,6 +29,7 @@ public class ListProductsInput {
     private Integer perPage;
     private Boolean includeArchived;
     private ListProductsInclude include;
+    private Boolean includeFeatures;
 
     /**
      * Default constructor.
@@ -36,6 +37,7 @@ public class ListProductsInput {
     public ListProductsInput() {
         page = 1;
         perPage = 20;
+        includeFeatures = false;
     }
 
     /**
@@ -50,6 +52,7 @@ public class ListProductsInput {
      * @param  perPage  Integer value for perPage.
      * @param  includeArchived  Boolean value for includeArchived.
      * @param  include  ListProductsInclude value for include.
+     * @param  includeFeatures  Boolean value for includeFeatures.
      */
     public ListProductsInput(
             BasicDateField dateField,
@@ -61,7 +64,8 @@ public class ListProductsInput {
             Integer page,
             Integer perPage,
             Boolean includeArchived,
-            ListProductsInclude include) {
+            ListProductsInclude include,
+            Boolean includeFeatures) {
         this.dateField = dateField;
         this.filter = filter;
         this.endDate = endDate;
@@ -72,6 +76,7 @@ public class ListProductsInput {
         this.perPage = perPage;
         this.includeArchived = includeArchived;
         this.include = include;
+        this.includeFeatures = includeFeatures;
     }
 
     /**
@@ -327,6 +332,31 @@ public class ListProductsInput {
     }
 
     /**
+     * Getter for IncludeFeatures.
+     * When `true`, embeds the active feature catalog items for each result in a `features` array.
+     * Default value is `false`. Ignored on sites without Entitlements enabled: no `features` key is
+     * returned and no error is raised.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("include_features")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getIncludeFeatures() {
+        return includeFeatures;
+    }
+
+    /**
+     * Setter for IncludeFeatures.
+     * When `true`, embeds the active feature catalog items for each result in a `features` array.
+     * Default value is `false`. Ignored on sites without Entitlements enabled: no `features` key is
+     * returned and no error is raised.
+     * @param includeFeatures Value for Boolean
+     */
+    @JsonSetter("include_features")
+    public void setIncludeFeatures(Boolean includeFeatures) {
+        this.includeFeatures = includeFeatures;
+    }
+
+    /**
      * Converts this ListProductsInput into string format.
      * @return String representation of this class
      */
@@ -335,7 +365,8 @@ public class ListProductsInput {
         return "ListProductsInput [" + "dateField=" + dateField + ", filter=" + filter
                 + ", endDate=" + endDate + ", endDatetime=" + endDatetime + ", startDate="
                 + startDate + ", startDatetime=" + startDatetime + ", page=" + page + ", perPage="
-                + perPage + ", includeArchived=" + includeArchived + ", include=" + include + "]";
+                + perPage + ", includeArchived=" + includeArchived + ", include=" + include
+                + ", includeFeatures=" + includeFeatures + "]";
     }
 
     /**
@@ -354,7 +385,8 @@ public class ListProductsInput {
                 .page(getPage())
                 .perPage(getPerPage())
                 .includeArchived(getIncludeArchived())
-                .include(getInclude());
+                .include(getInclude())
+                .includeFeatures(getIncludeFeatures());
         return builder;
     }
 
@@ -372,6 +404,7 @@ public class ListProductsInput {
         private Integer perPage = 20;
         private Boolean includeArchived;
         private ListProductsInclude include;
+        private Boolean includeFeatures = false;
 
 
 
@@ -476,12 +509,22 @@ public class ListProductsInput {
         }
 
         /**
+         * Setter for includeFeatures.
+         * @param  includeFeatures  Boolean value for includeFeatures.
+         * @return Builder
+         */
+        public Builder includeFeatures(Boolean includeFeatures) {
+            this.includeFeatures = includeFeatures;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListProductsInput} object using the set fields.
          * @return {@link ListProductsInput}
          */
         public ListProductsInput build() {
             return new ListProductsInput(dateField, filter, endDate, endDatetime, startDate,
-                    startDatetime, page, perPage, includeArchived, include);
+                    startDatetime, page, perPage, includeArchived, include, includeFeatures);
         }
     }
 }

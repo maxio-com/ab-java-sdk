@@ -37,6 +37,7 @@ public class Segment
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
     private List<SegmentPrice> prices;
+    private List<ComponentCurrencyPrice> currencyPrices;
 
     /**
      * Default constructor.
@@ -58,6 +59,7 @@ public class Segment
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  prices  List of SegmentPrice value for prices.
+     * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
      */
     public Segment(
             Integer id,
@@ -71,7 +73,8 @@ public class Segment
             SegmentSegmentProperty4Value segmentProperty4Value,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
-            List<SegmentPrice> prices) {
+            List<SegmentPrice> prices,
+            List<ComponentCurrencyPrice> currencyPrices) {
         this.id = id;
         this.componentId = componentId;
         this.pricePointId = pricePointId;
@@ -84,6 +87,7 @@ public class Segment
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.prices = prices;
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -325,6 +329,33 @@ public class Segment
     }
 
     /**
+     * Getter for CurrencyPrices.
+     * Prices of the segment in the site's non-primary currencies, one entry for each price and
+     * currency. This field is present only when the request includes `currency_prices=true`. If the
+     * price point uses the site exchange rate, the prices are calculated from the current rate and
+     * each `id` is `null`.
+     * @return Returns the List of ComponentCurrencyPrice
+     */
+    @JsonGetter("currency_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<ComponentCurrencyPrice> getCurrencyPrices() {
+        return currencyPrices;
+    }
+
+    /**
+     * Setter for CurrencyPrices.
+     * Prices of the segment in the site's non-primary currencies, one entry for each price and
+     * currency. This field is present only when the request includes `currency_prices=true`. If the
+     * price point uses the site exchange rate, the prices are calculated from the current rate and
+     * each `id` is `null`.
+     * @param currencyPrices Value for List of ComponentCurrencyPrice
+     */
+    @JsonSetter("currency_prices")
+    public void setCurrencyPrices(List<ComponentCurrencyPrice> currencyPrices) {
+        this.currencyPrices = currencyPrices;
+    }
+
+    /**
      * Converts this Segment into string format.
      * @return String representation of this class
      */
@@ -336,8 +367,8 @@ public class Segment
                 + segmentProperty1Value + ", segmentProperty2Value=" + segmentProperty2Value
                 + ", segmentProperty3Value=" + segmentProperty3Value + ", segmentProperty4Value="
                 + segmentProperty4Value + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", prices=" + prices + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", prices=" + prices + ", currencyPrices=" + currencyPrices
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -358,7 +389,8 @@ public class Segment
                 .segmentProperty4Value(getSegmentProperty4Value())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .prices(getPrices());
+                .prices(getPrices())
+                .currencyPrices(getCurrencyPrices());
         return builder;
     }
 
@@ -378,6 +410,7 @@ public class Segment
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
         private List<SegmentPrice> prices;
+        private List<ComponentCurrencyPrice> currencyPrices;
 
 
 
@@ -506,13 +539,24 @@ public class Segment
         }
 
         /**
+         * Setter for currencyPrices.
+         * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
+         * @return Builder
+         */
+        public Builder currencyPrices(List<ComponentCurrencyPrice> currencyPrices) {
+            this.currencyPrices = currencyPrices;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Segment} object using the set fields.
          * @return {@link Segment}
          */
         public Segment build() {
             return new Segment(id, componentId, pricePointId, eventBasedBillingMetricId,
                     pricingScheme, segmentProperty1Value, segmentProperty2Value,
-                    segmentProperty3Value, segmentProperty4Value, createdAt, updatedAt, prices);
+                    segmentProperty3Value, segmentProperty4Value, createdAt, updatedAt, prices,
+                    currencyPrices);
         }
     }
 }

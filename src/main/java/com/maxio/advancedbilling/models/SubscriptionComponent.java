@@ -54,6 +54,7 @@ public class SubscriptionComponent
     private SubscriptionComponentSubscription subscription;
     private List<HistoricUsage> historicUsages;
     private Boolean displayOnHostedPage;
+    private OptionalNullable<Integer> listPricePointId;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
 
@@ -96,6 +97,7 @@ public class SubscriptionComponent
      * @param  subscription  SubscriptionComponentSubscription value for subscription.
      * @param  historicUsages  List of HistoricUsage value for historicUsages.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
+     * @param  listPricePointId  Integer value for listPricePointId.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
@@ -130,6 +132,7 @@ public class SubscriptionComponent
             SubscriptionComponentSubscription subscription,
             List<HistoricUsage> historicUsages,
             Boolean displayOnHostedPage,
+            Integer listPricePointId,
             Integer interval,
             IntervalUnit intervalUnit) {
         this.id = id;
@@ -162,6 +165,7 @@ public class SubscriptionComponent
         this.subscription = subscription;
         this.historicUsages = historicUsages;
         this.displayOnHostedPage = displayOnHostedPage;
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
     }
@@ -199,6 +203,7 @@ public class SubscriptionComponent
      * @param  subscription  SubscriptionComponentSubscription value for subscription.
      * @param  historicUsages  List of HistoricUsage value for historicUsages.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
+     * @param  listPricePointId  Integer value for listPricePointId.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
@@ -217,7 +222,8 @@ public class SubscriptionComponent
             String productFamilyHandle, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> description,
             Boolean allowFractionalQuantities, SubscriptionComponentSubscription subscription,
-            List<HistoricUsage> historicUsages, Boolean displayOnHostedPage, Integer interval,
+            List<HistoricUsage> historicUsages, Boolean displayOnHostedPage,
+            OptionalNullable<Integer> listPricePointId, Integer interval,
             OptionalNullable<IntervalUnit> intervalUnit) {
         this.id = id;
         this.name = name;
@@ -249,6 +255,7 @@ public class SubscriptionComponent
         this.subscription = subscription;
         this.historicUsages = historicUsages;
         this.displayOnHostedPage = displayOnHostedPage;
+        this.listPricePointId = listPricePointId;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
     }
@@ -1033,6 +1040,49 @@ public class SubscriptionComponent
     }
 
     /**
+     * Internal Getter for ListPricePointId.
+     * The ID of the catalog price point used as the list price for this component's custom price.
+     * Returned only when list vs sales pricing is enabled for the site.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("list_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetListPricePointId() {
+        return this.listPricePointId;
+    }
+
+    /**
+     * Getter for ListPricePointId.
+     * The ID of the catalog price point used as the list price for this component's custom price.
+     * Returned only when list vs sales pricing is enabled for the site.
+     * @return Returns the Integer
+     */
+    public Integer getListPricePointId() {
+        return OptionalNullable.getFrom(listPricePointId);
+    }
+
+    /**
+     * Setter for ListPricePointId.
+     * The ID of the catalog price point used as the list price for this component's custom price.
+     * Returned only when list vs sales pricing is enabled for the site.
+     * @param listPricePointId Value for Integer
+     */
+    @JsonSetter("list_price_point_id")
+    public void setListPricePointId(Integer listPricePointId) {
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
+    }
+
+    /**
+     * UnSetter for ListPricePointId.
+     * The ID of the catalog price point used as the list price for this component's custom price.
+     * Returned only when list vs sales pricing is enabled for the site.
+     */
+    public void unsetListPricePointId() {
+        listPricePointId = null;
+    }
+
+    /**
      * Getter for Interval.
      * The numerical interval. e.g., an interval of '30' coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
@@ -1120,8 +1170,9 @@ public class SubscriptionComponent
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", description=" + description
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", subscription="
                 + subscription + ", historicUsages=" + historicUsages + ", displayOnHostedPage="
-                + displayOnHostedPage + ", interval=" + interval + ", intervalUnit=" + intervalUnit
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + displayOnHostedPage + ", listPricePointId=" + listPricePointId + ", interval="
+                + interval + ", intervalUnit=" + intervalUnit + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1162,6 +1213,7 @@ public class SubscriptionComponent
         builder.pricePointName = internalGetPricePointName();
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.description = internalGetDescription();
+        builder.listPricePointId = internalGetListPricePointId();
         builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
@@ -1200,6 +1252,7 @@ public class SubscriptionComponent
         private SubscriptionComponentSubscription subscription;
         private List<HistoricUsage> historicUsages;
         private Boolean displayOnHostedPage;
+        private OptionalNullable<Integer> listPricePointId;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
 
@@ -1607,6 +1660,25 @@ public class SubscriptionComponent
         }
 
         /**
+         * Setter for listPricePointId.
+         * @param  listPricePointId  Integer value for listPricePointId.
+         * @return Builder
+         */
+        public Builder listPricePointId(Integer listPricePointId) {
+            this.listPricePointId = OptionalNullable.of(listPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for listPricePointId.
+         * @return Builder
+         */
+        public Builder unsetListPricePointId() {
+            listPricePointId = null;
+            return this;
+        }
+
+        /**
          * Setter for interval.
          * @param  interval  Integer value for interval.
          * @return Builder
@@ -1646,7 +1718,7 @@ public class SubscriptionComponent
                     pricePointId, pricePointHandle, pricePointType, pricePointName, productFamilyId,
                     productFamilyHandle, createdAt, updatedAt, useSiteExchangeRate, description,
                     allowFractionalQuantities, subscription, historicUsages, displayOnHostedPage,
-                    interval, intervalUnit);
+                    listPricePointId, interval, intervalUnit);
         }
     }
 }

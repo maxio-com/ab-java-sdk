@@ -27,6 +27,7 @@ public class MeteredComponent
     private Boolean taxable;
     private PricingScheme pricingScheme;
     private List<Price> prices;
+    private SecondaryPricing secondaryPricing;
     private List<ComponentPricePointItem> pricePoints;
     private MeteredComponentUnitPrice unitPrice;
     private String taxCode;
@@ -53,6 +54,7 @@ public class MeteredComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
      * @param  unitPrice  MeteredComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
@@ -72,6 +74,7 @@ public class MeteredComponent
             String handle,
             Boolean taxable,
             List<Price> prices,
+            SecondaryPricing secondaryPricing,
             List<ComponentPricePointItem> pricePoints,
             MeteredComponentUnitPrice unitPrice,
             String taxCode,
@@ -89,6 +92,7 @@ public class MeteredComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
@@ -110,6 +114,7 @@ public class MeteredComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
      * @param  unitPrice  MeteredComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
@@ -124,9 +129,10 @@ public class MeteredComponent
 
     protected MeteredComponent(String name, String unitName, PricingScheme pricingScheme,
             String description, String handle, Boolean taxable, List<Price> prices,
-            List<ComponentPricePointItem> pricePoints, MeteredComponentUnitPrice unitPrice,
-            String taxCode, Boolean hideDateRangeOnInvoice, Boolean displayOnHostedPage,
-            Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds, Integer interval,
+            SecondaryPricing secondaryPricing, List<ComponentPricePointItem> pricePoints,
+            MeteredComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
+            Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
+            List<Integer> publicSignupPageIds, Integer interval,
             OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode) {
         this.name = name;
         this.unitName = unitName;
@@ -135,6 +141,7 @@ public class MeteredComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
@@ -287,7 +294,7 @@ public class MeteredComponent
     /**
      * Getter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
+     * Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @return Returns the List of Price
      */
@@ -300,13 +307,42 @@ public class MeteredComponent
     /**
      * Setter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
+     * Rules](https://docs.maxio.com/billing/catalog/products/use-product-pricing-schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @param prices Value for List of Price
      */
     @JsonSetter("prices")
     public void setPrices(List<Price> prices) {
         this.prices = prices;
+    }
+
+    /**
+     * Getter for SecondaryPricing.
+     * Hybrid Pricing only. The secondary pricing model that takes over once usage passes the
+     * primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites
+     * with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at
+     * the primary model's highest `ending_quantity`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @return Returns the SecondaryPricing
+     */
+    @JsonGetter("secondary_pricing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SecondaryPricing getSecondaryPricing() {
+        return secondaryPricing;
+    }
+
+    /**
+     * Setter for SecondaryPricing.
+     * Hybrid Pricing only. The secondary pricing model that takes over once usage passes the
+     * primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites
+     * with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at
+     * the primary model's highest `ending_quantity`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @param secondaryPricing Value for SecondaryPricing
+     */
+    @JsonSetter("secondary_pricing")
+    public void setSecondaryPricing(SecondaryPricing secondaryPricing) {
+        this.secondaryPricing = secondaryPricing;
     }
 
     /**
@@ -583,13 +619,13 @@ public class MeteredComponent
     public String toString() {
         return "MeteredComponent [" + "name=" + name + ", unitName=" + unitName + ", pricingScheme="
                 + pricingScheme + ", description=" + description + ", handle=" + handle
-                + ", taxable=" + taxable + ", prices=" + prices + ", pricePoints=" + pricePoints
-                + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice="
-                + hideDateRangeOnInvoice + ", displayOnHostedPage=" + displayOnHostedPage
-                + ", allowFractionalQuantities=" + allowFractionalQuantities
-                + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", unspscCode=" + unspscCode
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", taxable=" + taxable + ", prices=" + prices + ", secondaryPricing="
+                + secondaryPricing + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
+                + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
+                + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
+                + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit + ", unspscCode="
+                + unspscCode + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -603,6 +639,7 @@ public class MeteredComponent
                 .handle(getHandle())
                 .taxable(getTaxable())
                 .prices(getPrices())
+                .secondaryPricing(getSecondaryPricing())
                 .pricePoints(getPricePoints())
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
@@ -627,6 +664,7 @@ public class MeteredComponent
         private String handle;
         private Boolean taxable;
         private List<Price> prices;
+        private SecondaryPricing secondaryPricing;
         private List<ComponentPricePointItem> pricePoints;
         private MeteredComponentUnitPrice unitPrice;
         private String taxCode;
@@ -723,6 +761,16 @@ public class MeteredComponent
          */
         public Builder prices(List<Price> prices) {
             this.prices = prices;
+            return this;
+        }
+
+        /**
+         * Setter for secondaryPricing.
+         * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
+         * @return Builder
+         */
+        public Builder secondaryPricing(SecondaryPricing secondaryPricing) {
+            this.secondaryPricing = secondaryPricing;
             return this;
         }
 
@@ -850,9 +898,9 @@ public class MeteredComponent
          */
         public MeteredComponent build() {
             return new MeteredComponent(name, unitName, pricingScheme, description, handle, taxable,
-                    prices, pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
-                    displayOnHostedPage, allowFractionalQuantities, publicSignupPageIds, interval,
-                    intervalUnit, unspscCode);
+                    prices, secondaryPricing, pricePoints, unitPrice, taxCode,
+                    hideDateRangeOnInvoice, displayOnHostedPage, allowFractionalQuantities,
+                    publicSignupPageIds, interval, intervalUnit, unspscCode);
         }
     }
 }

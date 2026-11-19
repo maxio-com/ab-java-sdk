@@ -15,9 +15,9 @@
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | - | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `UnitName` | `String` | Optional | The name of the unit that the component’s usage is measured in. e.g., message | String getUnitName() | setUnitName(String unitName) |
 | `UnitPrice` | `String` | Optional | The amount the customer will be charged per unit. This field is only populated for ‘per_unit’ pricing schemes, otherwise it may be null. | String getUnitPrice() | setUnitPrice(String unitPrice) |
-| `ProductFamilyId` | `Integer` | Optional | The id of the Product Family to which the Component belongs | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
-| `ProductFamilyName` | `String` | Optional | The name of the Product Family to which the Component belongs | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
-| `ProductFamilyHandle` | `String` | Optional | The handle of the Product Family to which the Component belongs | String getProductFamilyHandle() | setProductFamilyHandle(String productFamilyHandle) |
+| `ProductFamilyId` | `Integer` | Optional | The id of the Product Family to which the Component belongs. `null` for a Wallet Product, which has no Product Family. | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
+| `ProductFamilyName` | `String` | Optional | The name of the Product Family to which the Component belongs. `null` for a Wallet Product, which has no Product Family. | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
+| `ProductFamilyHandle` | `String` | Optional | The handle of the Product Family to which the Component belongs. `null` for a Wallet Product, which has no Product Family. | String getProductFamilyHandle() | setProductFamilyHandle(String productFamilyHandle) |
 | `PricePerUnitInCents` | `Long` | Optional | deprecated - use unit_price instead. | Long getPricePerUnitInCents() | setPricePerUnitInCents(Long pricePerUnitInCents) |
 | `Kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type | ComponentKind getKind() | setKind(ComponentKind kind) |
 | `Archived` | `Boolean` | Optional | Boolean flag describing whether a component is archived or not. | Boolean getArchived() | setArchived(Boolean archived) |
@@ -45,6 +45,7 @@
 | `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would mean this component’s default price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component's default price point, either month or day. This property is only available for sites with Multifrequency enabled. | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 | `UnspscCode` | `String` | Optional | (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value is sent as the commodity code on invoice line items for this component instead of the default derived from item_category. | String getUnspscCode() | setUnspscCode(String unspscCode) |
+| `Features` | [`List<FeatureCatalogItem>`](../../doc/models/feature-catalog-item.md) | Optional | The active feature catalog items attached to this component. Present only when the request includes `include_features=true`. | List<FeatureCatalogItem> getFeatures() | setFeatures(List<FeatureCatalogItem> features) |
 
 ## Example
 

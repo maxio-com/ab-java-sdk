@@ -301,7 +301,8 @@ public class ListSubscriptionsInput {
 
     /**
      * Getter for QScope.
-     * Scope of fields used by the q search.
+     * Scope of fields used by the q search. Use `last_four` to search by the last four digits of
+     * the subscription's active credit card.
      * @return Returns the QScope
      */
     @JsonGetter("q_scope")
@@ -312,7 +313,8 @@ public class ListSubscriptionsInput {
 
     /**
      * Setter for QScope.
-     * Scope of fields used by the q search.
+     * Scope of fields used by the q search. Use `last_four` to search by the last four digits of
+     * the subscription's active credit card.
      * @param qScope Value for QScope
      */
     @JsonSetter("q_scope")
@@ -431,7 +433,7 @@ public class ListSubscriptionsInput {
      * Getter for BrandingThemeId.
      * Filter subscriptions by the ID of an assigned Branding Theme. Branding Themes is a beta
      * feature. See [Understand Branding
-     * Themes](https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand-Branding-Themes#understand-branding-themes-0-0)
+     * Themes](https://docs.maxio.com/billing/invoicing/branding-themes/understand-branding-themes)
      * for more information.
      * @return Returns the Integer
      */
@@ -445,7 +447,7 @@ public class ListSubscriptionsInput {
      * Setter for BrandingThemeId.
      * Filter subscriptions by the ID of an assigned Branding Theme. Branding Themes is a beta
      * feature. See [Understand Branding
-     * Themes](https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand-Branding-Themes#understand-branding-themes-0-0)
+     * Themes](https://docs.maxio.com/billing/invoicing/branding-themes/understand-branding-themes)
      * for more information.
      * @param brandingThemeId Value for Integer
      */

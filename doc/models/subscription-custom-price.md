@@ -25,6 +25,8 @@
 | `ExpirationInterval` | [`SubscriptionCustomPriceExpirationInterval`](../../doc/models/containers/subscription-custom-price-expiration-interval.md) | Optional | This is a container for one-of cases. | SubscriptionCustomPriceExpirationInterval getExpirationInterval() | setExpirationInterval(SubscriptionCustomPriceExpirationInterval expirationInterval) |
 | `ExpirationIntervalUnit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | (Optional) | ExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) |
 | `TaxIncluded` | `Boolean` | Optional | (Optional) | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
+| `ListPricePointId` | `Integer` | Optional | (Optional) The ID of a catalog price point of the same product to use as the list price. Ignored unless list vs sales pricing is enabled for the site. | Integer getListPricePointId() | setListPricePointId(Integer listPricePointId) |
+| `UseDefaultListPrice` | `Boolean` | Optional | (Optional) When list vs sales pricing is enabled and `list_price_point_id` is omitted, the product's default price point is used as the list price unless this is `false`. Defaults to `true`. | Boolean getUseDefaultListPrice() | setUseDefaultListPrice(Boolean useDefaultListPrice) |
 
 ## Example
 

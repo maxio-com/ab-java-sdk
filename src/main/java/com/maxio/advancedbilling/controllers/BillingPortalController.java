@@ -49,7 +49,7 @@ public final class BillingPortalController extends BaseController {
      * are good for 65 days, so you should re-use a previously generated one as much as possible. If
      * you use the URL frequently (such as to display on your website), **do not** make an API
      * request every time. For more information configuring the Billing Portal, see [Billing Portal
-     * Overview](https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-Portal-Overview).
+     * Overview](https://docs.maxio.com/billing/billing-portal/overview/understand-the-billing-portal).
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @param  autoInvite  Optional parameter: When set to 1, an Invitation email will be sent to
      *         the Customer. When set to 0, or not sent, an email will not be sent. Use in query:

@@ -16,13 +16,16 @@
 ```java
 import com.maxio.advancedbilling.models.BulkComponentsPricePointAssignment;
 import com.maxio.advancedbilling.models.ComponentPricePointAssignment;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentComponentId;
 import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentPricePoint;
 import java.util.Arrays;
 
 BulkComponentsPricePointAssignment bulkComponentsPricePointAssignment = new BulkComponentsPricePointAssignment.Builder()
     .components(Arrays.asList(
         new ComponentPricePointAssignment.Builder()
-            .componentId(108)
+            .componentId(ComponentPricePointAssignmentComponentId.fromNumber(
+                30
+            ))
             .pricePoint(ComponentPricePointAssignmentPricePoint.fromString(
                 "String5"
             ))

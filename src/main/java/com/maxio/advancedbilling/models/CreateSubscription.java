@@ -691,7 +691,7 @@ public class CreateSubscription
      * Getter for NextBillingAt.
      * (Optional) Set this attribute to a future date/time to sync imported subscriptions to your
      * existing renewal schedule. See the notes on “Date/Time Format” in our [subscription import
-     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
+     * documentation](https://docs.maxio.com/configuration/importing/import-subscriptions-from-a-csv#date-format).
      * If you provide a next_billing_at timestamp that is in the future, no trial or initial charges
      * will be applied when you create the subscription. In fact, no payment will be captured at
      * all. The first payment will be captured, according to the prices defined by the product, near
@@ -712,7 +712,7 @@ public class CreateSubscription
      * Setter for NextBillingAt.
      * (Optional) Set this attribute to a future date/time to sync imported subscriptions to your
      * existing renewal schedule. See the notes on “Date/Time Format” in our [subscription import
-     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
+     * documentation](https://docs.maxio.com/configuration/importing/import-subscriptions-from-a-csv#date-format).
      * If you provide a next_billing_at timestamp that is in the future, no trial or initial charges
      * will be applied when you create the subscription. In fact, no payment will be captured at
      * all. The first payment will be captured, according to the prices defined by the product, near
@@ -739,7 +739,7 @@ public class CreateSubscription
      * Setup fees will be respected either before or after the trial, as configured on the price
      * point. If the payment is due at the initial_billing_at and it fails the subscription will be
      * immediately canceled. See the [subscription
-     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * import](https://docs.maxio.com/configuration/importing/import-subscriptions-from-a-csv#date-format)
      * documentation for more information about Date/Time Formats.
      * @return Returns the ZonedDateTime
      */
@@ -761,7 +761,7 @@ public class CreateSubscription
      * Setup fees will be respected either before or after the trial, as configured on the price
      * point. If the payment is due at the initial_billing_at and it fails the subscription will be
      * immediately canceled. See the [subscription
-     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * import](https://docs.maxio.com/configuration/importing/import-subscriptions-from-a-csv#date-format)
      * documentation for more information about Date/Time Formats.
      * @param initialBillingAt Value for ZonedDateTime
      */
@@ -779,7 +779,7 @@ public class CreateSubscription
      * `initial_billing_at` date. The subscription moves to the Awaiting Signup state with a
      * scheduled initial billing date. You can omit the initial_billing_at date to activate the
      * subscription immediately. See [Subscription
-     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * States](https://docs.maxio.com/billing/subscriptions/management/subscription-states/understand-subscription-states#setup-and-transient-states)
      * for more information.
      * @return Returns the Boolean
      */
@@ -797,7 +797,7 @@ public class CreateSubscription
      * `initial_billing_at` date. The subscription moves to the Awaiting Signup state with a
      * scheduled initial billing date. You can omit the initial_billing_at date to activate the
      * subscription immediately. See [Subscription
-     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * States](https://docs.maxio.com/billing/subscriptions/management/subscription-states/understand-subscription-states#setup-and-transient-states)
      * for more information.
      * @param deferSignup Value for Boolean
      */
@@ -987,8 +987,8 @@ public class CreateSubscription
     /**
      * Getter for Components.
      * (Optional) An array of component ids and quantities to be added to the subscription. See
-     * [Components](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview)
-     * for more information.
+     * [Components](https://docs.maxio.com/billing/catalog/products/understand-products) for more
+     * information.
      * @return Returns the List of CreateSubscriptionComponent
      */
     @JsonGetter("components")
@@ -1000,8 +1000,8 @@ public class CreateSubscription
     /**
      * Setter for Components.
      * (Optional) An array of component ids and quantities to be added to the subscription. See
-     * [Components](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview)
-     * for more information.
+     * [Components](https://docs.maxio.com/billing/catalog/products/understand-products) for more
+     * information.
      * @param components Value for List of CreateSubscriptionComponent
      */
     @JsonSetter("components")
@@ -1098,7 +1098,7 @@ public class CreateSubscription
     /**
      * Getter for Ref.
      * A valid referral code. (optional, see
-     * [Referrals](https://maxio.zendesk.com/hc/en-us/articles/24286981223693-Referrals-Reference#how-to-obtain-referral-codes)
+     * [Referrals](https://docs.maxio.com/configuration/advanced-billing/understand-referrals#find-a-referral-code)
      * for more details). If supplied, must be valid, or else subscription creation will fail.
      * @return Returns the String
      */
@@ -1111,7 +1111,7 @@ public class CreateSubscription
     /**
      * Setter for Ref.
      * A valid referral code. (optional, see
-     * [Referrals](https://maxio.zendesk.com/hc/en-us/articles/24286981223693-Referrals-Reference#how-to-obtain-referral-codes)
+     * [Referrals](https://docs.maxio.com/configuration/advanced-billing/understand-referrals#find-a-referral-code)
      * for more details). If supplied, must be valid, or else subscription creation will fail.
      * @param ref Value for String
      */

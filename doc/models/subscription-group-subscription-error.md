@@ -11,6 +11,7 @@ Object which contains subscription errors.
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
+| `Customer` | `List<String>` | Optional | - | List<String> getCustomer() | setCustomer(List<String> customer) |
 | `Product` | `List<String>` | Optional | - | List<String> getProduct() | setProduct(List<String> product) |
 | `ProductPricePointId` | `List<String>` | Optional | - | List<String> getProductPricePointId() | setProductPricePointId(List<String> productPricePointId) |
 | `PaymentProfile` | `List<String>` | Optional | - | List<String> getPaymentProfile() | setPaymentProfile(List<String> paymentProfile) |
@@ -27,6 +28,11 @@ import com.maxio.advancedbilling.models.SubscriptionGroupSubscriptionError;
 import java.util.Arrays;
 
 SubscriptionGroupSubscriptionError subscriptionGroupSubscriptionError = new SubscriptionGroupSubscriptionError.Builder()
+    .customer(Arrays.asList(
+        "customer7",
+        "customer8",
+        "customer9"
+    ))
     .product(Arrays.asList(
         "product7",
         "product8"
@@ -42,11 +48,6 @@ SubscriptionGroupSubscriptionError subscriptionGroupSubscriptionError = new Subs
     .paymentProfileChargifyToken(Arrays.asList(
         "payment_profile.chargify_token2",
         "payment_profile.chargify_token3"
-    ))
-    .base(Arrays.asList(
-        "base1",
-        "base2",
-        "base3"
     ))
     .build();
 ```

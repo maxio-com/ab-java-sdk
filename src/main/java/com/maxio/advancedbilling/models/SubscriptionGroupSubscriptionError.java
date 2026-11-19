@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class SubscriptionGroupSubscriptionError
         extends BaseModel {
+    private List<String> customer;
     private List<String> product;
     private List<String> productPricePointId;
     private List<String> paymentProfile;
@@ -34,6 +35,7 @@ public class SubscriptionGroupSubscriptionError
 
     /**
      * Initialization constructor.
+     * @param  customer  List of String value for customer.
      * @param  product  List of String value for product.
      * @param  productPricePointId  List of String value for productPricePointId.
      * @param  paymentProfile  List of String value for paymentProfile.
@@ -45,6 +47,7 @@ public class SubscriptionGroupSubscriptionError
      * @param  paymentProfileFullNumber  List of String value for paymentProfileFullNumber.
      */
     public SubscriptionGroupSubscriptionError(
+            List<String> customer,
             List<String> product,
             List<String> productPricePointId,
             List<String> paymentProfile,
@@ -53,6 +56,7 @@ public class SubscriptionGroupSubscriptionError
             List<String> paymentProfileExpirationMonth,
             List<String> paymentProfileExpirationYear,
             List<String> paymentProfileFullNumber) {
+        this.customer = customer;
         this.product = product;
         this.productPricePointId = productPricePointId;
         this.paymentProfile = paymentProfile;
@@ -61,6 +65,25 @@ public class SubscriptionGroupSubscriptionError
         this.paymentProfileExpirationMonth = paymentProfileExpirationMonth;
         this.paymentProfileExpirationYear = paymentProfileExpirationYear;
         this.paymentProfileFullNumber = paymentProfileFullNumber;
+    }
+
+    /**
+     * Getter for Customer.
+     * @return Returns the List of String
+     */
+    @JsonGetter("customer")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getCustomer() {
+        return customer;
+    }
+
+    /**
+     * Setter for Customer.
+     * @param customer Value for List of String
+     */
+    @JsonSetter("customer")
+    public void setCustomer(List<String> customer) {
+        this.customer = customer;
     }
 
     /**
@@ -221,8 +244,8 @@ public class SubscriptionGroupSubscriptionError
      */
     @Override
     public String toString() {
-        return "SubscriptionGroupSubscriptionError [" + "product=" + product
-                + ", productPricePointId=" + productPricePointId + ", paymentProfile="
+        return "SubscriptionGroupSubscriptionError [" + "customer=" + customer + ", product="
+                + product + ", productPricePointId=" + productPricePointId + ", paymentProfile="
                 + paymentProfile + ", paymentProfileChargifyToken=" + paymentProfileChargifyToken
                 + ", base=" + base + ", paymentProfileExpirationMonth="
                 + paymentProfileExpirationMonth + ", paymentProfileExpirationYear="
@@ -238,6 +261,7 @@ public class SubscriptionGroupSubscriptionError
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .customer(getCustomer())
                 .product(getProduct())
                 .productPricePointId(getProductPricePointId())
                 .paymentProfile(getPaymentProfile())
@@ -253,6 +277,7 @@ public class SubscriptionGroupSubscriptionError
      * Class to build instances of {@link SubscriptionGroupSubscriptionError}.
      */
     public static class Builder {
+        private List<String> customer;
         private List<String> product;
         private List<String> productPricePointId;
         private List<String> paymentProfile;
@@ -263,6 +288,16 @@ public class SubscriptionGroupSubscriptionError
         private List<String> paymentProfileFullNumber;
 
 
+
+        /**
+         * Setter for customer.
+         * @param  customer  List of String value for customer.
+         * @return Builder
+         */
+        public Builder customer(List<String> customer) {
+            this.customer = customer;
+            return this;
+        }
 
         /**
          * Setter for product.
@@ -352,7 +387,7 @@ public class SubscriptionGroupSubscriptionError
          * @return {@link SubscriptionGroupSubscriptionError}
          */
         public SubscriptionGroupSubscriptionError build() {
-            return new SubscriptionGroupSubscriptionError(product, productPricePointId,
+            return new SubscriptionGroupSubscriptionError(customer, product, productPricePointId,
                     paymentProfile, paymentProfileChargifyToken, base,
                     paymentProfileExpirationMonth, paymentProfileExpirationYear,
                     paymentProfileFullNumber);

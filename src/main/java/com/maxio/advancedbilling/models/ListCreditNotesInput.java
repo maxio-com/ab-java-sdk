@@ -15,8 +15,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class ListCreditNotesInput {
     private Integer subscriptionId;
+    private CreditNoteDateField dateField;
+    private String startDate;
+    private String endDate;
+    private String startDatetime;
+    private String endDatetime;
     private Integer page;
     private Integer perPage;
+    private Direction direction;
     private Boolean lineItems;
     private Boolean discounts;
     private Boolean taxes;
@@ -27,8 +33,10 @@ public class ListCreditNotesInput {
      * Default constructor.
      */
     public ListCreditNotesInput() {
+        dateField = CreditNoteDateField.ISSUE_DATE;
         page = 1;
         perPage = 20;
+        direction = Direction.DESC;
         lineItems = false;
         discounts = false;
         taxes = false;
@@ -39,8 +47,14 @@ public class ListCreditNotesInput {
     /**
      * Initialization constructor.
      * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  dateField  CreditNoteDateField value for dateField.
+     * @param  startDate  String value for startDate.
+     * @param  endDate  String value for endDate.
+     * @param  startDatetime  String value for startDatetime.
+     * @param  endDatetime  String value for endDatetime.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
+     * @param  direction  Direction value for direction.
      * @param  lineItems  Boolean value for lineItems.
      * @param  discounts  Boolean value for discounts.
      * @param  taxes  Boolean value for taxes.
@@ -49,16 +63,28 @@ public class ListCreditNotesInput {
      */
     public ListCreditNotesInput(
             Integer subscriptionId,
+            CreditNoteDateField dateField,
+            String startDate,
+            String endDate,
+            String startDatetime,
+            String endDatetime,
             Integer page,
             Integer perPage,
+            Direction direction,
             Boolean lineItems,
             Boolean discounts,
             Boolean taxes,
             Boolean refunds,
             Boolean applications) {
         this.subscriptionId = subscriptionId;
+        this.dateField = dateField;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startDatetime = startDatetime;
+        this.endDatetime = endDatetime;
         this.page = page;
         this.perPage = perPage;
+        this.direction = direction;
         this.lineItems = lineItems;
         this.discounts = discounts;
         this.taxes = taxes;
@@ -85,6 +111,143 @@ public class ListCreditNotesInput {
     @JsonSetter("subscription_id")
     public void setSubscriptionId(Integer subscriptionId) {
         this.subscriptionId = subscriptionId;
+    }
+
+    /**
+     * Getter for DateField.
+     * The type of filter you would like to apply to your search. Use in query
+     * `date_field=issue_date`. If a date range is provided without an explicit `date_field`, it
+     * defaults to `issue_date`. If only `start_datetime`/`end_datetime` are provided without an
+     * explicit `date_field`, it defaults to `created_at` instead. An unrecognized `date_field` is
+     * ignored rather than raising an error.
+     * @return Returns the CreditNoteDateField
+     */
+    @JsonGetter("date_field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CreditNoteDateField getDateField() {
+        return dateField;
+    }
+
+    /**
+     * Setter for DateField.
+     * The type of filter you would like to apply to your search. Use in query
+     * `date_field=issue_date`. If a date range is provided without an explicit `date_field`, it
+     * defaults to `issue_date`. If only `start_datetime`/`end_datetime` are provided without an
+     * explicit `date_field`, it defaults to `created_at` instead. An unrecognized `date_field` is
+     * ignored rather than raising an error.
+     * @param dateField Value for CreditNoteDateField
+     */
+    @JsonSetter("date_field")
+    public void setDateField(CreditNoteDateField dateField) {
+        this.dateField = dateField;
+    }
+
+    /**
+     * Getter for StartDate.
+     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns credit notes
+     * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
+     * specified.
+     * @return Returns the String
+     */
+    @JsonGetter("start_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Setter for StartDate.
+     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns credit notes
+     * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
+     * specified.
+     * @param startDate Value for String
+     */
+    @JsonSetter("start_date")
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Getter for EndDate.
+     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns credit notes
+     * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
+     * specified.
+     * @return Returns the String
+     */
+    @JsonGetter("end_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * Setter for EndDate.
+     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns credit notes
+     * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
+     * specified.
+     * @param endDate Value for String
+     */
+    @JsonSetter("end_date")
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * Getter for StartDatetime.
+     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+     * Returns credit notes with a timestamp at or after exact time provided in query. If provided,
+     * this parameter will be used instead of start_date. If no timezone offset is included in the
+     * value, it is interpreted as UTC. Allowed to be used only along with date_field set to
+     * created_at or updated_at.
+     * @return Returns the String
+     */
+    @JsonGetter("start_datetime")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getStartDatetime() {
+        return startDatetime;
+    }
+
+    /**
+     * Setter for StartDatetime.
+     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+     * Returns credit notes with a timestamp at or after exact time provided in query. If provided,
+     * this parameter will be used instead of start_date. If no timezone offset is included in the
+     * value, it is interpreted as UTC. Allowed to be used only along with date_field set to
+     * created_at or updated_at.
+     * @param startDatetime Value for String
+     */
+    @JsonSetter("start_datetime")
+    public void setStartDatetime(String startDatetime) {
+        this.startDatetime = startDatetime;
+    }
+
+    /**
+     * Getter for EndDatetime.
+     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+     * Returns credit notes with a timestamp at or before exact time provided in query. If provided,
+     * this parameter will be used instead of end_date. If no timezone offset is included in the
+     * value, it is interpreted as UTC. Allowed to be used only along with date_field set to
+     * created_at or updated_at.
+     * @return Returns the String
+     */
+    @JsonGetter("end_datetime")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getEndDatetime() {
+        return endDatetime;
+    }
+
+    /**
+     * Setter for EndDatetime.
+     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+     * Returns credit notes with a timestamp at or before exact time provided in query. If provided,
+     * this parameter will be used instead of end_date. If no timezone offset is included in the
+     * value, it is interpreted as UTC. Allowed to be used only along with date_field set to
+     * created_at or updated_at.
+     * @param endDatetime Value for String
+     */
+    @JsonSetter("end_datetime")
+    public void setEndDatetime(String endDatetime) {
+        this.endDatetime = endDatetime;
     }
 
     /**
@@ -139,6 +302,27 @@ public class ListCreditNotesInput {
     @JsonSetter("per_page")
     public void setPerPage(Integer perPage) {
         this.perPage = perPage;
+    }
+
+    /**
+     * Getter for Direction.
+     * The sort direction of the returned credit notes, sorted by sequence_number.
+     * @return Returns the Direction
+     */
+    @JsonGetter("direction")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Direction getDirection() {
+        return direction;
+    }
+
+    /**
+     * Setter for Direction.
+     * The sort direction of the returned credit notes, sorted by sequence_number.
+     * @param direction Value for Direction
+     */
+    @JsonSetter("direction")
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     /**
@@ -252,10 +436,12 @@ public class ListCreditNotesInput {
      */
     @Override
     public String toString() {
-        return "ListCreditNotesInput [" + "subscriptionId=" + subscriptionId + ", page=" + page
-                + ", perPage=" + perPage + ", lineItems=" + lineItems + ", discounts=" + discounts
-                + ", taxes=" + taxes + ", refunds=" + refunds + ", applications=" + applications
-                + "]";
+        return "ListCreditNotesInput [" + "subscriptionId=" + subscriptionId + ", dateField="
+                + dateField + ", startDate=" + startDate + ", endDate=" + endDate
+                + ", startDatetime=" + startDatetime + ", endDatetime=" + endDatetime + ", page="
+                + page + ", perPage=" + perPage + ", direction=" + direction + ", lineItems="
+                + lineItems + ", discounts=" + discounts + ", taxes=" + taxes + ", refunds="
+                + refunds + ", applications=" + applications + "]";
     }
 
     /**
@@ -266,8 +452,14 @@ public class ListCreditNotesInput {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .subscriptionId(getSubscriptionId())
+                .dateField(getDateField())
+                .startDate(getStartDate())
+                .endDate(getEndDate())
+                .startDatetime(getStartDatetime())
+                .endDatetime(getEndDatetime())
                 .page(getPage())
                 .perPage(getPerPage())
+                .direction(getDirection())
                 .lineItems(getLineItems())
                 .discounts(getDiscounts())
                 .taxes(getTaxes())
@@ -281,8 +473,14 @@ public class ListCreditNotesInput {
      */
     public static class Builder {
         private Integer subscriptionId;
+        private CreditNoteDateField dateField = CreditNoteDateField.ISSUE_DATE;
+        private String startDate;
+        private String endDate;
+        private String startDatetime;
+        private String endDatetime;
         private Integer page = 1;
         private Integer perPage = 20;
+        private Direction direction = Direction.DESC;
         private Boolean lineItems = false;
         private Boolean discounts = false;
         private Boolean taxes = false;
@@ -298,6 +496,56 @@ public class ListCreditNotesInput {
          */
         public Builder subscriptionId(Integer subscriptionId) {
             this.subscriptionId = subscriptionId;
+            return this;
+        }
+
+        /**
+         * Setter for dateField.
+         * @param  dateField  CreditNoteDateField value for dateField.
+         * @return Builder
+         */
+        public Builder dateField(CreditNoteDateField dateField) {
+            this.dateField = dateField;
+            return this;
+        }
+
+        /**
+         * Setter for startDate.
+         * @param  startDate  String value for startDate.
+         * @return Builder
+         */
+        public Builder startDate(String startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        /**
+         * Setter for endDate.
+         * @param  endDate  String value for endDate.
+         * @return Builder
+         */
+        public Builder endDate(String endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+
+        /**
+         * Setter for startDatetime.
+         * @param  startDatetime  String value for startDatetime.
+         * @return Builder
+         */
+        public Builder startDatetime(String startDatetime) {
+            this.startDatetime = startDatetime;
+            return this;
+        }
+
+        /**
+         * Setter for endDatetime.
+         * @param  endDatetime  String value for endDatetime.
+         * @return Builder
+         */
+        public Builder endDatetime(String endDatetime) {
+            this.endDatetime = endDatetime;
             return this;
         }
 
@@ -318,6 +566,16 @@ public class ListCreditNotesInput {
          */
         public Builder perPage(Integer perPage) {
             this.perPage = perPage;
+            return this;
+        }
+
+        /**
+         * Setter for direction.
+         * @param  direction  Direction value for direction.
+         * @return Builder
+         */
+        public Builder direction(Direction direction) {
+            this.direction = direction;
             return this;
         }
 
@@ -376,7 +634,8 @@ public class ListCreditNotesInput {
          * @return {@link ListCreditNotesInput}
          */
         public ListCreditNotesInput build() {
-            return new ListCreditNotesInput(subscriptionId, page, perPage, lineItems, discounts,
+            return new ListCreditNotesInput(subscriptionId, dateField, startDate, endDate,
+                    startDatetime, endDatetime, page, perPage, direction, lineItems, discounts,
                     taxes, refunds, applications);
         }
     }

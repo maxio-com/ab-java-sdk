@@ -71,7 +71,9 @@ public class RefundInvoiceEventData
 
     /**
      * Getter for ApplyCredit.
-     * If true, credit was created and applied it to the invoice.
+     * If true, credit was created and applied it to the invoice. If false, no credit note was
+     * created. `credit_note_attributes` is still present, but its `number` and `sequence_number`
+     * are `null`.
      * @return Returns the boolean
      */
     @JsonGetter("apply_credit")
@@ -81,7 +83,9 @@ public class RefundInvoiceEventData
 
     /**
      * Setter for ApplyCredit.
-     * If true, credit was created and applied it to the invoice.
+     * If true, credit was created and applied it to the invoice. If false, no credit note was
+     * created. `credit_note_attributes` is still present, but its `number` and `sequence_number`
+     * are `null`.
      * @param applyCredit Value for boolean
      */
     @JsonSetter("apply_credit")
@@ -97,7 +101,7 @@ public class RefundInvoiceEventData
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
+     * documentation](https://docs.maxio.com/billing/invoicing/working-with-invoices/understand-invoice-consolidation).
      * @return Returns the InvoiceConsolidationLevel
      */
     @JsonGetter("consolidation_level")
@@ -114,7 +118,7 @@ public class RefundInvoiceEventData
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
+     * documentation](https://docs.maxio.com/billing/invoicing/working-with-invoices/understand-invoice-consolidation).
      * @param consolidationLevel Value for InvoiceConsolidationLevel
      */
     @JsonSetter("consolidation_level")

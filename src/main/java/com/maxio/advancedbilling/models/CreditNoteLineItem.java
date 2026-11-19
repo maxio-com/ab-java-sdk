@@ -38,6 +38,9 @@ public class CreditNoteLineItem
     private Integer productVersion;
     private OptionalNullable<Integer> componentId;
     private OptionalNullable<Integer> pricePointId;
+    private OptionalNullable<String> listUnitPrice;
+    private OptionalNullable<String> listTotalAmount;
+    private OptionalNullable<Integer> listPricePointId;
     private OptionalNullable<Integer> billingScheduleItemId;
     private Boolean customItem;
     private OptionalNullable<LocalDate> prepaidAllocationExpiresAt;
@@ -67,6 +70,9 @@ public class CreditNoteLineItem
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  listUnitPrice  String value for listUnitPrice.
+     * @param  listTotalAmount  String value for listTotalAmount.
+     * @param  listPricePointId  Integer value for listPricePointId.
      * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
      * @param  customItem  Boolean value for customItem.
      * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
@@ -89,6 +95,9 @@ public class CreditNoteLineItem
             Integer productVersion,
             Integer componentId,
             Integer pricePointId,
+            String listUnitPrice,
+            String listTotalAmount,
+            Integer listPricePointId,
             Integer billingScheduleItemId,
             Boolean customItem,
             LocalDate prepaidAllocationExpiresAt) {
@@ -109,6 +118,9 @@ public class CreditNoteLineItem
         this.productVersion = productVersion;
         this.componentId = OptionalNullable.of(componentId);
         this.pricePointId = OptionalNullable.of(pricePointId);
+        this.listUnitPrice = OptionalNullable.of(listUnitPrice);
+        this.listTotalAmount = OptionalNullable.of(listTotalAmount);
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
         this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
         this.customItem = customItem;
         this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
@@ -133,6 +145,9 @@ public class CreditNoteLineItem
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  listUnitPrice  String value for listUnitPrice.
+     * @param  listTotalAmount  String value for listTotalAmount.
+     * @param  listPricePointId  Integer value for listPricePointId.
      * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
      * @param  customItem  Boolean value for customItem.
      * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
@@ -143,8 +158,10 @@ public class CreditNoteLineItem
             Boolean taxIncluded, String totalAmount, Boolean tieredUnitPrice,
             LocalDate periodRangeStart, LocalDate periodRangeEnd, Integer productId,
             Integer productVersion, OptionalNullable<Integer> componentId,
-            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> billingScheduleItemId,
-            Boolean customItem, OptionalNullable<LocalDate> prepaidAllocationExpiresAt) {
+            OptionalNullable<Integer> pricePointId, OptionalNullable<String> listUnitPrice,
+            OptionalNullable<String> listTotalAmount, OptionalNullable<Integer> listPricePointId,
+            OptionalNullable<Integer> billingScheduleItemId, Boolean customItem,
+            OptionalNullable<LocalDate> prepaidAllocationExpiresAt) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -162,6 +179,9 @@ public class CreditNoteLineItem
         this.productVersion = productVersion;
         this.componentId = componentId;
         this.pricePointId = pricePointId;
+        this.listUnitPrice = listUnitPrice;
+        this.listTotalAmount = listTotalAmount;
+        this.listPricePointId = listPricePointId;
         this.billingScheduleItemId = billingScheduleItemId;
         this.customItem = customItem;
         this.prepaidAllocationExpiresAt = prepaidAllocationExpiresAt;
@@ -615,6 +635,123 @@ public class CreditNoteLineItem
     }
 
     /**
+     * Internal Getter for ListUnitPrice.
+     * The unit price from the list price point, in decimal format
+     * @return Returns the Internal String
+     */
+    @JsonGetter("list_unit_price")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetListUnitPrice() {
+        return this.listUnitPrice;
+    }
+
+    /**
+     * Getter for ListUnitPrice.
+     * The unit price from the list price point, in decimal format
+     * @return Returns the String
+     */
+    public String getListUnitPrice() {
+        return OptionalNullable.getFrom(listUnitPrice);
+    }
+
+    /**
+     * Setter for ListUnitPrice.
+     * The unit price from the list price point, in decimal format
+     * @param listUnitPrice Value for String
+     */
+    @JsonSetter("list_unit_price")
+    public void setListUnitPrice(String listUnitPrice) {
+        this.listUnitPrice = OptionalNullable.of(listUnitPrice);
+    }
+
+    /**
+     * UnSetter for ListUnitPrice.
+     * The unit price from the list price point, in decimal format
+     */
+    public void unsetListUnitPrice() {
+        listUnitPrice = null;
+    }
+
+    /**
+     * Internal Getter for ListTotalAmount.
+     * The total amount for the line item at the list price, in decimal format
+     * @return Returns the Internal String
+     */
+    @JsonGetter("list_total_amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetListTotalAmount() {
+        return this.listTotalAmount;
+    }
+
+    /**
+     * Getter for ListTotalAmount.
+     * The total amount for the line item at the list price, in decimal format
+     * @return Returns the String
+     */
+    public String getListTotalAmount() {
+        return OptionalNullable.getFrom(listTotalAmount);
+    }
+
+    /**
+     * Setter for ListTotalAmount.
+     * The total amount for the line item at the list price, in decimal format
+     * @param listTotalAmount Value for String
+     */
+    @JsonSetter("list_total_amount")
+    public void setListTotalAmount(String listTotalAmount) {
+        this.listTotalAmount = OptionalNullable.of(listTotalAmount);
+    }
+
+    /**
+     * UnSetter for ListTotalAmount.
+     * The total amount for the line item at the list price, in decimal format
+     */
+    public void unsetListTotalAmount() {
+        listTotalAmount = null;
+    }
+
+    /**
+     * Internal Getter for ListPricePointId.
+     * The ID of the list price point this line item's sales price is compared against
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("list_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetListPricePointId() {
+        return this.listPricePointId;
+    }
+
+    /**
+     * Getter for ListPricePointId.
+     * The ID of the list price point this line item's sales price is compared against
+     * @return Returns the Integer
+     */
+    public Integer getListPricePointId() {
+        return OptionalNullable.getFrom(listPricePointId);
+    }
+
+    /**
+     * Setter for ListPricePointId.
+     * The ID of the list price point this line item's sales price is compared against
+     * @param listPricePointId Value for Integer
+     */
+    @JsonSetter("list_price_point_id")
+    public void setListPricePointId(Integer listPricePointId) {
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
+    }
+
+    /**
+     * UnSetter for ListPricePointId.
+     * The ID of the list price point this line item's sales price is compared against
+     */
+    public void unsetListPricePointId() {
+        listPricePointId = null;
+    }
+
+    /**
      * Internal Getter for BillingScheduleItemId.
      * @return Returns the Internal Integer
      */
@@ -725,8 +862,9 @@ public class CreditNoteLineItem
                 + totalAmount + ", tieredUnitPrice=" + tieredUnitPrice + ", periodRangeStart="
                 + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd + ", productId="
                 + productId + ", productVersion=" + productVersion + ", componentId=" + componentId
-                + ", pricePointId=" + pricePointId + ", billingScheduleItemId="
-                + billingScheduleItemId + ", customItem=" + customItem
+                + ", pricePointId=" + pricePointId + ", listUnitPrice=" + listUnitPrice
+                + ", listTotalAmount=" + listTotalAmount + ", listPricePointId=" + listPricePointId
+                + ", billingScheduleItemId=" + billingScheduleItemId + ", customItem=" + customItem
                 + ", prepaidAllocationExpiresAt=" + prepaidAllocationExpiresAt
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
@@ -756,6 +894,9 @@ public class CreditNoteLineItem
                 .customItem(getCustomItem());
         builder.componentId = internalGetComponentId();
         builder.pricePointId = internalGetPricePointId();
+        builder.listUnitPrice = internalGetListUnitPrice();
+        builder.listTotalAmount = internalGetListTotalAmount();
+        builder.listPricePointId = internalGetListPricePointId();
         builder.billingScheduleItemId = internalGetBillingScheduleItemId();
         builder.prepaidAllocationExpiresAt = internalGetPrepaidAllocationExpiresAt();
         return builder;
@@ -782,6 +923,9 @@ public class CreditNoteLineItem
         private Integer productVersion;
         private OptionalNullable<Integer> componentId;
         private OptionalNullable<Integer> pricePointId;
+        private OptionalNullable<String> listUnitPrice;
+        private OptionalNullable<String> listTotalAmount;
+        private OptionalNullable<Integer> listPricePointId;
         private OptionalNullable<Integer> billingScheduleItemId;
         private Boolean customItem;
         private OptionalNullable<LocalDate> prepaidAllocationExpiresAt;
@@ -977,6 +1121,63 @@ public class CreditNoteLineItem
         }
 
         /**
+         * Setter for listUnitPrice.
+         * @param  listUnitPrice  String value for listUnitPrice.
+         * @return Builder
+         */
+        public Builder listUnitPrice(String listUnitPrice) {
+            this.listUnitPrice = OptionalNullable.of(listUnitPrice);
+            return this;
+        }
+
+        /**
+         * UnSetter for listUnitPrice.
+         * @return Builder
+         */
+        public Builder unsetListUnitPrice() {
+            listUnitPrice = null;
+            return this;
+        }
+
+        /**
+         * Setter for listTotalAmount.
+         * @param  listTotalAmount  String value for listTotalAmount.
+         * @return Builder
+         */
+        public Builder listTotalAmount(String listTotalAmount) {
+            this.listTotalAmount = OptionalNullable.of(listTotalAmount);
+            return this;
+        }
+
+        /**
+         * UnSetter for listTotalAmount.
+         * @return Builder
+         */
+        public Builder unsetListTotalAmount() {
+            listTotalAmount = null;
+            return this;
+        }
+
+        /**
+         * Setter for listPricePointId.
+         * @param  listPricePointId  Integer value for listPricePointId.
+         * @return Builder
+         */
+        public Builder listPricePointId(Integer listPricePointId) {
+            this.listPricePointId = OptionalNullable.of(listPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for listPricePointId.
+         * @return Builder
+         */
+        public Builder unsetListPricePointId() {
+            listPricePointId = null;
+            return this;
+        }
+
+        /**
          * Setter for billingScheduleItemId.
          * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
          * @return Builder
@@ -1032,8 +1233,8 @@ public class CreditNoteLineItem
             return new CreditNoteLineItem(uid, title, description, quantity, unitPrice,
                     subtotalAmount, discountAmount, taxAmount, taxIncluded, totalAmount,
                     tieredUnitPrice, periodRangeStart, periodRangeEnd, productId, productVersion,
-                    componentId, pricePointId, billingScheduleItemId, customItem,
-                    prepaidAllocationExpiresAt);
+                    componentId, pricePointId, listUnitPrice, listTotalAmount, listPricePointId,
+                    billingScheduleItemId, customItem, prepaidAllocationExpiresAt);
         }
     }
 }

@@ -24,7 +24,9 @@ public enum ComponentKind {
 
     PREPAID_USAGE_COMPONENT,
 
-    EVENT_BASED_COMPONENT;
+    EVENT_BASED_COMPONENT,
+
+    WALLET_PRODUCT;
 
     private static TreeMap<String, ComponentKind> valueMap = new TreeMap<>();
     private String value;
@@ -35,12 +37,14 @@ public enum ComponentKind {
         ON_OFF_COMPONENT.value = "on_off_component";
         PREPAID_USAGE_COMPONENT.value = "prepaid_usage_component";
         EVENT_BASED_COMPONENT.value = "event_based_component";
+        WALLET_PRODUCT.value = "wallet_product";
 
         valueMap.put("metered_component", METERED_COMPONENT);
         valueMap.put("quantity_based_component", QUANTITY_BASED_COMPONENT);
         valueMap.put("on_off_component", ON_OFF_COMPONENT);
         valueMap.put("prepaid_usage_component", PREPAID_USAGE_COMPONENT);
         valueMap.put("event_based_component", EVENT_BASED_COMPONENT);
+        valueMap.put("wallet_product", WALLET_PRODUCT);
     }
 
     /**

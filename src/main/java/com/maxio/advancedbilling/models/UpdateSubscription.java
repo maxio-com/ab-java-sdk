@@ -348,7 +348,7 @@ public class UpdateSubscription
      * point. If the payment is due at the initial_billing_at and it fails the subscription will be
      * immediately canceled. You can omit the initial_billing_at date to activate the subscription
      * immediately. See the [subscription
-     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * import](https://docs.maxio.com/configuration/importing/import-subscriptions-from-a-csv#date-format)
      * documentation for more information about Date/Time formats.
      * @return Returns the ZonedDateTime
      */
@@ -370,7 +370,7 @@ public class UpdateSubscription
      * point. If the payment is due at the initial_billing_at and it fails the subscription will be
      * immediately canceled. You can omit the initial_billing_at date to activate the subscription
      * immediately. See the [subscription
-     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * import](https://docs.maxio.com/configuration/importing/import-subscriptions-from-a-csv#date-format)
      * documentation for more information about Date/Time formats.
      * @param initialBillingAt Value for ZonedDateTime
      */
@@ -388,7 +388,7 @@ public class UpdateSubscription
      * `initial_billing_at` date. The subscription moves to the awaiting signup with a scheduled
      * initial billing date. You can omit the initial_billing_at date to activate the subscription
      * immediately. See [Subscription
-     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * States](https://docs.maxio.com/billing/subscriptions/management/subscription-states/understand-subscription-states#setup-and-transient-states)
      * for more information.
      * @return Returns the Boolean
      */
@@ -406,7 +406,7 @@ public class UpdateSubscription
      * `initial_billing_at` date. The subscription moves to the awaiting signup with a scheduled
      * initial billing date. You can omit the initial_billing_at date to activate the subscription
      * immediately. See [Subscription
-     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * States](https://docs.maxio.com/billing/subscriptions/management/subscription-states/understand-subscription-states#setup-and-transient-states)
      * for more information.
      * @param deferSignup Value for Boolean
      */

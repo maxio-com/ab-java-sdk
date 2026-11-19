@@ -413,10 +413,22 @@ public final class InvoicesController extends BaseController {
                         .path("/credit_notes.json")
                         .queryParam(param -> param.key("subscription_id")
                                 .value(input.getSubscriptionId()).isRequired(false))
+                        .queryParam(param -> param.key("date_field")
+                                .value((input.getDateField() != null) ? input.getDateField().value() : "issue_date").isRequired(false))
+                        .queryParam(param -> param.key("start_date")
+                                .value(input.getStartDate()).isRequired(false))
+                        .queryParam(param -> param.key("end_date")
+                                .value(input.getEndDate()).isRequired(false))
+                        .queryParam(param -> param.key("start_datetime")
+                                .value(input.getStartDatetime()).isRequired(false))
+                        .queryParam(param -> param.key("end_datetime")
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
+                        .queryParam(param -> param.key("direction")
+                                .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("line_items")
                                 .value(input.getLineItems()).isRequired(false))
                         .queryParam(param -> param.key("discounts")
@@ -700,43 +712,45 @@ public final class InvoicesController extends BaseController {
      * taken from product's default price point, but can be overwritten by passing `unit_price` or
      * `price_point_id`. At this moment price points are supported only for quantity based, on/off
      * and metered components. For prepaid and event based billing components `unit_price` is
-     * required. ### Coupons When creating ad hoc invoice, new discounts can be applied in following
-     * way: ```json { "invoice": { "line_items": [ { "product_id": "handle:gold-product",
-     * "quantity": 1 } ], "coupons": [ { "code": "COUPONCODE", "percentage": 50.0 } ] } } ``` If You
-     * want to use existing coupon for discount creation, only `code` and optional
-     * `product_family_id` is needed ```json ... "coupons": [ { "code": "FREESETUP",
-     * "product_family_id": 1 } ] ... ``` #### Using Coupon Subcodes You can also use coupon
-     * subcodes to apply existing coupons with specific subcodes: ```json ... "coupons": [ {
-     * "subcode": "SUB1", "product_family_id": 1 } ] ... ``` **Important:** You cannot specify both
-     * `code` and `subcode` for the same coupon. Use either: - `code` to apply a main coupon -
-     * `subcode` to apply a specific coupon subcode The API response will include both the main
-     * coupon code and the subcode used: ```json ... "coupons": [ { "code": "MAIN123", "subcode":
-     * "SUB1", "product_family_id": 1, "percentage": 10, "description": "Special discount" } ] ...
-     * ``` ### Coupon options #### Code Coupon `code` will be displayed on invoice discount section.
-     * Coupon code can only contain uppercase letters, numbers, and allowed special characters.
-     * Lowercase letters will be converted to uppercase. It can be used to select an existing coupon
-     * from the catalog, or as an ad hoc coupon when passed with `percentage` or `amount`. ####
-     * Subcode Coupon `subcode` allows you to apply existing coupons using their subcodes. When a
-     * subcode is used, the API response will include both the main coupon code and the specific
-     * subcode that was applied. Subcodes are case-insensitive and will be converted to uppercase
-     * automatically. #### Percentage Coupon `percentage` can take values from 0 to 100 and up to 4
-     * decimal places. It cannot be used with `amount`. Only for ad hoc coupons, will be ignored if
-     * `code` is used to select an existing coupon from the catalog. #### Amount Coupon `amount`
-     * takes number value. It cannot be used with `percentage`. Used only when not matching existing
-     * coupon by `code`. #### Description Optional `description` will be displayed with coupon
-     * `code`. Used only when not matching existing coupon by `code`. #### Product Family id
-     * Optional `product_family_id` handle (with handle: prefix) or id is used to match existing
-     * coupon within site, when codes are not unique. #### Compounding Strategy Optional
-     * `compounding_strategy` for percentage coupons, can take values `compound` or `full-price`.
-     * For amount coupons, discounts will be always calculated against the original item price,
-     * before other discounts are applied. `compound` strategy: Percentage-based discounts will be
-     * calculated against the remaining price, after prior discounts have been calculated. It is set
-     * by default. `full-price` strategy: Percentage-based discounts will always be calculated
-     * against the original item price, before other discounts are applied. ### Line Item Options
-     * #### Period Date Range A custom period date range can be defined for each line item with the
-     * `period_range_start` and `period_range_end` parameters. Dates must be sent in the
-     * `YYYY-MM-DD` format. `period_range_end` must be greater or equal `period_range_start`. ####
-     * Taxes The `taxable` parameter can be sent as `true` if taxes should be calculated for a
+     * required. A Wallet Product can't be invoiced this way: a line item for one returns `422`
+     * ("Wallet Products can only be invoiced through a wallet purchase"). Use [Create Wallet
+     * Purchase]($e/Wallet%20Purchases/createWalletPurchase) instead. ### Coupons When creating ad
+     * hoc invoice, new discounts can be applied in following way: ```json { "invoice": {
+     * "line_items": [ { "product_id": "handle:gold-product", "quantity": 1 } ], "coupons": [ {
+     * "code": "COUPONCODE", "percentage": 50.0 } ] } } ``` If You want to use existing coupon for
+     * discount creation, only `code` and optional `product_family_id` is needed ```json ...
+     * "coupons": [ { "code": "FREESETUP", "product_family_id": 1 } ] ... ``` #### Using Coupon
+     * Subcodes You can also use coupon subcodes to apply existing coupons with specific subcodes:
+     * ```json ... "coupons": [ { "subcode": "SUB1", "product_family_id": 1 } ] ... ```
+     * **Important:** You cannot specify both `code` and `subcode` for the same coupon. Use either:
+     * - `code` to apply a main coupon - `subcode` to apply a specific coupon subcode The API
+     * response will include both the main coupon code and the subcode used: ```json ... "coupons":
+     * [ { "code": "MAIN123", "subcode": "SUB1", "product_family_id": 1, "percentage": 10,
+     * "description": "Special discount" } ] ... ``` ### Coupon options #### Code Coupon `code` will
+     * be displayed on invoice discount section. Coupon code can only contain uppercase letters,
+     * numbers, and allowed special characters. Lowercase letters will be converted to uppercase. It
+     * can be used to select an existing coupon from the catalog, or as an ad hoc coupon when passed
+     * with `percentage` or `amount`. #### Subcode Coupon `subcode` allows you to apply existing
+     * coupons using their subcodes. When a subcode is used, the API response will include both the
+     * main coupon code and the specific subcode that was applied. Subcodes are case-insensitive and
+     * will be converted to uppercase automatically. #### Percentage Coupon `percentage` can take
+     * values from 0 to 100 and up to 4 decimal places. It cannot be used with `amount`. Only for ad
+     * hoc coupons, will be ignored if `code` is used to select an existing coupon from the catalog.
+     * #### Amount Coupon `amount` takes number value. It cannot be used with `percentage`. Used
+     * only when not matching existing coupon by `code`. #### Description Optional `description`
+     * will be displayed with coupon `code`. Used only when not matching existing coupon by `code`.
+     * #### Product Family id Optional `product_family_id` handle (with handle: prefix) or id is
+     * used to match existing coupon within site, when codes are not unique. #### Compounding
+     * Strategy Optional `compounding_strategy` for percentage coupons, can take values `compound`
+     * or `full-price`. For amount coupons, discounts will be always calculated against the original
+     * item price, before other discounts are applied. `compound` strategy: Percentage-based
+     * discounts will be calculated against the remaining price, after prior discounts have been
+     * calculated. It is set by default. `full-price` strategy: Percentage-based discounts will
+     * always be calculated against the original item price, before other discounts are applied. ###
+     * Line Item Options #### Period Date Range A custom period date range can be defined for each
+     * line item with the `period_range_start` and `period_range_end` parameters. Dates must be sent
+     * in the `YYYY-MM-DD` format. `period_range_end` must be greater or equal `period_range_start`.
+     * #### Taxes The `taxable` parameter can be sent as `true` if taxes should be calculated for a
      * specific line item. For this to work, the site should be configured to use and calculate
      * taxes. Further, if the site uses Avalara for tax calculations, a `tax_code` parameter should
      * also be sent. For existing catalog items: products/components taxes cannot be overwritten.
@@ -948,7 +962,9 @@ public final class InvoicesController extends BaseController {
      * a 204 no-content response will be returned. The response does not indicate that email(s) have
      * been delivered, but instead indicates that emails have been successfully queued for delivery.
      * If _any_ invalid or malformed email address is found in the request body, the entire request
-     * will be rejected and a 422 response will be returned.
+     * will be rejected and a 422 response will be returned. A 422 response will also be returned if
+     * the invoice is in `draft`, `pending`, or `processing` status, or if the invoice cannot be
+     * found within the site instance.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
      * @param  body  Optional parameter:

@@ -21,6 +21,7 @@ Input structure for the method ListProducts
 | `PerPage` | `Integer` | Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` | Integer getPerPage() | setPerPage(Integer perPage) |
 | `IncludeArchived` | `Boolean` | Optional | Include archived products. Use in query: `include_archived=true`. | Boolean getIncludeArchived() | setIncludeArchived(Boolean includeArchived) |
 | `Include` | [`ListProductsInclude`](../../doc/models/list-products-include.md) | Optional | Allows including additional data in the response. Use in query `include=prepaid_product_price_point`. | ListProductsInclude getInclude() | setInclude(ListProductsInclude include) |
+| `IncludeFeatures` | `Boolean` | Optional | When `true`, embeds the active feature catalog items for each result in a `features` array. Default value is `false`. Ignored on sites without Entitlements enabled: no `features` key is returned and no error is raised.<br><br>**Default**: `false` | Boolean getIncludeFeatures() | setIncludeFeatures(Boolean includeFeatures) |
 
 ## Example
 
@@ -55,6 +56,7 @@ ListProductsInput listProductsInput = new ListProductsInput.Builder()
     .perPage(50)
     .includeArchived(true)
     .include(ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT)
+    .includeFeatures(false)
     .build();
 ```
 

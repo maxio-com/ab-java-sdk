@@ -16,9 +16,9 @@
 ```java
 import com.maxio.advancedbilling.models.CreateComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
-import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.SecondaryPricing;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
@@ -46,10 +46,38 @@ CreateComponentPricePointRequest createComponentPricePointRequest = new CreateCo
             )
         )
         .handle("handle6")
+        .secondaryPricing(new SecondaryPricing.Builder()
+                .pricingScheme(PricingScheme.STAIRSTEP)
+                .prices(Arrays.asList(
+                    new Price.Builder(
+                        PriceStartingQuantity.fromNumber(
+                            242
+                        ),
+                        PriceUnitPrice.fromPrecision(
+                            23.26D
+                        )
+                    )
+                    .endingQuantity(PriceEndingQuantity.fromNumber(
+                            40
+                        ))
+                    .build(),
+                    new Price.Builder(
+                        PriceStartingQuantity.fromNumber(
+                            242
+                        ),
+                        PriceUnitPrice.fromPrecision(
+                            23.26D
+                        )
+                    )
+                    .endingQuantity(PriceEndingQuantity.fromNumber(
+                            40
+                        ))
+                    .build()
+                ))
+                .build())
+        .secondaryPricingScheme(PricingScheme.STAIRSTEP)
         .useSiteExchangeRate(true)
         .taxIncluded(false)
-        .interval(24)
-        .intervalUnit(IntervalUnit.DAY)
         .build()
     )
 )

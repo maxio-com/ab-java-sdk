@@ -11,18 +11,22 @@ import com.maxio.advancedbilling.authentication.BasicAuthModel;
 import com.maxio.advancedbilling.controllers.APIExportsController;
 import com.maxio.advancedbilling.controllers.AdvanceInvoiceController;
 import com.maxio.advancedbilling.controllers.BillingPortalController;
+import com.maxio.advancedbilling.controllers.ComponentFeaturesController;
 import com.maxio.advancedbilling.controllers.ComponentPricePointsController;
 import com.maxio.advancedbilling.controllers.ComponentsController;
 import com.maxio.advancedbilling.controllers.CouponsController;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.controllers.CustomersController;
+import com.maxio.advancedbilling.controllers.EntitlementsController;
 import com.maxio.advancedbilling.controllers.EventsBasedBillingSegmentsController;
 import com.maxio.advancedbilling.controllers.EventsController;
+import com.maxio.advancedbilling.controllers.FeatureTemplatesController;
 import com.maxio.advancedbilling.controllers.InsightsController;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.controllers.OffersController;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.controllers.ProductFamiliesController;
+import com.maxio.advancedbilling.controllers.ProductFeaturesController;
 import com.maxio.advancedbilling.controllers.ProductPricePointsController;
 import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
@@ -40,6 +44,11 @@ import com.maxio.advancedbilling.controllers.SubscriptionProductsController;
 import com.maxio.advancedbilling.controllers.SubscriptionRenewalsController;
 import com.maxio.advancedbilling.controllers.SubscriptionStatusController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
+import com.maxio.advancedbilling.controllers.WalletAdjustmentsController;
+import com.maxio.advancedbilling.controllers.WalletProductsController;
+import com.maxio.advancedbilling.controllers.WalletPurchasesController;
+import com.maxio.advancedbilling.controllers.WalletTransactionsController;
+import com.maxio.advancedbilling.controllers.WalletsController;
 import com.maxio.advancedbilling.controllers.WebhooksController;
 import com.maxio.advancedbilling.http.client.HttpCallback;
 import com.maxio.advancedbilling.http.client.HttpClientConfiguration;
@@ -69,17 +78,21 @@ public final class AdvancedBillingClient implements Configuration {
     private AdvanceInvoiceController advanceInvoice;
     private BillingPortalController billingPortal;
     private CouponsController coupons;
+    private ComponentFeaturesController componentFeatures;
     private ComponentsController components;
     private ComponentPricePointsController componentPricePoints;
     private CustomersController customers;
     private CustomFieldsController customFields;
+    private EntitlementsController entitlements;
     private EventsController events;
     private EventsBasedBillingSegmentsController eventsBasedBillingSegments;
+    private FeatureTemplatesController featureTemplates;
     private InsightsController insights;
     private InvoicesController invoices;
     private OffersController offers;
     private PaymentProfilesController paymentProfiles;
     private ProductFamiliesController productFamilies;
+    private ProductFeaturesController productFeatures;
     private ProductsController products;
     private ProductPricePointsController productPricePoints;
     private ProformaInvoicesController proformaInvoices;
@@ -97,11 +110,16 @@ public final class AdvancedBillingClient implements Configuration {
     private SubscriptionProductsController subscriptionProducts;
     private SubscriptionRenewalsController subscriptionRenewals;
     private SubscriptionStatusController subscriptionStatus;
+    private WalletsController wallets;
+    private WalletTransactionsController walletTransactions;
+    private WalletAdjustmentsController walletAdjustments;
+    private WalletPurchasesController walletPurchases;
+    private WalletProductsController walletProducts;
     private WebhooksController webhooks;
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:10.0.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:11.0.0 on OS {os-info}";
 
     /**
      * Current API environment.
@@ -168,17 +186,21 @@ public final class AdvancedBillingClient implements Configuration {
         advanceInvoice = new AdvanceInvoiceController(globalConfig);
         billingPortal = new BillingPortalController(globalConfig);
         coupons = new CouponsController(globalConfig);
+        componentFeatures = new ComponentFeaturesController(globalConfig);
         components = new ComponentsController(globalConfig);
         componentPricePoints = new ComponentPricePointsController(globalConfig);
         customers = new CustomersController(globalConfig);
         customFields = new CustomFieldsController(globalConfig);
+        entitlements = new EntitlementsController(globalConfig);
         events = new EventsController(globalConfig);
         eventsBasedBillingSegments = new EventsBasedBillingSegmentsController(globalConfig);
+        featureTemplates = new FeatureTemplatesController(globalConfig);
         insights = new InsightsController(globalConfig);
         invoices = new InvoicesController(globalConfig);
         offers = new OffersController(globalConfig);
         paymentProfiles = new PaymentProfilesController(globalConfig);
         productFamilies = new ProductFamiliesController(globalConfig);
+        productFeatures = new ProductFeaturesController(globalConfig);
         products = new ProductsController(globalConfig);
         productPricePoints = new ProductPricePointsController(globalConfig);
         proformaInvoices = new ProformaInvoicesController(globalConfig);
@@ -197,6 +219,11 @@ public final class AdvancedBillingClient implements Configuration {
         subscriptionProducts = new SubscriptionProductsController(globalConfig);
         subscriptionRenewals = new SubscriptionRenewalsController(globalConfig);
         subscriptionStatus = new SubscriptionStatusController(globalConfig);
+        wallets = new WalletsController(globalConfig);
+        walletTransactions = new WalletTransactionsController(globalConfig);
+        walletAdjustments = new WalletAdjustmentsController(globalConfig);
+        walletPurchases = new WalletPurchasesController(globalConfig);
+        walletProducts = new WalletProductsController(globalConfig);
         webhooks = new WebhooksController(globalConfig);
     }
 
@@ -240,6 +267,14 @@ public final class AdvancedBillingClient implements Configuration {
     }
 
     /**
+     * Get the instance of ComponentFeaturesController.
+     * @return componentFeatures
+     */
+    public ComponentFeaturesController getComponentFeaturesController() {
+        return componentFeatures;
+    }
+
+    /**
      * Get the instance of ComponentsController.
      * @return components
      */
@@ -272,6 +307,14 @@ public final class AdvancedBillingClient implements Configuration {
     }
 
     /**
+     * Get the instance of EntitlementsController.
+     * @return entitlements
+     */
+    public EntitlementsController getEntitlementsController() {
+        return entitlements;
+    }
+
+    /**
      * Get the instance of EventsController.
      * @return events
      */
@@ -285,6 +328,14 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public EventsBasedBillingSegmentsController getEventsBasedBillingSegmentsController() {
         return eventsBasedBillingSegments;
+    }
+
+    /**
+     * Get the instance of FeatureTemplatesController.
+     * @return featureTemplates
+     */
+    public FeatureTemplatesController getFeatureTemplatesController() {
+        return featureTemplates;
     }
 
     /**
@@ -325,6 +376,14 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public ProductFamiliesController getProductFamiliesController() {
         return productFamilies;
+    }
+
+    /**
+     * Get the instance of ProductFeaturesController.
+     * @return productFeatures
+     */
+    public ProductFeaturesController getProductFeaturesController() {
+        return productFeatures;
     }
 
     /**
@@ -461,6 +520,46 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public SubscriptionStatusController getSubscriptionStatusController() {
         return subscriptionStatus;
+    }
+
+    /**
+     * Get the instance of WalletsController.
+     * @return wallets
+     */
+    public WalletsController getWalletsController() {
+        return wallets;
+    }
+
+    /**
+     * Get the instance of WalletTransactionsController.
+     * @return walletTransactions
+     */
+    public WalletTransactionsController getWalletTransactionsController() {
+        return walletTransactions;
+    }
+
+    /**
+     * Get the instance of WalletAdjustmentsController.
+     * @return walletAdjustments
+     */
+    public WalletAdjustmentsController getWalletAdjustmentsController() {
+        return walletAdjustments;
+    }
+
+    /**
+     * Get the instance of WalletPurchasesController.
+     * @return walletPurchases
+     */
+    public WalletPurchasesController getWalletPurchasesController() {
+        return walletPurchases;
+    }
+
+    /**
+     * Get the instance of WalletProductsController.
+     * @return walletProducts
+     */
+    public WalletProductsController getWalletProductsController() {
+        return walletProducts;
     }
 
     /**

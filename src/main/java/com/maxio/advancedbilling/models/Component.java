@@ -28,9 +28,9 @@ public class Component
     private OptionalNullable<PricingScheme> pricingScheme;
     private String unitName;
     private OptionalNullable<String> unitPrice;
-    private Integer productFamilyId;
-    private String productFamilyName;
-    private String productFamilyHandle;
+    private OptionalNullable<Integer> productFamilyId;
+    private OptionalNullable<String> productFamilyName;
+    private OptionalNullable<String> productFamilyHandle;
     private OptionalNullable<Long> pricePerUnitInCents;
     private ComponentKind kind;
     private Boolean archived;
@@ -58,6 +58,7 @@ public class Component
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
     private OptionalNullable<String> unspscCode;
+    private OptionalNullable<List<FeatureCatalogItem>> features;
 
     /**
      * Default constructor.
@@ -103,6 +104,7 @@ public class Component
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  unspscCode  String value for unspscCode.
+     * @param  features  List of FeatureCatalogItem value for features.
      */
     public Component(
             Integer id,
@@ -140,16 +142,17 @@ public class Component
             Integer eventBasedBillingMetricId,
             Integer interval,
             IntervalUnit intervalUnit,
-            String unspscCode) {
+            String unspscCode,
+            List<FeatureCatalogItem> features) {
         this.id = id;
         this.name = name;
         this.handle = OptionalNullable.of(handle);
         this.pricingScheme = OptionalNullable.of(pricingScheme);
         this.unitName = unitName;
         this.unitPrice = OptionalNullable.of(unitPrice);
-        this.productFamilyId = productFamilyId;
-        this.productFamilyName = productFamilyName;
-        this.productFamilyHandle = productFamilyHandle;
+        this.productFamilyId = OptionalNullable.of(productFamilyId);
+        this.productFamilyName = OptionalNullable.of(productFamilyName);
+        this.productFamilyHandle = OptionalNullable.of(productFamilyHandle);
         this.pricePerUnitInCents = OptionalNullable.of(pricePerUnitInCents);
         this.kind = kind;
         this.archived = archived;
@@ -177,6 +180,7 @@ public class Component
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.unspscCode = OptionalNullable.of(unspscCode);
+        this.features = OptionalNullable.of(features);
     }
 
     /**
@@ -217,14 +221,16 @@ public class Component
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  unspscCode  String value for unspscCode.
+     * @param  features  List of FeatureCatalogItem value for features.
      */
 
     protected Component(Integer id, String name, OptionalNullable<String> handle,
             OptionalNullable<PricingScheme> pricingScheme, String unitName,
-            OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
-            String productFamilyHandle, OptionalNullable<Long> pricePerUnitInCents,
-            ComponentKind kind, Boolean archived, OptionalNullable<String> description,
-            OptionalNullable<Integer> defaultPricePointId,
+            OptionalNullable<String> unitPrice, OptionalNullable<Integer> productFamilyId,
+            OptionalNullable<String> productFamilyName,
+            OptionalNullable<String> productFamilyHandle,
+            OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
+            OptionalNullable<String> description, OptionalNullable<Integer> defaultPricePointId,
             OptionalNullable<List<ComponentPrice>> overagePrices,
             OptionalNullable<List<ComponentPrice>> prices, Integer pricePointCount,
             OptionalNullable<String> pricePointsUrl, String defaultPricePointName, Boolean taxable,
@@ -236,7 +242,8 @@ public class Component
             OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
             Integer eventBasedBillingMetricId, Integer interval,
-            OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode) {
+            OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode,
+            OptionalNullable<List<FeatureCatalogItem>> features) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -273,6 +280,7 @@ public class Component
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.unspscCode = unspscCode;
+        this.features = features;
     }
 
     /**
@@ -458,66 +466,132 @@ public class Component
     }
 
     /**
-     * Getter for ProductFamilyId.
-     * The id of the Product Family to which the Component belongs
-     * @return Returns the Integer
+     * Internal Getter for ProductFamilyId.
+     * The id of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("product_family_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetProductFamilyId() {
+        return this.productFamilyId;
+    }
+
+    /**
+     * Getter for ProductFamilyId.
+     * The id of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     * @return Returns the Integer
+     */
     public Integer getProductFamilyId() {
-        return productFamilyId;
+        return OptionalNullable.getFrom(productFamilyId);
     }
 
     /**
      * Setter for ProductFamilyId.
-     * The id of the Product Family to which the Component belongs
+     * The id of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
      * @param productFamilyId Value for Integer
      */
     @JsonSetter("product_family_id")
     public void setProductFamilyId(Integer productFamilyId) {
-        this.productFamilyId = productFamilyId;
+        this.productFamilyId = OptionalNullable.of(productFamilyId);
+    }
+
+    /**
+     * UnSetter for ProductFamilyId.
+     * The id of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     */
+    public void unsetProductFamilyId() {
+        productFamilyId = null;
+    }
+
+    /**
+     * Internal Getter for ProductFamilyName.
+     * The name of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("product_family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetProductFamilyName() {
+        return this.productFamilyName;
     }
 
     /**
      * Getter for ProductFamilyName.
-     * The name of the Product Family to which the Component belongs
+     * The name of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
      * @return Returns the String
      */
-    @JsonGetter("product_family_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProductFamilyName() {
-        return productFamilyName;
+        return OptionalNullable.getFrom(productFamilyName);
     }
 
     /**
      * Setter for ProductFamilyName.
-     * The name of the Product Family to which the Component belongs
+     * The name of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
      * @param productFamilyName Value for String
      */
     @JsonSetter("product_family_name")
     public void setProductFamilyName(String productFamilyName) {
-        this.productFamilyName = productFamilyName;
+        this.productFamilyName = OptionalNullable.of(productFamilyName);
+    }
+
+    /**
+     * UnSetter for ProductFamilyName.
+     * The name of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     */
+    public void unsetProductFamilyName() {
+        productFamilyName = null;
+    }
+
+    /**
+     * Internal Getter for ProductFamilyHandle.
+     * The handle of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("product_family_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetProductFamilyHandle() {
+        return this.productFamilyHandle;
     }
 
     /**
      * Getter for ProductFamilyHandle.
-     * The handle of the Product Family to which the Component belongs
+     * The handle of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
      * @return Returns the String
      */
-    @JsonGetter("product_family_handle")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getProductFamilyHandle() {
-        return productFamilyHandle;
+        return OptionalNullable.getFrom(productFamilyHandle);
     }
 
     /**
      * Setter for ProductFamilyHandle.
-     * The handle of the Product Family to which the Component belongs
+     * The handle of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
      * @param productFamilyHandle Value for String
      */
     @JsonSetter("product_family_handle")
     public void setProductFamilyHandle(String productFamilyHandle) {
-        this.productFamilyHandle = productFamilyHandle;
+        this.productFamilyHandle = OptionalNullable.of(productFamilyHandle);
+    }
+
+    /**
+     * UnSetter for ProductFamilyHandle.
+     * The handle of the Product Family to which the Component belongs. `null` for a Wallet Product,
+     * which has no Product Family.
+     */
+    public void unsetProductFamilyHandle() {
+        productFamilyHandle = null;
     }
 
     /**
@@ -1393,6 +1467,49 @@ public class Component
     }
 
     /**
+     * Internal Getter for Features.
+     * The active feature catalog items attached to this component. Present only when the request
+     * includes `include_features=true`.
+     * @return Returns the Internal List of FeatureCatalogItem
+     */
+    @JsonGetter("features")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<FeatureCatalogItem>> internalGetFeatures() {
+        return this.features;
+    }
+
+    /**
+     * Getter for Features.
+     * The active feature catalog items attached to this component. Present only when the request
+     * includes `include_features=true`.
+     * @return Returns the List of FeatureCatalogItem
+     */
+    public List<FeatureCatalogItem> getFeatures() {
+        return OptionalNullable.getFrom(features);
+    }
+
+    /**
+     * Setter for Features.
+     * The active feature catalog items attached to this component. Present only when the request
+     * includes `include_features=true`.
+     * @param features Value for List of FeatureCatalogItem
+     */
+    @JsonSetter("features")
+    public void setFeatures(List<FeatureCatalogItem> features) {
+        this.features = OptionalNullable.of(features);
+    }
+
+    /**
+     * UnSetter for Features.
+     * The active feature catalog items attached to this component. Present only when the request
+     * includes `include_features=true`.
+     */
+    public void unsetFeatures() {
+        features = null;
+    }
+
+    /**
      * Converts this Component into string format.
      * @return String representation of this class
      */
@@ -1415,8 +1532,8 @@ public class Component
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
                 + eventBasedBillingMetricId + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", unspscCode=" + unspscCode + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + intervalUnit + ", unspscCode=" + unspscCode + ", features=" + features
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1429,9 +1546,6 @@ public class Component
                 .id(getId())
                 .name(getName())
                 .unitName(getUnitName())
-                .productFamilyId(getProductFamilyId())
-                .productFamilyName(getProductFamilyName())
-                .productFamilyHandle(getProductFamilyHandle())
                 .kind(getKind())
                 .archived(getArchived())
                 .pricePointCount(getPricePointCount())
@@ -1447,6 +1561,9 @@ public class Component
         builder.handle = internalGetHandle();
         builder.pricingScheme = internalGetPricingScheme();
         builder.unitPrice = internalGetUnitPrice();
+        builder.productFamilyId = internalGetProductFamilyId();
+        builder.productFamilyName = internalGetProductFamilyName();
+        builder.productFamilyHandle = internalGetProductFamilyHandle();
         builder.pricePerUnitInCents = internalGetPricePerUnitInCents();
         builder.description = internalGetDescription();
         builder.defaultPricePointId = internalGetDefaultPricePointId();
@@ -1462,6 +1579,7 @@ public class Component
         builder.accountingCode = internalGetAccountingCode();
         builder.intervalUnit = internalGetIntervalUnit();
         builder.unspscCode = internalGetUnspscCode();
+        builder.features = internalGetFeatures();
         return builder;
     }
 
@@ -1475,9 +1593,9 @@ public class Component
         private OptionalNullable<PricingScheme> pricingScheme;
         private String unitName;
         private OptionalNullable<String> unitPrice;
-        private Integer productFamilyId;
-        private String productFamilyName;
-        private String productFamilyHandle;
+        private OptionalNullable<Integer> productFamilyId;
+        private OptionalNullable<String> productFamilyName;
+        private OptionalNullable<String> productFamilyHandle;
         private OptionalNullable<Long> pricePerUnitInCents;
         private ComponentKind kind;
         private Boolean archived;
@@ -1505,6 +1623,7 @@ public class Component
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
         private OptionalNullable<String> unspscCode;
+        private OptionalNullable<List<FeatureCatalogItem>> features;
 
 
 
@@ -1601,7 +1720,16 @@ public class Component
          * @return Builder
          */
         public Builder productFamilyId(Integer productFamilyId) {
-            this.productFamilyId = productFamilyId;
+            this.productFamilyId = OptionalNullable.of(productFamilyId);
+            return this;
+        }
+
+        /**
+         * UnSetter for productFamilyId.
+         * @return Builder
+         */
+        public Builder unsetProductFamilyId() {
+            productFamilyId = null;
             return this;
         }
 
@@ -1611,7 +1739,16 @@ public class Component
          * @return Builder
          */
         public Builder productFamilyName(String productFamilyName) {
-            this.productFamilyName = productFamilyName;
+            this.productFamilyName = OptionalNullable.of(productFamilyName);
+            return this;
+        }
+
+        /**
+         * UnSetter for productFamilyName.
+         * @return Builder
+         */
+        public Builder unsetProductFamilyName() {
+            productFamilyName = null;
             return this;
         }
 
@@ -1621,7 +1758,16 @@ public class Component
          * @return Builder
          */
         public Builder productFamilyHandle(String productFamilyHandle) {
-            this.productFamilyHandle = productFamilyHandle;
+            this.productFamilyHandle = OptionalNullable.of(productFamilyHandle);
+            return this;
+        }
+
+        /**
+         * UnSetter for productFamilyHandle.
+         * @return Builder
+         */
+        public Builder unsetProductFamilyHandle() {
+            productFamilyHandle = null;
             return this;
         }
 
@@ -2031,6 +2177,25 @@ public class Component
         }
 
         /**
+         * Setter for features.
+         * @param  features  List of FeatureCatalogItem value for features.
+         * @return Builder
+         */
+        public Builder features(List<FeatureCatalogItem> features) {
+            this.features = OptionalNullable.of(features);
+            return this;
+        }
+
+        /**
+         * UnSetter for features.
+         * @return Builder
+         */
+        public Builder unsetFeatures() {
+            features = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Component} object using the set fields.
          * @return {@link Component}
          */
@@ -2042,7 +2207,7 @@ public class Component
                     recurring, upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
                     hideDateRangeOnInvoice, allowFractionalQuantities, itemCategory,
                     useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, interval,
-                    intervalUnit, unspscCode);
+                    intervalUnit, unspscCode, features);
         }
     }
 }

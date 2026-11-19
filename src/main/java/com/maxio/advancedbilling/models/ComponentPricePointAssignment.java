@@ -9,6 +9,7 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentComponentId;
 import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentPricePoint;
 import io.apimatic.core.types.BaseModel;
 
@@ -17,7 +18,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class ComponentPricePointAssignment
         extends BaseModel {
-    private Integer componentId;
+    private ComponentPricePointAssignmentComponentId componentId;
     private ComponentPricePointAssignmentPricePoint pricePoint;
 
     /**
@@ -28,11 +29,11 @@ public class ComponentPricePointAssignment
 
     /**
      * Initialization constructor.
-     * @param  componentId  Integer value for componentId.
+     * @param  componentId  ComponentPricePointAssignmentComponentId value for componentId.
      * @param  pricePoint  ComponentPricePointAssignmentPricePoint value for pricePoint.
      */
     public ComponentPricePointAssignment(
-            Integer componentId,
+            ComponentPricePointAssignmentComponentId componentId,
             ComponentPricePointAssignmentPricePoint pricePoint) {
         this.componentId = componentId;
         this.pricePoint = pricePoint;
@@ -40,20 +41,26 @@ public class ComponentPricePointAssignment
 
     /**
      * Getter for ComponentId.
-     * @return Returns the Integer
+     * The component to update. Pass the component ID as an integer, or the component handle as a
+     * string with the `handle:` prefix, for example `handle:my-component`. The response returns the
+     * value in the same form that you sent.
+     * @return Returns the ComponentPricePointAssignmentComponentId
      */
     @JsonGetter("component_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getComponentId() {
+    public ComponentPricePointAssignmentComponentId getComponentId() {
         return componentId;
     }
 
     /**
      * Setter for ComponentId.
-     * @param componentId Value for Integer
+     * The component to update. Pass the component ID as an integer, or the component handle as a
+     * string with the `handle:` prefix, for example `handle:my-component`. The response returns the
+     * value in the same form that you sent.
+     * @param componentId Value for ComponentPricePointAssignmentComponentId
      */
     @JsonSetter("component_id")
-    public void setComponentId(Integer componentId) {
+    public void setComponentId(ComponentPricePointAssignmentComponentId componentId) {
         this.componentId = componentId;
     }
 
@@ -102,17 +109,17 @@ public class ComponentPricePointAssignment
      * Class to build instances of {@link ComponentPricePointAssignment}.
      */
     public static class Builder {
-        private Integer componentId;
+        private ComponentPricePointAssignmentComponentId componentId;
         private ComponentPricePointAssignmentPricePoint pricePoint;
 
 
 
         /**
          * Setter for componentId.
-         * @param  componentId  Integer value for componentId.
+         * @param  componentId  ComponentPricePointAssignmentComponentId value for componentId.
          * @return Builder
          */
-        public Builder componentId(Integer componentId) {
+        public Builder componentId(ComponentPricePointAssignmentComponentId componentId) {
             this.componentId = componentId;
             return this;
         }

@@ -38,6 +38,8 @@ public class SubscriptionCustomPrice
     private SubscriptionCustomPriceExpirationInterval expirationInterval;
     private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean taxIncluded;
+    private OptionalNullable<Integer> listPricePointId;
+    private Boolean useDefaultListPrice;
 
     /**
      * Default constructor.
@@ -64,6 +66,8 @@ public class SubscriptionCustomPrice
      *         expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  listPricePointId  Integer value for listPricePointId.
+     * @param  useDefaultListPrice  Boolean value for useDefaultListPrice.
      */
     public SubscriptionCustomPrice(
             SubscriptionCustomPricePriceInCents priceInCents,
@@ -79,7 +83,9 @@ public class SubscriptionCustomPrice
             Boolean initialChargeAfterTrial,
             SubscriptionCustomPriceExpirationInterval expirationInterval,
             ExpirationIntervalUnit expirationIntervalUnit,
-            Boolean taxIncluded) {
+            Boolean taxIncluded,
+            Integer listPricePointId,
+            Boolean useDefaultListPrice) {
         this.name = name;
         this.handle = handle;
         this.priceInCents = priceInCents;
@@ -94,6 +100,8 @@ public class SubscriptionCustomPrice
         this.expirationInterval = expirationInterval;
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.taxIncluded = taxIncluded;
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
+        this.useDefaultListPrice = useDefaultListPrice;
     }
 
     /**
@@ -115,6 +123,8 @@ public class SubscriptionCustomPrice
      *         expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  listPricePointId  Integer value for listPricePointId.
+     * @param  useDefaultListPrice  Boolean value for useDefaultListPrice.
      */
 
     protected SubscriptionCustomPrice(SubscriptionCustomPricePriceInCents priceInCents,
@@ -125,8 +135,8 @@ public class SubscriptionCustomPrice
             SubscriptionCustomPriceInitialChargeInCents initialChargeInCents,
             Boolean initialChargeAfterTrial,
             SubscriptionCustomPriceExpirationInterval expirationInterval,
-            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
-            Boolean taxIncluded) {
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit, Boolean taxIncluded,
+            OptionalNullable<Integer> listPricePointId, Boolean useDefaultListPrice) {
         this.name = name;
         this.handle = handle;
         this.priceInCents = priceInCents;
@@ -141,6 +151,8 @@ public class SubscriptionCustomPrice
         this.expirationInterval = expirationInterval;
         this.expirationIntervalUnit = expirationIntervalUnit;
         this.taxIncluded = taxIncluded;
+        this.listPricePointId = listPricePointId;
+        this.useDefaultListPrice = useDefaultListPrice;
     }
 
     /**
@@ -487,6 +499,74 @@ public class SubscriptionCustomPrice
     }
 
     /**
+     * Internal Getter for ListPricePointId.
+     * (Optional) The ID of a catalog price point of the same product to use as the list price.
+     * Ignored unless list vs sales pricing is enabled for the site.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("list_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetListPricePointId() {
+        return this.listPricePointId;
+    }
+
+    /**
+     * Getter for ListPricePointId.
+     * (Optional) The ID of a catalog price point of the same product to use as the list price.
+     * Ignored unless list vs sales pricing is enabled for the site.
+     * @return Returns the Integer
+     */
+    public Integer getListPricePointId() {
+        return OptionalNullable.getFrom(listPricePointId);
+    }
+
+    /**
+     * Setter for ListPricePointId.
+     * (Optional) The ID of a catalog price point of the same product to use as the list price.
+     * Ignored unless list vs sales pricing is enabled for the site.
+     * @param listPricePointId Value for Integer
+     */
+    @JsonSetter("list_price_point_id")
+    public void setListPricePointId(Integer listPricePointId) {
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
+    }
+
+    /**
+     * UnSetter for ListPricePointId.
+     * (Optional) The ID of a catalog price point of the same product to use as the list price.
+     * Ignored unless list vs sales pricing is enabled for the site.
+     */
+    public void unsetListPricePointId() {
+        listPricePointId = null;
+    }
+
+    /**
+     * Getter for UseDefaultListPrice.
+     * (Optional) When list vs sales pricing is enabled and `list_price_point_id` is omitted, the
+     * product's default price point is used as the list price unless this is `false`. Defaults to
+     * `true`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("use_default_list_price")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getUseDefaultListPrice() {
+        return useDefaultListPrice;
+    }
+
+    /**
+     * Setter for UseDefaultListPrice.
+     * (Optional) When list vs sales pricing is enabled and `list_price_point_id` is omitted, the
+     * product's default price point is used as the list price unless this is `false`. Defaults to
+     * `true`.
+     * @param useDefaultListPrice Value for Boolean
+     */
+    @JsonSetter("use_default_list_price")
+    public void setUseDefaultListPrice(Boolean useDefaultListPrice) {
+        this.useDefaultListPrice = useDefaultListPrice;
+    }
+
+    /**
      * Converts this SubscriptionCustomPrice into string format.
      * @return String representation of this class
      */
@@ -499,7 +579,8 @@ public class SubscriptionCustomPrice
                 + trialType + ", initialChargeInCents=" + initialChargeInCents
                 + ", initialChargeAfterTrial=" + initialChargeAfterTrial + ", expirationInterval="
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
-                + ", taxIncluded=" + taxIncluded + ", additionalProperties="
+                + ", taxIncluded=" + taxIncluded + ", listPricePointId=" + listPricePointId
+                + ", useDefaultListPrice=" + useDefaultListPrice + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -518,9 +599,11 @@ public class SubscriptionCustomPrice
                 .initialChargeInCents(getInitialChargeInCents())
                 .initialChargeAfterTrial(getInitialChargeAfterTrial())
                 .expirationInterval(getExpirationInterval())
-                .taxIncluded(getTaxIncluded());
+                .taxIncluded(getTaxIncluded())
+                .useDefaultListPrice(getUseDefaultListPrice());
         builder.trialType = internalGetTrialType();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
+        builder.listPricePointId = internalGetListPricePointId();
         return builder;
     }
 
@@ -542,6 +625,8 @@ public class SubscriptionCustomPrice
         private SubscriptionCustomPriceExpirationInterval expirationInterval;
         private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean taxIncluded;
+        private OptionalNullable<Integer> listPricePointId;
+        private Boolean useDefaultListPrice;
 
         /**
          * Initialization constructor.
@@ -727,6 +812,35 @@ public class SubscriptionCustomPrice
         }
 
         /**
+         * Setter for listPricePointId.
+         * @param  listPricePointId  Integer value for listPricePointId.
+         * @return Builder
+         */
+        public Builder listPricePointId(Integer listPricePointId) {
+            this.listPricePointId = OptionalNullable.of(listPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for listPricePointId.
+         * @return Builder
+         */
+        public Builder unsetListPricePointId() {
+            listPricePointId = null;
+            return this;
+        }
+
+        /**
+         * Setter for useDefaultListPrice.
+         * @param  useDefaultListPrice  Boolean value for useDefaultListPrice.
+         * @return Builder
+         */
+        public Builder useDefaultListPrice(Boolean useDefaultListPrice) {
+            this.useDefaultListPrice = useDefaultListPrice;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionCustomPrice} object using the set fields.
          * @return {@link SubscriptionCustomPrice}
          */
@@ -734,7 +848,7 @@ public class SubscriptionCustomPrice
             return new SubscriptionCustomPrice(priceInCents, interval, intervalUnit, name, handle,
                     trialPriceInCents, trialInterval, trialIntervalUnit, trialType,
                     initialChargeInCents, initialChargeAfterTrial, expirationInterval,
-                    expirationIntervalUnit, taxIncluded);
+                    expirationIntervalUnit, taxIncluded, listPricePointId, useDefaultListPrice);
         }
     }
 }

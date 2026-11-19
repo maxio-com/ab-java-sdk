@@ -41,9 +41,9 @@ public final class ProductsController extends BaseController {
      * enabled, the `auto_create_signup_page` parameter is not supported. If
      * `auto_create_signup_page` is included (with any value) an error is returned. For more
      * information, see: + [Products
-     * Overview](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview) +
-     * [Changing a Subscription's
-     * Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations).
+     * Overview](https://docs.maxio.com/billing/catalog/plans/understand-plans) + [Changing a
+     * Subscription's
+     * Product](https://docs.maxio.com/billing/subscriptions/management/subscription-actions/understand-upgrade-and-downgrade-scenarios).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
      * @param  body  Optional parameter:
@@ -93,25 +93,33 @@ public final class ProductsController extends BaseController {
     /**
      * Reads the current details of a product.
      * @param  productId  Required parameter: The Advanced Billing id of the product
+     * @param  includeFeatures  Optional parameter: When `true`, embeds the active feature catalog
+     *         items for each result in a `features` array. Default value is `false`. Ignored on
+     *         sites without Entitlements enabled: no `features` key is returned and no error is
+     *         raised.
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProductResponse readProduct(
-            final int productId) throws ApiException, IOException {
-        return prepareReadProductRequest(productId).execute();
+            final int productId,
+            final Boolean includeFeatures) throws ApiException, IOException {
+        return prepareReadProductRequest(productId, includeFeatures).execute();
     }
 
     /**
      * Builds the ApiCall object for readProduct.
      */
     private ApiCall<ProductResponse, ApiException> prepareReadProductRequest(
-            final int productId) {
+            final int productId,
+            final Boolean includeFeatures) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}.json")
+                        .queryParam(param -> param.key("include_features")
+                                .value((includeFeatures != null) ? includeFeatures : false).isRequired(false))
                         .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
@@ -299,6 +307,8 @@ public final class ProductsController extends BaseController {
                                 .value(input.getIncludeArchived()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
+                        .queryParam(param -> param.key("include_features")
+                                .value(input.getIncludeFeatures()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))

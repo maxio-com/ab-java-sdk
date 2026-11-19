@@ -25,6 +25,8 @@ public class CreateComponentPricePoint
     private String handle;
     private PricingScheme pricingScheme;
     private List<Price> prices;
+    private SecondaryPricing secondaryPricing;
+    private PricingScheme secondaryPricingScheme;
     private Boolean useSiteExchangeRate;
     private Boolean taxIncluded;
     private Integer interval;
@@ -43,6 +45,8 @@ public class CreateComponentPricePoint
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  handle  String value for handle.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
+     * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
@@ -53,6 +57,8 @@ public class CreateComponentPricePoint
             PricingScheme pricingScheme,
             List<Price> prices,
             String handle,
+            SecondaryPricing secondaryPricing,
+            PricingScheme secondaryPricingScheme,
             Boolean useSiteExchangeRate,
             Boolean taxIncluded,
             Integer interval,
@@ -61,6 +67,8 @@ public class CreateComponentPricePoint
         this.handle = handle;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
+        this.secondaryPricingScheme = secondaryPricingScheme;
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.taxIncluded = taxIncluded;
         this.interval = interval;
@@ -73,6 +81,8 @@ public class CreateComponentPricePoint
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  handle  String value for handle.
+     * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
+     * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
@@ -80,12 +90,15 @@ public class CreateComponentPricePoint
      */
 
     protected CreateComponentPricePoint(String name, PricingScheme pricingScheme,
-            List<Price> prices, String handle, Boolean useSiteExchangeRate, Boolean taxIncluded,
+            List<Price> prices, String handle, SecondaryPricing secondaryPricing,
+            PricingScheme secondaryPricingScheme, Boolean useSiteExchangeRate, Boolean taxIncluded,
             Integer interval, OptionalNullable<IntervalUnit> intervalUnit) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
+        this.secondaryPricing = secondaryPricing;
+        this.secondaryPricingScheme = secondaryPricingScheme;
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.taxIncluded = taxIncluded;
         this.interval = interval;
@@ -103,7 +116,8 @@ public class CreateComponentPricePoint
             @JsonProperty("name") String name,
             @JsonProperty("pricing_scheme") PricingScheme pricingScheme,
             @JsonProperty("prices") List<Price> prices) {
-        this(name, pricingScheme, prices, null, null, null, null, OptionalNullable.of(null));
+        this(name, pricingScheme, prices, null, null, null, null, null, null,
+                OptionalNullable.of(null));
         unsetIntervalUnit();
     }
 
@@ -184,6 +198,60 @@ public class CreateComponentPricePoint
     @JsonSetter("prices")
     public void setPrices(List<Price> prices) {
         this.prices = prices;
+    }
+
+    /**
+     * Getter for SecondaryPricing.
+     * Hybrid Pricing only. The secondary pricing model that takes over once usage passes the
+     * primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites
+     * with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at
+     * the primary model's highest `ending_quantity`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @return Returns the SecondaryPricing
+     */
+    @JsonGetter("secondary_pricing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SecondaryPricing getSecondaryPricing() {
+        return secondaryPricing;
+    }
+
+    /**
+     * Setter for SecondaryPricing.
+     * Hybrid Pricing only. The secondary pricing model that takes over once usage passes the
+     * primary model's included threshold. Applies to Quantity-Based and Metered Components on Sites
+     * with Hybrid Pricing enabled; ignored otherwise. Its `prices` brackets start at `1`, not at
+     * the primary model's highest `ending_quantity`. See [Hybrid
+     * Pricing](page:introduction/basic-concepts/hybrid-pricing).
+     * @param secondaryPricing Value for SecondaryPricing
+     */
+    @JsonSetter("secondary_pricing")
+    public void setSecondaryPricing(SecondaryPricing secondaryPricing) {
+        this.secondaryPricing = secondaryPricing;
+    }
+
+    /**
+     * Getter for SecondaryPricingScheme.
+     * Hybrid Pricing only. Alternative to `secondary_pricing.pricing_scheme`; when both are sent,
+     * `secondary_pricing.pricing_scheme` is used. Setting not supported when creating price points
+     * in bulk.
+     * @return Returns the PricingScheme
+     */
+    @JsonGetter("secondary_pricing_scheme")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PricingScheme getSecondaryPricingScheme() {
+        return secondaryPricingScheme;
+    }
+
+    /**
+     * Setter for SecondaryPricingScheme.
+     * Hybrid Pricing only. Alternative to `secondary_pricing.pricing_scheme`; when both are sent,
+     * `secondary_pricing.pricing_scheme` is used. Setting not supported when creating price points
+     * in bulk.
+     * @param secondaryPricingScheme Value for PricingScheme
+     */
+    @JsonSetter("secondary_pricing_scheme")
+    public void setSecondaryPricingScheme(PricingScheme secondaryPricingScheme) {
+        this.secondaryPricingScheme = secondaryPricingScheme;
     }
 
     /**
@@ -309,10 +377,11 @@ public class CreateComponentPricePoint
     @Override
     public String toString() {
         return "CreateComponentPricePoint [" + "name=" + name + ", pricingScheme=" + pricingScheme
-                + ", prices=" + prices + ", handle=" + handle + ", useSiteExchangeRate="
-                + useSiteExchangeRate + ", taxIncluded=" + taxIncluded + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", prices=" + prices + ", handle=" + handle + ", secondaryPricing="
+                + secondaryPricing + ", secondaryPricingScheme=" + secondaryPricingScheme
+                + ", useSiteExchangeRate=" + useSiteExchangeRate + ", taxIncluded=" + taxIncluded
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -323,6 +392,8 @@ public class CreateComponentPricePoint
     public Builder toBuilder() {
         Builder builder = new Builder(name, pricingScheme, prices)
                 .handle(getHandle())
+                .secondaryPricing(getSecondaryPricing())
+                .secondaryPricingScheme(getSecondaryPricingScheme())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .taxIncluded(getTaxIncluded())
                 .interval(getInterval());
@@ -338,6 +409,8 @@ public class CreateComponentPricePoint
         private PricingScheme pricingScheme;
         private List<Price> prices;
         private String handle;
+        private SecondaryPricing secondaryPricing;
+        private PricingScheme secondaryPricingScheme;
         private Boolean useSiteExchangeRate = true;
         private Boolean taxIncluded;
         private Integer interval;
@@ -402,6 +475,26 @@ public class CreateComponentPricePoint
         }
 
         /**
+         * Setter for secondaryPricing.
+         * @param  secondaryPricing  SecondaryPricing value for secondaryPricing.
+         * @return Builder
+         */
+        public Builder secondaryPricing(SecondaryPricing secondaryPricing) {
+            this.secondaryPricing = secondaryPricing;
+            return this;
+        }
+
+        /**
+         * Setter for secondaryPricingScheme.
+         * @param  secondaryPricingScheme  PricingScheme value for secondaryPricingScheme.
+         * @return Builder
+         */
+        public Builder secondaryPricingScheme(PricingScheme secondaryPricingScheme) {
+            this.secondaryPricingScheme = secondaryPricingScheme;
+            return this;
+        }
+
+        /**
          * Setter for useSiteExchangeRate.
          * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
          * @return Builder
@@ -456,7 +549,8 @@ public class CreateComponentPricePoint
          */
         public CreateComponentPricePoint build() {
             return new CreateComponentPricePoint(name, pricingScheme, prices, handle,
-                    useSiteExchangeRate, taxIncluded, interval, intervalUnit);
+                    secondaryPricing, secondaryPricingScheme, useSiteExchangeRate, taxIncluded,
+                    interval, intervalUnit);
         }
     }
 }
